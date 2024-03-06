@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{ts,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       spacing: {
@@ -20,7 +21,12 @@ module.exports = {
         175: "57.5rem",
         200: "75rem",
       },
-      colors: {},
+      colors: {
+        paleOlive: "#D9DBB3",
+        lightBlue: "#D3E0E1",
+        darkGray: "#333335",
+        palePeach: "#FBF6F2",
+      },
       borderWidth: {
         5: "5px",
         6: "6px",
