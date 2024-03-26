@@ -1,0 +1,27 @@
+mutation createReview(
+  $client_name: String!
+  $client_phone: String!
+  $comment: String!
+) {
+  insert_reviews_one(
+    object: {
+      comment: $comment
+      client_phone: $client_phone
+      client_name: $client_name
+    }
+  ) {
+    client_name
+    client_phone
+    comment
+  }
+}
+
+query GetReviews {
+  reviews {
+    created_at
+    id
+    comment
+    client_phone
+    client_name
+  }
+}

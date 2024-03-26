@@ -37,7 +37,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
       "py-0.5 px-4 ": size === ButtonSize.sm,
       "py-4 px-10 rounded-none": size === ButtonSize.md,
       "opacity-50 cursor-not-allowed": disbled,
-      "bg-darkTea  text-white  border-darkTea hover:bg-white hover:text-black hover:border-darkTea disabled:hover:border-lightBlue disabled:hover:bg-lightBlue":
+      "bg-paleOlive dark:bg-darkGray dark:hover:text-paleOlive  text-white  border-paleOlive hover:bg-white hover:text-black hover:border-paleOlive disabled:hover:border-lightBlue disabled:hover:bg-lightBlue":
         variant === ButtonVariant.primary,
       "bg-red-400  border-red-400 hover:bg-red-500 hover:border-red-500  disabled:hover:border-red-400 disabled:hover:bg-red-400":
         variant === ButtonVariant.danger,

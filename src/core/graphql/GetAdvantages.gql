@@ -1,0 +1,6 @@
+query GetAdvantages {
+  advantages {
+    id
+    title
+  }
+}

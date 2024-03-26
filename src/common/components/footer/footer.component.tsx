@@ -15,30 +15,30 @@ export const Footer = () => {
   const themeStateCurrent = useReactiveVar(themeState);
 
   return (
-    <div className="bg-paleOlive dark:bg-darkGray/75 p-5 z-10 transition  delay-150 px-5 py-10 flex flex-col items-center  md:px-1">
+    <div className="bg-paleOlive  dark:bg-darkGray/75 p-5 z-10 transition  delay-150 px-5 py-10 flex flex-col items-center  md:px-1">
       <Logotype width={216} hanging={71} className="mb-5" />
 
       <div className="text-darkGray dark:text-palePeach text-xl font-normal flex flex-col gap-8 sm:flex-row md:gap-36 flex-wrap ">
-        <ul className="flex flex-col gap-3">
-          <li className="dark:hover:text-paleOlive">
+        <ul className="flex flex-col gap-3 ">
+          <li className="dark:hover:text-paleOlive hover:text-white">
             <Link to="/">Головна</Link>
           </li>
-          <li className="dark:hover:text-paleOlive">
+          <li className="dark:hover:text-paleOlive hover:text-white">
             <Link to="/services">Послуги</Link>
           </li>
-          <li className="dark:hover:text-paleOlive">
+          <li className="dark:hover:text-paleOlive hover:text-white">
             <Link to="/products">Товари</Link>
           </li>
         </ul>
 
         <ul className="flex flex-col gap-3">
-          <li className="dark:hover:text-paleOlive">
+          <li className="dark:hover:text-paleOlive hover:text-white">
             <Link to="/login">Вхід</Link>
           </li>
-          <li className="dark:hover:text-paleOlive">
+          <li className="dark:hover:text-paleOlive hover:text-white">
             <Link to="/personnel">Персонал</Link>
           </li>
-          <li className="dark:hover:text-paleOlive">
+          <li className="dark:hover:text-paleOlive hover:text-white">
             <Link
               to="/price-list
             3"
@@ -49,11 +49,11 @@ export const Footer = () => {
         </ul>
 
         <ul className="flex flex-col gap-8 md:gap-3">
-          <li className="flex gap-2 dark:hover:text-paleOlive items-center">
+          <li className="flex gap-2 dark:hover:text-paleOlive items-center hover:text-white">
             <AccessTimeIcon width={31} hanging={31} />
             ПН-НД: 9:00-20:00
           </li>
-          <li className="flex gap-2 dark:hover:text-paleOlive items-center">
+          <li className="flex gap-2 dark:hover:text-paleOlive items-center hover:text-white">
             <SmartPhoneIcon width={31} hanging={31} />
             +380961212120
           </li>
@@ -61,7 +61,7 @@ export const Footer = () => {
       </div>
 
       <ul className="flex gap-6 justify-center md:justify-end mt-8">
-        <li className="dark:hover:text-paleOlive ">
+        <li className="dark:hover:text-paleOlive hover:text-white">
           <a href="https://www.instagram.com/vroda_club_estetic/">
             {themeStateCurrent ? <InstagramDarkIcon /> : <InstagramIcon />}
           </a>

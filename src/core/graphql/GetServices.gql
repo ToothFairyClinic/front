@@ -1,0 +1,17 @@
+query GetServices {
+  services {
+    image
+    id
+    name
+  }
+}
+
+query GetServiceById($_eq: uuid!) {
+  services(where: { id: { _eq: $_eq } }) {
+    id
+    image
+    name
+    mainImage
+    description
+  }
+}

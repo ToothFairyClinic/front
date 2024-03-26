@@ -1,4 +1,4 @@
-/* @import "~react-toastify/dist/ReactToastify.css"; */
+@import "~react-toastify/dist/ReactToastify.css";
 
 input[type="number"] {
   -moz-appearance: textfield;
@@ -8,6 +8,15 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+body {
+  background-color: #fbf6f2;
+}
+
+.swiper-pagination-bullet {
+  background: #d9dbb3 !important;
+  width: 15px !important;
+  height: 15px !important;
 }
 
 @tailwind base;

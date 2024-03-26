@@ -1,0 +1,14 @@
+query GetPersonnel {
+  personnel {
+    name
+    description
+    image
+    id
+    personnel_category {
+      title
+    }
+    personnel_category_second {
+      title
+    }
+  }
+}

@@ -1,0 +1,28 @@
+query GetPriceList {
+  price_list_categories {
+    title
+    slug
+    id
+    price_list_items {
+      id
+      price
+      title
+    }
+  }
+}
+
+query GetPriceListCategories {
+  price_list_categories {
+    title
+    slug
+    id
+  }
+}
+
+query GetPriceListCategoryById {
+  price_list {
+    price
+    id
+    title
+  }
+}
