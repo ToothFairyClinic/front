@@ -1,10 +1,6 @@
-import { Button } from "@app/common/components/button/button.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
-import { Personnel_Categories } from "@app/core/types";
 import { AdvancedImage } from "@cloudinary/react";
 import { FC } from "react";
-import { Link } from "react-router-dom";
-import { SwiperSlide } from "swiper/react";
 
 interface PersonnelItemProps {
   image: string;
@@ -33,7 +29,7 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
   const imageCld = useCloudinaryImage(image, transformations);
 
   return (
-    <div className="w-96 dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md dark:shadow-white dark:bg-darkGray ">
+    <div className="lg:w-96  dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md dark:shadow-white dark:bg-darkGray ">
       <AdvancedImage
         cldImg={imageCld}
         width={385}

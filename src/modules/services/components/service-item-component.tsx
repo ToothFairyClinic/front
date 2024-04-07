@@ -25,7 +25,7 @@ export const ServiceItem: FC<ServiceItemProps & Services> = ({
 
   return (
     <div className="">
-      <div className="float-left mr-6 mb-6">
+      <div className="float-left lg:mr-6 lg:mb-6">
         <AdvancedImage
           cldImg={imageCld}
           width={600}
@@ -36,7 +36,7 @@ export const ServiceItem: FC<ServiceItemProps & Services> = ({
       <div className="">
         <p
           dangerouslySetInnerHTML={{ __html: description! }}
-          className="text-2xl dark:text-white "
+          className="text-2xl dark:text-white text-left"
         />
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { Services } from "@app/core/types";
-import { FC } from "react";
+import { FC, useRef } from "react";
 import { ServicesItem } from "../services-main-item/services-main-item.component";
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
 
@@ -9,8 +9,13 @@ interface ServicesListProps {
 }
 
 export const SerivcesList: FC<ServicesListProps> = ({ items }) => {
+  const servicesRef = useRef<HTMLDivElement>(null);
   return (
-    <div className=" py-7 flex flex-col gap-19  bg-[url('@app/assets/images/servicesImage.jpg')] bg-no-repeat bg-cover bg-center relative">
+    <div
+      ref={servicesRef}
+      id="services"
+      className=" py-7 flex flex-col gap-19  bg-[url('@app/assets/images/servicesImage.jpg')] bg-no-repeat bg-cover bg-center relative"
+    >
       <MainTitle darkken={true}>Наші послуги</MainTitle>
 
       <div className="z-10">

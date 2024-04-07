@@ -403,6 +403,10 @@ export type Mutation_Root = {
   delete_advantages?: Maybe<Advantages_Mutation_Response>;
   /** delete single row from the table: "advantages" */
   delete_advantages_by_pk?: Maybe<Advantages>;
+  /** delete data from the table: "our_works" */
+  delete_our_works?: Maybe<Our_Works_Mutation_Response>;
+  /** delete single row from the table: "our_works" */
+  delete_our_works_by_pk?: Maybe<Our_Works>;
   /** delete data from the table: "personnel" */
   delete_personnel?: Maybe<Personnel_Mutation_Response>;
   /** delete single row from the table: "personnel" */
@@ -443,6 +447,10 @@ export type Mutation_Root = {
   insert_advantages?: Maybe<Advantages_Mutation_Response>;
   /** insert a single row into the table: "advantages" */
   insert_advantages_one?: Maybe<Advantages>;
+  /** insert data into the table: "our_works" */
+  insert_our_works?: Maybe<Our_Works_Mutation_Response>;
+  /** insert a single row into the table: "our_works" */
+  insert_our_works_one?: Maybe<Our_Works>;
   /** insert data into the table: "personnel" */
   insert_personnel?: Maybe<Personnel_Mutation_Response>;
   /** insert data into the table: "personnel_categories" */
@@ -487,6 +495,12 @@ export type Mutation_Root = {
   update_advantages_by_pk?: Maybe<Advantages>;
   /** update multiples rows of table: "advantages" */
   update_advantages_many?: Maybe<Array<Maybe<Advantages_Mutation_Response>>>;
+  /** update data of the table: "our_works" */
+  update_our_works?: Maybe<Our_Works_Mutation_Response>;
+  /** update single row of the table: "our_works" */
+  update_our_works_by_pk?: Maybe<Our_Works>;
+  /** update multiples rows of table: "our_works" */
+  update_our_works_many?: Maybe<Array<Maybe<Our_Works_Mutation_Response>>>;
   /** update data of the table: "personnel" */
   update_personnel?: Maybe<Personnel_Mutation_Response>;
   /** update single row of the table: "personnel" */
@@ -564,6 +578,18 @@ export type Mutation_RootDelete_AdvantagesArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Advantages_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Our_WorksArgs = {
+  where: Our_Works_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Our_Works_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -689,6 +715,20 @@ export type Mutation_RootInsert_AdvantagesArgs = {
 export type Mutation_RootInsert_Advantages_OneArgs = {
   object: Advantages_Insert_Input;
   on_conflict?: InputMaybe<Advantages_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Our_WorksArgs = {
+  objects: Array<Our_Works_Insert_Input>;
+  on_conflict?: InputMaybe<Our_Works_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Our_Works_OneArgs = {
+  object: Our_Works_Insert_Input;
+  on_conflict?: InputMaybe<Our_Works_On_Conflict>;
 };
 
 
@@ -841,6 +881,26 @@ export type Mutation_RootUpdate_Advantages_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Advantages_ManyArgs = {
   updates: Array<Advantages_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Our_WorksArgs = {
+  _set?: InputMaybe<Our_Works_Set_Input>;
+  where: Our_Works_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Our_Works_By_PkArgs = {
+  _set?: InputMaybe<Our_Works_Set_Input>;
+  pk_columns: Our_Works_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Our_Works_ManyArgs = {
+  updates: Array<Our_Works_Updates>;
 };
 
 
@@ -1035,6 +1095,176 @@ export enum Order_By {
   /** in descending order, nulls last */
   DescNullsLast = 'desc_nulls_last'
 }
+
+/** columns and relationships of "our_works" */
+export type Our_Works = {
+  __typename?: 'our_works';
+  description: Scalars['String']['output'];
+  id: Scalars['uuid']['output'];
+  image_after: Scalars['String']['output'];
+  image_before: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
+/** aggregated selection of "our_works" */
+export type Our_Works_Aggregate = {
+  __typename?: 'our_works_aggregate';
+  aggregate?: Maybe<Our_Works_Aggregate_Fields>;
+  nodes: Array<Our_Works>;
+};
+
+/** aggregate fields of "our_works" */
+export type Our_Works_Aggregate_Fields = {
+  __typename?: 'our_works_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Our_Works_Max_Fields>;
+  min?: Maybe<Our_Works_Min_Fields>;
+};
+
+
+/** aggregate fields of "our_works" */
+export type Our_Works_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Our_Works_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "our_works". All fields are combined with a logical 'AND'. */
+export type Our_Works_Bool_Exp = {
+  _and?: InputMaybe<Array<Our_Works_Bool_Exp>>;
+  _not?: InputMaybe<Our_Works_Bool_Exp>;
+  _or?: InputMaybe<Array<Our_Works_Bool_Exp>>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  image_after?: InputMaybe<String_Comparison_Exp>;
+  image_before?: InputMaybe<String_Comparison_Exp>;
+  title?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "our_works" */
+export enum Our_Works_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  OurWorksPkey = 'our_works_pkey'
+}
+
+/** input type for inserting data into table "our_works" */
+export type Our_Works_Insert_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  image_after?: InputMaybe<Scalars['String']['input']>;
+  image_before?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type Our_Works_Max_Fields = {
+  __typename?: 'our_works_max_fields';
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  image_after?: Maybe<Scalars['String']['output']>;
+  image_before?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Our_Works_Min_Fields = {
+  __typename?: 'our_works_min_fields';
+  description?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  image_after?: Maybe<Scalars['String']['output']>;
+  image_before?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "our_works" */
+export type Our_Works_Mutation_Response = {
+  __typename?: 'our_works_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Our_Works>;
+};
+
+/** on_conflict condition type for table "our_works" */
+export type Our_Works_On_Conflict = {
+  constraint: Our_Works_Constraint;
+  update_columns?: Array<Our_Works_Update_Column>;
+  where?: InputMaybe<Our_Works_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "our_works". */
+export type Our_Works_Order_By = {
+  description?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  image_after?: InputMaybe<Order_By>;
+  image_before?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: our_works */
+export type Our_Works_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "our_works" */
+export enum Our_Works_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  ImageAfter = 'image_after',
+  /** column name */
+  ImageBefore = 'image_before',
+  /** column name */
+  Title = 'title'
+}
+
+/** input type for updating data in table "our_works" */
+export type Our_Works_Set_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  image_after?: InputMaybe<Scalars['String']['input']>;
+  image_before?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "our_works" */
+export type Our_Works_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Our_Works_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Our_Works_Stream_Cursor_Value_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  image_after?: InputMaybe<Scalars['String']['input']>;
+  image_before?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "our_works" */
+export enum Our_Works_Update_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  ImageAfter = 'image_after',
+  /** column name */
+  ImageBefore = 'image_before',
+  /** column name */
+  Title = 'title'
+}
+
+export type Our_Works_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Our_Works_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Our_Works_Bool_Exp;
+};
 
 /** columns and relationships of "personnel" */
 export type Personnel = {
@@ -2550,6 +2780,12 @@ export type Query_Root = {
   /** fetch data from the table: "advantages" using primary key columns */
   advantages_by_pk?: Maybe<Advantages>;
   cloudinarySignature?: Maybe<CloudinarySignatureOutput>;
+  /** fetch data from the table: "our_works" */
+  our_works: Array<Our_Works>;
+  /** fetch aggregated fields from the table: "our_works" */
+  our_works_aggregate: Our_Works_Aggregate;
+  /** fetch data from the table: "our_works" using primary key columns */
+  our_works_by_pk?: Maybe<Our_Works>;
   /** fetch data from the table: "personnel" */
   personnel: Array<Personnel>;
   /** fetch aggregated fields from the table: "personnel" */
@@ -2648,6 +2884,29 @@ export type Query_RootAdvantages_AggregateArgs = {
 
 
 export type Query_RootAdvantages_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootOur_WorksArgs = {
+  distinct_on?: InputMaybe<Array<Our_Works_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Our_Works_Order_By>>;
+  where?: InputMaybe<Our_Works_Bool_Exp>;
+};
+
+
+export type Query_RootOur_Works_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Our_Works_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Our_Works_Order_By>>;
+  where?: InputMaybe<Our_Works_Bool_Exp>;
+};
+
+
+export type Query_RootOur_Works_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -3193,6 +3452,14 @@ export type Subscription_Root = {
   advantages_by_pk?: Maybe<Advantages>;
   /** fetch data from the table in a streaming manner: "advantages" */
   advantages_stream: Array<Advantages>;
+  /** fetch data from the table: "our_works" */
+  our_works: Array<Our_Works>;
+  /** fetch aggregated fields from the table: "our_works" */
+  our_works_aggregate: Our_Works_Aggregate;
+  /** fetch data from the table: "our_works" using primary key columns */
+  our_works_by_pk?: Maybe<Our_Works>;
+  /** fetch data from the table in a streaming manner: "our_works" */
+  our_works_stream: Array<Our_Works>;
   /** fetch data from the table: "personnel" */
   personnel: Array<Personnel>;
   /** fetch aggregated fields from the table: "personnel" */
@@ -3317,6 +3584,36 @@ export type Subscription_RootAdvantages_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Advantages_Stream_Cursor_Input>>;
   where?: InputMaybe<Advantages_Bool_Exp>;
+};
+
+
+export type Subscription_RootOur_WorksArgs = {
+  distinct_on?: InputMaybe<Array<Our_Works_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Our_Works_Order_By>>;
+  where?: InputMaybe<Our_Works_Bool_Exp>;
+};
+
+
+export type Subscription_RootOur_Works_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Our_Works_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Our_Works_Order_By>>;
+  where?: InputMaybe<Our_Works_Bool_Exp>;
+};
+
+
+export type Subscription_RootOur_Works_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootOur_Works_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Our_Works_Stream_Cursor_Input>>;
+  where?: InputMaybe<Our_Works_Bool_Exp>;
 };
 
 
@@ -3604,6 +3901,11 @@ export type GetAdvantagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAdvantagesQuery = { __typename?: 'query_root', advantages: Array<{ __typename?: 'advantages', id: any, title: string }> };
 
+export type GetOurWorkQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetOurWorkQuery = { __typename?: 'query_root', our_works: Array<{ __typename?: 'our_works', description: string, id: any, image_after: string, image_before: string, title: string }> };
+
 export type GetPersonnelQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3759,6 +4061,49 @@ export type GetAdvantagesQueryHookResult = ReturnType<typeof useGetAdvantagesQue
 export type GetAdvantagesLazyQueryHookResult = ReturnType<typeof useGetAdvantagesLazyQuery>;
 export type GetAdvantagesSuspenseQueryHookResult = ReturnType<typeof useGetAdvantagesSuspenseQuery>;
 export type GetAdvantagesQueryResult = Apollo.QueryResult<GetAdvantagesQuery, GetAdvantagesQueryVariables>;
+export const GetOurWorkDocument = gql`
+    query GetOurWork {
+  our_works {
+    description
+    id
+    image_after
+    image_before
+    title
+  }
+}
+    `;
+
+/**
+ * __useGetOurWorkQuery__
+ *
+ * To run a query within a React component, call `useGetOurWorkQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOurWorkQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOurWorkQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetOurWorkQuery(baseOptions?: Apollo.QueryHookOptions<GetOurWorkQuery, GetOurWorkQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOurWorkQuery, GetOurWorkQueryVariables>(GetOurWorkDocument, options);
+      }
+export function useGetOurWorkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOurWorkQuery, GetOurWorkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOurWorkQuery, GetOurWorkQueryVariables>(GetOurWorkDocument, options);
+        }
+export function useGetOurWorkSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetOurWorkQuery, GetOurWorkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetOurWorkQuery, GetOurWorkQueryVariables>(GetOurWorkDocument, options);
+        }
+export type GetOurWorkQueryHookResult = ReturnType<typeof useGetOurWorkQuery>;
+export type GetOurWorkLazyQueryHookResult = ReturnType<typeof useGetOurWorkLazyQuery>;
+export type GetOurWorkSuspenseQueryHookResult = ReturnType<typeof useGetOurWorkSuspenseQuery>;
+export type GetOurWorkQueryResult = Apollo.QueryResult<GetOurWorkQuery, GetOurWorkQueryVariables>;
 export const GetPersonnelDocument = gql`
     query GetPersonnel {
   personnel {

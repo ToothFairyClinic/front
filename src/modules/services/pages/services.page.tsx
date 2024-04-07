@@ -49,7 +49,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
       <MainTitle darkken={false} size="md">
         {service.name}
       </MainTitle>
-      <div className="px-24">
+      <div className="lg:px-24 px-6">
         <ServiceItem {...service} />
       </div>
     </div>

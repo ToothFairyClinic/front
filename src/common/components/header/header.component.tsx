@@ -20,7 +20,7 @@ export const Header: FC<HeaderProps> = ({}) => {
   const isMainPage = location.pathname === "/";
 
   const headerClasses = clsx(
-    "bg-paleOlive/75  w-full dark:bg-darkGray/75 p-5 z-10 transition  delay-150  ",
+    "lg:bg-paleOlive/75  w-full lg:dark:bg-darkGray/75 p-5 z-10 transition  delay-150  z-20 bg-paleOlive dark:bg-darkGray",
     {
       absolute: isMainPage,
     }
@@ -52,18 +52,21 @@ export const Header: FC<HeaderProps> = ({}) => {
     <div className={headerClasses}>
       <div className="container mx-auto flex justify-around items-center md:flex-col lg:flex-row  ">
         <div>
-          <Link to="/">
-            {themeStateCurrent ? <Logotype /> : <LogotypeLight />}
-          </Link>
+          {isMainPage ? (
+            <div>{themeStateCurrent ? <Logotype /> : <LogotypeLight />}</div>
+          ) : (
+            <Link to="/">
+              {themeStateCurrent ? <Logotype /> : <LogotypeLight />}
+            </Link>
+          )}
         </div>
 
-        {/* Відображаємо різницю між мобільним та десктопним видами */}
         <div className="hidden md:flex items-center space-x-5 md:gap-10 ">
           <div className="flex space-x-5 lg:gap-15 md:gap-5 ">
             <LinkHeader url="/review">Відгуки</LinkHeader>
             <LinkHeader url="/price-list">Прайс лист</LinkHeader>
-            <LinkHeader url="/services">Послуги</LinkHeader>
-            <LinkHeader url="/products">Товари</LinkHeader>
+            <LinkHeader url="/our-work">Роботи</LinkHeader>
+            <LinkHeader url="/contacts">Контакти</LinkHeader>
           </div>
 
           <div className="flex items-center space-x-5 ml-auto gap-2 ">
@@ -79,13 +82,23 @@ export const Header: FC<HeaderProps> = ({}) => {
 
         <div className="md:hidden ml-auto">
           <button onClick={toggleMobileMenu}>
-            <MenuIcon className="w-6 h-6 fill-white" />
+            {themeState() ? (
+              <MenuIcon
+                className="w-6 h-6 dark:fill-white fill-darkGray"
+                stroke="black"
+              />
+            ) : (
+              <MenuIcon
+                className="w-6 h-6 dark:fill-white fill-darkGray"
+                stroke="white"
+              />
+            )}
           </button>
         </div>
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-5">
+        <div className="md:hidden mt-5 ">
           <div className="flex flex-col space-y-3">
             <button onClick={toggleMobileMenu}>
               <LinkHeader url="/review">Відгуки</LinkHeader>
@@ -94,13 +107,10 @@ export const Header: FC<HeaderProps> = ({}) => {
               <LinkHeader url="/price-list">Прайс лист</LinkHeader>
             </button>
             <button onClick={toggleMobileMenu}>
-              <LinkHeader url="/services">Послуги</LinkHeader>
+              <LinkHeader url="/our-work">Роботи</LinkHeader>
             </button>
             <button onClick={toggleMobileMenu}>
-              <LinkHeader url="/products">Товари</LinkHeader>
-            </button>
-            <button onClick={toggleMobileMenu}>
-              <LinkHeader url="/checkout">Корзина</LinkHeader>
+              <LinkHeader url="/contacts">Контакти</LinkHeader>
             </button>
           </div>
 

@@ -1,6 +1,6 @@
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useGetPersonnelQuery } from "@app/core/types";
-import { FC } from "react";
+import { FC, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css"; // Додайте стилі Swiper
 import { PersonnelItem } from "../personnel-item/personnel-item.component";
@@ -15,6 +15,7 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
   const { data, loading, error } = useGetPersonnelQuery();
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1300 });
+  const personnelRef = useRef<HTMLDivElement>(null);
 
   if (error) {
     return (
@@ -42,9 +43,13 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
   }
 
   return (
-    <div className="dark:bg-darkGray py-28 flex flex-col gap-10">
+    <div
+      ref={personnelRef}
+      id="personnel"
+      className="dark:bg-darkGray py-28 flex flex-col gap-10"
+    >
       <MainTitle>Наша команда</MainTitle>
-      <div className=" px-20 ">
+      <div className=" lg:px-20 ">
         <Swiper
           slidesPerView={isMobile ? 1 : isTablet ? 2 : 3}
           spaceBetween={75}

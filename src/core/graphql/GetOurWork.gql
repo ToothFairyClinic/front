@@ -1,0 +1,9 @@
+query GetOurWork {
+  our_works {
+    description
+    id
+    image_after
+    image_before
+    title
+  }
+}

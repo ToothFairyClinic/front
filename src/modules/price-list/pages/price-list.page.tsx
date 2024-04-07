@@ -43,8 +43,8 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
   }
 
   return (
-    <div className="px-9 pt-15 pb-24 bg-palePeach dark:bg-darkGray">
-      <div className="pb-24">
+    <div className="px-9 pt-15 pb-24 bg-palePeach dark:bg-darkGray ">
+      <div className="pb-24 ">
         {data && !loading ? <PriceListSelect data={data} /> : <div></div>}
       </div>
       {DataPriceList && !LoadginPriceList ? (

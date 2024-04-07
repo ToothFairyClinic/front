@@ -7,6 +7,8 @@ import { Footer } from "./common/components/footer/footer.component";
 import { PriceListPage } from "./modules/price-list/pages/price-list.page";
 import { ServicePage } from "./modules/services/pages/services.page";
 import { ReviewsPage } from "./modules/reviews/pages/reviews.page";
+import { OurWorkPage } from "./modules/our-works/page/our-work.page";
+import { ContactPage } from "./modules/contacts/pages/contacts.page";
 
 export const App = () => {
   useEffect(() => {
@@ -17,12 +19,14 @@ export const App = () => {
     <div className="flex flex-col min-h-screen ">
       <Header />
       {/* <CartSidebar /> */}
-      <div className="flex-grow  ">
+      <div className="  ">
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/price-list" element={<PriceListPage />} />
           <Route path="/services/:id" element={<ServicePage />} />
           <Route path="/review" element={<ReviewsPage />} />
+          <Route path="/our-work" element={<OurWorkPage />} />
+          <Route path="/contacts" element={<ContactPage />} />
         </Routes>
       </div>
       <Footer />

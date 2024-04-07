@@ -42,7 +42,7 @@ export const ReviewsList: FC<ReviewsListProps> = ({}) => {
   return (
     <div className="dark:bg-darkGray py-28 flex flex-col gap-10">
       <MainTitle size="sm">Відгук</MainTitle>
-      <div className=" px-20 ">
+      <div className=" lg:px-20 px-0 ">
         <Swiper
           slidesPerView={isMobile ? 1 : isTablet ? 2 : 3}
           spaceBetween={75}

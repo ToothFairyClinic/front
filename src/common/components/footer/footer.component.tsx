@@ -7,7 +7,7 @@ import { ReactComponent as FacebookIcon } from "@app/assets/icons/facebook.svg";
 import { ReactComponent as FacebookDarkIcon } from "@app/assets/icons/facebook-dark.svg";
 import { ReactComponent as TelegramIcon } from "@app/assets/icons/telegram.svg";
 import { ReactComponent as TelegramDarkIcon } from "@app/assets/icons/telegram-dark.svg";
-import { Link } from "react-router-dom";
+import { HashLink as Link } from "react-router-hash-link";
 import { useReactiveVar } from "@apollo/client";
 import { themeState } from "@app/modules/cart/store/theme-state";
 
@@ -24,27 +24,20 @@ export const Footer = () => {
             <Link to="/">Головна</Link>
           </li>
           <li className="dark:hover:text-paleOlive hover:text-white">
-            <Link to="/services">Послуги</Link>
-          </li>
-          <li className="dark:hover:text-paleOlive hover:text-white">
-            <Link to="/products">Товари</Link>
+            <Link smooth to="/#services">
+              Послуги
+            </Link>
           </li>
         </ul>
 
         <ul className="flex flex-col gap-3">
           <li className="dark:hover:text-paleOlive hover:text-white">
-            <Link to="/login">Вхід</Link>
-          </li>
-          <li className="dark:hover:text-paleOlive hover:text-white">
-            <Link to="/personnel">Персонал</Link>
-          </li>
-          <li className="dark:hover:text-paleOlive hover:text-white">
-            <Link
-              to="/price-list
-            3"
-            >
-              Прайс лист
+            <Link smooth to="/#personnel">
+              Персонал
             </Link>
+          </li>
+          <li className="dark:hover:text-paleOlive hover:text-white">
+            <Link to="/price-list">Прайс лист</Link>
           </li>
         </ul>
 
@@ -62,11 +55,15 @@ export const Footer = () => {
 
       <ul className="flex gap-6 justify-center md:justify-end mt-8">
         <li className="dark:hover:text-paleOlive hover:text-white">
-          <a href="https://www.instagram.com/vroda_club_estetic/">
+          <a href="https://www.instagram.com/tooth_fairy_bc/">
             {themeStateCurrent ? <InstagramDarkIcon /> : <InstagramIcon />}
           </a>
         </li>
-        <li>{themeStateCurrent ? <FacebookDarkIcon /> : <FacebookIcon />}</li>
+        <li>
+          <a href="https://www.facebook.com/bcdentist.toothfairy/">
+            {themeStateCurrent ? <FacebookDarkIcon /> : <FacebookIcon />}
+          </a>
+        </li>
 
         <li>
           <a href="https://t.me/+380961212120">
