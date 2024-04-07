@@ -1,6 +1,6 @@
 import { FC } from "react";
 // @ts-ignore
-import videoBg from "@app/assets/videos/main_page_video.MP4";
+import videoBg from "@app/assets/videos/main_page_video.mp4";
 import CatImage from "@app/assets/images/cat.png";
 interface SlideProps {}
 

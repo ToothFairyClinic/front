@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "../button/button.component";
 import { LinkHeader } from "../link-header/link-header.component";
 import { themeState, toggleTheme } from "@app/modules/cart/store/theme-state";
-import { ReactComponent as MenuIcon } from "@app/assets/icons/menuIcons.svg";
+import { ReactComponent as MenuIcon } from "@app/assets/icons/bars-3.svg";
 import { FC, useEffect, useState } from "react";
 import { useReactiveVar } from "@apollo/client";
 import clsx from "clsx";
