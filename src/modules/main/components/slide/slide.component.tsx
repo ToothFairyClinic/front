@@ -1,10 +1,7 @@
 import { FC } from "react";
-// @ts-ignore
-import videoBg from "@app/assets/videos/main_page_video.mp4";
 import { AdvancedVideo } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
 import CatImage from "@app/assets/images/cat.png";
-import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 interface SlideProps {}
 
 export const Slide: FC<SlideProps> = ({}) => {
@@ -24,6 +21,7 @@ export const Slide: FC<SlideProps> = ({}) => {
         loop
         muted
         playsInline
+        controls
       ></AdvancedVideo>
       <div className="absolute text-center text-darkGray z-10 max-w-150 bg-paleOlive/75 dark:bg-darkGray/75 dark:text-white py-12 px-8 lg:rounded-full transition  delay-150">
         <h1 className=" font-normal text-6xl mb-8">Зубна Фея</h1>
