@@ -50,7 +50,7 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
       {DataPriceList && !LoadginPriceList ? (
         <PriceListTabel data={DataPriceList} />
       ) : (
-        <div />
+        <div> </div>
       )}
     </div>
   );

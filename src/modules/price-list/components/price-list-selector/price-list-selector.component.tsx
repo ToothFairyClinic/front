@@ -50,6 +50,7 @@ export const PriceListSelect: FC<PriceListSelectProps> = ({ data }) => {
         defaultValue={options[0].find(
           (opt) => opt.value === priceListCurrent()
         )}
+        placeholder="Оберіть категорію"
       />
     </div>
   );
