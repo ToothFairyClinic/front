@@ -15,8 +15,6 @@ interface PersonnelItemProps {
 export const PersonnelItem: FC<PersonnelItemProps> = ({
   image,
   name,
-  id,
-  description,
   personnel_category_str,
   personnel_category_second_str,
   fitImage = true,
@@ -46,7 +44,6 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
         <div />
       )}
       <div className="h-px w-44 bg-paleOlive mt-1"></div>
-      <p className="px-1">{description}</p>
     </div>
   );
 };
