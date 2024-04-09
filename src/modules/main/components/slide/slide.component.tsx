@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { AdvancedVideo } from "@cloudinary/react";
+import { AdvancedVideo, lazyload } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
 import CatImage from "@app/assets/images/cat.png";
 interface SlideProps {}
@@ -11,6 +11,7 @@ export const Slide: FC<SlideProps> = ({}) => {
     },
   });
   const myVideo = cld.video("videos/cjqq4jqlqe6vqia4xyot");
+  const lazyloadPlugin = [lazyload()]; // Create an array containing the lazyload plugin
 
   return (
     <div className="relative h-165 lg:h-screen flex justify-center items-end  pb-15">
@@ -22,6 +23,7 @@ export const Slide: FC<SlideProps> = ({}) => {
           autoPlay
           loop
           muted
+          plugins={lazyloadPlugin}
           preload="auto"
         ></AdvancedVideo>
       )}
