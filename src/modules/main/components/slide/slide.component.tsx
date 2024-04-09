@@ -14,15 +14,17 @@ export const Slide: FC<SlideProps> = ({}) => {
 
   return (
     <div className="relative h-165 lg:h-screen flex justify-center items-end  pb-15">
-      <AdvancedVideo
-        className="absolute inset-0 w-full h-full object-cover"
-        cldVid={myVideo}
-        playsInline
-        autoPlay
-        loop
-        muted
-        preload="auto"
-      ></AdvancedVideo>
+      {myVideo && (
+        <AdvancedVideo
+          className="absolute inset-0 w-full h-full object-cover"
+          cldVid={myVideo}
+          playsInline
+          autoPlay
+          loop
+          muted
+          preload="auto"
+        ></AdvancedVideo>
+      )}
       <div className="absolute text-center text-darkGray z-10 max-w-150 bg-paleOlive/75 dark:bg-darkGray/75 dark:text-white py-12 px-8 lg:rounded-full transition  delay-150">
         <h1 className=" font-normal text-6xl mb-8">Зубна Фея</h1>
         <p className="font-normal text-3xl">
