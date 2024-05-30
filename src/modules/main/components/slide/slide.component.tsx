@@ -11,7 +11,7 @@ export const Slide: FC<SlideProps> = ({}) => {
     },
   });
   const myVideo = cld.video("videos/cjqq4jqlqe6vqia4xyot");
-  const lazyloadPlugin = [lazyload()]; // Create an array containing the lazyload plugin
+  const lazyloadPlugin = [lazyload()];
 
   return (
     <div className="relative h-165 lg:h-screen flex justify-center items-end  pb-15">

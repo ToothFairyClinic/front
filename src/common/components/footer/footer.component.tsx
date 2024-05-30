@@ -48,7 +48,7 @@ export const Footer = () => {
           </li>
           <li className="flex gap-2 dark:hover:text-paleOlive items-center hover:text-white">
             <SmartPhoneIcon width={31} hanging={31} />
-            <a href="tel:+380961212120">+380961212120</a>
+            <a href="tel:+380681689911">+380681689911</a>
           </li>
         </ul>
       </div>
@@ -66,7 +66,7 @@ export const Footer = () => {
         </li>
 
         <li>
-          <a href="https://t.me/+380961212120">
+          <a href="https://t.me/+380681689911">
             {themeStateCurrent ? <TelegramDarkIcon /> : <TelegramIcon />}
           </a>
         </li>
