@@ -50,6 +50,10 @@ export const Footer = () => {
             <SmartPhoneIcon width={31} hanging={31} />
             <a href="tel:+380681689911">+380681689911</a>
           </li>
+          <li className="flex gap-2 dark:hover:text-paleOlive items-center dark:text-white">
+              <SmartPhoneIcon width={31} hanging={31} />
+              +380934599911
+            </li>
         </ul>
       </div>
 

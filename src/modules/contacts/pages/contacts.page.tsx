@@ -26,11 +26,15 @@ export const ContactPage: FC<ContactPageProps> = ({}) => {
           <ul className="flex flex-col gap-7 md:gap-3 text-lg sm:text-3xl  lg:text-3xl">
             <li className="flex gap-2 dark:hover:text-paleOlive items-center dark:text-white">
               <AccessTimeIcon width={31} hanging={31} />
-              ПН-НД: 9:00-20:00
+              ПН-НД: 9:00-19:00
             </li>
             <li className="flex gap-2 dark:hover:text-paleOlive items-center dark:text-white">
               <SmartPhoneIcon width={31} hanging={31} />
-              +380961212120
+              +380681689911
+            </li>
+            <li className="flex gap-2 dark:hover:text-paleOlive items-center dark:text-white">
+              <SmartPhoneIcon width={31} hanging={31} />
+              +380934599911
             </li>
           </ul>
         </div>
