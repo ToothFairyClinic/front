@@ -12,7 +12,7 @@ export const OurWorkItem: FC<Our_Works & OurWorkItemProps> = ({
   image_before,
   title,
   description,
-  fitImage = true,
+  fitImage = false,
 }) => {
   const transformations = ["w_384", "h_210"];
   if (fitImage) {
