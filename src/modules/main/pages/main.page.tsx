@@ -23,13 +23,13 @@ export const MainPage: FC<MainPageProps> = ({}) => {
     "Хірургія",
     "Ортопедія",
     "Естетична стоматологія",
-    "Кабінет компёютерної томографії, ТРГ, ОПТГ"
+    "Кабінет комп'ютерної томографії, ТРГ, ОПТГ"
   ];
-  
+
   if (error) {
     return (
       <ShowInfo type="error">
-        <p>Упс, спалася помилка</p>
+        <p>Упс, сталася помилка</p>
         <p>Спробуйте трохи пізніше</p>
       </ShowInfo>
     );
@@ -51,10 +51,10 @@ export const MainPage: FC<MainPageProps> = ({}) => {
     );
   }
 
-    // Сортування даних відповідно до заданого порядку
-    const sortedServices = data.services.sort((a, b) => {
-      return order.indexOf(a.name) - order.indexOf(b.name);
-    });
+  // Сортування даних відповідно до заданого порядку
+  const sortedServices = [...data.services].sort((a, b) => {
+    return order.indexOf(a.name) - order.indexOf(b.name);
+  });
 
   return (
     <div className="">
