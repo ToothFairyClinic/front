@@ -37,7 +37,7 @@ export const OurWorkList: FC<OurWorkListProps> = ({}) => {
   return (
     <div className="dark:bg-darkGray py-28 flex flex-col gap-10">
       <MainTitle>Наші роботи</MainTitle>
-      <div className="flex gap-19 flex-wrap lg:px-32 ">
+      <div className="flex gap-19 flex-wrap lg:px-32 justify-center">
         {data.our_works.map((item) => (
           <OurWorkItem {...item} key={item.id} />
         ))}
