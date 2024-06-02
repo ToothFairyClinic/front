@@ -11,6 +11,21 @@ interface MainPageProps {}
 export const MainPage: FC<MainPageProps> = ({}) => {
   const { data, loading, error } = useGetServicesQuery();
 
+  const order = [
+    "Консультація",
+    "Дитяча стоматологія",
+    "Терапія",
+    "Імплантація",
+    "Ентодонтія",
+    "Ортодонтія",
+    "Спеціаліст з грудного вигодовування",
+    "Наркоз",
+    "Хірургія",
+    "Ортопедія",
+    "Естетична стоматологія",
+    "Кабінет компёютерної томографії, ТРГ, ОПТГ"
+  ];
+  
   if (error) {
     return (
       <ShowInfo type="error">
@@ -36,11 +51,16 @@ export const MainPage: FC<MainPageProps> = ({}) => {
     );
   }
 
+    // Сортування даних відповідно до заданого порядку
+    const sortedServices = data.services.sort((a, b) => {
+      return order.indexOf(a.name) - order.indexOf(b.name);
+    });
+
   return (
     <div className="">
       <Slide />
       <AdvantagesGroup />
-      <SerivcesList items={data?.services} />
+      <SerivcesList items={sortedServices} />
       <PersonnelList />
     </div>
   );
