@@ -1,5 +1,5 @@
 query GetServices {
-  services {
+  services(order_by: {created_at: asc}) {
     image
     id
     name

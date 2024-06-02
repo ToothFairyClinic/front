@@ -4281,12 +4281,11 @@ export type GetPriceListCategoryByIdLazyQueryHookResult = ReturnType<typeof useG
 export type GetPriceListCategoryByIdSuspenseQueryHookResult = ReturnType<typeof useGetPriceListCategoryByIdSuspenseQuery>;
 export type GetPriceListCategoryByIdQueryResult = Apollo.QueryResult<GetPriceListCategoryByIdQuery, GetPriceListCategoryByIdQueryVariables>;
 export const GetServicesDocument = gql`
-    query GetServices {
-  services {
-    image
-    id
-    name
-  }
+services(order_by: {created_at: asc}) {
+  image
+  id
+  name
+}
 }
     `;
 
