@@ -20,19 +20,18 @@ export const OurWorkItem: FC<Our_Works & OurWorkItemProps> = ({
   }
 
   const imageCldAfter = useCloudinaryImage(image_after, transformations);
-  console.log("🚀 ~ imageCldAfter:", imageCldAfter);
+
   const imageCldBefore = useCloudinaryImage(image_before, transformations);
-  console.log("🚀 ~ imageCldBefore:", imageCldBefore);
+
 
   return (
     <div className="w-96 dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md dark:shadow-white dark:bg-darkGray ">
       <AdvancedImage
         cldImg={imageCldAfter}
         width={384}
-        height={240}
+        height={440}
         className="rounded-t-2xl "
       />
-      <AdvancedImage cldImg={imageCldBefore} width={384} height={210} />
       <p className="text-2xl">{title}</p>
       <div className="h-px w-44 bg-paleOlive mt-1"></div>
       <p className="px-1">{description}</p>
