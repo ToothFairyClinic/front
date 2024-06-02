@@ -1,6 +1,6 @@
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
-import { useGetServiceByIdQuery, useGetServicesQuery } from "@app/core/types";
+import { useGetServiceByIdQuery } from "@app/core/types";
 import { AdvancedImage } from "@cloudinary/react";
 import { image } from "@cloudinary/url-gen/qualifiers/source";
 import { FC } from "react";
@@ -12,12 +12,17 @@ interface ServicePageProps {}
 
 export const ServicePage: FC<ServicePageProps> = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useGetServicesQuery(); // Отримуємо всі сервіси
+  const { data, loading, error } = useGetServiceByIdQuery({
+    variables: {
+      _eq: id,
+    },
+  });
+  const service = data?.services[0];
 
   if (error) {
     return (
       <ShowInfo type="error">
-        <p>Упс, сталася помилка</p>
+        <p>Упс, спалася помилка</p>
         <p>Спробуйте трохи пізніше</p>
       </ShowInfo>
     );
@@ -30,17 +35,6 @@ export const ServicePage: FC<ServicePageProps> = () => {
       </ShowInfo>
     );
   }
-
-  if (!data) {
-    return (
-      <ShowInfo type="info">
-        <p>Нажаль тут пусто</p>
-      </ShowInfo>
-    );
-  }
-
-  // Фільтрація даних за id
-  const service = data.services.find(service => service.id === id);
 
   if (!service?.image) {
     return (
