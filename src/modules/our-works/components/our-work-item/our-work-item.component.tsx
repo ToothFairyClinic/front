@@ -14,7 +14,7 @@ export const OurWorkItem: FC<Our_Works & OurWorkItemProps> = ({
   description,
   fitImage = false,
 }) => {
-  const transformations = ["w_384", "h_210"];
+  const transformations = ["w_460", "h_440"];
   if (fitImage) {
     transformations.unshift("c_pad");
   }
@@ -28,7 +28,7 @@ export const OurWorkItem: FC<Our_Works & OurWorkItemProps> = ({
     <div className="w-96 dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md dark:shadow-white dark:bg-darkGray ">
       <AdvancedImage
         cldImg={imageCldBefore}
-        width={384}
+        width={460}
         height={440}
         className="rounded-t-2xl "
       />
