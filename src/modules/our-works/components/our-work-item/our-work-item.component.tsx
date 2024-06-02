@@ -27,7 +27,7 @@ export const OurWorkItem: FC<Our_Works & OurWorkItemProps> = ({
   return (
     <div className="w-96 dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md dark:shadow-white dark:bg-darkGray ">
       <AdvancedImage
-        cldImg={imageCldAfter}
+        cldImg={imageCldBefore}
         width={384}
         height={440}
         className="rounded-t-2xl "
