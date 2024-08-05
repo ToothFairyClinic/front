@@ -44,7 +44,7 @@ export const Footer = () => {
         <ul className="flex flex-col gap-8 md:gap-3">
           <li className="flex gap-2 dark:hover:text-paleOlive items-center hover:text-white">
             <AccessTimeIcon width={31} hanging={31} />
-            ПН-НД: 9:00-20:00
+            ПН-СБ: 9:30-19:00
           </li>
           <li className="flex gap-2 dark:hover:text-paleOlive items-center hover:text-white">
             <SmartPhoneIcon width={31} hanging={31} />

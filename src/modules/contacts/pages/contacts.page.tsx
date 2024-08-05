@@ -43,7 +43,7 @@ export const ContactPage: FC<ContactPageProps> = ({}) => {
           <ul className="flex flex-col gap-7 md:gap-3 text-lg sm:text-3xl  lg:text-3xl">
             <li className="flex gap-2 dark:hover:text-paleOlive items-center dark:text-white">
               <LocationIcon width={31} hanging={31} />
-              Вокзальна вулиця, 22, Біла Церква, Київська область
+              Київська область, Біла Церква, Вокзальна 22
             </li>
           </ul>
         </div>
