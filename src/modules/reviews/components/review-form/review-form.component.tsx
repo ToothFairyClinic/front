@@ -54,7 +54,7 @@ export const ReviewForm: FC<ReviewFormProps> = ({ submitCallback }) => {
         )}
       />
 
-      <Button fullWidth={true}>Підтвердити замовлення</Button>
+      <Button fullWidth={true}>Підтвердити</Button>
     </form>
   );
 };
