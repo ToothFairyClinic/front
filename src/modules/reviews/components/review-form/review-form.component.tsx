@@ -5,11 +5,15 @@ import { Controller } from "react-hook-form";
 import { Input } from "@app/common/components/input/input.compnent";
 import { TextArea } from "@app/common/components/text-area/text-area.component";
 import { Button } from "@app/common/components/button/button.component";
+import { useTranslation } from 'react-i18next';
+
 
 export const ReviewForm: FC<ReviewFormProps> = ({ submitCallback }) => {
   const { control, onSubmit, reset } = useReviewForm({
     callback: submitCallback,
   });
+
+  const { t } = useTranslation();
 
   return (
     <form className="flex flex-col gap-2 " onSubmit={onSubmit}>
@@ -19,9 +23,9 @@ export const ReviewForm: FC<ReviewFormProps> = ({ submitCallback }) => {
         render={({ field, fieldState }) => (
           <Input
             {...field}
-            lable="Ім'я"
+            lable={t("Ім'я")}
             fullWidth
-            placeholder="Введіть ваше ім'я"
+            placeholder={t("Введіть ваше ім'я")}
             error={fieldState.error?.message}
           />
         )}
@@ -32,9 +36,9 @@ export const ReviewForm: FC<ReviewFormProps> = ({ submitCallback }) => {
         render={({ field, fieldState }) => (
           <Input
             {...field}
-            lable="Телефон"
+            lable={t('Телефон')}
             fullWidth
-            placeholder="Введіть ваше телефон"
+            placeholder={t('Введіть ваше телефон')}
             error={fieldState.error?.message}
           />
         )}
@@ -46,15 +50,15 @@ export const ReviewForm: FC<ReviewFormProps> = ({ submitCallback }) => {
         render={({ field, fieldState }) => (
           <TextArea
             {...field}
-            lable="Коментар"
+            lable={t('Коментар')}
             fullWidth
-            placeholder="Введіть ваш відгук"
+            placeholder={t('Введіть ваш відгук')}
             error={fieldState.error?.message}
           />
         )}
       />
 
-      <Button fullWidth={true}>Підтвердити</Button>
+      <Button fullWidth={true}>{t('Підтвердити')}</Button>
     </form>
   );
 };

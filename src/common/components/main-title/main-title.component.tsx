@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { FC, PropsWithChildren } from "react";
+import { useTranslation } from 'react-i18next';
 
 enum TitleSize {
   sm = "sm",
@@ -17,6 +18,7 @@ export const MainTitle: FC<MainTitleProps & PropsWithChildren> = ({
   darkken,
   size = TitleSize.base,
 }) => {
+  const { t } = useTranslation();
   const titleClasses = clsx(
     "text-6xl  border-b border-paleOlive px-10  py-3 z-10 text-darkGray dark:text-white",
     {
@@ -26,5 +28,5 @@ export const MainTitle: FC<MainTitleProps & PropsWithChildren> = ({
       "lg:w-120": size === TitleSize.sm,
     }
   );
-  return <h1 className={titleClasses}>{children}</h1>;
+  return <h1 className={titleClasses}>{t(`${children}`)}</h1>;
 };

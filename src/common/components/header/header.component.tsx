@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { ReactComponent as LightThemeSolidIcon } from "@app/assets/icons/lightThemeIcon.svg";
 import { ReactComponent as DarkThemeSolidIcon } from "@app/assets/icons/darkThemeIcon.svg";
 import { ReactComponent as Logotype } from "@app/assets/images/logo.svg";
@@ -7,9 +8,10 @@ import { Button } from "../button/button.component";
 import { LinkHeader } from "../link-header/link-header.component";
 import { themeState, toggleTheme } from "@app/modules/cart/store/theme-state";
 import { ReactComponent as MenuIcon } from "@app/assets/icons/bars-3.svg";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { useReactiveVar } from "@apollo/client";
 import clsx from "clsx";
+import LanguageSwitcher from "../language-switcher/language-switcher.component"; // Імпортуйте компонент
 
 interface HeaderProps {}
 
@@ -77,6 +79,8 @@ export const Header: FC<HeaderProps> = ({}) => {
                 <LightThemeSolidIcon className="w-6 h-6  text-white dark:hover:text-paleOlive  hover:text-white" />
               )}
             </button>
+            {/* Додайте перемикач мови */}
+            <LanguageSwitcher />
           </div>
         </div>
 
@@ -122,6 +126,8 @@ export const Header: FC<HeaderProps> = ({}) => {
                 <LightThemeSolidIcon className="w-6 h-6  text-white " />
               )}
             </button>
+            {/* Перемикач мови для мобільної версії */}
+            <LanguageSwitcher />
           </div>
         </div>
       )}

@@ -6,11 +6,13 @@ import { ActionPaper } from "@app/common/components/action-paper/action-paper.co
 import { ReviewForm } from "../components/review-form/review-form.component";
 import { ReviewsList } from "../components/reviews-list/reviews-list.component";
 import { validatePhoneNumber } from "@app/core/phoneNumber";
+import { useTranslation } from 'react-i18next';
 
 interface ReviewsPageProps {}
 
 export const ReviewsPage: FC<ReviewsPageProps> = ({}) => {
   const [CreateReviewMutation] = useCreateReviewMutation();
+  const { t } = useTranslation();
 
   const handlerCheckoutSubmit = async (values: ReviewFormValues) => {
     let phoneNumber;
@@ -34,7 +36,7 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({}) => {
     <div className="py-24 pt-11 dark:bg-darkGray ">
       <ReviewsList />
       <Container>
-        <ActionPaper title="Відгук">
+        <ActionPaper title={t("Відгук")}>
           <div className="flex gap-19 flex-col lg:flex-row ">
             <div className="flex-1">
               <ReviewForm submitCallback={handlerCheckoutSubmit} />
