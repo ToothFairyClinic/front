@@ -12,6 +12,7 @@ import { FC } from "react";
 import { useReactiveVar } from "@apollo/client";
 import clsx from "clsx";
 import LanguageSwitcher from "../language-switcher/language-switcher.component"; // Імпортуйте компонент
+import { useTranslation } from 'react-i18next';
 
 interface HeaderProps {}
 
@@ -30,6 +31,8 @@ export const Header: FC<HeaderProps> = ({}) => {
 
   const [theme, setTheme] = useState(themeStateCurrent ? "light" : "dark");
   localStorage.setItem("theme", theme);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     setTheme(themeStateCurrent ? "light" : "dark");
@@ -65,10 +68,10 @@ export const Header: FC<HeaderProps> = ({}) => {
 
         <div className="hidden md:flex items-center space-x-5 md:gap-10 ">
           <div className="flex space-x-5 lg:gap-15 md:gap-5 ">
-            <LinkHeader url="/review">Відгуки</LinkHeader>
-            <LinkHeader url="/price-list">Прайс лист</LinkHeader>
-            <LinkHeader url="/our-work">Роботи</LinkHeader>
-            <LinkHeader url="/contacts">Контакти</LinkHeader>
+            <LinkHeader url="/review">{t(`Відгуки`)}</LinkHeader>
+            <LinkHeader url="/price-list">{t(`Прайс лист`)}</LinkHeader>
+            <LinkHeader url="/our-work">{t(`Роботи`)}</LinkHeader>
+            <LinkHeader url="/contacts">{t(`Контакти`)}</LinkHeader>
           </div>
 
           <div className="flex items-center space-x-5 ml-auto gap-2 ">
@@ -105,20 +108,21 @@ export const Header: FC<HeaderProps> = ({}) => {
         <div className="md:hidden mt-5 ">
           <div className="flex flex-col space-y-3">
             <button onClick={toggleMobileMenu}>
-              <LinkHeader url="/review">Відгуки</LinkHeader>
+              <LinkHeader url="/review">{t(`Відгуки`)}</LinkHeader>
             </button>
             <button onClick={toggleMobileMenu}>
-              <LinkHeader url="/price-list">Прайс лист</LinkHeader>
+              <LinkHeader url="/price-list">{t(`Прайс лист`)}</LinkHeader>
             </button>
             <button onClick={toggleMobileMenu}>
-              <LinkHeader url="/our-work">Роботи</LinkHeader>
+              <LinkHeader url="/our-work">{t(`Роботи`)}</LinkHeader>
             </button>
             <button onClick={toggleMobileMenu}>
-              <LinkHeader url="/contacts">Контакти</LinkHeader>
+              <LinkHeader url="/contacts">{t(`Контакти`)}</LinkHeader>
             </button>
           </div>
 
-          <div className="flex flex-row-reverse items-center space-x-5 mt-4">
+          <div className="flex flex-row-reverse items-center space-x-5 mt-4 gap-3" >
+      
             <button onClick={toggleTheme}>
               {themeState() ? (
                 <DarkThemeSolidIcon className="w-6 h-6 text-darkGray dark:hover:text-paleOlive  hover:text-white" />
@@ -126,8 +130,9 @@ export const Header: FC<HeaderProps> = ({}) => {
                 <LightThemeSolidIcon className="w-6 h-6  text-white " />
               )}
             </button>
-            {/* Перемикач мови для мобільної версії */}
             <LanguageSwitcher />
+            {/* Перемикач мови для мобільної версії */}
+           
           </div>
         </div>
       )}

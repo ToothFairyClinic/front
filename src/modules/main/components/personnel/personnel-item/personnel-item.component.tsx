@@ -1,6 +1,7 @@
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { AdvancedImage } from "@cloudinary/react";
 import { FC } from "react";
+import { useTranslation } from 'react-i18next';
 
 interface PersonnelItemProps {
   image: string;
@@ -23,7 +24,7 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
   if (fitImage) {
     transformations.unshift("c_pad");
   }
-
+  const { t } = useTranslation();
   const imageCld = useCloudinaryImage(image, transformations);
 
   return (
@@ -35,7 +36,7 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
         className="rounded-t-2xl "
       />
 
-      <p className="text-2xl">{name}</p>
+      <p className="text-2xl">{t(`${name}`)}</p>
 
       <span className="px-1">{personnel_category_str}</span>
       {personnel_category_second_str ? (
