@@ -38,9 +38,9 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
 
       <p className="text-2xl">{t(`${name}`)}</p>
 
-      <span className="px-1">{personnel_category_str}</span>
+      <span className="px-1">{t(`${personnel_category_str}`)}</span>
       {personnel_category_second_str ? (
-        <span>, {personnel_category_second_str}</span>
+        <span>, {t(`${personnel_category_second_str}`)}</span>
       ) : (
         <div />
       )}

@@ -2,6 +2,7 @@ import { Services } from "@app/core/types";
 import { FC, useRef } from "react";
 import { ServicesItem } from "../services-main-item/services-main-item.component";
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
+import { useTranslation } from 'react-i18next';
 
 interface ServicesListProps {
   items: Services[];
@@ -10,13 +11,15 @@ interface ServicesListProps {
 
 export const SerivcesList: FC<ServicesListProps> = ({ items }) => {
   const servicesRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
+
   return (
     <div
       ref={servicesRef}
       id="services"
       className=" py-7 flex flex-col gap-19  bg-[url('@app/assets/images/servicesImage.jpg')] bg-no-repeat bg-cover bg-center relative"
     >
-      <MainTitle darkken={true}>Наші послуги</MainTitle>
+      <MainTitle darkken={true}>{t(`Наші послуги`)}</MainTitle>
 
       <div className="z-10">
         <div className="flex flex-wrap gap-11 justify-center  px-32">

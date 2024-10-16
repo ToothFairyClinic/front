@@ -4,6 +4,7 @@ import { Services } from "@app/core/types";
 import { AdvancedImage } from "@cloudinary/react";
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 interface ServicesItemProps {
   image: string;
@@ -23,6 +24,7 @@ export const ServicesItem: FC<ServicesItemProps & Services> = ({
   }
 
   const imageCld = useCloudinaryImage(image, transformations);
+  const { t } = useTranslation();
 
   return (
     <Link to={`/services/${id}`}>
@@ -34,7 +36,7 @@ export const ServicesItem: FC<ServicesItemProps & Services> = ({
           height={126}
           className="rounded-t-2xl "
         />
-        <p className="text-white text-3xl text-center">{name}</p>
+        <p className="text-white text-3xl text-center">{t(`${name}`)}</p>
       </div>
     </Link>
   );
