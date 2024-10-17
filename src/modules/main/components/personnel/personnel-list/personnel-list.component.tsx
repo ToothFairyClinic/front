@@ -8,6 +8,7 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
 import { useMediaQuery } from "react-responsive";
+import { useTranslation } from 'react-i18next';
 
 interface PersonnelListProps {}
 
@@ -16,12 +17,13 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1300 });
   const personnelRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   if (error) {
     return (
       <ShowInfo type="error">
-        <p>Упс, спалася помилка</p>
-        <p>Спробуйте трохи пізніше</p>
+        <p> {t("Упс, спалася помилка")}  </p>
+        <p>{t("Спробуйте трохи пізніше")} </p>
       </ShowInfo>
     );
   }
@@ -37,7 +39,7 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
   if (!data?.personnel || data.personnel.length === 0) {
     return (
       <ShowInfo type="info">
-        <p>Нажаль тут пусто</p>
+        <p> {t("Нажаль тут пусто")}</p>
       </ShowInfo>
     );
   }
@@ -48,7 +50,7 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
       id="personnel"
       className="dark:bg-darkGray py-28 flex flex-col gap-10"
     >
-      <MainTitle>Наша команда</MainTitle>
+      <MainTitle> {t("Наша команда")}</MainTitle>
       <div className=" lg:px-20 ">
         <Swiper
           slidesPerView={isMobile ? 1 : isTablet ? 2 : 3}
