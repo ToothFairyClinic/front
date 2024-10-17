@@ -11,10 +11,12 @@ import {
   createColumnHelper,
   flexRender,
 } from "@tanstack/react-table";
+import { useTranslation } from 'react-i18next';
 
 interface PriceListTabelProps {
   data: GetPriceListQuery;
 }
+const { t } = useTranslation();
 
 const columnHelper =
   createColumnHelper<GetPriceListCategoryByIdQuery["price_list"][0]>();
@@ -39,11 +41,11 @@ export const PriceListTabel: FC<PriceListTabelProps> = ({
 
   const columns = [
     columnHelper.accessor("title", {
-      header: "Назва",
+      header: t("Назва"),
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("price", {
-      header: "Ціна",
+      header: ("Ціна"),
       cell: (info) => `${info.getValue()} грн.`,
     }),
   ];

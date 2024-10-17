@@ -2,6 +2,7 @@ import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook"
 import { Our_Works } from "@app/core/types";
 import { AdvancedImage } from "@cloudinary/react";
 import { FC } from "react";
+import { useTranslation } from 'react-i18next';
 
 interface OurWorkItemProps {
   fitImage?: boolean;
@@ -18,6 +19,7 @@ export const OurWorkItem: FC<Our_Works & OurWorkItemProps> = ({
   if (fitImage) {
     transformations.unshift("c_pad");
   }
+  const { t } = useTranslation();
 
   const imageCldAfter = useCloudinaryImage(image_after, transformations);
 
@@ -32,9 +34,9 @@ export const OurWorkItem: FC<Our_Works & OurWorkItemProps> = ({
         height={440}
         className="rounded-t-2xl "
       />
-      <p className="text-2xl">{title}</p>
+      <p className="text-2xl">{t(`${title}`)}</p>
       <div className="h-px w-44 bg-paleOlive mt-1"></div>
-      <p className="px-1">{description}</p>
+      <p className="px-1">{t(`${description}`)}</p>
     </div>
   );
 };

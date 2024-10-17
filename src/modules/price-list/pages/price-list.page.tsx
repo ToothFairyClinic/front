@@ -8,7 +8,7 @@ import { PriceListSelect } from "../components/price-list-selector/price-list-se
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 
 interface PriceListPageProps {}
-
+// На етапі передачі даних створити регулярний вираз який буде перевіряти якою мовою парйс лист та фільтрувати DataPriceList та data
 export const PriceListPage: FC<PriceListPageProps> = () => {
   const { data, loading } = useGetPriceListCategoriesQuery();
   const {
