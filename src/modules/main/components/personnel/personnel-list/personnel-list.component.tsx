@@ -50,7 +50,7 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
       id="personnel"
       className="dark:bg-darkGray py-28 flex flex-col gap-10"
     >
-      <MainTitle> {t("Наша команда")}</MainTitle>
+      <MainTitle>{t("Наша команда")}</MainTitle>
       <div className=" lg:px-20 ">
         <Swiper
           slidesPerView={isMobile ? 1 : isTablet ? 2 : 3}
