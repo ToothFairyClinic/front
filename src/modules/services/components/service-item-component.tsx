@@ -3,6 +3,7 @@ import { Services } from "@app/core/types";
 import { AdvancedImage } from "@cloudinary/react";
 import { image } from "@cloudinary/url-gen/qualifiers/source";
 import { FC } from "react";
+import { useTranslation } from 'react-i18next';
 
 interface ServiceItemProps {
   fitImage?: boolean;
@@ -17,6 +18,7 @@ export const ServiceItem: FC<ServiceItemProps & Services> = ({
   mainImage,
 }) => {
   const transformations = ["w_600", "h_526"];
+  const { t } = useTranslation();
   if (fitImage) {
     transformations.unshift("c_pad");
   }
@@ -35,7 +37,8 @@ export const ServiceItem: FC<ServiceItemProps & Services> = ({
       </div>
       <div className="">
         <p
-          dangerouslySetInnerHTML={{ __html: description! }}
+          dangerouslySetInnerHTML={{ __html: t('description') }}
+          
           className="text-2xl dark:text-white text-left"
         />
       </div>
