@@ -61,7 +61,7 @@ export const Footer = () => {
 
       <ul className="flex gap-6 justify-center md:justify-end mt-8">
         <li className="dark:hover:text-paleOlive hover:text-white">
-          <a href="https://www.instagram.com/tooth_fairy_bc/">
+          <a href="https://www.instagram.com/toothfairy.clinic?igsh=d25xNmZvb2Z6a2tu">
             {themeStateCurrent ? <InstagramDarkIcon /> : <InstagramIcon />}
           </a>
         </li>
