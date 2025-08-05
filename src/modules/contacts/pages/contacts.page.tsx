@@ -3,8 +3,9 @@ import { Contacts } from "../components/contacts.component";
 import { useMediaQuery } from "react-responsive";
 import { ReactComponent as AccessTimeIcon } from "@app/assets/icons/access_time.svg";
 import { ReactComponent as SmartPhoneIcon } from "@app/assets/icons/smartphone.svg";
+import { ReactComponent as MailIcon } from "@app/assets/icons/mail.svg";
 import { ReactComponent as LocationIcon } from "@app/assets/icons/location.svg";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 interface ContactPageProps {}
 
@@ -21,22 +22,38 @@ export const ContactPage: FC<ContactPageProps> = ({}) => {
       )}
       <div className="flex flex-col ">
         <h1 className="text-4xl sm:text-6xl lg:text-6xl dark:text-white border-b border-paleOlive px-15 py-4">
-        {t("Контакти")}  
+          {t("Контакти")}
         </h1>
 
         <div className="px-15 dark:text-white border-b border-paleOlive  py-4">
           <ul className="flex flex-col gap-7 md:gap-3 text-lg sm:text-3xl  lg:text-3xl">
             <li className="flex gap-2 dark:hover:text-paleOlive items-center dark:text-white">
-              <AccessTimeIcon width={31} hanging={31} />
+              <AccessTimeIcon width={31} height={31} />
               {t("ПН-СБ")}: 9:30-19:00
             </li>
             <li className="flex gap-2 dark:hover:text-paleOlive items-center dark:text-white">
-              <SmartPhoneIcon width={31} hanging={31} />
-              +380681689911
+              <SmartPhoneIcon width={31} height={31} />
+              <a
+                href="tel:+380681689911"
+                aria-label="Подзвонити на номер +38 (068) 168-99-11"
+              >
+                +38 (068) 168-99-11
+              </a>
             </li>
             <li className="flex gap-2 dark:hover:text-paleOlive items-center dark:text-white">
-              <SmartPhoneIcon width={31} hanging={31} />
-              +380934599911
+              <SmartPhoneIcon width={31} height={31} />
+              <a
+                href="tel:+380681689911"
+                aria-label="Подзвонити на номер +38 (093) 459-99-11"
+              >
+                +38 (093) 459-99-11
+              </a>
+            </li>
+            <li className="flex gap-2 dark:hover:text-paleOlive items-center dark:text-white">
+              <MailIcon width={31} height={31} />
+              <a href="mailto:admin@toothfairy.clinic">
+                admin@toothfairy.clinic
+              </a>
             </li>
           </ul>
         </div>
@@ -44,8 +61,8 @@ export const ContactPage: FC<ContactPageProps> = ({}) => {
         <div className="px-15 dark:text-white border-b border-paleOlive  py-4">
           <ul className="flex flex-col gap-7 md:gap-3 text-lg sm:text-3xl  lg:text-3xl">
             <li className="flex gap-2 dark:hover:text-paleOlive items-center dark:text-white">
-              <LocationIcon width={31} hanging={31} />
-              {t("Київська область, Біла Церква, Вокзальна 22")} 
+              <LocationIcon width={31} hanging={31} height={31} />
+              {t("Київська область, Біла Церква, Вокзальна 22")}
             </li>
           </ul>
         </div>
