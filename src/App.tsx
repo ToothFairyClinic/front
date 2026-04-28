@@ -12,6 +12,7 @@ import { OurWorkPage } from "./modules/our-works/page/our-work.page";
 import { ContactPage } from "./modules/contacts/pages/contacts.page";
 import ReactGA from "react-ga4";
 import { config } from "./core/config";
+import { Helmet } from "react-helmet-async";
 
 export const App = () => {
   const location = useLocation();
@@ -39,9 +40,16 @@ export const App = () => {
   }, []);
   return (
     <div className="flex flex-col min-h-screen ">
+      <Helmet
+        defaultTitle="Tooth Fairy Clinic"
+        titleTemplate="%s | Tooth Fairy Clinic"
+      >
+        <link rel="canonical" href={`https://toothfairy.clinic${location.pathname}`} />
+      </Helmet>
+
       <Header />
       {/* <CartSidebar /> */}
-      <div className="  ">
+      <div className="flex-grow">
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/price-list" element={<PriceListPage />} />
