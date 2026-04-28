@@ -10,29 +10,36 @@ interface ServicesListProps {
 }
 
 export const SerivcesList: FC<ServicesListProps> = ({ items }) => {
-  const servicesRef = useRef<HTMLDivElement>(null);
+  const servicesRef = useRef<HTMLElement>(null);
   const { t } = useTranslation();
 
   return (
-    <div
+    <section
       ref={servicesRef}
       id="services"
+      aria-labelledby="services-title"
       className=" py-7 flex flex-col gap-19  bg-[url('@app/assets/images/servicesImage.jpg')] bg-no-repeat bg-cover bg-center relative"
     >
-      <MainTitle darkken={true}>{t(`Наші послуги`)}</MainTitle>
-
-      <div className="z-10">
-        <div className="flex flex-wrap gap-11 justify-center  px-32">
-          {items.map(({ image, ...services }) => (
-            <ServicesItem
-              image={`${image}`}
-              {...services}
-              key={`services-${services.id}`}
-            />
-          ))}
-        </div>
+      <div id="services-title">
+        <MainTitle darkken={true} as="h2">
+          Наші послуги
+        </MainTitle>
       </div>
-      <div className="bg-black bg-opacity-50 absolute inset-0"></div>
-    </div>
+
+      <div className="z-10 container mx-auto">
+        <ul className="flex flex-wrap gap-11 justify-center px-4 lg:px-32">
+          {items.map(({ image, ...service }) => (
+            <li key={`services-${service.id}`} className="list-none">
+              <ServicesItem
+                image={`${image}`}
+                {...service}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="bg-black/50 absolute inset-0 z-0" aria-hidden="true"></div>
+    </section >
   );
 };

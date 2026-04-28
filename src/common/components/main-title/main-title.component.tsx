@@ -11,12 +11,14 @@ enum TitleSize {
 interface MainTitleProps {
   darkken?: boolean;
   size?: keyof typeof TitleSize;
+  as?: 'h1' | 'h2' | 'h3';
 }
 
 export const MainTitle: FC<MainTitleProps & PropsWithChildren> = ({
   children,
   darkken,
   size = TitleSize.base,
+  as: Component = 'h2'
 }) => {
   const { t } = useTranslation();
   const titleClasses = clsx(
@@ -28,5 +30,5 @@ export const MainTitle: FC<MainTitleProps & PropsWithChildren> = ({
       "lg:w-120": size === TitleSize.sm,
     }
   );
-  return <h1 className={titleClasses}>{t(`${children}`)}</h1>;
+  return <Component className={titleClasses}>{t(`${children}`)}</Component>;
 };

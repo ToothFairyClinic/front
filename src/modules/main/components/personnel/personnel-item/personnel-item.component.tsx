@@ -28,23 +28,30 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
   const imageCld = useCloudinaryImage(image, transformations);
 
   return (
-    <div className="lg:w-96  dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md dark:shadow-white dark:bg-darkGray ">
+    <div className="lg:w-96 dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md dark:shadow-sm dark:shadow-white/20 dark:bg-darkGray transition-shadow duration-300">
       <AdvancedImage
         cldImg={imageCld}
         width={385}
         height={440}
-        className="rounded-t-2xl "
+        alt={t(name)}
+        className="rounded-t-2xl w-full object-cover"
       />
 
-      <p className="text-2xl">{t(`${name}`)}</p>
+      <div className="px-4 mt-4">
+        <h3 className="text-2xl font-semibold mb-1">
+          {t(name)}
+        </h3>
 
-      <span className="px-1">{t(`${personnel_category_str}`)}</span>
-      {personnel_category_second_str ? (
-        <span>, {t(`${personnel_category_second_str}`)}</span>
-      ) : (
-        <div />
-      )}
-      <div className="h-px w-44 bg-paleOlive mt-1"></div>
+
+        <div className="text-lg opacity-80">
+          <span>{t(personnel_category_str)}</span>
+          {personnel_category_second_str && (
+            <span>, {t(personnel_category_second_str)}</span>
+          )}
+        </div>
+
+        <div className="h-px w-20 bg-paleOlive mt-3" aria-hidden="true"></div>
+      </div>
     </div>
   );
 };

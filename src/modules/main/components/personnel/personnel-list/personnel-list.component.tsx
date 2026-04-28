@@ -1,21 +1,21 @@
-import { ShowInfo } from "@app/common/components/show-info/show-info.component";
-import { useGetPersonnelQuery } from "@app/core/types";
 import { FC, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.css"; // Додайте стилі Swiper
-import { PersonnelItem } from "../personnel-item/personnel-item.component";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
+import { useGetPersonnelQuery } from "@app/core/types";
+import { PersonnelItem } from "../personnel-item/personnel-item.component";
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
-import { useMediaQuery } from "react-responsive";
+import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useTranslation } from 'react-i18next';
 
-interface PersonnelListProps {}
+// Імпорт стилів
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+interface PersonnelListProps { }
 
 export const PersonnelList: FC<PersonnelListProps> = () => {
   const { data, loading, error } = useGetPersonnelQuery();
-  const isMobile = useMediaQuery({ maxWidth: 767 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1300 });
   const personnelRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
 
@@ -45,40 +45,47 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
   }
 
   return (
-    <div
+    <section
       ref={personnelRef}
       id="personnel"
-      className="dark:bg-darkGray py-28 flex flex-col gap-10"
+      aria-labelledby="personnel-title"
+      className="dark:bg-darkGray py-28 flex flex-col gap-10 transition-colors duration-300"
     >
-      <MainTitle>{t("Наша команда")}</MainTitle>
-      <div className=" lg:px-20 ">
+      <MainTitle as="h2">
+        {t("Наша команда")}
+      </MainTitle>
+
+      <div className="lg:px-20">
         <Swiper
-          slidesPerView={isMobile ? 1 : isTablet ? 2 : 3}
-          spaceBetween={75}
+          breakpoints={{
+            320: { slidesPerView: 1, spaceBetween: 20 },
+            768: { slidesPerView: 2, spaceBetween: 40 },
+            1300: { slidesPerView: 3, spaceBetween: 75 },
+          }}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }}
           pagination={{
             clickable: true,
+            dynamicBullets: true,
           }}
           modules={[Autoplay, Pagination, Navigation]}
+          className="pb-12"
         >
           {data.personnel.map(({ image, ...item }) => (
-            <SwiperSlide key={item.id} className="mb-12 ">
+            <SwiperSlide key={item.id} tag="article">
               <PersonnelItem
-                key={item.id}
                 image={`${image}`}
-                personnel_category_str={item.personnel_category!.title}
-                personnel_category_second_str={
-                  item.personnel_category_second?.title
-                }
+                personnel_category_str={item.personnel_category?.title || ""}
+                personnel_category_second_str={item.personnel_category_second?.title}
                 {...item}
               />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-    </div>
+    </section>
   );
 };

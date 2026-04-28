@@ -27,17 +27,25 @@ export const ServicesItem: FC<ServicesItemProps & Services> = ({
   const { t } = useTranslation();
 
   return (
-    <Link to={`/services/${id}`}>
-      {" "}
-      <div className=" hover:bg-white/20 flex flex-col justify-center items-center py-5 px-15 rounded-xl w-90 max-w-90 opacity-50 hover:opacity-100">
-        <AdvancedImage
-          cldImg={imageCld}
-          width={126}
-          height={126}
-          className="rounded-t-2xl "
-        />
-        <p className="text-white text-3xl text-center">{t(`${name}`)}</p>
-      </div>
+    <Link
+      to={`/services/${id}`}
+      className="group block no-underline focus:outline-none focus:ring-2 focus:ring-paleOlive rounded-xl"
+    >
+      <article className="hover:bg-white/20 flex flex-col justify-center items-center py-5 px-15 rounded-xl w-90 max-w-90 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="mb-4">
+          <AdvancedImage
+            cldImg={imageCld}
+            width={126}
+            height={126}
+            alt={t(name)}
+            className="rounded-t-2xl object-contain"
+          />
+        </div>
+
+        <h3 className="text-white text-3xl text-center font-normal">
+          {t(name)}
+        </h3>
+      </article>
     </Link>
   );
 };
