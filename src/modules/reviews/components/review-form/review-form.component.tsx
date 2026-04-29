@@ -27,6 +27,7 @@ export const ReviewForm: FC<ReviewFormProps> = ({ submitCallback }) => {
             fullWidth
             placeholder={t("Введіть ваше ім'я")}
             error={fieldState.error?.message}
+            autoComplete="name"
           />
         )}
       />
@@ -36,10 +37,12 @@ export const ReviewForm: FC<ReviewFormProps> = ({ submitCallback }) => {
         render={({ field, fieldState }) => (
           <Input
             {...field}
+            type="tel"
             lable={t('Телефон')}
             fullWidth
             placeholder={t('Введіть ваше телефон')}
             error={fieldState.error?.message}
+            autoComplete="tel"
           />
         )}
       />
@@ -58,7 +61,7 @@ export const ReviewForm: FC<ReviewFormProps> = ({ submitCallback }) => {
         )}
       />
 
-      <Button fullWidth={true}>{t('Підтвердити')}</Button>
+      <Button type="submit" fullWidth={true}>{t('Підтвердити')}</Button>
     </form>
   );
 };

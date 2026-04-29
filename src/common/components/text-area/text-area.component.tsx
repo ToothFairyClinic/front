@@ -17,9 +17,11 @@ interface TextareaProps {
 export const TextArea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ lable, error, fullWidth, ...props }, ref) => {
     const inputId = useId();
+    const errorId = `${inputId}-error`;
+
     const inputClasses = clsx(
       "border shadow-sm bg-white  rounded-md px-3 pr-8 py-2 text-sm placeholder-gray-300  mb-2 outline-none transition-all dark:bg-darkGray dark:shadow-paleOlive " +
-        "disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed resize-none  dark:text-white",
+      "disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed resize-none  dark:text-white",
       {
         "border-gray-300  dark:border-paleOlive": !error,
         "border-red-300 focus:border-red-500 text-red-900": error,
@@ -42,6 +44,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             className={inputClasses}
             id={inputId}
             ref={ref}
+            aria-describedby={error ? errorId : undefined}
+            aria-invalid={!!error}
             {...props}
             rows={7}
           />
@@ -51,6 +55,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         </div>
 
         <span
+          id={errorId}
+          role={error ? "alert" : undefined}
           className="block text-sm text-red-600"
           dangerouslySetInnerHTML={{ __html: error || "&nbsp" }}
         />

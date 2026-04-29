@@ -21,7 +21,7 @@ export const SerivcesList: FC<ServicesListProps> = ({ items }) => {
       className=" py-7 flex flex-col gap-19  bg-[url('@app/assets/images/servicesImage.jpg')] bg-no-repeat bg-cover bg-center relative"
     >
       <div id="services-title">
-        <MainTitle darkken={true} as="h2">
+        <MainTitle as="h2">
           Наші послуги
         </MainTitle>
       </div>

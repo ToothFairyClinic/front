@@ -7,10 +7,12 @@ import { ReviewForm } from "../components/review-form/review-form.component";
 import { ReviewsList } from "../components/reviews-list/reviews-list.component";
 import { validatePhoneNumber } from "@app/core/phoneNumber";
 import { useTranslation } from 'react-i18next';
+import { MainTitle } from "@app/common/components/main-title/main-title.component";
+import { Helmet } from "react-helmet-async";
 
-interface ReviewsPageProps {}
+interface ReviewsPageProps { }
 
-export const ReviewsPage: FC<ReviewsPageProps> = ({}) => {
+export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
   const [CreateReviewMutation] = useCreateReviewMutation();
   const { t } = useTranslation();
 
@@ -33,17 +35,32 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({}) => {
   };
 
   return (
-    <div className="py-24 pt-11 dark:bg-darkGray ">
-      <ReviewsList />
+    <main className="py-24 pt-11 dark:bg-darkGray ">
+      <Helmet>
+        <title>{t("Відгуки")}</title>
+        <meta
+          name="description"
+          content={t("Відгуки наших пацієнтів про лікування в клініці Зубна Фея. Поділіться своїм досвідом та допоможіть іншим зробити правильний вибір.")}
+        />
+      </Helmet>
+
+      <MainTitle size="sm" as="h1">Відгук</MainTitle>
+      <section aria-label={t("Список відгуків")}>
+        <ReviewsList />
+      </section>
+
       <Container>
-        <ActionPaper title={t("Відгук")}>
-          <div className="flex gap-19 flex-col lg:flex-row ">
-            <div className="flex-1">
-              <ReviewForm submitCallback={handlerCheckoutSubmit} />
+        <div aria-label={t("Залишити відгук")}>
+          <ActionPaper title={t("Відгук")}>
+            <div className="flex gap-19 flex-col lg:flex-row ">
+              <div className="flex-1">
+                <ReviewForm submitCallback={handlerCheckoutSubmit} />
+              </div>
             </div>
-          </div>
-        </ActionPaper>
+          </ActionPaper>
+        </div>
       </Container>
-    </div>
+    </main>
+
   );
 };
