@@ -3,35 +3,54 @@ import i18n from 'i18next';
 import clsx from "clsx";
 import { themeState } from "@app/modules/cart/store/theme-state";
 import { useReactiveVar } from "@apollo/client";
+import { useTranslation } from 'react-i18next';
 
 const LanguageSwitcher: React.FC = () => {
-  const [language, setLanguage] = React.useState<string>(localStorage.getItem('language') || 'uk');
+  const { t } = useTranslation();
   const themeStateCurrent = useReactiveVar(themeState);
 
+  // Ініціалізація стану безпосередньо з i18n, щоб мати одне джерело істини
+  const [currentLang, setCurrentLang] = React.useState(i18n.language || 'uk');
+
   const changeLanguage = (lang: string): void => {
-    setLanguage(lang);
+    setCurrentLang(lang);
     localStorage.setItem('language', lang);
-    i18n.changeLanguage(lang); // Оновлення мови в i18n
+    i18n.changeLanguage(lang);
   };
 
-  useEffect(() => {
-    i18n.changeLanguage(language); // Встановлюємо мову при завантаженні сторінки
-  }, [language]);
-
-  const LinkHeaderStyles = clsx(
-    "text-xl font-normal flex items-center justify-center text-darkGray   hover:text-white dark:hover:text-paleOlive text-center",
+  const getButtonStyles = (lang: string) => clsx(
+    "text-xl font-normal transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-paleOlive rounded-md px-1",
     {
-      "text-white": !themeStateCurrent,
+      // Стилі для активної мови
+      "font-bold underline decoration-darkGray underline-offset-4 dark:decoration-paleOlive": currentLang === lang,
+      // Кольори залежно від теми
+      "text-darkGray hover:text-gray-600": themeStateCurrent,
+      "text-white hover:text-paleOlive": !themeStateCurrent,
     }
   );
 
   return (
-    <div className='flex items-center gap-2'>
-  <button className={LinkHeaderStyles} onClick={() => changeLanguage('uk')}>UA</button>
-  <div className='h-6 border-l border-gray-400'></div> {/* Вертикальна лінія */}
-  <button className={LinkHeaderStyles} onClick={() => changeLanguage('en')}>ENG</button>
-</div>
+    <nav className='flex items-center gap-2' aria-label={t("Перемикач мови")}>
+      <button
+        className={getButtonStyles('uk')}
+        onClick={() => changeLanguage('uk')}
+        aria-label="Українська мова"
+        aria-pressed={currentLang === 'uk'}
+      >
+        UA
+      </button>
 
+      <div className='h-4 border-l border-gray-400 opacity-50' aria-hidden="true"></div>
+
+      <button
+        className={getButtonStyles('en')}
+        onClick={() => changeLanguage('en')}
+        aria-label="English language"
+        aria-pressed={currentLang === 'en'}
+      >
+        EN
+      </button>
+    </nav>
   );
 };
 

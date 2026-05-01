@@ -14,128 +14,120 @@ import clsx from "clsx";
 import LanguageSwitcher from "../language-switcher/language-switcher.component"; // Імпортуйте компонент
 import { useTranslation } from 'react-i18next';
 
-interface HeaderProps {}
+interface HeaderProps { }
 
-export const Header: FC<HeaderProps> = ({}) => {
+export const Header: FC<HeaderProps> = ({ }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const themeStateCurrent = useReactiveVar(themeState);
   const location = useLocation();
   const isMainPage = location.pathname === "/";
+  const { t } = useTranslation();
 
   const headerClasses = clsx(
-    "lg:bg-paleOlive/75  w-full lg:dark:bg-darkGray/75 p-5 z-10 transition  delay-150  z-20 bg-paleOlive dark:bg-darkGray",
+    "w-full p-5 z-30 transition-all duration-300 bg-paleOlive dark:bg-darkGray lg:bg-paleOlive/75 lg:dark:bg-darkGray/75",
     {
-      absolute: isMainPage,
+      "absolute": isMainPage,
+      "relative": !isMainPage,
     }
   );
 
-  const [theme, setTheme] = useState(themeStateCurrent ? "light" : "dark");
-  localStorage.setItem("theme", theme);
-
-  const { t } = useTranslation();
-
   useEffect(() => {
-    setTheme(themeStateCurrent ? "light" : "dark");
-    localStorage.theme = theme;
-
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
+    const root = document.documentElement;
+    if (themeStateCurrent) {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     } else {
-      document.documentElement.classList.remove("dark");
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     }
-  }, [themeStateCurrent, theme]);
+  }, [themeStateCurrent]);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+
+  // Спільний список посилань
+  const NavLinks = () => (
+    <ul className="flex flex-col md:flex-row md:space-x-5 lg:gap-15 md:gap-5 list-none">
+      <li><LinkHeader url="/review">{t("Відгуки")}</LinkHeader></li>
+      <li><LinkHeader url="/price-list">{t("Прайс лист")}</LinkHeader></li>
+      <li><LinkHeader url="/our-work">{t("Роботи")}</LinkHeader></li>
+      <li><LinkHeader url="/contacts">{t("Контакти")}</LinkHeader></li>
+    </ul>
+  );
 
   return (
-    <div className={headerClasses}>
-      <div className="container mx-auto flex justify-around items-center md:flex-col lg:flex-row  ">
-        <div>
-          {isMainPage ? (
-            <div>{themeStateCurrent ? <Logotype /> : <LogotypeLight />}</div>
-          ) : (
-            <Link to="/">
-              {themeStateCurrent ? <Logotype /> : <LogotypeLight />}
-            </Link>
-          )}
+    <header className={headerClasses} role="banner">
+      <div className="container mx-auto flex justify-around items-center md:flex-col lg:flex-row">
+
+        {/* Логотип */}
+        <div className="flex-shrink-0">
+          <Link to="/" aria-label={t("Зубна Фея — на головну")}>
+            {themeStateCurrent ? <Logotype /> : <LogotypeLight />}
+          </Link>
         </div>
 
-        <div className="hidden md:flex items-center space-x-5 md:gap-10 ">
-          <div className="flex space-x-5 lg:gap-15 md:gap-5 ">
-            <LinkHeader url="/review">{t(`Відгуки`)}</LinkHeader>
-            <LinkHeader url="/price-list">{t(`Прайс лист`)}</LinkHeader>
-            <LinkHeader url="/our-work">{t(`Роботи`)}</LinkHeader>
-            <LinkHeader url="/contacts">{t(`Контакти`)}</LinkHeader>
-          </div>
+        {/* Десктопна навігація */}
+        <nav className="hidden md:flex items-center space-x-5 md:gap-10" aria-label={t("Основна навігація")}>
+          <NavLinks />
 
-          <div className="flex items-center space-x-5 ml-auto gap-2 ">
-            <button onClick={toggleTheme} id="shopping-cart-item">
-              {themeState() ? (
-                <DarkThemeSolidIcon className="w-6 h-6 text-darkGray dark:hover:text-paleOlive  hover:text-white" />
+          <div className="flex items-center space-x-5 ml-auto gap-2">
+            <button
+              onClick={toggleTheme}
+              aria-label={themeStateCurrent ? t("Увімкнути темну тему") : t("Увімкнути світлу тему")}
+              className="p-2 transition-colors"
+            >
+              {themeStateCurrent ? (
+                <DarkThemeSolidIcon className="w-6 h-6 text-darkGray hover:text-white dark:hover:text-paleOlive" />
               ) : (
-                <LightThemeSolidIcon className="w-6 h-6  text-white dark:hover:text-paleOlive  hover:text-white" />
+                <LightThemeSolidIcon className="w-6 h-6 text-white hover:text-darkGray dark:hover:text-paleOlive" />
               )}
             </button>
-            {/* Додайте перемикач мови */}
             <LanguageSwitcher />
           </div>
-        </div>
+        </nav>
 
-        <div className="md:hidden ml-auto">
-          <button onClick={toggleMobileMenu}>
-            {themeState() ? (
-              <MenuIcon
-                className="w-6 h-6 dark:fill-white fill-darkGray"
-                stroke="black"
-              />
-            ) : (
-              <MenuIcon
-                className="w-6 h-6 dark:fill-white fill-darkGray"
-                stroke="white"
-              />
-            )}
+        {/* Мобільна кнопка меню */}
+        <div className="md:hidden ml-auto flex items-center gap-4">
+          <button
+            onClick={toggleMobileMenu}
+            aria-expanded={isMobileMenuOpen}
+            aria-label={t("Відкрити меню")}
+            className="p-2"
+          >
+            <MenuIcon
+              className={clsx("w-6 h-6 transition-colors",
+                themeStateCurrent ? "fill-darkGray" : "fill-white"
+              )}
+            />
           </button>
         </div>
       </div>
 
+      {/* Мобільне меню */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-5 ">
-          <div className="flex flex-col space-y-3">
-            <button onClick={toggleMobileMenu}>
-              <LinkHeader url="/review">{t(`Відгуки`)}</LinkHeader>
-            </button>
-            <button onClick={toggleMobileMenu}>
-              <LinkHeader url="/price-list">{t(`Прайс лист`)}</LinkHeader>
-            </button>
-            <button onClick={toggleMobileMenu}>
-              <LinkHeader url="/our-work">{t(`Роботи`)}</LinkHeader>
-            </button>
-            <button onClick={toggleMobileMenu}>
-              <LinkHeader url="/contacts">{t(`Контакти`)}</LinkHeader>
-            </button>
-          </div>
+        <nav className="md:hidden mt-5 pb-5 border-t border-white/10" aria-label={t("Мобільна навігація")}>
+          <div className="flex flex-col space-y-4 pt-4">
+            {/* Використовуємо div замість button для обгортки посилань, щоб не було вкладених інтерактивних елементів */}
+            <div onClick={() => setIsMobileMenuOpen(false)}>
+              <NavLinks />
+            </div>
 
-          <div className="flex flex-row-reverse items-center space-x-5 mt-4 gap-3" >
-      
-            <button onClick={toggleTheme}>
-              {themeState() ? (
-                <DarkThemeSolidIcon className="w-6 h-6 text-darkGray dark:hover:text-paleOlive  hover:text-white" />
-              ) : (
-                <LightThemeSolidIcon className="w-6 h-6  text-white " />
-              )}
-            </button>
-            <LanguageSwitcher />
-            {/* Перемикач мови для мобільної версії */}
-           
+            <div className="flex items-center justify-between border-t border-white/10 pt-4 px-2">
+              <LanguageSwitcher />
+              <button
+                onClick={toggleTheme}
+                aria-label={t("Змінити тему")}
+                className="p-2"
+              >
+                {themeStateCurrent ? (
+                  <DarkThemeSolidIcon className="w-6 h-6 text-darkGray" />
+                ) : (
+                  <LightThemeSolidIcon className="w-6 h-6 text-white" />
+                )}
+              </button>
+            </div>
           </div>
-        </div>
+        </nav>
       )}
-    </div>
+    </header>
   );
 };

@@ -20,7 +20,7 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
   personnel_category_second_str,
   fitImage = true,
 }) => {
-  const transformations = ["w_370", "h_440"];
+  const transformations = ["w_370", "h_440", "f_auto", "q_auto"];
   if (fitImage) {
     transformations.unshift("c_pad");
   }

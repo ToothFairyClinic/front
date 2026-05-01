@@ -45,6 +45,7 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
       </Helmet>
 
       <MainTitle size="sm" as="h1">Відгук</MainTitle>
+
       <section aria-label={t("Список відгуків")}>
         <ReviewsList />
       </section>

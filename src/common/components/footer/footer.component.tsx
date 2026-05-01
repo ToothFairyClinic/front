@@ -17,66 +17,107 @@ export const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-paleOlive  dark:bg-darkGray/75 p-5 z-10 transition  delay-150 px-5 py-10 flex flex-col items-center  md:px-1">
-      <Logotype width={216} hanging={71} className="mb-5" />
+    <footer className="bg-paleOlive dark:bg-darkGray/75 p-5 z-10 transition duration-300 px-5 py-10 flex flex-col items-center md:px-1">
+      {/* Логотип як посилання на головну */}
+      <Link to="/" aria-label={t("На головну")}>
+        <Logotype width={216} height={71} className="mb-8" />
+      </Link>
 
-      <div className="text-darkGray dark:text-palePeach text-xl font-normal flex flex-col gap-8 sm:flex-row md:gap-36 flex-wrap ">
-        <ul className="flex flex-col gap-3 ">
-          <li className="dark:hover:text-paleOlive hover:text-white">
-            <Link to="/">{t(`Головна`)}</Link>
-          </li>
-          <li className="dark:hover:text-paleOlive hover:text-white">
-            <Link smooth to="/#services">
-               {t(`Послуги`)}
-            </Link>
-          </li>
-        </ul>
+      <div className="text-darkGray dark:text-palePeach text-xl font-normal flex flex-col gap-8 sm:flex-row md:gap-36 flex-wrap justify-center">
 
-        <ul className="flex flex-col gap-3">
-          <li className="dark:hover:text-paleOlive hover:text-white">
-            <Link smooth to="/#personnel">
-                {t(`Персонал`)}
-            </Link>
-          </li>
-          <li className="dark:hover:text-paleOlive hover:text-white">
-            <Link to="/price-list">{t(`Прайс лист`)}</Link>
-          </li>
-        </ul>
+        {/* Навігація по сайту */}
+        <nav aria-label={t("Додаткова навігація")}>
+          <div className="flex flex-col gap-8 sm:flex-row md:gap-36">
+            <ul className="flex flex-col gap-3 list-none">
+              <li className="dark:hover:text-paleOlive hover:text-white transition-colors">
+                <Link to="/">{t("Головна")}</Link>
+              </li>
+              <li className="dark:hover:text-paleOlive hover:text-white transition-colors">
+                <Link smooth to="/#services">{t("Послуги")}</Link>
+              </li>
+            </ul>
 
-        <ul className="flex flex-col gap-8 md:gap-3">
-          <li className="flex gap-2 dark:hover:text-paleOlive items-center hover:text-white">
-            <AccessTimeIcon width={31} hanging={31} />
-            {t(`ПН-СБ`)}: 9:30-19:00
-          </li>
-          <li className="flex gap-2 dark:hover:text-paleOlive items-center hover:text-white">
-            <SmartPhoneIcon width={31} hanging={31} />
-            <a href="tel:+380681689911">+380681689911</a>
-          </li>
-          <li className="flex gap-2 dark:hover:text-paleOlive items-center dark:text-white">
-              <SmartPhoneIcon width={31} hanging={31} />
-              <a href="tel:+380934599911"> +380934599911</a>
+            <ul className="flex flex-col gap-3 list-none">
+              <li className="dark:hover:text-paleOlive hover:text-white transition-colors">
+                <Link smooth to="/#personnel">{t("Персонал")}</Link>
+              </li>
+              <li className="dark:hover:text-paleOlive hover:text-white transition-colors">
+                <Link to="/price-list">{t("Прайс лист")}</Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        {/* Контактна інформація */}
+        <address className="not-italic">
+          <ul className="flex flex-col gap-4 md:gap-3 list-none">
+            <li className="flex gap-2 items-center">
+              <AccessTimeIcon width={31} height={31} aria-hidden="true" />
+              <span>{t("ПН-СБ")}: 9:30-19:00</span>
             </li>
-        </ul>
+            <li className="flex gap-2 items-center group">
+              <SmartPhoneIcon width={31} height={31} aria-hidden="true" />
+              <a
+                href="tel:+380681689911"
+                className="dark:hover:text-paleOlive hover:text-white transition-colors"
+              >
+                +38 (068) 168-99-11
+              </a>
+            </li>
+            <li className="flex gap-2 items-center group">
+              <SmartPhoneIcon width={31} height={31} aria-hidden="true" />
+              <a
+                href="tel:+380934599911"
+                className="dark:hover:text-paleOlive hover:text-white transition-colors"
+              >
+                +38 (093) 459-99-11
+              </a>
+            </li>
+          </ul>
+        </address>
       </div>
 
-      <ul className="flex gap-6 justify-center md:justify-end mt-8">
-        <li className="dark:hover:text-paleOlive hover:text-white">
-          <a href="https://www.instagram.com/toothfairy.clinic?igsh=d25xNmZvb2Z6a2tu">
+      {/* Соціальні мережі */}
+      <ul className="flex gap-6 justify-center mt-12 list-none">
+        <li>
+          <a
+            href="https://www.instagram.com/toothfairy.clinic"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram"
+            className="hover:opacity-80 transition-opacity"
+          >
             {themeStateCurrent ? <InstagramDarkIcon /> : <InstagramIcon />}
           </a>
         </li>
         <li>
-          <a href="https://www.facebook.com/bcdentist.toothfairy/">
+          <a
+            href="https://www.facebook.com/bcdentist.toothfairy/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Facebook"
+            className="hover:opacity-80 transition-opacity"
+          >
             {themeStateCurrent ? <FacebookDarkIcon /> : <FacebookIcon />}
           </a>
         </li>
-
         <li>
-          <a href="https://t.me/+380681689911">
+          <a
+            href="https://t.me/+380681689911"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Telegram"
+            className="hover:opacity-80 transition-opacity"
+          >
             {themeStateCurrent ? <TelegramDarkIcon /> : <TelegramIcon />}
           </a>
         </li>
       </ul>
-    </div>
+
+      {/* Копірайт */}
+      <div className="mt-10 text-sm opacity-60 dark:text-white">
+        © {new Date().getFullYear()} Tooth Fairy Clinic. All rights reserved.
+      </div>
+    </footer>
   );
 };

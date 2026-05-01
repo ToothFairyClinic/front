@@ -18,7 +18,7 @@ export const ServicesItem: FC<ServicesItemProps & Services> = ({
   id,
   fitImage = true,
 }) => {
-  const transformations = ["w_126", "h_126"];
+  const transformations = ["w_126", "h_126", "f_auto", "q_auto"];
   if (fitImage) {
     transformations.unshift("c_pad");
   }

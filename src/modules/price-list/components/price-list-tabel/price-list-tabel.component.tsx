@@ -11,6 +11,7 @@ import {
   createColumnHelper,
   flexRender,
 } from "@tanstack/react-table";
+import { useTranslation } from 'react-i18next';
 
 interface PriceListTabelProps {
   data: GetPriceListQuery;
@@ -19,32 +20,32 @@ interface PriceListTabelProps {
 const columnHelper =
   createColumnHelper<GetPriceListCategoryByIdQuery["price_list"][0]>();
 
-export const PriceListTabel: FC<PriceListTabelProps> = ({
-  data: DataPriceList,
-}) => {
+export const PriceListTabel: FC<PriceListTabelProps> = ({ data: DataPriceList }) => {
+  const { t } = useTranslation();
   const selection = useReactiveVar(priceListCurrent);
+
   const [foundObject, setFoundObject] = useState(
-    DataPriceList?.price_list_categories[0].price_list_items || []
+    DataPriceList?.price_list_categories[0]?.price_list_items || []
   );
 
   useEffect(() => {
     const foundObject_local = DataPriceList?.price_list_categories.find(
-      (item) => item.id === priceListCurrent()
+      (item) => item.id === selection // Використовуємо selection з useReactiveVar
     );
 
-    if (foundObject_local !== undefined) {
+    if (foundObject_local) {
       setFoundObject(foundObject_local.price_list_items);
     }
-  }, [priceListCurrent(), selection]);
+  }, [selection, DataPriceList]); // Залежимо від змінної та вхідних даних
 
   const columns = [
     columnHelper.accessor("title", {
-      header: "Назва",
+      header: () => t("Назва"),
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("price", {
-      header: "Ціна",
-      cell: (info) => `${info.getValue()} грн.`,
+      header: () => t("Ціна"),
+      cell: (info) => `${info.getValue()} ${t("грн.")}`,
     }),
   ];
 
@@ -55,23 +56,27 @@ export const PriceListTabel: FC<PriceListTabelProps> = ({
   });
 
   return (
-    <div className="">
+    <div className="overflow-x-auto"> {/* Додаємо контейнер для горизонтального скролу на мобілках */}
       {foundObject.length !== 0 ? (
-        <table className="w-full ">
+        <table className="w-full text-left border-collapse">
+          {/* Семантичний заголовок таблиці для скринрідерів */}
+          <caption className="sr-only">{t("Детальний прайс-лист послуг клініки")}</caption>
+
           <thead className="bg-gray-50 border-t border-b border-gray-200 h-11 text-gray-900 dark:bg-darkGray dark:text-white">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="font-semibold py-3 px-6 text-left"
+                    scope="col" // Вказуємо область дії заголовка
+                    className="font-semibold py-3 px-6"
                   >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                   </th>
                 ))}
               </tr>
@@ -79,7 +84,7 @@ export const PriceListTabel: FC<PriceListTabelProps> = ({
           </thead>
           <tbody className="bg-white text-gray-900 text-sm dark:bg-darkGray dark:text-white">
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="border-b border-gray-200">
+              <tr key={row.id} className="border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="py-3 px-6">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -90,8 +95,8 @@ export const PriceListTabel: FC<PriceListTabelProps> = ({
           </tbody>
         </table>
       ) : (
-        <div className="flex justify-center">
-          <h1 className="text-2xl">Тут поки пусто🥲</h1>
+        <div className="flex justify-center py-10">
+          <p className="text-2xl text-gray-500">{t("Тут поки порожньо")} 🥲</p>
         </div>
       )}
     </div>
