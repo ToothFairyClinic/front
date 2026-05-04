@@ -11,11 +11,17 @@ import { useGetPageMetadataQuery } from "@app/core/types";
 
 export const ContactPage: FC = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  const { t } = useTranslation();
 
-  // ВИПРАВЛЕНО: Змінено route з '/reviews' на '/contacts'
+
   const { data: PageMetadata } = useGetPageMetadataQuery({ variables: { route: '/contacts' } });
-  const meta = PageMetadata?.page_metadata[0];
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+
+  const pageMeta = PageMetadata?.page_metadata[0];
+
+  const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
+
+  const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -37,10 +43,10 @@ export const ContactPage: FC = () => {
     <main className="flex lg:flex-row flex-col-reverse dark:bg-darkGray gap-14 py-24 justify-center items-center lg:items-start">
       <Helmet>
         {/* Дефолтний заголовок із акцентом на локацію */}
-        <title>{meta?.seo_title || "Контакти стоматології Зубна Фея у Білій Церкві — Адреса та запис"}</title>
+        <title>{currentTitle || "Контакти стоматології Зубна Фея у Білій Церкві — Адреса та запис"}</title>
         <meta
           name="description"
-          content={meta?.seo_description || "Як нас знайти: м. Біла Церква, вул. Вокзальна 22. Телефони для запису, графік роботи та інтерактивна карта проїзду до клініки Зубна Фея."}
+          content={currentDescription || "Як нас знайти: м. Біла Церква, вул. Вокзальна 22. Телефони для запису, графік роботи та інтерактивна карта проїзду до клініки Зубна Фея."}
         />
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}

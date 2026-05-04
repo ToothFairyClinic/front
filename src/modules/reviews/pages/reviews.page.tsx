@@ -14,10 +14,17 @@ interface ReviewsPageProps { }
 
 export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
   const [CreateReviewMutation] = useCreateReviewMutation();
-  const { t } = useTranslation();
 
   const { data: PageMetadata } = useGetPageMetadataQuery({ variables: { route: '/reviews' } });
-  const meta = PageMetadata?.page_metadata[0];
+
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+
+  const pageMeta = PageMetadata?.page_metadata[0];
+
+  const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
+
+  const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
   const handlerCheckoutSubmit = async (values: ReviewFormValues) => {
     let phoneNumber;
@@ -41,11 +48,10 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
   return (
     <main className="py-24 pt-11 dark:bg-darkGray ">
       <Helmet>
-
-        <title>{meta?.seo_title || "Відгуки пацієнтів | Стоматологія Зубна Фея"}</title>
+        <title>{currentTitle || "Відгуки пацієнтів | Стоматологія Зубна Фея"}</title>
         <meta
           name="description"
-          content={meta?.seo_description || "Дізнайтеся, що говорять пацієнти про лікування в клініці Зубна Фея. Реальні відгуки про дитячу стоматологію, імплантацію та сервіс у Білій Церкві."}
+          content={currentDescription || "Дізнайтеся, що говорять пацієнти про лікування в клініці Зубна Фея. Реальні відгуки про дитячу стоматологію, імплантацію та сервіс у Білій Церкві."}
         />
       </Helmet>
 

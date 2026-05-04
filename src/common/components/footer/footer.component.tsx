@@ -15,6 +15,8 @@ import { useTranslation } from 'react-i18next';
 export const Footer = () => {
   const themeStateCurrent = useReactiveVar(themeState);
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
 
   return (
     <footer className="bg-paleOlive dark:bg-darkGray/75 p-5 z-10 transition duration-300 px-5 py-10 flex flex-col items-center md:px-1">
@@ -42,7 +44,7 @@ export const Footer = () => {
                 <Link smooth to="/#personnel">{t("Персонал")}</Link>
               </li>
               <li className="dark:hover:text-paleOlive hover:text-white transition-colors">
-                <Link to="/price-list">{t("Прайс лист")}</Link>
+                <Link to={`/${lang}/price-list`}>{t("Прайс лист")}</Link>
               </li>
             </ul>
           </div>

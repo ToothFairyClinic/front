@@ -5,9 +5,12 @@ query GetServices {
     image
     seo_title
     seo_description
+    seo_title_en
+    seo_description_en
     created_at
   }
 }
+
 
 query GetServiceById($_eq: uuid!) {
   services(where: { id: { _eq: $_eq } }) {
@@ -18,6 +21,8 @@ query GetServiceById($_eq: uuid!) {
     description
     seo_title
     seo_description
+    seo_title_en
+    seo_description_en
     created_at
   }
 }

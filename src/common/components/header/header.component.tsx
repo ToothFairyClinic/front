@@ -14,14 +14,17 @@ import clsx from "clsx";
 import LanguageSwitcher from "../language-switcher/language-switcher.component"; // Імпортуйте компонент
 import { useTranslation } from 'react-i18next';
 
+
 interface HeaderProps { }
 
 export const Header: FC<HeaderProps> = ({ }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const themeStateCurrent = useReactiveVar(themeState);
   const location = useLocation();
-  const isMainPage = location.pathname === "/";
-  const { t } = useTranslation();
+  const isMainPage = location.pathname === '/ua' || location.pathname === '/en' || location.pathname === '/'; const { t } = useTranslation();
+  const { i18n } = useTranslation();
+
+  const urlLang = i18n.language === 'uk' ? 'ua' : i18n.language;
 
   const headerClasses = clsx(
     "w-full p-5 z-30 transition-all duration-300 bg-paleOlive dark:bg-darkGray lg:bg-paleOlive/75 lg:dark:bg-darkGray/75",
@@ -47,10 +50,10 @@ export const Header: FC<HeaderProps> = ({ }) => {
   // Спільний список посилань
   const NavLinks = () => (
     <ul className="flex flex-col md:flex-row md:space-x-5 lg:gap-15 md:gap-5 list-none">
-      <li><LinkHeader url="/review">{t("Відгуки")}</LinkHeader></li>
-      <li><LinkHeader url="/price-list">{t("Прайс лист")}</LinkHeader></li>
-      <li><LinkHeader url="/our-work">{t("Роботи")}</LinkHeader></li>
-      <li><LinkHeader url="/contacts">{t("Контакти")}</LinkHeader></li>
+      <li><LinkHeader url={`/${urlLang}/review`}>{t("Відгуки")}</LinkHeader></li>
+      <li><LinkHeader url={`/${urlLang}/price-list`}>{t("Прайс лист")}</LinkHeader></li>
+      <li><LinkHeader url={`/${urlLang}/our-work`}>{t("Роботи")}</LinkHeader></li>
+      <li><LinkHeader url={`/${urlLang}/contacts`}>{t("Контакти")}</LinkHeader></li>
     </ul>
   );
 

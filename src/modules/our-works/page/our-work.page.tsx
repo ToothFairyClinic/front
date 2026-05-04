@@ -6,18 +6,26 @@ import { MainTitle } from "@app/common/components/main-title/main-title.componen
 import { useGetPageMetadataQuery } from "@app/core/types";
 
 export const OurWorkPage: FC = () => {
-  const { t } = useTranslation();
+
   const { data } = useGetPageMetadataQuery({ variables: { route: '/works' } });
-  const meta = data?.page_metadata[0]
+
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+
+  const pageMeta = data?.page_metadata[0];
+
+  const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
+
+  const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
 
   return (
     <main className="bg-palePeach dark:bg-darkGray min-h-screen">
       <Helmet>
-        <title>{meta?.seo_title || "Наші роботи | Зубна Фея"}</title>
+        <title>{currentTitle || "Наші роботи | Зубна Фея"}</title>
         <meta
           name="description"
-          content={meta?.seo_description || "Перегляньте результати роботи наших стоматологів: реставрації, протезування, відбілювання та вирівнювання зубів. Реальні кейси пацієнтів клініки Зубна Фея."}
+          content={currentDescription || "Перегляньте результати роботи наших стоматологів: реставрації, протезування, відбілювання та вирівнювання зубів. Реальні кейси пацієнтів клініки Зубна Фея."}
         />
       </Helmet>
 

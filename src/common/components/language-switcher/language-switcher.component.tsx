@@ -4,18 +4,31 @@ import clsx from "clsx";
 import { themeState } from "@app/modules/cart/store/theme-state";
 import { useReactiveVar } from "@apollo/client";
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const LanguageSwitcher: React.FC = () => {
   const { t } = useTranslation();
   const themeStateCurrent = useReactiveVar(themeState);
 
   // Ініціалізація стану безпосередньо з i18n, щоб мати одне джерело істини
-  const [currentLang, setCurrentLang] = React.useState(i18n.language || 'uk');
+  const [currentLang, setCurrentLang] = React.useState(
+    i18n.language === 'uk' ? 'ua' : i18n.language || 'ua'
+  );
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const changeLanguage = (lang: string): void => {
     setCurrentLang(lang);
     localStorage.setItem('language', lang);
-    i18n.changeLanguage(lang);
+
+
+    const i18nLang = lang === 'ua' ? 'uk' : lang;
+    i18n.changeLanguage(i18nLang);
+
+    const pathSegments = location.pathname.split('/').filter(Boolean);
+    pathSegments[0] = lang;
+    navigate(`/${pathSegments.join('/')}`);
   };
 
   const getButtonStyles = (lang: string) => clsx(
@@ -29,13 +42,15 @@ const LanguageSwitcher: React.FC = () => {
     }
   );
 
+
+
   return (
     <nav className='flex items-center gap-2' aria-label={t("Перемикач мови")}>
       <button
-        className={getButtonStyles('uk')}
-        onClick={() => changeLanguage('uk')}
+        className={getButtonStyles('ua')}
+        onClick={() => changeLanguage('ua')}
         aria-label="Українська мова"
-        aria-pressed={currentLang === 'uk'}
+        aria-pressed={currentLang === 'ua'}
       >
         UA
       </button>

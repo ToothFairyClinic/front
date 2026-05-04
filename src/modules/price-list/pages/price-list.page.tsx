@@ -14,7 +14,7 @@ import { MainTitle } from "@app/common/components/main-title/main-title.componen
 interface PriceListPageProps { }
 
 export const PriceListPage: FC<PriceListPageProps> = () => {
-  const { t } = useTranslation();
+
   const { data, loading: loadingCategories } = useGetPriceListCategoriesQuery();
   const {
     data: dataPriceList,
@@ -24,7 +24,14 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
 
 
   const { data: PageMetadata } = useGetPageMetadataQuery({ variables: { route: '/prices' } });
-  const meta = PageMetadata?.page_metadata[0];
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+
+  const pageMeta = PageMetadata?.page_metadata[0];
+
+  const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
+
+  const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
   if (error) {
     return (
@@ -47,10 +54,10 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
     <main className="px-9 pt-15 pb-24 bg-palePeach dark:bg-darkGray ">
       <Helmet>
 
-        <title>{meta?.seo_title || "Ціни на послуги стоматології | Зубна Фея Біла Церква"}</title>
+        <title>{currentTitle || "Ціни на послуги стоматології | Зубна Фея Біла Церква"}</title>
         <meta
           name="description"
-          content={meta?.seo_description || "Актуальний прайс-лист стоматологічної клініки Зубна Фея. Прозорі ціни на лікування, імплантацію, дитячу стоматологію та рентген-діагностику."}
+          content={currentDescription || "Актуальний прайс-лист стоматологічної клініки Зубна Фея. Прозорі ціни на лікування, імплантацію, дитячу стоматологію та рентген-діагностику."}
         />
       </Helmet>
 

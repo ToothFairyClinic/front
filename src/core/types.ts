@@ -1357,7 +1357,9 @@ export type Page_Metadata = {
   id: Scalars['uuid']['output'];
   page_route: Scalars['String']['output'];
   seo_description: Scalars['String']['output'];
+  seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title: Scalars['String']['output'];
+  seo_title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregated selection of "page_metadata" */
@@ -1390,7 +1392,9 @@ export type Page_Metadata_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   page_route?: InputMaybe<String_Comparison_Exp>;
   seo_description?: InputMaybe<String_Comparison_Exp>;
+  seo_description_en?: InputMaybe<String_Comparison_Exp>;
   seo_title?: InputMaybe<String_Comparison_Exp>;
+  seo_title_en?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "page_metadata" */
@@ -1406,7 +1410,9 @@ export type Page_Metadata_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   page_route?: InputMaybe<Scalars['String']['input']>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
+  seo_title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
@@ -1415,7 +1421,9 @@ export type Page_Metadata_Max_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   page_route?: Maybe<Scalars['String']['output']>;
   seo_description?: Maybe<Scalars['String']['output']>;
+  seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
+  seo_title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
@@ -1424,7 +1432,9 @@ export type Page_Metadata_Min_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   page_route?: Maybe<Scalars['String']['output']>;
   seo_description?: Maybe<Scalars['String']['output']>;
+  seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
+  seo_title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** response of any mutation on the table "page_metadata" */
@@ -1448,7 +1458,9 @@ export type Page_Metadata_Order_By = {
   id?: InputMaybe<Order_By>;
   page_route?: InputMaybe<Order_By>;
   seo_description?: InputMaybe<Order_By>;
+  seo_description_en?: InputMaybe<Order_By>;
   seo_title?: InputMaybe<Order_By>;
+  seo_title_en?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: page_metadata */
@@ -1465,7 +1477,11 @@ export enum Page_Metadata_Select_Column {
   /** column name */
   SeoDescription = 'seo_description',
   /** column name */
-  SeoTitle = 'seo_title'
+  SeoDescriptionEn = 'seo_description_en',
+  /** column name */
+  SeoTitle = 'seo_title',
+  /** column name */
+  SeoTitleEn = 'seo_title_en'
 }
 
 /** input type for updating data in table "page_metadata" */
@@ -1473,7 +1489,9 @@ export type Page_Metadata_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   page_route?: InputMaybe<Scalars['String']['input']>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
+  seo_title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Streaming cursor of the table "page_metadata" */
@@ -1489,7 +1507,9 @@ export type Page_Metadata_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   page_route?: InputMaybe<Scalars['String']['input']>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
+  seo_title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update columns of table "page_metadata" */
@@ -1501,7 +1521,11 @@ export enum Page_Metadata_Update_Column {
   /** column name */
   SeoDescription = 'seo_description',
   /** column name */
-  SeoTitle = 'seo_title'
+  SeoDescriptionEn = 'seo_description_en',
+  /** column name */
+  SeoTitle = 'seo_title',
+  /** column name */
+  SeoTitleEn = 'seo_title_en'
 }
 
 export type Page_Metadata_Updates = {
@@ -3405,7 +3429,9 @@ export type Services = {
   mainImage?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   seo_description?: Maybe<Scalars['String']['output']>;
+  seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
+  seo_title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregated selection of "services" */
@@ -3442,7 +3468,9 @@ export type Services_Bool_Exp = {
   mainImage?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   seo_description?: InputMaybe<String_Comparison_Exp>;
+  seo_description_en?: InputMaybe<String_Comparison_Exp>;
   seo_title?: InputMaybe<String_Comparison_Exp>;
+  seo_title_en?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "services" */
@@ -3460,7 +3488,9 @@ export type Services_Insert_Input = {
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
+  seo_title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
@@ -3473,7 +3503,9 @@ export type Services_Max_Fields = {
   mainImage?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   seo_description?: Maybe<Scalars['String']['output']>;
+  seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
+  seo_title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
@@ -3486,7 +3518,9 @@ export type Services_Min_Fields = {
   mainImage?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   seo_description?: Maybe<Scalars['String']['output']>;
+  seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
+  seo_title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** response of any mutation on the table "services" */
@@ -3514,7 +3548,9 @@ export type Services_Order_By = {
   mainImage?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   seo_description?: InputMaybe<Order_By>;
+  seo_description_en?: InputMaybe<Order_By>;
   seo_title?: InputMaybe<Order_By>;
+  seo_title_en?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: services */
@@ -3539,7 +3575,11 @@ export enum Services_Select_Column {
   /** column name */
   SeoDescription = 'seo_description',
   /** column name */
-  SeoTitle = 'seo_title'
+  SeoDescriptionEn = 'seo_description_en',
+  /** column name */
+  SeoTitle = 'seo_title',
+  /** column name */
+  SeoTitleEn = 'seo_title_en'
 }
 
 /** input type for updating data in table "services" */
@@ -3551,7 +3591,9 @@ export type Services_Set_Input = {
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
+  seo_title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Streaming cursor of the table "services" */
@@ -3571,7 +3613,9 @@ export type Services_Stream_Cursor_Value_Input = {
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
+  seo_title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update columns of table "services" */
@@ -3591,7 +3635,11 @@ export enum Services_Update_Column {
   /** column name */
   SeoDescription = 'seo_description',
   /** column name */
-  SeoTitle = 'seo_title'
+  SeoDescriptionEn = 'seo_description_en',
+  /** column name */
+  SeoTitle = 'seo_title',
+  /** column name */
+  SeoTitleEn = 'seo_title_en'
 }
 
 export type Services_Updates = {
@@ -4129,7 +4177,7 @@ export type GetPageMetadataQueryVariables = Exact<{
 }>;
 
 
-export type GetPageMetadataQuery = { __typename?: 'query_root', page_metadata: Array<{ __typename?: 'page_metadata', seo_title: string, seo_description: string }> };
+export type GetPageMetadataQuery = { __typename?: 'query_root', page_metadata: Array<{ __typename?: 'page_metadata', seo_title: string, seo_description: string, seo_title_en?: string | null, seo_description_en?: string | null }> };
 
 export type GetPersonnelQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4154,14 +4202,14 @@ export type GetPriceListCategoryByIdQuery = { __typename?: 'query_root', price_l
 export type GetServicesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, image: string, seo_title?: string | null, seo_description?: string | null, created_at: any }> };
+export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, image: string, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
 
 export type GetServiceByIdQueryVariables = Exact<{
   _eq: Scalars['uuid']['input'];
 }>;
 
 
-export type GetServiceByIdQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, image: string, mainImage?: string | null, description?: string | null, seo_title?: string | null, seo_description?: string | null, created_at: any }> };
+export type GetServiceByIdQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, image: string, mainImage?: string | null, description?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
 
 
 export const CreateReviewDocument = gql`
@@ -4334,6 +4382,8 @@ export const GetPageMetadataDocument = gql`
   page_metadata(where: {page_route: {_eq: $route}}) {
     seo_title
     seo_description
+    seo_title_en
+    seo_description_en
   }
 }
     `;
@@ -4554,6 +4604,8 @@ export const GetServicesDocument = gql`
     image
     seo_title
     seo_description
+    seo_title_en
+    seo_description_en
     created_at
   }
 }
@@ -4600,6 +4652,8 @@ export const GetServiceByIdDocument = gql`
     description
     seo_title
     seo_description
+    seo_title_en
+    seo_description_en
     created_at
   }
 }

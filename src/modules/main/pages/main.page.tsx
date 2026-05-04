@@ -6,6 +6,9 @@ import { useGetPageMetadataQuery, useGetServicesQuery } from "@app/core/types";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { PersonnelList } from "../components/personnel/personnel-list/personnel-list.component";
 import { Helmet } from "react-helmet-async";
+import { useTranslation } from 'react-i18next';
+
+
 
 interface MainPageProps { }
 
@@ -13,7 +16,14 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
   const { data, loading, error } = useGetServicesQuery();
 
   const { data: PageMetadata } = useGetPageMetadataQuery({ variables: { route: '/' } });
-  const meta = PageMetadata?.page_metadata[0];
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
+
+  const pageMeta = PageMetadata?.page_metadata[0];
+
+  const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
+
+  const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
   const order = [
     "Консультація",
@@ -33,8 +43,8 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
   if (error) {
     return (
       <ShowInfo type="error">
-        <p>Упс, сталася помилка</p>
-        <p>Спробуйте трохи пізніше</p>
+        <p>{t("Упс, сталася помилка")}</p>
+        <p>{t("Спробуйте трохи пізніше")}</p>
       </ShowInfo>
     );
   }
@@ -42,7 +52,7 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
   if (loading) {
     return (
       <ShowInfo type="info">
-        <p>Завантаження...</p>
+        <p>{t("Завантаження...")} </p>
       </ShowInfo>
     );
   }
@@ -50,7 +60,7 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
   if (!data) {
     return (
       <ShowInfo type="info">
-        <p>Нажаль тут пусто</p>
+        <p>{t("Нажаль тут пусто")} </p>
       </ShowInfo>
     );
   }
@@ -63,10 +73,10 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
     <main className="">
       <Helmet>
 
-        <title>{meta?.seo_title || "Стоматологія Зубна Фея — професійне лікування зубів у Білій Церкві"}</title>
+        <title>{currentTitle || "Стоматологія Зубна Фея — професійне лікування зубів у Білій Церкві"}</title>
         <meta
           name="description"
-          content={meta?.seo_description || "Сучасна стоматологічна клініка Зубна Фея: дитяча стоматологія, імплантація, терапія та професійна гігієна. Забезпечуємо здорову посмішку для всієї родини."}
+          content={currentDescription || "Сучасна стоматологічна клініка Зубна Фея: дитяча стоматологія, імплантація, терапія та професійна гігієна. Забезпечуємо здорову посмішку для всієї родини."}
         />
       </Helmet>
 

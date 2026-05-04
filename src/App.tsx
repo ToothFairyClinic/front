@@ -13,6 +13,32 @@ import { ContactPage } from "./modules/contacts/pages/contacts.page";
 import ReactGA from "react-ga4";
 import { config } from "./core/config";
 import { Helmet } from "react-helmet-async";
+import { Navigate, useParams } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+
+
+
+const SEOMeta = () => {
+  const location = useLocation();
+  const baseUrl = "https://toothfairy.clinic";
+  const { i18n } = useTranslation();
+
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+  const cleanPath = pathSegments.slice(1).join('/');
+  const slug = cleanPath ? `/${cleanPath}` : '';
+
+  return (
+    <Helmet>
+      <html lang={i18n.language} />
+
+      <link rel="canonical" href={`${baseUrl}${location.pathname}`} />
+
+      <link rel="alternate" href={`${baseUrl}/ua${slug}`} hrefLang="uk" />
+      <link rel="alternate" href={`${baseUrl}/en${slug}`} hrefLang="en" />
+      <link rel="alternate" href={`${baseUrl}/ua${slug}`} hrefLang="x-default" />
+    </Helmet>
+  );
+};
 
 export const App = () => {
   const location = useLocation();
@@ -38,25 +64,25 @@ export const App = () => {
     const token = localStorage.getItem("jwt");
     isLoggedInReactive(Boolean(token));
   }, []);
+
+
   return (
     <div className="flex flex-col min-h-screen ">
-      <Helmet
-        defaultTitle="Tooth Fairy Clinic"
-        titleTemplate="%s | Tooth Fairy Clinic"
-      >
-        <link rel="canonical" href={`https://toothfairy.clinic${location.pathname}`} />
-      </Helmet>
-
       <Header />
-      {/* <CartSidebar /> */}
       <div className="flex-grow">
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/price-list" element={<PriceListPage />} />
-          <Route path="/services/:id" element={<ServicePage />} />
-          <Route path="/review" element={<ReviewsPage />} />
-          <Route path="/our-work" element={<OurWorkPage />} />
-          <Route path="/contacts" element={<ContactPage />} />
+          <Route path="/" element={<Navigate to="/ua" replace />} />
+
+          <Route path="/:lang">
+            <Route index element={<><SEOMeta /><MainPage /></>} />
+            <Route path="price-list" element={<><SEOMeta /><PriceListPage /></>} />
+            <Route path="services/:id" element={<><SEOMeta /><ServicePage /></>} />
+            <Route path="review" element={<><SEOMeta /><ReviewsPage /></>} />
+            <Route path="our-work" element={<><SEOMeta /><OurWorkPage /></>} />
+            <Route path="contacts" element={<><SEOMeta /><ContactPage /></>} />
+          </Route>
+
+          <Route path="*" element={<Navigate to="/ua" replace />} />
         </Routes>
       </div>
       <Footer />

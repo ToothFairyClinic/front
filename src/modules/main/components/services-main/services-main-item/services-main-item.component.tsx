@@ -24,11 +24,14 @@ export const ServicesItem: FC<ServicesItemProps & Services> = ({
   }
 
   const imageCld = useCloudinaryImage(image, transformations);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const urlLang = i18n.language === 'uk' ? 'ua' : i18n.language;
+
 
   return (
     <Link
-      to={`/services/${id}`}
+      to={`/${urlLang}/services/${id}`}
       className="group block no-underline focus:outline-none focus:ring-2 focus:ring-paleOlive rounded-xl"
     >
       <article className="hover:bg-white/20 flex flex-col justify-center items-center py-5 px-15 rounded-xl w-90 max-w-90 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
