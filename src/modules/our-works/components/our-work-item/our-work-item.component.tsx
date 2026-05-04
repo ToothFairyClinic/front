@@ -21,7 +21,7 @@ export const OurWorkItem: FC<Our_Works & OurWorkItemProps> = ({
   }
   const { t } = useTranslation();
 
-  const imageCldAfter = useCloudinaryImage(image_after, transformations);
+  // const imageCldAfter = useCloudinaryImage(image_after, transformations);
   const imageCldBefore = useCloudinaryImage(image_before, transformations);
 
   return (

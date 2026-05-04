@@ -3,17 +3,21 @@ import { Helmet } from "react-helmet-async";
 import { useTranslation } from 'react-i18next';
 import { OurWorkList } from "../components/our-work-list/our-work-list.components";
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
+import { useGetPageMetadataQuery } from "@app/core/types";
 
 export const OurWorkPage: FC = () => {
   const { t } = useTranslation();
+  const { data } = useGetPageMetadataQuery({ variables: { route: '/works' } });
+  const meta = data?.page_metadata[0]
+
 
   return (
     <main className="bg-palePeach dark:bg-darkGray min-h-screen">
       <Helmet>
-        <title>{t("Наші роботи | Результати лікування Зубна Фея")}</title>
+        <title>{meta?.seo_title || "Наші роботи | Зубна Фея"}</title>
         <meta
           name="description"
-          content={t("Перегляньте результати роботи наших стоматологів: реставрації, протезування, відбілювання та вирівнювання зубів. Реальні кейси пацієнтів клініки Зубна Фея.")}
+          content={meta?.seo_description || "Перегляньте результати роботи наших стоматологів: реставрації, протезування, відбілювання та вирівнювання зубів. Реальні кейси пацієнтів клініки Зубна Фея."}
         />
       </Helmet>
 

@@ -7,8 +7,10 @@ import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { ServiceItem } from "../components/service-item-component";
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
+import { Helmet } from "react-helmet-async";
 
-interface ServicePageProps {}
+
+interface ServicePageProps { }
 
 export const ServicePage: FC<ServicePageProps> = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +20,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
     },
   });
   const service = data?.services[0];
+
 
   if (error) {
     return (
@@ -45,13 +48,28 @@ export const ServicePage: FC<ServicePageProps> = () => {
   }
 
   return (
-    <div className="py-24 flex flex-col gap-16 dark:bg-darkGray ">
-      <MainTitle darkken={false} size="md">
-        {service.name}
-      </MainTitle>
-      <div className="lg:px-24 px-6">
-        <ServiceItem {...service} />
+    <>
+      <Helmet>
+        <title>{service.seo_title || `${service.name} | Стоматологія Зубна Фея`}</title>
+
+        <meta
+          name="description"
+          content={service.seo_description || `Дізнайтеся більше про послугу ${service.name} у клініці Зубна Фея.`}
+        />
+
+        <link rel="canonical" href={`https://toothfairy.clinic/services/${id}`} />
+      </Helmet>
+
+      <div className="py-24 flex flex-col gap-16 dark:bg-darkGray ">
+
+        <MainTitle darkken={false} size="md">
+          {service.name}
+        </MainTitle>
+        <div className="lg:px-24 px-6">
+          <ServiceItem {...service} />
+        </div>
       </div>
-    </div>
+    </>
+
   );
 };

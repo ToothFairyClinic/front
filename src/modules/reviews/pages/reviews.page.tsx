@@ -1,4 +1,4 @@
-import { useCreateReviewMutation } from "@app/core/types";
+import { useCreateReviewMutation, useGetPageMetadataQuery } from "@app/core/types";
 import { FC } from "react";
 import { ReviewFormValues } from "../components/review-form/review-form.types";
 import { Container } from "@app/common/components/container/container.component";
@@ -16,16 +16,20 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
   const [CreateReviewMutation] = useCreateReviewMutation();
   const { t } = useTranslation();
 
+  const { data: PageMetadata } = useGetPageMetadataQuery({ variables: { route: '/reviews' } });
+  const meta = PageMetadata?.page_metadata[0];
+
   const handlerCheckoutSubmit = async (values: ReviewFormValues) => {
     let phoneNumber;
 
     try {
       phoneNumber = validatePhoneNumber(values.phoneNumber);
     } catch (error) {
-      return JSON.parse("error");
+      // Можна додати тост-повідомлення про помилку валідації номера
+      return console.error("Validation error", error);
     }
 
-    const newReview = await CreateReviewMutation({
+    await CreateReviewMutation({
       variables: {
         client_name: values.client_name,
         client_phone: phoneNumber,
@@ -37,14 +41,16 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
   return (
     <main className="py-24 pt-11 dark:bg-darkGray ">
       <Helmet>
-        <title>{t("Відгуки")}</title>
+
+        <title>{meta?.seo_title || "Відгуки пацієнтів | Стоматологія Зубна Фея"}</title>
         <meta
           name="description"
-          content={t("Відгуки наших пацієнтів про лікування в клініці Зубна Фея. Поділіться своїм досвідом та допоможіть іншим зробити правильний вибір.")}
+          content={meta?.seo_description || "Дізнайтеся, що говорять пацієнти про лікування в клініці Зубна Фея. Реальні відгуки про дитячу стоматологію, імплантацію та сервіс у Білій Церкві."}
         />
       </Helmet>
 
-      <MainTitle size="sm" as="h1">Відгук</MainTitle>
+
+      <MainTitle size="base" as="h1">{t("Відгуки пацієнтів")}</MainTitle>
 
       <section aria-label={t("Список відгуків")}>
         <ReviewsList />
@@ -52,7 +58,7 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
 
       <Container>
         <div aria-label={t("Залишити відгук")}>
-          <ActionPaper title={t("Відгук")}>
+          <ActionPaper title={t("Залишити свій відгук")}>
             <div className="flex gap-19 flex-col lg:flex-row ">
               <div className="flex-1">
                 <ReviewForm submitCallback={handlerCheckoutSubmit} />
@@ -62,6 +68,5 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
         </div>
       </Container>
     </main>
-
   );
 };

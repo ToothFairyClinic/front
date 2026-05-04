@@ -1,17 +1,23 @@
 query GetServices {
   services(order_by: {created_at: asc}) {
-    image
     id
     name
+    image
+    seo_title
+    seo_description
+    created_at
   }
 }
 
 query GetServiceById($_eq: uuid!) {
   services(where: { id: { _eq: $_eq } }) {
     id
-    image
     name
+    image
     mainImage
     description
+    seo_title
+    seo_description
+    created_at
   }
 }

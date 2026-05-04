@@ -7,12 +7,16 @@ import { ReactComponent as SmartPhoneIcon } from "@app/assets/icons/smartphone.s
 import { ReactComponent as MailIcon } from "@app/assets/icons/mail.svg";
 import { ReactComponent as LocationIcon } from "@app/assets/icons/location.svg";
 import { useTranslation } from "react-i18next";
+import { useGetPageMetadataQuery } from "@app/core/types";
 
 export const ContactPage: FC = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const { t } = useTranslation();
 
-  // Мікророзмітка для Local Business
+  // ВИПРАВЛЕНО: Змінено route з '/reviews' на '/contacts'
+  const { data: PageMetadata } = useGetPageMetadataQuery({ variables: { route: '/contacts' } });
+  const meta = PageMetadata?.page_metadata[0];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Dentist",
@@ -32,14 +36,17 @@ export const ContactPage: FC = () => {
   return (
     <main className="flex lg:flex-row flex-col-reverse dark:bg-darkGray gap-14 py-24 justify-center items-center lg:items-start">
       <Helmet>
-        <title>{t("Контакти | Стоматологічна клініка Зубна Фея Біла Церква")}</title>
-        <meta name="description" content={t("Контактна інформація клініки Зубна Фея: адреса, телефони, графік роботи. Запишіться на прийом у Білій Церкві.")} />
+        {/* Дефолтний заголовок із акцентом на локацію */}
+        <title>{meta?.seo_title || "Контакти стоматології Зубна Фея у Білій Церкві — Адреса та запис"}</title>
+        <meta
+          name="description"
+          content={meta?.seo_description || "Як нас знайти: м. Біла Церква, вул. Вокзальна 22. Телефони для запису, графік роботи та інтерактивна карта проїзду до клініки Зубна Фея."}
+        />
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}
         </script>
       </Helmet>
 
-      {/* Карта */}
       <section aria-label={t("Карта проїзду")}>
         <Contacts mapHeight={isMobile ? "350" : "586"} mapWidth={isMobile ? "320" : "749"} />
       </section>
@@ -49,7 +56,6 @@ export const ContactPage: FC = () => {
           {t("Контакти")}
         </h1>
 
-        {/* Контактна інформація */}
         <address className="not-italic">
           <div className="px-15 dark:text-white border-b border-paleOlive py-4">
             <ul className="flex flex-col gap-7 md:gap-3 text-lg sm:text-3xl lg:text-3xl">
@@ -81,7 +87,7 @@ export const ContactPage: FC = () => {
           <div className="px-15 dark:text-white border-b border-paleOlive py-4">
             <ul className="flex flex-col gap-7 md:gap-3 text-lg sm:text-3xl lg:text-3xl">
               <li className="flex gap-2 dark:hover:text-paleOlive items-center">
-                <LocationIcon width={31} hanging={31} height={31} />
+                <LocationIcon width={31} height={31} />
                 <span>{t("Київська область, Біла Церква, Вокзальна 22")}</span>
               </li>
             </ul>

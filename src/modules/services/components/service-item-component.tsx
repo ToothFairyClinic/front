@@ -38,7 +38,6 @@ export const ServiceItem: FC<ServiceItemProps & Services> = ({
       <div className="">
         <p
           dangerouslySetInnerHTML={{ __html: t(`${description}`) }}
-          
           className="text-2xl dark:text-white text-left"
         />
       </div>

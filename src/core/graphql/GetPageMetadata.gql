@@ -1,0 +1,6 @@
+query GetPageMetadata($route: String!) {
+  page_metadata(where: {page_route: {_eq: $route}}) {
+    seo_title
+    seo_description
+  }
+}

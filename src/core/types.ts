@@ -16,6 +16,7 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   numeric: { input: any; output: any; }
+  timestamp: { input: any; output: any; }
   timestamptz: { input: any; output: any; }
   uuid: { input: any; output: any; }
 };
@@ -407,6 +408,10 @@ export type Mutation_Root = {
   delete_our_works?: Maybe<Our_Works_Mutation_Response>;
   /** delete single row from the table: "our_works" */
   delete_our_works_by_pk?: Maybe<Our_Works>;
+  /** delete data from the table: "page_metadata" */
+  delete_page_metadata?: Maybe<Page_Metadata_Mutation_Response>;
+  /** delete single row from the table: "page_metadata" */
+  delete_page_metadata_by_pk?: Maybe<Page_Metadata>;
   /** delete data from the table: "personnel" */
   delete_personnel?: Maybe<Personnel_Mutation_Response>;
   /** delete single row from the table: "personnel" */
@@ -451,6 +456,10 @@ export type Mutation_Root = {
   insert_our_works?: Maybe<Our_Works_Mutation_Response>;
   /** insert a single row into the table: "our_works" */
   insert_our_works_one?: Maybe<Our_Works>;
+  /** insert data into the table: "page_metadata" */
+  insert_page_metadata?: Maybe<Page_Metadata_Mutation_Response>;
+  /** insert a single row into the table: "page_metadata" */
+  insert_page_metadata_one?: Maybe<Page_Metadata>;
   /** insert data into the table: "personnel" */
   insert_personnel?: Maybe<Personnel_Mutation_Response>;
   /** insert data into the table: "personnel_categories" */
@@ -501,6 +510,12 @@ export type Mutation_Root = {
   update_our_works_by_pk?: Maybe<Our_Works>;
   /** update multiples rows of table: "our_works" */
   update_our_works_many?: Maybe<Array<Maybe<Our_Works_Mutation_Response>>>;
+  /** update data of the table: "page_metadata" */
+  update_page_metadata?: Maybe<Page_Metadata_Mutation_Response>;
+  /** update single row of the table: "page_metadata" */
+  update_page_metadata_by_pk?: Maybe<Page_Metadata>;
+  /** update multiples rows of table: "page_metadata" */
+  update_page_metadata_many?: Maybe<Array<Maybe<Page_Metadata_Mutation_Response>>>;
   /** update data of the table: "personnel" */
   update_personnel?: Maybe<Personnel_Mutation_Response>;
   /** update single row of the table: "personnel" */
@@ -590,6 +605,18 @@ export type Mutation_RootDelete_Our_WorksArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Our_Works_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Page_MetadataArgs = {
+  where: Page_Metadata_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Page_Metadata_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -729,6 +756,20 @@ export type Mutation_RootInsert_Our_WorksArgs = {
 export type Mutation_RootInsert_Our_Works_OneArgs = {
   object: Our_Works_Insert_Input;
   on_conflict?: InputMaybe<Our_Works_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Page_MetadataArgs = {
+  objects: Array<Page_Metadata_Insert_Input>;
+  on_conflict?: InputMaybe<Page_Metadata_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Page_Metadata_OneArgs = {
+  object: Page_Metadata_Insert_Input;
+  on_conflict?: InputMaybe<Page_Metadata_On_Conflict>;
 };
 
 
@@ -901,6 +942,26 @@ export type Mutation_RootUpdate_Our_Works_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Our_Works_ManyArgs = {
   updates: Array<Our_Works_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Page_MetadataArgs = {
+  _set?: InputMaybe<Page_Metadata_Set_Input>;
+  where: Page_Metadata_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Page_Metadata_By_PkArgs = {
+  _set?: InputMaybe<Page_Metadata_Set_Input>;
+  pk_columns: Page_Metadata_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Page_Metadata_ManyArgs = {
+  updates: Array<Page_Metadata_Updates>;
 };
 
 
@@ -1101,8 +1162,10 @@ export type Our_Works = {
   __typename?: 'our_works';
   description: Scalars['String']['output'];
   id: Scalars['uuid']['output'];
-  image_after: Scalars['String']['output'];
+  image_after?: Maybe<Scalars['String']['output']>;
   image_before: Scalars['String']['output'];
+  seo_description?: Maybe<Scalars['String']['output']>;
+  seo_title?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
 };
 
@@ -1137,6 +1200,8 @@ export type Our_Works_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   image_after?: InputMaybe<String_Comparison_Exp>;
   image_before?: InputMaybe<String_Comparison_Exp>;
+  seo_description?: InputMaybe<String_Comparison_Exp>;
+  seo_title?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
 };
 
@@ -1152,6 +1217,8 @@ export type Our_Works_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   image_after?: InputMaybe<Scalars['String']['input']>;
   image_before?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1162,6 +1229,8 @@ export type Our_Works_Max_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   image_after?: Maybe<Scalars['String']['output']>;
   image_before?: Maybe<Scalars['String']['output']>;
+  seo_description?: Maybe<Scalars['String']['output']>;
+  seo_title?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1172,6 +1241,8 @@ export type Our_Works_Min_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   image_after?: Maybe<Scalars['String']['output']>;
   image_before?: Maybe<Scalars['String']['output']>;
+  seo_description?: Maybe<Scalars['String']['output']>;
+  seo_title?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1197,6 +1268,8 @@ export type Our_Works_Order_By = {
   id?: InputMaybe<Order_By>;
   image_after?: InputMaybe<Order_By>;
   image_before?: InputMaybe<Order_By>;
+  seo_description?: InputMaybe<Order_By>;
+  seo_title?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
 };
 
@@ -1216,6 +1289,10 @@ export enum Our_Works_Select_Column {
   /** column name */
   ImageBefore = 'image_before',
   /** column name */
+  SeoDescription = 'seo_description',
+  /** column name */
+  SeoTitle = 'seo_title',
+  /** column name */
   Title = 'title'
 }
 
@@ -1225,6 +1302,8 @@ export type Our_Works_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   image_after?: InputMaybe<Scalars['String']['input']>;
   image_before?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1242,6 +1321,8 @@ export type Our_Works_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   image_after?: InputMaybe<Scalars['String']['input']>;
   image_before?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1256,6 +1337,10 @@ export enum Our_Works_Update_Column {
   /** column name */
   ImageBefore = 'image_before',
   /** column name */
+  SeoDescription = 'seo_description',
+  /** column name */
+  SeoTitle = 'seo_title',
+  /** column name */
   Title = 'title'
 }
 
@@ -1264,6 +1349,166 @@ export type Our_Works_Updates = {
   _set?: InputMaybe<Our_Works_Set_Input>;
   /** filter the rows which have to be updated */
   where: Our_Works_Bool_Exp;
+};
+
+/** columns and relationships of "page_metadata" */
+export type Page_Metadata = {
+  __typename?: 'page_metadata';
+  id: Scalars['uuid']['output'];
+  page_route: Scalars['String']['output'];
+  seo_description: Scalars['String']['output'];
+  seo_title: Scalars['String']['output'];
+};
+
+/** aggregated selection of "page_metadata" */
+export type Page_Metadata_Aggregate = {
+  __typename?: 'page_metadata_aggregate';
+  aggregate?: Maybe<Page_Metadata_Aggregate_Fields>;
+  nodes: Array<Page_Metadata>;
+};
+
+/** aggregate fields of "page_metadata" */
+export type Page_Metadata_Aggregate_Fields = {
+  __typename?: 'page_metadata_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Page_Metadata_Max_Fields>;
+  min?: Maybe<Page_Metadata_Min_Fields>;
+};
+
+
+/** aggregate fields of "page_metadata" */
+export type Page_Metadata_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Page_Metadata_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "page_metadata". All fields are combined with a logical 'AND'. */
+export type Page_Metadata_Bool_Exp = {
+  _and?: InputMaybe<Array<Page_Metadata_Bool_Exp>>;
+  _not?: InputMaybe<Page_Metadata_Bool_Exp>;
+  _or?: InputMaybe<Array<Page_Metadata_Bool_Exp>>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  page_route?: InputMaybe<String_Comparison_Exp>;
+  seo_description?: InputMaybe<String_Comparison_Exp>;
+  seo_title?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "page_metadata" */
+export enum Page_Metadata_Constraint {
+  /** unique or primary key constraint on columns "page_route" */
+  PageMetadataPageKeyKey = 'page_metadata_page_key_key',
+  /** unique or primary key constraint on columns "id" */
+  PageMetadataPkey = 'page_metadata_pkey'
+}
+
+/** input type for inserting data into table "page_metadata" */
+export type Page_Metadata_Insert_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  page_route?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type Page_Metadata_Max_Fields = {
+  __typename?: 'page_metadata_max_fields';
+  id?: Maybe<Scalars['uuid']['output']>;
+  page_route?: Maybe<Scalars['String']['output']>;
+  seo_description?: Maybe<Scalars['String']['output']>;
+  seo_title?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Page_Metadata_Min_Fields = {
+  __typename?: 'page_metadata_min_fields';
+  id?: Maybe<Scalars['uuid']['output']>;
+  page_route?: Maybe<Scalars['String']['output']>;
+  seo_description?: Maybe<Scalars['String']['output']>;
+  seo_title?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "page_metadata" */
+export type Page_Metadata_Mutation_Response = {
+  __typename?: 'page_metadata_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Page_Metadata>;
+};
+
+/** on_conflict condition type for table "page_metadata" */
+export type Page_Metadata_On_Conflict = {
+  constraint: Page_Metadata_Constraint;
+  update_columns?: Array<Page_Metadata_Update_Column>;
+  where?: InputMaybe<Page_Metadata_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "page_metadata". */
+export type Page_Metadata_Order_By = {
+  id?: InputMaybe<Order_By>;
+  page_route?: InputMaybe<Order_By>;
+  seo_description?: InputMaybe<Order_By>;
+  seo_title?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: page_metadata */
+export type Page_Metadata_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "page_metadata" */
+export enum Page_Metadata_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  PageRoute = 'page_route',
+  /** column name */
+  SeoDescription = 'seo_description',
+  /** column name */
+  SeoTitle = 'seo_title'
+}
+
+/** input type for updating data in table "page_metadata" */
+export type Page_Metadata_Set_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  page_route?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "page_metadata" */
+export type Page_Metadata_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Page_Metadata_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Page_Metadata_Stream_Cursor_Value_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  page_route?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "page_metadata" */
+export enum Page_Metadata_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  PageRoute = 'page_route',
+  /** column name */
+  SeoDescription = 'seo_description',
+  /** column name */
+  SeoTitle = 'seo_title'
+}
+
+export type Page_Metadata_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Page_Metadata_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Page_Metadata_Bool_Exp;
 };
 
 /** columns and relationships of "personnel" */
@@ -1352,9 +1597,9 @@ export type Personnel_Categories = {
   /** An aggregate relationship */
   personnel_items_aggregate: Personnel_Aggregate;
   /** An array relationship */
-  personnel_items_second: Array<Personnel>;
+  presonnel_items_second: Array<Personnel>;
   /** An aggregate relationship */
-  personnel_items_second_aggregate: Personnel_Aggregate;
+  presonnel_items_second_aggregate: Personnel_Aggregate;
   slug?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
 };
@@ -1381,7 +1626,7 @@ export type Personnel_CategoriesPersonnel_Items_AggregateArgs = {
 
 
 /** columns and relationships of "personnel_categories" */
-export type Personnel_CategoriesPersonnel_Items_SecondArgs = {
+export type Personnel_CategoriesPresonnel_Items_SecondArgs = {
   distinct_on?: InputMaybe<Array<Personnel_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -1391,7 +1636,7 @@ export type Personnel_CategoriesPersonnel_Items_SecondArgs = {
 
 
 /** columns and relationships of "personnel_categories" */
-export type Personnel_CategoriesPersonnel_Items_Second_AggregateArgs = {
+export type Personnel_CategoriesPresonnel_Items_Second_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Personnel_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -1429,8 +1674,8 @@ export type Personnel_Categories_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   personnel_items?: InputMaybe<Personnel_Bool_Exp>;
   personnel_items_aggregate?: InputMaybe<Personnel_Aggregate_Bool_Exp>;
-  personnel_items_second?: InputMaybe<Personnel_Bool_Exp>;
-  personnel_items_second_aggregate?: InputMaybe<Personnel_Aggregate_Bool_Exp>;
+  presonnel_items_second?: InputMaybe<Personnel_Bool_Exp>;
+  presonnel_items_second_aggregate?: InputMaybe<Personnel_Aggregate_Bool_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
 };
@@ -1445,7 +1690,7 @@ export enum Personnel_Categories_Constraint {
 export type Personnel_Categories_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   personnel_items?: InputMaybe<Personnel_Arr_Rel_Insert_Input>;
-  personnel_items_second?: InputMaybe<Personnel_Arr_Rel_Insert_Input>;
+  presonnel_items_second?: InputMaybe<Personnel_Arr_Rel_Insert_Input>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1493,7 +1738,7 @@ export type Personnel_Categories_On_Conflict = {
 export type Personnel_Categories_Order_By = {
   id?: InputMaybe<Order_By>;
   personnel_items_aggregate?: InputMaybe<Personnel_Aggregate_Order_By>;
-  personnel_items_second_aggregate?: InputMaybe<Personnel_Aggregate_Order_By>;
+  presonnel_items_second_aggregate?: InputMaybe<Personnel_Aggregate_Order_By>;
   slug?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
 };
@@ -2215,8 +2460,6 @@ export type Products = {
   id: Scalars['uuid']['output'];
   image: Scalars['String']['output'];
   price: Scalars['numeric']['output'];
-  /** An object relationship */
-  products_category?: Maybe<Products_Categories>;
   products_category_id?: Maybe<Scalars['uuid']['output']>;
   title: Scalars['String']['output'];
   weight: Scalars['numeric']['output'];
@@ -2227,17 +2470,6 @@ export type Products_Aggregate = {
   __typename?: 'products_aggregate';
   aggregate?: Maybe<Products_Aggregate_Fields>;
   nodes: Array<Products>;
-};
-
-export type Products_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Products_Aggregate_Bool_Exp_Count>;
-};
-
-export type Products_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Products_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Products_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
 };
 
 /** aggregate fields of "products" */
@@ -2263,39 +2495,11 @@ export type Products_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-/** order by aggregate values of table "products" */
-export type Products_Aggregate_Order_By = {
-  avg?: InputMaybe<Products_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Products_Max_Order_By>;
-  min?: InputMaybe<Products_Min_Order_By>;
-  stddev?: InputMaybe<Products_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Products_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Products_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Products_Sum_Order_By>;
-  var_pop?: InputMaybe<Products_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Products_Var_Samp_Order_By>;
-  variance?: InputMaybe<Products_Variance_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "products" */
-export type Products_Arr_Rel_Insert_Input = {
-  data: Array<Products_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Products_On_Conflict>;
-};
-
 /** aggregate avg on columns */
 export type Products_Avg_Fields = {
   __typename?: 'products_avg_fields';
   price?: Maybe<Scalars['Float']['output']>;
   weight?: Maybe<Scalars['Float']['output']>;
-};
-
-/** order by avg() on columns of table "products" */
-export type Products_Avg_Order_By = {
-  price?: InputMaybe<Order_By>;
-  weight?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "products". All fields are combined with a logical 'AND'. */
@@ -2307,7 +2511,6 @@ export type Products_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   image?: InputMaybe<String_Comparison_Exp>;
   price?: InputMaybe<Numeric_Comparison_Exp>;
-  products_category?: InputMaybe<Products_Categories_Bool_Exp>;
   products_category_id?: InputMaybe<Uuid_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   weight?: InputMaybe<Numeric_Comparison_Exp>;
@@ -2317,32 +2520,8 @@ export type Products_Bool_Exp = {
 export type Products_Categories = {
   __typename?: 'products_categories';
   id: Scalars['uuid']['output'];
-  /** An array relationship */
-  products_items: Array<Products>;
-  /** An aggregate relationship */
-  products_items_aggregate: Products_Aggregate;
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
-};
-
-
-/** columns and relationships of "products_categories" */
-export type Products_CategoriesProducts_ItemsArgs = {
-  distinct_on?: InputMaybe<Array<Products_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Products_Order_By>>;
-  where?: InputMaybe<Products_Bool_Exp>;
-};
-
-
-/** columns and relationships of "products_categories" */
-export type Products_CategoriesProducts_Items_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Products_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Products_Order_By>>;
-  where?: InputMaybe<Products_Bool_Exp>;
 };
 
 /** aggregated selection of "products_categories" */
@@ -2373,8 +2552,6 @@ export type Products_Categories_Bool_Exp = {
   _not?: InputMaybe<Products_Categories_Bool_Exp>;
   _or?: InputMaybe<Array<Products_Categories_Bool_Exp>>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
-  products_items?: InputMaybe<Products_Bool_Exp>;
-  products_items_aggregate?: InputMaybe<Products_Aggregate_Bool_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
 };
@@ -2388,7 +2565,6 @@ export enum Products_Categories_Constraint {
 /** input type for inserting data into table "products_categories" */
 export type Products_Categories_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
-  products_items?: InputMaybe<Products_Arr_Rel_Insert_Input>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2418,13 +2594,6 @@ export type Products_Categories_Mutation_Response = {
   returning: Array<Products_Categories>;
 };
 
-/** input type for inserting object relation for remote table "products_categories" */
-export type Products_Categories_Obj_Rel_Insert_Input = {
-  data: Products_Categories_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Products_Categories_On_Conflict>;
-};
-
 /** on_conflict condition type for table "products_categories" */
 export type Products_Categories_On_Conflict = {
   constraint: Products_Categories_Constraint;
@@ -2435,7 +2604,6 @@ export type Products_Categories_On_Conflict = {
 /** Ordering options when selecting data from "products_categories". */
 export type Products_Categories_Order_By = {
   id?: InputMaybe<Order_By>;
-  products_items_aggregate?: InputMaybe<Products_Aggregate_Order_By>;
   slug?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
 };
@@ -2512,7 +2680,6 @@ export type Products_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['numeric']['input']>;
-  products_category?: InputMaybe<Products_Categories_Obj_Rel_Insert_Input>;
   products_category_id?: InputMaybe<Scalars['uuid']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   weight?: InputMaybe<Scalars['numeric']['input']>;
@@ -2530,17 +2697,6 @@ export type Products_Max_Fields = {
   weight?: Maybe<Scalars['numeric']['output']>;
 };
 
-/** order by max() on columns of table "products" */
-export type Products_Max_Order_By = {
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  image?: InputMaybe<Order_By>;
-  price?: InputMaybe<Order_By>;
-  products_category_id?: InputMaybe<Order_By>;
-  title?: InputMaybe<Order_By>;
-  weight?: InputMaybe<Order_By>;
-};
-
 /** aggregate min on columns */
 export type Products_Min_Fields = {
   __typename?: 'products_min_fields';
@@ -2551,17 +2707,6 @@ export type Products_Min_Fields = {
   products_category_id?: Maybe<Scalars['uuid']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   weight?: Maybe<Scalars['numeric']['output']>;
-};
-
-/** order by min() on columns of table "products" */
-export type Products_Min_Order_By = {
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  image?: InputMaybe<Order_By>;
-  price?: InputMaybe<Order_By>;
-  products_category_id?: InputMaybe<Order_By>;
-  title?: InputMaybe<Order_By>;
-  weight?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "products" */
@@ -2586,7 +2731,6 @@ export type Products_Order_By = {
   id?: InputMaybe<Order_By>;
   image?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
-  products_category?: InputMaybe<Products_Categories_Order_By>;
   products_category_id?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   weight?: InputMaybe<Order_By>;
@@ -2633,12 +2777,6 @@ export type Products_Stddev_Fields = {
   weight?: Maybe<Scalars['Float']['output']>;
 };
 
-/** order by stddev() on columns of table "products" */
-export type Products_Stddev_Order_By = {
-  price?: InputMaybe<Order_By>;
-  weight?: InputMaybe<Order_By>;
-};
-
 /** aggregate stddev_pop on columns */
 export type Products_Stddev_Pop_Fields = {
   __typename?: 'products_stddev_pop_fields';
@@ -2646,23 +2784,11 @@ export type Products_Stddev_Pop_Fields = {
   weight?: Maybe<Scalars['Float']['output']>;
 };
 
-/** order by stddev_pop() on columns of table "products" */
-export type Products_Stddev_Pop_Order_By = {
-  price?: InputMaybe<Order_By>;
-  weight?: InputMaybe<Order_By>;
-};
-
 /** aggregate stddev_samp on columns */
 export type Products_Stddev_Samp_Fields = {
   __typename?: 'products_stddev_samp_fields';
   price?: Maybe<Scalars['Float']['output']>;
   weight?: Maybe<Scalars['Float']['output']>;
-};
-
-/** order by stddev_samp() on columns of table "products" */
-export type Products_Stddev_Samp_Order_By = {
-  price?: InputMaybe<Order_By>;
-  weight?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "products" */
@@ -2689,12 +2815,6 @@ export type Products_Sum_Fields = {
   __typename?: 'products_sum_fields';
   price?: Maybe<Scalars['numeric']['output']>;
   weight?: Maybe<Scalars['numeric']['output']>;
-};
-
-/** order by sum() on columns of table "products" */
-export type Products_Sum_Order_By = {
-  price?: InputMaybe<Order_By>;
-  weight?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "products" */
@@ -2731,12 +2851,6 @@ export type Products_Var_Pop_Fields = {
   weight?: Maybe<Scalars['Float']['output']>;
 };
 
-/** order by var_pop() on columns of table "products" */
-export type Products_Var_Pop_Order_By = {
-  price?: InputMaybe<Order_By>;
-  weight?: InputMaybe<Order_By>;
-};
-
 /** aggregate var_samp on columns */
 export type Products_Var_Samp_Fields = {
   __typename?: 'products_var_samp_fields';
@@ -2744,23 +2858,11 @@ export type Products_Var_Samp_Fields = {
   weight?: Maybe<Scalars['Float']['output']>;
 };
 
-/** order by var_samp() on columns of table "products" */
-export type Products_Var_Samp_Order_By = {
-  price?: InputMaybe<Order_By>;
-  weight?: InputMaybe<Order_By>;
-};
-
 /** aggregate variance on columns */
 export type Products_Variance_Fields = {
   __typename?: 'products_variance_fields';
   price?: Maybe<Scalars['Float']['output']>;
   weight?: Maybe<Scalars['Float']['output']>;
-};
-
-/** order by variance() on columns of table "products" */
-export type Products_Variance_Order_By = {
-  price?: InputMaybe<Order_By>;
-  weight?: InputMaybe<Order_By>;
 };
 
 export type Query_Root = {
@@ -2786,6 +2888,12 @@ export type Query_Root = {
   our_works_aggregate: Our_Works_Aggregate;
   /** fetch data from the table: "our_works" using primary key columns */
   our_works_by_pk?: Maybe<Our_Works>;
+  /** fetch data from the table: "page_metadata" */
+  page_metadata: Array<Page_Metadata>;
+  /** fetch aggregated fields from the table: "page_metadata" */
+  page_metadata_aggregate: Page_Metadata_Aggregate;
+  /** fetch data from the table: "page_metadata" using primary key columns */
+  page_metadata_by_pk?: Maybe<Page_Metadata>;
   /** fetch data from the table: "personnel" */
   personnel: Array<Personnel>;
   /** fetch aggregated fields from the table: "personnel" */
@@ -2907,6 +3015,29 @@ export type Query_RootOur_Works_AggregateArgs = {
 
 
 export type Query_RootOur_Works_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootPage_MetadataArgs = {
+  distinct_on?: InputMaybe<Array<Page_Metadata_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Page_Metadata_Order_By>>;
+  where?: InputMaybe<Page_Metadata_Bool_Exp>;
+};
+
+
+export type Query_RootPage_Metadata_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Page_Metadata_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Page_Metadata_Order_By>>;
+  where?: InputMaybe<Page_Metadata_Bool_Exp>;
+};
+
+
+export type Query_RootPage_Metadata_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -3267,11 +3398,14 @@ export type Reviews_Updates = {
 /** columns and relationships of "services" */
 export type Services = {
   __typename?: 'services';
+  created_at: Scalars['timestamp']['output'];
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['uuid']['output'];
   image: Scalars['String']['output'];
   mainImage?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
+  seo_description?: Maybe<Scalars['String']['output']>;
+  seo_title?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregated selection of "services" */
@@ -3301,11 +3435,14 @@ export type Services_Bool_Exp = {
   _and?: InputMaybe<Array<Services_Bool_Exp>>;
   _not?: InputMaybe<Services_Bool_Exp>;
   _or?: InputMaybe<Array<Services_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   image?: InputMaybe<String_Comparison_Exp>;
   mainImage?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
+  seo_description?: InputMaybe<String_Comparison_Exp>;
+  seo_title?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "services" */
@@ -3316,31 +3453,40 @@ export enum Services_Constraint {
 
 /** input type for inserting data into table "services" */
 export type Services_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamp']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
 export type Services_Max_Fields = {
   __typename?: 'services_max_fields';
+  created_at?: Maybe<Scalars['timestamp']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   mainImage?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+  seo_description?: Maybe<Scalars['String']['output']>;
+  seo_title?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
 export type Services_Min_Fields = {
   __typename?: 'services_min_fields';
+  created_at?: Maybe<Scalars['timestamp']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   mainImage?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+  seo_description?: Maybe<Scalars['String']['output']>;
+  seo_title?: Maybe<Scalars['String']['output']>;
 };
 
 /** response of any mutation on the table "services" */
@@ -3361,11 +3507,14 @@ export type Services_On_Conflict = {
 
 /** Ordering options when selecting data from "services". */
 export type Services_Order_By = {
+  created_at?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   image?: InputMaybe<Order_By>;
   mainImage?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  seo_description?: InputMaybe<Order_By>;
+  seo_title?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: services */
@@ -3376,6 +3525,8 @@ export type Services_Pk_Columns_Input = {
 /** select columns of table "services" */
 export enum Services_Select_Column {
   /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
   Description = 'description',
   /** column name */
   Id = 'id',
@@ -3384,16 +3535,23 @@ export enum Services_Select_Column {
   /** column name */
   MainImage = 'mainImage',
   /** column name */
-  Name = 'name'
+  Name = 'name',
+  /** column name */
+  SeoDescription = 'seo_description',
+  /** column name */
+  SeoTitle = 'seo_title'
 }
 
 /** input type for updating data in table "services" */
 export type Services_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamp']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Streaming cursor of the table "services" */
@@ -3406,15 +3564,20 @@ export type Services_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Services_Stream_Cursor_Value_Input = {
+  created_at?: InputMaybe<Scalars['timestamp']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update columns of table "services" */
 export enum Services_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
   /** column name */
   Description = 'description',
   /** column name */
@@ -3424,7 +3587,11 @@ export enum Services_Update_Column {
   /** column name */
   MainImage = 'mainImage',
   /** column name */
-  Name = 'name'
+  Name = 'name',
+  /** column name */
+  SeoDescription = 'seo_description',
+  /** column name */
+  SeoTitle = 'seo_title'
 }
 
 export type Services_Updates = {
@@ -3460,6 +3627,14 @@ export type Subscription_Root = {
   our_works_by_pk?: Maybe<Our_Works>;
   /** fetch data from the table in a streaming manner: "our_works" */
   our_works_stream: Array<Our_Works>;
+  /** fetch data from the table: "page_metadata" */
+  page_metadata: Array<Page_Metadata>;
+  /** fetch aggregated fields from the table: "page_metadata" */
+  page_metadata_aggregate: Page_Metadata_Aggregate;
+  /** fetch data from the table: "page_metadata" using primary key columns */
+  page_metadata_by_pk?: Maybe<Page_Metadata>;
+  /** fetch data from the table in a streaming manner: "page_metadata" */
+  page_metadata_stream: Array<Page_Metadata>;
   /** fetch data from the table: "personnel" */
   personnel: Array<Personnel>;
   /** fetch aggregated fields from the table: "personnel" */
@@ -3614,6 +3789,36 @@ export type Subscription_RootOur_Works_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Our_Works_Stream_Cursor_Input>>;
   where?: InputMaybe<Our_Works_Bool_Exp>;
+};
+
+
+export type Subscription_RootPage_MetadataArgs = {
+  distinct_on?: InputMaybe<Array<Page_Metadata_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Page_Metadata_Order_By>>;
+  where?: InputMaybe<Page_Metadata_Bool_Exp>;
+};
+
+
+export type Subscription_RootPage_Metadata_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Page_Metadata_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Page_Metadata_Order_By>>;
+  where?: InputMaybe<Page_Metadata_Bool_Exp>;
+};
+
+
+export type Subscription_RootPage_Metadata_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootPage_Metadata_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Page_Metadata_Stream_Cursor_Input>>;
+  where?: InputMaybe<Page_Metadata_Bool_Exp>;
 };
 
 
@@ -3856,6 +4061,19 @@ export type Subscription_RootServices_StreamArgs = {
   where?: InputMaybe<Services_Bool_Exp>;
 };
 
+/** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
+export type Timestamp_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['timestamp']['input']>;
+  _gt?: InputMaybe<Scalars['timestamp']['input']>;
+  _gte?: InputMaybe<Scalars['timestamp']['input']>;
+  _in?: InputMaybe<Array<Scalars['timestamp']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['timestamp']['input']>;
+  _lte?: InputMaybe<Scalars['timestamp']['input']>;
+  _neq?: InputMaybe<Scalars['timestamp']['input']>;
+  _nin?: InputMaybe<Array<Scalars['timestamp']['input']>>;
+};
+
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -3904,7 +4122,14 @@ export type GetAdvantagesQuery = { __typename?: 'query_root', advantages: Array<
 export type GetOurWorkQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetOurWorkQuery = { __typename?: 'query_root', our_works: Array<{ __typename?: 'our_works', description: string, id: any, image_after: string, image_before: string, title: string }> };
+export type GetOurWorkQuery = { __typename?: 'query_root', our_works: Array<{ __typename?: 'our_works', description: string, id: any, image_after?: string | null, image_before: string, title: string }> };
+
+export type GetPageMetadataQueryVariables = Exact<{
+  route: Scalars['String']['input'];
+}>;
+
+
+export type GetPageMetadataQuery = { __typename?: 'query_root', page_metadata: Array<{ __typename?: 'page_metadata', seo_title: string, seo_description: string }> };
 
 export type GetPersonnelQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3929,14 +4154,14 @@ export type GetPriceListCategoryByIdQuery = { __typename?: 'query_root', price_l
 export type GetServicesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', image: string, id: any, name: string }> };
+export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, image: string, seo_title?: string | null, seo_description?: string | null, created_at: any }> };
 
 export type GetServiceByIdQueryVariables = Exact<{
   _eq: Scalars['uuid']['input'];
 }>;
 
 
-export type GetServiceByIdQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, image: string, name: string, mainImage?: string | null, description?: string | null }> };
+export type GetServiceByIdQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, image: string, mainImage?: string | null, description?: string | null, seo_title?: string | null, seo_description?: string | null, created_at: any }> };
 
 
 export const CreateReviewDocument = gql`
@@ -4104,6 +4329,47 @@ export type GetOurWorkQueryHookResult = ReturnType<typeof useGetOurWorkQuery>;
 export type GetOurWorkLazyQueryHookResult = ReturnType<typeof useGetOurWorkLazyQuery>;
 export type GetOurWorkSuspenseQueryHookResult = ReturnType<typeof useGetOurWorkSuspenseQuery>;
 export type GetOurWorkQueryResult = Apollo.QueryResult<GetOurWorkQuery, GetOurWorkQueryVariables>;
+export const GetPageMetadataDocument = gql`
+    query GetPageMetadata($route: String!) {
+  page_metadata(where: {page_route: {_eq: $route}}) {
+    seo_title
+    seo_description
+  }
+}
+    `;
+
+/**
+ * __useGetPageMetadataQuery__
+ *
+ * To run a query within a React component, call `useGetPageMetadataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPageMetadataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPageMetadataQuery({
+ *   variables: {
+ *      route: // value for 'route'
+ *   },
+ * });
+ */
+export function useGetPageMetadataQuery(baseOptions: Apollo.QueryHookOptions<GetPageMetadataQuery, GetPageMetadataQueryVariables> & ({ variables: GetPageMetadataQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPageMetadataQuery, GetPageMetadataQueryVariables>(GetPageMetadataDocument, options);
+      }
+export function useGetPageMetadataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPageMetadataQuery, GetPageMetadataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPageMetadataQuery, GetPageMetadataQueryVariables>(GetPageMetadataDocument, options);
+        }
+export function useGetPageMetadataSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPageMetadataQuery, GetPageMetadataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPageMetadataQuery, GetPageMetadataQueryVariables>(GetPageMetadataDocument, options);
+        }
+export type GetPageMetadataQueryHookResult = ReturnType<typeof useGetPageMetadataQuery>;
+export type GetPageMetadataLazyQueryHookResult = ReturnType<typeof useGetPageMetadataLazyQuery>;
+export type GetPageMetadataSuspenseQueryHookResult = ReturnType<typeof useGetPageMetadataSuspenseQuery>;
+export type GetPageMetadataQueryResult = Apollo.QueryResult<GetPageMetadataQuery, GetPageMetadataQueryVariables>;
 export const GetPersonnelDocument = gql`
     query GetPersonnel {
   personnel {
@@ -4282,10 +4548,13 @@ export type GetPriceListCategoryByIdSuspenseQueryHookResult = ReturnType<typeof 
 export type GetPriceListCategoryByIdQueryResult = Apollo.QueryResult<GetPriceListCategoryByIdQuery, GetPriceListCategoryByIdQueryVariables>;
 export const GetServicesDocument = gql`
     query GetServices {
-  services {
-    image
+  services(order_by: {created_at: asc}) {
     id
     name
+    image
+    seo_title
+    seo_description
+    created_at
   }
 }
     `;
@@ -4325,10 +4594,13 @@ export const GetServiceByIdDocument = gql`
     query GetServiceById($_eq: uuid!) {
   services(where: {id: {_eq: $_eq}}) {
     id
-    image
     name
+    image
     mainImage
     description
+    seo_title
+    seo_description
+    created_at
   }
 }
     `;

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import {
+  useGetPageMetadataQuery,
   useGetPriceListCategoriesQuery,
   useGetPriceListQuery,
 } from "@app/core/types";
@@ -11,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
 
 interface PriceListPageProps { }
-// На етапі передачі даних створити регулярний вираз який буде перевіряти якою мовою парйс лист та фільтрувати DataPriceList та data
+
 export const PriceListPage: FC<PriceListPageProps> = () => {
   const { t } = useTranslation();
   const { data, loading: loadingCategories } = useGetPriceListCategoriesQuery();
@@ -20,6 +21,10 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
     loading: loadingPriceList,
     error
   } = useGetPriceListQuery();
+
+
+  const { data: PageMetadata } = useGetPageMetadataQuery({ variables: { route: '/prices' } });
+  const meta = PageMetadata?.page_metadata[0];
 
   if (error) {
     return (
@@ -39,18 +44,18 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
   }
 
   return (
-
     <main className="px-9 pt-15 pb-24 bg-palePeach dark:bg-darkGray ">
       <Helmet>
-        <title>{t("Ціни на стоматологічні послуги | Зубна Фея")}</title>
+
+        <title>{meta?.seo_title || "Ціни на послуги стоматології | Зубна Фея Біла Церква"}</title>
         <meta
           name="description"
-          content={t("Актуальний прайс-лист клініки Зубна Фея. Прозорі ціни на лікування зубів, протезування та професійну гігієну в Білій Церкві.")}
+          content={meta?.seo_description || "Актуальний прайс-лист стоматологічної клініки Зубна Фея. Прозорі ціни на лікування, імплантацію, дитячу стоматологію та рентген-діагностику."}
         />
       </Helmet>
 
       <div className="mb-10">
-        <MainTitle size="base" as="h1">Прайс-лист послуг</MainTitle>
+        <MainTitle size="base" as="h1">{t("Прайс-лист послуг")}</MainTitle>
       </div>
 
       <div className="pb-12">
