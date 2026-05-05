@@ -33,6 +33,9 @@ const SEOMeta = () => {
 
       <link rel="canonical" href={`${baseUrl}${location.pathname}`} />
 
+      <meta name="description"
+        content="Зубна Фея - Cтоматологія, в якій безпечно та в комфортних умовах лікують зубки діти та їх батьки!" />
+
       <link rel="alternate" href={`${baseUrl}/ua${slug}`} hrefLang="uk" />
       <link rel="alternate" href={`${baseUrl}/en${slug}`} hrefLang="en" />
       <link rel="alternate" href={`${baseUrl}/ua${slug}`} hrefLang="x-default" />

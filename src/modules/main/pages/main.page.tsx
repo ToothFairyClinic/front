@@ -22,7 +22,6 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
   const pageMeta = PageMetadata?.page_metadata[0];
 
   const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
-
   const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
   const order = [
