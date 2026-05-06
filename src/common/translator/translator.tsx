@@ -2,20 +2,22 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-const detectionOptions: any = {
-  order: ['path', 'localStorage', 'navigator'],
-  lookupFromPathIndex: 0,
-  transform(value: string) {
-    if (value === 'ua') return 'uk';
-    return value;
-  },
-  caches: ['localStorage'],
+const getInitialLang = () => {
+  const path = window.location.pathname;
+  const firstSegment = path.split('/')[1]; // Отримуємо 'ua' або 'en'
+
+  if (firstSegment === 'ua') return 'uk';
+  if (firstSegment === 'en') return 'en';
+
+  // Якщо в URL нічого немає, перевіряємо localStorage або даємо дефолт
+  return localStorage.getItem('i18nextLng') || 'uk';
 };
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    lng: getInitialLang(),
     resources: {
       en: {
         translation: {
@@ -233,10 +235,10 @@ i18n
         },
       },
     },
-    detection: detectionOptions,
     fallbackLng: 'uk',
-    interpolation: {
-      escapeValue: false,
+    detection: {
+      order: ['path', 'localStorage', 'navigator'],
+      lookupFromPathIndex: 0,
     },
   });
 
