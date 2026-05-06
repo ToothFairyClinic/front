@@ -2,6 +2,16 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
+const detectionOptions: any = {
+  order: ['path', 'localStorage', 'navigator'],
+  lookupFromPathIndex: 0,
+  transform(value: string) {
+    if (value === 'ua') return 'uk';
+    return value;
+  },
+  caches: ['localStorage'],
+};
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -223,15 +233,7 @@ i18n
         },
       },
     },
-    detection: {
-      order: ['path', 'localStorage', 'navigator'],
-      lookupFromPathIndex: 0,
-      transform(value: string) {
-        if (value === 'ua') return 'uk';
-        return value;
-      },
-      caches: ['localStorage'],
-    },
+    detection: detectionOptions,
     fallbackLng: 'uk',
     interpolation: {
       escapeValue: false,
