@@ -1,2 +1,6 @@
 /sitemap.xml  https://api.toothfairy.clinic/.netlify/functions/sitemap  200!
-/*            /index.html                                               200
+
+/uk-UA/*  /ua/:splat  301!
+/uk/*     /ua/:splat  301!
+
+/*  /index.html  200

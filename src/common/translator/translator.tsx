@@ -224,8 +224,12 @@ i18n
       },
     },
     detection: {
-      order: ['path', 'localStorage', 'cookie', 'navigator'],
+      order: ['path', 'localStorage', 'navigator'],
       lookupFromPathIndex: 0,
+      transform(value: string) {
+        if (value === 'ua') return 'uk';
+        return value;
+      },
       caches: ['localStorage'],
     },
     fallbackLng: 'uk',
