@@ -46,6 +46,7 @@ const SEOMeta = () => {
 export const App = () => {
   const location = useLocation();
   const GA_ID = config.GA_MEASUREMENT_ID;
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     if (GA_ID)
@@ -67,6 +68,17 @@ export const App = () => {
     const token = localStorage.getItem("jwt");
     isLoggedInReactive(Boolean(token));
   }, []);
+
+  useEffect(() => {
+    const pathSegments = location.pathname.split('/').filter(Boolean);
+    const langInUrl = pathSegments[0]; // Отримуємо 'ua' або 'en'
+
+    if (langInUrl === 'ua' && i18n.language !== 'uk') {
+      i18n.changeLanguage('uk');
+    } else if (langInUrl === 'en' && i18n.language !== 'en') {
+      i18n.changeLanguage('en');
+    }
+  }, [location.pathname, i18n]);
 
 
   return (
