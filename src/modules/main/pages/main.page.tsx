@@ -8,8 +8,6 @@ import { PersonnelList } from "../components/personnel/personnel-list/personnel-
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from 'react-i18next';
 
-
-
 interface MainPageProps { }
 
 export const MainPage: FC<MainPageProps> = ({ }) => {
@@ -68,9 +66,77 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
     return order.indexOf(a.name) - order.indexOf(b.name);
   });
 
+  const currentLang = i18n.language === 'ua' ? 'ua' : 'en';
+
+  const baseUrl = "https://toothfairy.clinic";
+
+  const mainSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${baseUrl}/#website`,
+        "url": `${baseUrl}/${currentLang}`,
+        "name": "Зубна Фея",
+        "publisher": {
+          "@id": `${baseUrl}/#organization`
+        },
+        "inLanguage": currentLang === "ua" ? "uk-UA" : "en-US"
+      },
+      {
+        "@type": "Dentist",
+        "@id": `${baseUrl}/#organization`,
+        "name": "Стоматологічна клініка Зубна Фея",
+        "url": `${baseUrl}/${currentLang}`,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${baseUrl}/logo-seo.svg`,
+          "width": "500",
+          "height": "500"
+        },
+        "image": `${baseUrl}/assets/favicon/android-chrome-512x512.png`,
+        "telephone": "+380681689911",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "вул. Вокзальна, 22",
+          "addressLocality": "Біла Церква",
+          "addressRegion": "Київська область",
+          "postalCode": "09100",
+          "addressCountry": "UA"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 49.81106092703584,
+          "longitude": 30.10824757616152
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ],
+            "opens": "09:30",
+            "closes": "19:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.instagram.com/toothfairy.clinic",
+          "https://www.facebook.com/bcdentist.toothfairy/"
+        ],
+        "priceRange": "$$"
+      }
+    ]
+  };
+
   return (
     <main className="">
       <Helmet>
+        <script type="application/ld+json">{JSON.stringify(mainSchema)}</script>
 
         <title>{currentTitle || "Стоматологія Зубна Фея — професійне лікування зубів у Білій Церкві"}</title>
         <meta

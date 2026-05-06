@@ -8,6 +8,7 @@ import { ReactComponent as MailIcon } from "@app/assets/icons/mail.svg";
 import { ReactComponent as LocationIcon } from "@app/assets/icons/location.svg";
 import { useTranslation } from "react-i18next";
 import { useGetPageMetadataQuery } from "@app/core/types";
+import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 
 export const ContactPage: FC = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
@@ -23,35 +24,48 @@ export const ContactPage: FC = () => {
 
   const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Dentist",
-    "name": "Зубна Фея",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Біла Церква",
-      "streetAddress": "Вокзальна 22",
-      "addressRegion": "Київська область",
-      "postalCode": "09100"
-    },
-    "telephone": "+380681689911",
-    "openingHours": "Mo-Sa 09:30-19:00",
-    "email": "admin@toothfairy.clinic"
+  const contactSchema = {
+    "@type": "ContactPage",
+    "mainEntity": {
+      "@id": "https://toothfairy.clinic/#organization",
+      "@type": "Dentist",
+      "name": "Зубна Фея",
+      "image": "https://toothfairy.clinic/assets/favicon/android-chrome-512x512.png",
+      "telephone": ["+380681689911", "+380934599911"],
+      "email": "admin@toothfairy.clinic",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "вул. Вокзальна, 22",
+        "addressLocality": "Біла Церква",
+        "addressRegion": "Київська область",
+        "postalCode": "09100",
+        "addressCountry": "UA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 49.81106092703584,
+        "longitude": 30.10824757616152
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:30",
+          "closes": "19:00"
+        }
+      ]
+    }
   };
 
   return (
     <main className="flex lg:flex-row flex-col-reverse dark:bg-darkGray gap-14 py-24 justify-center items-center lg:items-start">
-      <Helmet>
-        {/* Дефолтний заголовок із акцентом на локацію */}
-        <title>{currentTitle || "Контакти стоматології Зубна Фея у Білій Церкві — Адреса та запис"}</title>
-        <meta
-          name="description"
-          content={currentDescription || "Як нас знайти: м. Біла Церква, вул. Вокзальна 22. Телефони для запису, графік роботи та інтерактивна карта проїзду до клініки Зубна Фея."}
-        />
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </script>
-      </Helmet>
+      <SEOMeta
+        title={currentTitle || "Контакти стоматології Зубна Фея у Білій Церкві"}
+        description={currentDescription || "Як нас знайти: м. Біла Церква, вул. Вокзальна 22. Телефони для запису, графік роботи."}
+        path="/contacts"
+        type="ContactPage"
+        schemaData={contactSchema}
+      />
 
       <section aria-label={t("Карта проїзду")}>
         <Contacts mapHeight={isMobile ? "350" : "586"} mapWidth={isMobile ? "320" : "749"} />

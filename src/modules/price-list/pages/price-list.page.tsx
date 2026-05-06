@@ -10,11 +10,11 @@ import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from 'react-i18next';
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
+import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 
 interface PriceListPageProps { }
 
 export const PriceListPage: FC<PriceListPageProps> = () => {
-
   const { data, loading: loadingCategories } = useGetPriceListCategoriesQuery();
   const {
     data: dataPriceList,
@@ -22,44 +22,42 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
     error
   } = useGetPriceListQuery();
 
-
-  const { data: PageMetadata } = useGetPageMetadataQuery({ variables: { route: '/prices' } });
+  const { data: PageMetadata } = useGetPageMetadataQuery({ variables: { route: '/price-list' } });
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
 
   const pageMeta = PageMetadata?.page_metadata[0];
-
   const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
-
   const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
-  if (error) {
-    return (
-      <ShowInfo type="error">
-        <p>{t("Упс, сталася помилка")}</p>
-        <p>{t("Спробуйте трохи пізніше")}</p>
-      </ShowInfo>
-    );
-  }
-
-  if (loadingCategories || loadingPriceList) {
-    return (
-      <ShowInfo type="info">
-        <p>{t("Завантаження...")}</p>
-      </ShowInfo>
-    );
-  }
+  // Формуємо дані для OfferCatalog
+  const priceSchema = dataPriceList?.price_list_categories?.map((category) => ({
+    "@type": "OfferCatalog",
+    "name": category.title,
+    "itemListElement": category.price_list_items?.map((item: any) => ({
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": item.title
+      },
+      "price": item.price,
+      "priceCurrency": "UAH",
+      "seller": {
+        "@id": "https://toothfairy.clinic/#organization"
+      }
+    }))
+  }));
+  if (error) return <ShowInfo type="error"><p>{t("Упс, сталася помилка")}</p></ShowInfo>;
+  if (loadingCategories || loadingPriceList) return <ShowInfo type="info"><p>{t("Завантаження...")}</p></ShowInfo>;
 
   return (
     <main className="px-9 pt-15 pb-24 bg-palePeach dark:bg-darkGray ">
-      <Helmet>
-
-        <title>{currentTitle || "Ціни на послуги стоматології | Зубна Фея Біла Церква"}</title>
-        <meta
-          name="description"
-          content={currentDescription || "Актуальний прайс-лист стоматологічної клініки Зубна Фея. Прозорі ціни на лікування, імплантацію, дитячу стоматологію та рентген-діагностику."}
-        />
-      </Helmet>
+      <SEOMeta
+        title={currentTitle || "Ціни на послуги стоматології | Зубна Фея Біла Церква"}
+        description={currentDescription || "Актуальний прайс-лист стоматологічної клініки Зубна Фея..."}
+        path="/price-list"
+        schemaData={priceSchema}
+      />
 
       <div className="mb-10">
         <MainTitle size="base" as="h1">{t("Прайс-лист послуг")}</MainTitle>

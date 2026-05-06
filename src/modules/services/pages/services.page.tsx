@@ -9,6 +9,7 @@ import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook"
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
 import { useGetServiceByIdQuery } from "@app/core/types";
 import { ServiceItem } from "../components/service-item-component";
+import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 
 interface ServicePageProps { }
 
@@ -16,68 +17,48 @@ export const ServicePage: FC<ServicePageProps> = () => {
   const { id } = useParams<{ id: string }>();
   const { t, i18n } = useTranslation();
 
-  // Отримуємо дані з Hasura
   const { data, loading, error } = useGetServiceByIdQuery({
-    variables: {
-      _eq: id,
-    },
+    variables: { _eq: id },
   });
 
   const service = data?.services[0];
-
-  // Визначаємо поточну мову (використовуємо 'en' або префікс 'ua' для логіки полів)
   const isEn = i18n.language === 'en';
 
-  // Динамічні метатеги з бази даних або fallback значення
   const title = isEn ? service?.seo_title_en : service?.seo_title;
   const description = isEn ? service?.seo_description_en : service?.seo_description;
   const serviceName = service?.name ? t(`${service.name}`) : "";
 
-  // Обробка помилки запиту
-  if (error) {
-    return (
-      <ShowInfo type="error">
-        <p>{t("Упс, сталася помилка")}</p>
-        <p>{t("Спробуйте трохи пізніше")}</p>
-      </ShowInfo>
-    );
-  }
+  if (error) return <ShowInfo type="error"><p>{t("Упс, сталася помилка")}</p></ShowInfo>;
+  if (loading) return <ShowInfo type="info"><p>{t("Завантаження...")}</p></ShowInfo>;
+  if (!service) return <ShowInfo type="info"><p>{t("На жаль, таку послугу не знайдено")}</p></ShowInfo>;
 
-  // Стан завантаження
-  if (loading) {
-    return (
-      <ShowInfo type="info">
-        <p>{t("Завантаження...")}</p>
-      </ShowInfo>
-    );
-  }
-
-  // Перевірка наявності даних
-  if (!service) {
-    return (
-      <ShowInfo type="info">
-        <p>{t("На жаль, таку послугу не знайдено")}</p>
-      </ShowInfo>
-    );
-  }
+  const serviceSchema = {
+    "@type": "Service",
+    "serviceType": "MedicalService",
+    "name": serviceName,
+    "description": description || (isEn
+      ? `Professional ${serviceName} in Bila Tserkva.`
+      : `Професійна послуга ${serviceName} у Білій Церкві.`),
+    "provider": {
+      "@id": "https://toothfairy.clinic/#organization"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Bila Tserkva"
+    }
+  };
 
   return (
     <>
-      <Helmet>
-        {/* Динамічний заголовок сторінки */}
-        <title>
-          {title || `${serviceName} | ${t("Стоматологія Зубна Фея")}`}
-        </title>
-
-        {/* Динамічний мета-опис */}
-        <meta
-          name="description"
-          content={description || (isEn
-            ? `Learn more about ${serviceName} at Tooth Fairy Clinic.`
-            : `Дізнайтеся більше про послугу ${serviceName} у клініці Зубна Фея.`)}
-        />
-
-      </Helmet>
+      <SEOMeta
+        title={title || `${serviceName} | ${t("Стоматологія Зубна Фея")}`}
+        description={description || (isEn
+          ? `Learn more about ${serviceName} at Tooth Fairy Clinic.`
+          : `Дізнайтеся більше про послугу ${serviceName} у клініці Зубна Фея.`)}
+        path={`/services/${id}`}
+        type="Service"
+        schemaData={serviceSchema}
+      />
 
       <main className="py-24 flex flex-col gap-16 dark:bg-darkGray min-h-screen">
         <MainTitle darkken={false} size="md">

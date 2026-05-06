@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { OurWorkList } from "../components/our-work-list/our-work-list.components";
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
 import { useGetPageMetadataQuery } from "@app/core/types";
+import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 
 export const OurWorkPage: FC = () => {
-
-  const { data } = useGetPageMetadataQuery({ variables: { route: '/works' } });
+  // Виправляємо шлях на '/our-work', щоб він відповідав базі даних
+  const { data } = useGetPageMetadataQuery({ variables: { route: '/our-work' } });
 
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
@@ -15,19 +16,23 @@ export const OurWorkPage: FC = () => {
   const pageMeta = data?.page_metadata[0];
 
   const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
-
   const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
-
 
   return (
     <main className="bg-palePeach dark:bg-darkGray min-h-screen">
-      <Helmet>
-        <title>{currentTitle || "Наші роботи | Зубна Фея"}</title>
-        <meta
-          name="description"
-          content={currentDescription || "Перегляньте результати роботи наших стоматологів: реставрації, протезування, відбілювання та вирівнювання зубів. Реальні кейси пацієнтів клініки Зубна Фея."}
-        />
-      </Helmet>
+      <SEOMeta
+        title={currentTitle || "Наші роботи | Зубна Фея"}
+        description={currentDescription || "Перегляньте результати роботи наших стоматологів: реставрації, протезування та інше."}
+        path="/our-work"
+        schemaData={{
+          "@type": "ImageGallery",
+          "name": currentTitle || "Галерея робіт стоматології Зубна Фея",
+          "description": currentDescription,
+          "provider": {
+            "@id": "https://toothfairy.clinic/#organization"
+          }
+        }}
+      />
 
       <section className="px-9 pt-15 pb-24">
         <div className="">
