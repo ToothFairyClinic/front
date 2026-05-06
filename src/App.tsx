@@ -48,6 +48,7 @@ export const App = () => {
   const GA_ID = config.GA_MEASUREMENT_ID;
   const { i18n } = useTranslation();
 
+
   useEffect(() => {
     if (GA_ID)
       // ініціалізація GA

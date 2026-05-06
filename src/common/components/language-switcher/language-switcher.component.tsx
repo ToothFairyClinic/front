@@ -7,68 +7,56 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const LanguageSwitcher: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const themeStateCurrent = useReactiveVar(themeState);
-
-  // Ініціалізація стану безпосередньо з i18n, щоб мати одне джерело істини
-  const [currentLang, setCurrentLang] = React.useState(() => {
-    const path = window.location.pathname.split('/')[1];
-    if (path === 'ua' || path === 'en') return path;
-    return i18n.language === 'uk' ? 'ua' : 'en';
-  });
-
   const navigate = useNavigate();
   const location = useLocation();
 
+  const currentLangFromUrl = location.pathname.split('/')[1] || 'ua';
+
   const changeLanguage = (lang: string): void => {
-    setCurrentLang(lang);
-    localStorage.setItem('language', lang);
-
-
     const i18nLang = lang === 'ua' ? 'uk' : lang;
     i18n.changeLanguage(i18nLang);
 
+    localStorage.setItem('language', lang);
+
     const pathSegments = location.pathname.split('/').filter(Boolean);
-    pathSegments[0] = lang;
-    navigate(`/${pathSegments.join('/')}`);
+    if (pathSegments.length > 0) {
+      pathSegments[0] = lang;
+      navigate(`/${pathSegments.join('/')}`);
+    } else {
+      navigate(`/${lang}`);
+    }
   };
 
   const getButtonStyles = (lang: string) => clsx(
     "text-xl font-normal transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-paleOlive rounded-md px-1",
     {
-      // Стилі для активної мови
-      "font-bold underline decoration-darkGray underline-offset-4 dark:decoration-paleOlive": currentLang === lang,
-      // Кольори залежно від теми
+      // Порівнюємо з мовою з URL
+      "font-bold underline decoration-darkGray underline-offset-4 dark:decoration-paleOlive": currentLangFromUrl === lang,
       "text-darkGray hover:text-gray-600": themeStateCurrent,
       "text-white hover:text-paleOlive": !themeStateCurrent,
     }
   );
-
-
 
   return (
     <nav className='flex items-center gap-2' aria-label={t("Перемикач мови")}>
       <button
         className={getButtonStyles('ua')}
         onClick={() => changeLanguage('ua')}
-        aria-label="Українська мова"
-        aria-pressed={currentLang === 'ua'}
+        aria-pressed={currentLangFromUrl === 'ua'}
       >
         UA
       </button>
-
       <div className='h-4 border-l border-gray-400 opacity-50' aria-hidden="true"></div>
-
       <button
         className={getButtonStyles('en')}
         onClick={() => changeLanguage('en')}
-        aria-label="English language"
-        aria-pressed={currentLang === 'en'}
+        aria-pressed={currentLangFromUrl === 'en'}
       >
         EN
       </button>
     </nav>
   );
 };
-
 export default LanguageSwitcher;
