@@ -1,7 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 i18n
+  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources: {
@@ -221,10 +223,14 @@ i18n
         },
       },
     },
-    lng: localStorage.getItem('language') || 'uk', // Використовуйте мову з localStorage
-    fallbackLng: 'en',
+    detection: {
+      order: ['path', 'localStorage', 'cookie', 'navigator'],
+      lookupFromPathIndex: 0,
+      caches: ['localStorage'],
+    },
+    fallbackLng: 'uk',
     interpolation: {
-      escapeValue: false, // React вже екранує, тому це не потрібно
+      escapeValue: false,
     },
   });
 

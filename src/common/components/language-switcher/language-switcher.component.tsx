@@ -11,9 +11,11 @@ const LanguageSwitcher: React.FC = () => {
   const themeStateCurrent = useReactiveVar(themeState);
 
   // Ініціалізація стану безпосередньо з i18n, щоб мати одне джерело істини
-  const [currentLang, setCurrentLang] = React.useState(
-    i18n.language === 'uk' ? 'ua' : i18n.language || 'ua'
-  );
+  const [currentLang, setCurrentLang] = React.useState(() => {
+    const path = window.location.pathname.split('/')[1];
+    if (path === 'ua' || path === 'en') return path;
+    return i18n.language === 'uk' ? 'ua' : 'en';
+  });
 
   const navigate = useNavigate();
   const location = useLocation();
