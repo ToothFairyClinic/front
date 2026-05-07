@@ -15,7 +15,7 @@ export const OurWorkItem: FC<Our_Works & OurWorkItemProps> = ({
   description,
   fitImage = false,
 }) => {
-  const transformations = ["w_460", "h_440", "f_auto", "q_auto"]; // Додав авто-формат та якість
+  const transformations = ["w_460", "h_440", "f_auto", "q_auto"];
   if (fitImage) {
     transformations.unshift("c_pad");
   }

@@ -17,10 +17,12 @@ export const ServiceItem: FC<ServiceItemProps & Services> = ({
   id,
   mainImage,
 }) => {
-  const transformations = ["w_600", "h_526"];
+
   const { t } = useTranslation();
+
+  const transformations = ["w_600", "h_526"];
   if (fitImage) {
-    transformations.unshift("c_pad");
+    transformations.unshift("c_pad", "b_transparent");
   }
 
   const imageCld = useCloudinaryImage(mainImage!, transformations);
@@ -32,7 +34,8 @@ export const ServiceItem: FC<ServiceItemProps & Services> = ({
           cldImg={imageCld}
           width={600}
           height={526}
-          className="rounded-t-2xl"
+          className="rounded-2xl w-full h-auto shadow-lg"
+          alt={t(name || "service image")}
         />
       </div>
       <div className="">

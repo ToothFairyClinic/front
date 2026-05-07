@@ -51,7 +51,7 @@ export const SEOMeta = ({ title, description, path, type = 'Webpage', schemaData
         "inLanguage": currentLang === "ua" ? "uk-UA" : "en-US",
         ...(schemaData ? { "mainEntity": schemaData } : {})
     };
-    const defaultImage = `${baseUrl}/assets/favicon/android-chrome-512x512.png`;
+    const defaultImage = `${baseUrl}/assets/og-main.svg`;
 
     return (
         <Helmet>

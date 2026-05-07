@@ -1,6 +1,6 @@
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { AdvancedImage } from "@cloudinary/react";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from 'react-i18next';
 
 interface PersonnelItemProps {
@@ -13,6 +13,7 @@ interface PersonnelItemProps {
   fitImage?: boolean;
 }
 
+
 export const PersonnelItem: FC<PersonnelItemProps> = ({
   image,
   name,
@@ -20,11 +21,18 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
   personnel_category_second_str,
   fitImage = true,
 }) => {
-  const transformations = ["w_370", "h_440", "f_auto", "q_auto"];
-  if (fitImage) {
-    transformations.unshift("c_pad");
-  }
   const { t } = useTranslation();
+
+  const transformations = useMemo(() => {
+    const base = ["w_385", "h_440", "f_auto", "q_auto"];
+    if (fitImage) {
+      base.unshift("c_pad");
+    } else {
+      base.unshift("c_fill", "g_face"); // Якщо не pad, то фокусуємось на обличчі
+    }
+    return base;
+  }, [fitImage]);
+
   const imageCld = useCloudinaryImage(image, transformations);
 
   return (
@@ -34,6 +42,7 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
         width={385}
         height={440}
         alt={t(name)}
+        loading="lazy"
         className="rounded-t-2xl w-full object-cover"
       />
 
@@ -41,7 +50,6 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
         <h3 className="text-2xl font-semibold mb-1">
           {t(name)}
         </h3>
-
 
         <div className="text-lg opacity-80">
           <span>{t(personnel_category_str)}</span>

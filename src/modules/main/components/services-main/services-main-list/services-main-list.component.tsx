@@ -18,12 +18,12 @@ export const SerivcesList: FC<ServicesListProps> = ({ items }) => {
       ref={servicesRef}
       id="services"
       aria-labelledby="services-title"
-      className=" py-7 flex flex-col gap-19  bg-[url('@app/assets/images/servicesImage.jpg')] bg-no-repeat bg-cover bg-center relative"
+      className="py-7 flex flex-col gap-19 bg-[url('@app/assets/images/servicesImage.avif')] bg-no-repeat bg-cover bg-center relative min-h-[600px]"
     >
-      <div id="services-title">
-        <MainTitle as="h2">
-          Наші послуги
-        </MainTitle>
+      <div id="services-title" className="relative z-10">
+        <h2 className="text-white text-6xl border-b border-paleOlive px-10 py-3 w-140">
+          {t("Наші Послуги")}
+        </h2>
       </div>
 
       <div className="z-10 container mx-auto">
