@@ -22,7 +22,6 @@ export const Slide: FC = () => {
     []
   );
 
-
   const videoPoster = useMemo(() =>
     cld.image("videos/cjqq4jqlqe6vqia4xyot")
       .setAssetType('video')
@@ -33,14 +32,11 @@ export const Slide: FC = () => {
     []
   );
 
-  const lazyloadPlugin = useMemo(() => [lazyload()], []);
-
   return (
     <section
-      className="relative h-165 lg:h-screen flex justify-center items-end pb-15  bg-paleOlive"
+      className="relative h-165 lg:h-screen flex justify-center items-end pb-15 bg-paleOlive "
       aria-label={t("Головний екран клініки")}
     >
-
       <div className="absolute inset-0 z-0" aria-hidden="true">
         <AdvancedVideo
           className="w-full h-full object-cover"
@@ -67,7 +63,6 @@ export const Slide: FC = () => {
         </p>
       </div>
 
-      {/* Декоративний кіт — ПРАВИЛЬНА ОПТИМІЗАЦІЯ */}
       <div className="absolute -bottom-52 right-10 z-50 hidden lg:block pointer-events-none" aria-hidden="true">
         <img
           src={CatImage}

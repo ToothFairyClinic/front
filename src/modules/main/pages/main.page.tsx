@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { Slide } from "../components/slide/slide.component";
 import { AdvantagesGroup } from "../components/advantages/advantages-group/advantages-group.component";
 import { SerivcesList } from "../components/services-main/services-main-list/services-main-list.component";
@@ -39,6 +39,12 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
     "Кабінет комп'ютерної томографії, ТРГ, ОПТГ"
   ];
 
+  const sortedServices = useMemo(() => {
+    if (!data?.services) return [];
+    return [...data.services].sort((a, b) => order.indexOf(a.name) - order.indexOf(b.name));
+  }, [data]);
+
+
   if (error) {
     return (
       <ShowInfo type="error">
@@ -48,25 +54,8 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
     );
   }
 
-  if (loading) {
-    return (
-      <ShowInfo type="info">
-        <p>{t("Завантаження...")} </p>
-      </ShowInfo>
-    );
-  }
 
-  if (!data) {
-    return (
-      <ShowInfo type="info">
-        <p>{t("Нажаль тут пусто")} </p>
-      </ShowInfo>
-    );
-  }
 
-  const sortedServices = [...data.services].sort((a, b) => {
-    return order.indexOf(a.name) - order.indexOf(b.name);
-  });
 
   const currentLang = getUrlLang(i18n.language);
 
@@ -148,6 +137,8 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
       <AdvantagesGroup />
       <SerivcesList items={sortedServices} />
       <PersonnelList />
+
+      {error && <div className="text-red-500 text-center py-4">{t("Помилка завантаження даних")}</div>}
     </main>
   );
 };

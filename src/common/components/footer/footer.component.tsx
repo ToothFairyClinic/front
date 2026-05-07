@@ -29,19 +29,19 @@ export const Footer = () => {
         <nav aria-label={t("Додаткова навігація")}>
           <div className="flex flex-col gap-8 sm:flex-row md:gap-36">
             <ul className="flex flex-col gap-3 list-none">
-              <li className="dark:hover:text-paleOlive hover:text-white transition-colors min-h-[28px]">
+              <li className="dark:hover:text-paleOlive hover:text-white  min-h-[28px]">
                 <Link to="/">{t("Головна")}</Link>
               </li>
-              <li className="dark:hover:text-paleOlive hover:text-white transition-colors min-h-[28px]">
+              <li className="dark:hover:text-paleOlive hover:text-white  min-h-[28px]">
                 <Link smooth to="/#services">{t("Послуги")}</Link>
               </li>
             </ul>
 
             <ul className="flex flex-col gap-3 list-none">
-              <li className="dark:hover:text-paleOlive hover:text-white transition-colors min-h-[28px]">
+              <li className="dark:hover:text-paleOlive hover:text-white  min-h-[28px]">
                 <Link smooth to="/#personnel">{t("Персонал")}</Link>
               </li>
-              <li className="dark:hover:text-paleOlive hover:text-white transition-colors min-h-[28px]">
+              <li className="dark:hover:text-paleOlive hover:text-white  min-h-[28px]">
                 <Link to={`/${lang}/price-list`}>{t("Прайс лист")}</Link>
               </li>
             </ul>
@@ -56,13 +56,13 @@ export const Footer = () => {
             </li>
             <li className="flex gap-2 items-center group">
               <SmartPhoneIcon width={31} height={31} aria-hidden="true" />
-              <a href="tel:+380681689911" className="dark:hover:text-paleOlive hover:text-white transition-colors">
+              <a href="tel:+380681689911" className="dark:hover:text-paleOlive hover:text-white ">
                 +38 (068) 168-99-11
               </a>
             </li>
             <li className="flex gap-2 items-center group">
               <SmartPhoneIcon width={31} height={31} aria-hidden="true" />
-              <a href="tel:+380934599911" className="dark:hover:text-paleOlive hover:text-white transition-colors">
+              <a href="tel:+380934599911" className="dark:hover:text-paleOlive hover:text-white ">
                 +38 (093) 459-99-11
               </a>
             </li>

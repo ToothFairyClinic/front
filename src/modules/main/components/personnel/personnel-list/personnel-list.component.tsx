@@ -13,43 +13,39 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 interface PersonnelListProps { }
-
 export const PersonnelList: FC<PersonnelListProps> = () => {
   const { data, loading, error } = useGetPersonnelQuery();
   const personnelRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
 
-  if (error) {
-    return (
-      <ShowInfo type="error">
-        <p> {t("Упс, спалася помилка")}  </p>
-        <p>{t("Спробуйте трохи пізніше")} </p>
-      </ShowInfo>
-    );
-  }
+  if (error) return (
+    <section className="py-28 min-h-[600px] flex items-center justify-center">
+      <ShowInfo type="error"><p>{t("Упс, сталася помилка")}</p></ShowInfo>
+    </section>
+  );
+
 
   if (loading) {
     return (
-      <ShowInfo type="info">
-        <p>Завантаження...</p>
-      </ShowInfo>
+      <section className="dark:bg-darkGray py-28 flex flex-col gap-10 min-h-[700px]">
+        <MainTitle as="h2">{t("Наша команда")}</MainTitle>
+        <div className="lg:px-20 flex gap-10 overflow-hidden animate-pulse">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="w-96 h-[500px] bg-gray-200 dark:bg-gray-700 rounded-2xl" />
+          ))}
+        </div>
+      </section>
     );
   }
 
-  if (!data?.personnel || data.personnel.length === 0) {
-    return (
-      <ShowInfo type="info">
-        <p> {t("Нажаль тут пусто")}</p>
-      </ShowInfo>
-    );
-  }
+  if (!data?.personnel || data.personnel.length === 0) return null;
 
   return (
     <section
       ref={personnelRef}
       id="personnel"
       aria-labelledby="personnel-title"
-      className="dark:bg-darkGray py-28 flex flex-col gap-10 transition-colors duration-300"
+      className="dark:bg-darkGray py-28 flex flex-col gap-10 transition-colors duration-300 min-h-[700px]"
     >
       <MainTitle as="h2">
         {t("Наша команда")}
@@ -57,20 +53,13 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
 
       <div className="lg:px-20">
         <Swiper
+          style={{ minHeight: '520px' }}
           breakpoints={{
             320: { slidesPerView: 1, spaceBetween: 20 },
             768: { slidesPerView: 2, spaceBetween: 40 },
             1300: { slidesPerView: 3, spaceBetween: 75 },
           }}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          pagination={{
-            clickable: true,
-            dynamicBullets: true,
-          }}
+          // ... інші налаштування Swiper
           modules={[Autoplay, Pagination, Navigation]}
           className="pb-12"
         >
