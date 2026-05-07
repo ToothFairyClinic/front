@@ -79,11 +79,11 @@ export const Slide: FC = () => {
       </div>
 
       {/* Декоративний кіт */}
-      <div className="z-10 absolute lg:right-5 lg:-bottom-10 hidden lg:block pointer-events-none" aria-hidden="true">
+      <div className="absolute -bottom-24 right-10 z-20 hidden lg:block pointer-events-none" aria-hidden="true">
         <img
           src={CatImage}
           alt=""
-          className="w-auto h-auto max-w-xs xl:max-w-md"
+          className="w-auto h-64 xl:h-80 object-contain"
           loading="lazy"
         />
       </div>
