@@ -44,6 +44,7 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
           alt={t(name)}
           loading="lazy"
           className="w-full h-full object-cover"
+          style={{ width: '100%', height: '100%' }}
         />
       </div>
 

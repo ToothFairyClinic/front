@@ -34,6 +34,7 @@ export const OurWorkItem: FC<Our_Works & OurWorkItemProps> = ({
             height={440}
             alt={`${t(title)}: ${t("Результат до та після лікування")}`}
             className="w-full h-auto"
+            style={{ width: '100%', height: '100%' }}
           />
         </div>
 

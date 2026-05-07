@@ -53,15 +53,26 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
 
       <div className="lg:px-20 min-h-[550px]">
         <Swiper
-          style={{ minHeight: '520px' }}
+          autoHeight={false}
+          style={{ height: '550px' }}
+          setWrapperSize={true}
           breakpoints={{
             320: { slidesPerView: 1, spaceBetween: 20 },
             768: { slidesPerView: 2, spaceBetween: 40 },
             1300: { slidesPerView: 3, spaceBetween: 75 },
           }}
-          // ... інші налаштування Swiper
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          pagination={{
+            clickable: true,
+            dynamicBullets: true,
+          }}
           modules={[Autoplay, Pagination, Navigation]}
           className="pb-12"
+
         >
           {data.personnel.map(({ image, ...item }) => (
             <SwiperSlide key={item.id} tag="article">

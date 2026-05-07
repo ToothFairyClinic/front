@@ -36,6 +36,7 @@ export const ServiceItem: FC<ServiceItemProps & Services> = ({
           height={526}
           className="rounded-2xl w-full h-auto shadow-lg"
           alt={t(name || "service image")}
+          style={{ width: '100%', height: '100%' }}
         />
       </div>
       <div className="">

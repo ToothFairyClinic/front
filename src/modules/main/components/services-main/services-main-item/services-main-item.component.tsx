@@ -46,6 +46,7 @@ export const ServicesItem: FC<ServicesItemProps & Services> = ({
           alt={t(name)}
           loading="lazy"
           className="rounded-t-2xl object-contain w-[126px] h-[126px]"
+          style={{ width: '100%', height: '100%' }}
         />
       </div>
 

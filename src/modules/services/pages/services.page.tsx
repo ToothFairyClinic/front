@@ -1,8 +1,7 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useTranslation } from 'react-i18next';
-import { AdvancedImage } from "@cloudinary/react";
+
 
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
