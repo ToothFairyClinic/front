@@ -21,7 +21,10 @@ export const Header: FC<HeaderProps> = ({ }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const themeStateCurrent = useReactiveVar(themeState);
   const location = useLocation();
-  const isMainPage = location.pathname === '/ua' || location.pathname === '/en' || location.pathname === '/'; const { t } = useTranslation();
+
+  const isMainPage = location.pathname === '/ua' || location.pathname === '/en' || location.pathname === '/';
+
+  const { t } = useTranslation();
   const { i18n } = useTranslation();
 
   const urlLang = i18n.language === 'uk' ? 'ua' : i18n.language;

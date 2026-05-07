@@ -7,6 +7,8 @@ import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { PersonnelList } from "../components/personnel/personnel-list/personnel-list.component";
 import { Helmet } from "react-helmet-async";
 import { useTranslation } from 'react-i18next';
+import { getUrlLang } from "@app/common/components/get-lang/get.lang";
+import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 
 interface MainPageProps { }
 
@@ -66,84 +68,81 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
     return order.indexOf(a.name) - order.indexOf(b.name);
   });
 
-  const currentLang = i18n.language === 'ua' ? 'ua' : 'en';
+  const currentLang = getUrlLang(i18n.language);
 
   const baseUrl = "https://toothfairy.clinic";
 
-  const mainSchema = {
-    "@context": "https://schema.org",
-    "@graph": [
+  const dentistSchema = {
+    "@type": "Dentist",
+    "@id": `${baseUrl}/#organization`,
+    "name": i18n.language === 'en' ? "Tooth Fairy Dental Clinic" : "Стоматологічна клініка Зубна Фея",
+    "url": `${baseUrl}/${currentLang}`,
+    "additionalType": "https://schema.org/Organization",
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${baseUrl}/logo-seo.svg`,
+      "width": "500",
+      "height": "500"
+    },
+    "image": `${baseUrl}/assets/favicon/android-chrome-512x512.png`,
+    "telephone": "+380681689911",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "вул. Вокзальна, 22",
+      "addressLocality": "Біла Церква",
+      "addressRegion": "Київська область",
+      "postalCode": "09100",
+      "addressCountry": "UA"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 49.81106092703584,
+      "longitude": 30.10824757616152
+    },
+    "openingHoursSpecification": [
       {
-        "@type": "WebSite",
-        "@id": `${baseUrl}/#website`,
-        "url": `${baseUrl}/${currentLang}`,
-        "name": "Зубна Фея",
-        "publisher": {
-          "@id": `${baseUrl}/#organization`
-        },
-        "inLanguage": currentLang === "ua" ? "uk-UA" : "en-US"
-      },
-      {
-        "@type": "Dentist",
-        "@id": `${baseUrl}/#organization`,
-        "name": "Стоматологічна клініка Зубна Фея",
-        "url": `${baseUrl}/${currentLang}`,
-        "logo": {
-          "@type": "ImageObject",
-          "url": `${baseUrl}/logo-seo.svg`,
-          "width": "500",
-          "height": "500"
-        },
-        "image": `${baseUrl}/assets/favicon/android-chrome-512x512.png`,
-        "telephone": "+380681689911",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "вул. Вокзальна, 22",
-          "addressLocality": "Біла Церква",
-          "addressRegion": "Київська область",
-          "postalCode": "09100",
-          "addressCountry": "UA"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 49.81106092703584,
-          "longitude": 30.10824757616152
-        },
-        "openingHoursSpecification": [
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday"
-            ],
-            "opens": "09:30",
-            "closes": "19:00"
-          }
-        ],
-        "sameAs": [
-          "https://www.instagram.com/toothfairy.clinic",
-          "https://www.facebook.com/bcdentist.toothfairy/"
-        ],
-        "priceRange": "$$"
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:30",
+        "closes": "19:00"
       }
-    ]
+    ],
+    "sameAs": [
+      "https://www.instagram.com/toothfairy.clinic",
+      "https://www.facebook.com/bcdentist.toothfairy/"
+    ],
+    "priceRange": "$$",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": i18n.language === 'en' ? "Dental Services" : "Послуги стоматології",
+      "itemListElement": sortedServices.map((service) => ({
+        "@type": "OfferCatalog",
+        "itemOffered": {
+          "@type": "Service",
+          "name": (i18n.language === 'en' && service.seo_title_en)
+            ? service.seo_title_en
+            : service.name
+        }
+      }))
+    }
   };
 
   return (
     <main className="">
-      <Helmet>
-        <script type="application/ld+json">{JSON.stringify(mainSchema)}</script>
-
-        <title>{currentTitle || "Стоматологія Зубна Фея — професійне лікування зубів у Білій Церкві"}</title>
-        <meta
-          name="description"
-          content={currentDescription || "Сучасна стоматологічна клініка Зубна Фея: дитяча стоматологія, імплантація, терапія та професійна гігієна. Забезпечуємо здорову посмішку для всієї родини."}
+      {currentTitle && currentDescription ? (
+        <SEOMeta
+          title={currentTitle}
+          description={currentDescription}
+          path=""
+          type="Webpage"
+          schemaData={dentistSchema}
         />
-      </Helmet>
+      ) : (
+        <Helmet>
+          <title>Стоматологія Зубна Фея — професійне лікування зубів у Білій Церкві</title>
+          <meta name="description" content="Сучасна стоматологічна клініка Зубна Фея: дитяча стоматологія, імплантація, терапія." />
+        </Helmet>
+      )}
 
       <Slide />
       <AdvantagesGroup />

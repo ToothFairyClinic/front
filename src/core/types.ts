@@ -1360,6 +1360,7 @@ export type Page_Metadata = {
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title: Scalars['String']['output'];
   seo_title_en?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** aggregated selection of "page_metadata" */
@@ -1395,6 +1396,7 @@ export type Page_Metadata_Bool_Exp = {
   seo_description_en?: InputMaybe<String_Comparison_Exp>;
   seo_title?: InputMaybe<String_Comparison_Exp>;
   seo_title_en?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "page_metadata" */
@@ -1413,6 +1415,7 @@ export type Page_Metadata_Insert_Input = {
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
   seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
 /** aggregate max on columns */
@@ -1424,6 +1427,7 @@ export type Page_Metadata_Max_Fields = {
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
   seo_title_en?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** aggregate min on columns */
@@ -1435,6 +1439,7 @@ export type Page_Metadata_Min_Fields = {
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
   seo_title_en?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** response of any mutation on the table "page_metadata" */
@@ -1461,6 +1466,7 @@ export type Page_Metadata_Order_By = {
   seo_description_en?: InputMaybe<Order_By>;
   seo_title?: InputMaybe<Order_By>;
   seo_title_en?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: page_metadata */
@@ -1481,7 +1487,9 @@ export enum Page_Metadata_Select_Column {
   /** column name */
   SeoTitle = 'seo_title',
   /** column name */
-  SeoTitleEn = 'seo_title_en'
+  SeoTitleEn = 'seo_title_en',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
 
 /** input type for updating data in table "page_metadata" */
@@ -1492,6 +1500,7 @@ export type Page_Metadata_Set_Input = {
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
   seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
 /** Streaming cursor of the table "page_metadata" */
@@ -1510,6 +1519,7 @@ export type Page_Metadata_Stream_Cursor_Value_Input = {
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
   seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
 /** update columns of table "page_metadata" */
@@ -1525,7 +1535,9 @@ export enum Page_Metadata_Update_Column {
   /** column name */
   SeoTitle = 'seo_title',
   /** column name */
-  SeoTitleEn = 'seo_title_en'
+  SeoTitleEn = 'seo_title_en',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
 
 export type Page_Metadata_Updates = {
@@ -2088,6 +2100,7 @@ export type Price_List_Categories = {
   price_list_items_aggregate: Price_List_Aggregate;
   slug?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
+  title_en?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -2142,6 +2155,7 @@ export type Price_List_Categories_Bool_Exp = {
   price_list_items_aggregate?: InputMaybe<Price_List_Aggregate_Bool_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
+  title_en?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "price_list_categories" */
@@ -2156,6 +2170,7 @@ export type Price_List_Categories_Insert_Input = {
   price_list_items?: InputMaybe<Price_List_Arr_Rel_Insert_Input>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
@@ -2164,6 +2179,7 @@ export type Price_List_Categories_Max_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+  title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
@@ -2172,6 +2188,7 @@ export type Price_List_Categories_Min_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+  title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** response of any mutation on the table "price_list_categories" */
@@ -2203,6 +2220,7 @@ export type Price_List_Categories_Order_By = {
   price_list_items_aggregate?: InputMaybe<Price_List_Aggregate_Order_By>;
   slug?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
+  title_en?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: price_list_categories */
@@ -2217,7 +2235,9 @@ export enum Price_List_Categories_Select_Column {
   /** column name */
   Slug = 'slug',
   /** column name */
-  Title = 'title'
+  Title = 'title',
+  /** column name */
+  TitleEn = 'title_en'
 }
 
 /** input type for updating data in table "price_list_categories" */
@@ -2225,6 +2245,7 @@ export type Price_List_Categories_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Streaming cursor of the table "price_list_categories" */
@@ -2240,6 +2261,7 @@ export type Price_List_Categories_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update columns of table "price_list_categories" */
@@ -2249,7 +2271,9 @@ export enum Price_List_Categories_Update_Column {
   /** column name */
   Slug = 'slug',
   /** column name */
-  Title = 'title'
+  Title = 'title',
+  /** column name */
+  TitleEn = 'title_en'
 }
 
 export type Price_List_Categories_Updates = {
@@ -2546,6 +2570,7 @@ export type Products_Categories = {
   id: Scalars['uuid']['output'];
   slug: Scalars['String']['output'];
   title: Scalars['String']['output'];
+  title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregated selection of "products_categories" */
@@ -2578,6 +2603,7 @@ export type Products_Categories_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
+  title_en?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "products_categories" */
@@ -2591,6 +2617,7 @@ export type Products_Categories_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
@@ -2599,6 +2626,7 @@ export type Products_Categories_Max_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+  title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
@@ -2607,6 +2635,7 @@ export type Products_Categories_Min_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+  title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** response of any mutation on the table "products_categories" */
@@ -2630,6 +2659,7 @@ export type Products_Categories_Order_By = {
   id?: InputMaybe<Order_By>;
   slug?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
+  title_en?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: products_categories */
@@ -2644,7 +2674,9 @@ export enum Products_Categories_Select_Column {
   /** column name */
   Slug = 'slug',
   /** column name */
-  Title = 'title'
+  Title = 'title',
+  /** column name */
+  TitleEn = 'title_en'
 }
 
 /** input type for updating data in table "products_categories" */
@@ -2652,6 +2684,7 @@ export type Products_Categories_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Streaming cursor of the table "products_categories" */
@@ -2667,6 +2700,7 @@ export type Products_Categories_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update columns of table "products_categories" */
@@ -2676,7 +2710,9 @@ export enum Products_Categories_Update_Column {
   /** column name */
   Slug = 'slug',
   /** column name */
-  Title = 'title'
+  Title = 'title',
+  /** column name */
+  TitleEn = 'title_en'
 }
 
 export type Products_Categories_Updates = {
@@ -3428,10 +3464,12 @@ export type Services = {
   image: Scalars['String']['output'];
   mainImage?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
+  name_en?: Maybe<Scalars['String']['output']>;
   seo_description?: Maybe<Scalars['String']['output']>;
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
   seo_title_en?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** aggregated selection of "services" */
@@ -3467,10 +3505,12 @@ export type Services_Bool_Exp = {
   image?: InputMaybe<String_Comparison_Exp>;
   mainImage?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
+  name_en?: InputMaybe<String_Comparison_Exp>;
   seo_description?: InputMaybe<String_Comparison_Exp>;
   seo_description_en?: InputMaybe<String_Comparison_Exp>;
   seo_title?: InputMaybe<String_Comparison_Exp>;
   seo_title_en?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "services" */
@@ -3487,10 +3527,12 @@ export type Services_Insert_Input = {
   image?: InputMaybe<Scalars['String']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  name_en?: InputMaybe<Scalars['String']['input']>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
   seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
 /** aggregate max on columns */
@@ -3502,10 +3544,12 @@ export type Services_Max_Fields = {
   image?: Maybe<Scalars['String']['output']>;
   mainImage?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+  name_en?: Maybe<Scalars['String']['output']>;
   seo_description?: Maybe<Scalars['String']['output']>;
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
   seo_title_en?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** aggregate min on columns */
@@ -3517,10 +3561,12 @@ export type Services_Min_Fields = {
   image?: Maybe<Scalars['String']['output']>;
   mainImage?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
+  name_en?: Maybe<Scalars['String']['output']>;
   seo_description?: Maybe<Scalars['String']['output']>;
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
   seo_title_en?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** response of any mutation on the table "services" */
@@ -3547,10 +3593,12 @@ export type Services_Order_By = {
   image?: InputMaybe<Order_By>;
   mainImage?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  name_en?: InputMaybe<Order_By>;
   seo_description?: InputMaybe<Order_By>;
   seo_description_en?: InputMaybe<Order_By>;
   seo_title?: InputMaybe<Order_By>;
   seo_title_en?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: services */
@@ -3573,13 +3621,17 @@ export enum Services_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
+  NameEn = 'name_en',
+  /** column name */
   SeoDescription = 'seo_description',
   /** column name */
   SeoDescriptionEn = 'seo_description_en',
   /** column name */
   SeoTitle = 'seo_title',
   /** column name */
-  SeoTitleEn = 'seo_title_en'
+  SeoTitleEn = 'seo_title_en',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
 
 /** input type for updating data in table "services" */
@@ -3590,10 +3642,12 @@ export type Services_Set_Input = {
   image?: InputMaybe<Scalars['String']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  name_en?: InputMaybe<Scalars['String']['input']>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
   seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
 /** Streaming cursor of the table "services" */
@@ -3612,10 +3666,12 @@ export type Services_Stream_Cursor_Value_Input = {
   image?: InputMaybe<Scalars['String']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  name_en?: InputMaybe<Scalars['String']['input']>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
   seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
 /** update columns of table "services" */
@@ -3633,13 +3689,17 @@ export enum Services_Update_Column {
   /** column name */
   Name = 'name',
   /** column name */
+  NameEn = 'name_en',
+  /** column name */
   SeoDescription = 'seo_description',
   /** column name */
   SeoDescriptionEn = 'seo_description_en',
   /** column name */
   SeoTitle = 'seo_title',
   /** column name */
-  SeoTitleEn = 'seo_title_en'
+  SeoTitleEn = 'seo_title_en',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
 
 export type Services_Updates = {
@@ -4187,12 +4247,12 @@ export type GetPersonnelQuery = { __typename?: 'query_root', personnel: Array<{ 
 export type GetPriceListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPriceListQuery = { __typename?: 'query_root', price_list_categories: Array<{ __typename?: 'price_list_categories', title: string, slug?: string | null, id: any, price_list_items: Array<{ __typename?: 'price_list', id: any, price: any, title: string }> }> };
+export type GetPriceListQuery = { __typename?: 'query_root', price_list_categories: Array<{ __typename?: 'price_list_categories', title: string, title_en?: string | null, slug?: string | null, id: any, price_list_items: Array<{ __typename?: 'price_list', id: any, price: any, title: string }> }> };
 
 export type GetPriceListCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPriceListCategoriesQuery = { __typename?: 'query_root', price_list_categories: Array<{ __typename?: 'price_list_categories', title: string, slug?: string | null, id: any }> };
+export type GetPriceListCategoriesQuery = { __typename?: 'query_root', price_list_categories: Array<{ __typename?: 'price_list_categories', title: string, title_en?: string | null, slug?: string | null, id: any }> };
 
 export type GetPriceListCategoryByIdQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4202,14 +4262,14 @@ export type GetPriceListCategoryByIdQuery = { __typename?: 'query_root', price_l
 export type GetServicesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, image: string, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
+export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, image: string, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
 
 export type GetServiceByIdQueryVariables = Exact<{
   _eq: Scalars['uuid']['input'];
 }>;
 
 
-export type GetServiceByIdQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, image: string, mainImage?: string | null, description?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
+export type GetServiceByIdQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, image: string, mainImage?: string | null, description?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
 
 
 export const CreateReviewDocument = gql`
@@ -4472,6 +4532,7 @@ export const GetPriceListDocument = gql`
     query GetPriceList {
   price_list_categories {
     title
+    title_en
     slug
     id
     price_list_items {
@@ -4518,6 +4579,7 @@ export const GetPriceListCategoriesDocument = gql`
     query GetPriceListCategories {
   price_list_categories {
     title
+    title_en
     slug
     id
   }
@@ -4601,6 +4663,7 @@ export const GetServicesDocument = gql`
   services(order_by: {created_at: asc}) {
     id
     name
+    name_en
     image
     seo_title
     seo_description
@@ -4647,6 +4710,7 @@ export const GetServiceByIdDocument = gql`
   services(where: {id: {_eq: $_eq}}) {
     id
     name
+    name_en
     image
     mainImage
     description

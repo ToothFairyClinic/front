@@ -7,7 +7,6 @@ import {
 import { PriceListTabel } from "../components/price-list-tabel/price-list-tabel.component";
 import { PriceListSelect } from "../components/price-list-selector/price-list-selector.component";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
-import { Helmet } from "react-helmet-async";
 import { useTranslation } from 'react-i18next';
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
@@ -30,31 +29,36 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
   const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
   const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
-  // Формуємо дані для OfferCatalog
-  const priceSchema = dataPriceList?.price_list_categories?.map((category) => ({
+  const priceSchema = {
     "@type": "OfferCatalog",
-    "name": category.title,
-    "itemListElement": category.price_list_items?.map((item: any) => ({
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": item.title
-      },
-      "price": item.price,
-      "priceCurrency": "UAH",
-      "seller": {
-        "@id": "https://toothfairy.clinic/#organization"
-      }
+    "name": isEn ? "Price List of Dental Services" : "Прайс-лист стоматологічних послуг",
+    "itemListElement": dataPriceList?.price_list_categories?.map((category) => ({
+      "@type": "OfferCatalog",
+      "name": isEn ? (category.title_en || category.title) : category.title,
+      "itemListElement": category.price_list_items?.map((item: any) => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": isEn ? (item.title_en || item.title) : item.title
+        },
+        "price": item.price,
+        "priceCurrency": "UAH",
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@id": "https://toothfairy.clinic/#organization"
+        }
+      }))
     }))
-  }));
+  };
+
   if (error) return <ShowInfo type="error"><p>{t("Упс, сталася помилка")}</p></ShowInfo>;
   if (loadingCategories || loadingPriceList) return <ShowInfo type="info"><p>{t("Завантаження...")}</p></ShowInfo>;
 
   return (
     <main className="px-9 pt-15 pb-24 bg-palePeach dark:bg-darkGray ">
       <SEOMeta
-        title={currentTitle || "Ціни на послуги стоматології | Зубна Фея Біла Церква"}
-        description={currentDescription || "Актуальний прайс-лист стоматологічної клініки Зубна Фея..."}
+        title={currentTitle || t("Ціни на послуги стоматології | Зубна Фея Біла Церква")}
+        description={currentDescription || t("Актуальний прайс-лист стоматологічної клініки Зубна Фея...")}
         path="/price-list"
         schemaData={priceSchema}
       />

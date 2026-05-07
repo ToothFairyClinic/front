@@ -79,30 +79,37 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
 
   return (
     <main className="py-24 pt-11 dark:bg-darkGray ">
-      {/* <Helmet>
-        <title>{currentTitle || "Відгуки пацієнтів | Стоматологія Зубна Фея"}</title>
-        <meta
-          name="description"
-          content={currentDescription || "Дізнайтеся, що говорять пацієнти про лікування в клініці Зубна Фея. Реальні відгуки про дитячу стоматологію, імплантацію та сервіс у Білій Церкві."}
-        />
-      </Helmet> */}
 
       <SEOMeta
-        title={currentTitle || "Відгуки пацієнтів | Стоматологія Зубна Фея"}
-        description={currentDescription || "Дізнайтеся, що говорять пацієнти..."}
+        title={currentTitle || t("Відгуки пацієнтів | Стоматологія Зубна Фея")}
+        description={currentDescription || t("Дізнайтеся, що говорять пацієнти про лікування в клініці Зубна Фея.")}
         path="/review"
         schemaData={{
-          "@type": "ItemList", // Кажемо, що це список елементів
+          "@type": "ItemList",
+          "numberOfItems": data?.reviews?.length,
           "itemListElement": data?.reviews?.map((r, index) => ({
-            "@type": "Review",
+            "@type": "ListItem",
             "position": index + 1,
-            "author": {
-              "@type": "Person",
-              "name": r.client_name
-            },
-            "reviewBody": r.comment,
-            "publisher": {
-              "@id": "https://toothfairy.clinic/#organization"
+            "item": {
+              "@type": "Review",
+              "author": {
+                "@type": "Person",
+                "name": r.client_name
+              },
+              "reviewBody": r.comment,
+              "itemReviewed": {
+                "@type": "Dentist",
+                "@id": "https://toothfairy.clinic/#organization",
+                "name": i18n.language === 'en' ? "Tooth Fairy Dental Clinic" : "Стоматологічна клініка Зубна Фея"
+              },
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "5",
+                "bestRating": "5"
+              },
+              "publisher": {
+                "@id": "https://toothfairy.clinic/#organization"
+              }
             }
           }))
         }}

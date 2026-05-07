@@ -33,9 +33,6 @@ const SEOMeta = () => {
 
       <link rel="canonical" href={`${baseUrl}${location.pathname}`} />
 
-      <meta name="description"
-        content="Зубна Фея - Cтоматологія, в якій безпечно та в комфортних умовах лікують зубки діти та їх батьки!" />
-
       <link rel="alternate" href={`${baseUrl}/ua${slug}`} hrefLang="uk" />
       <link rel="alternate" href={`${baseUrl}/en${slug}`} hrefLang="en" />
       <link rel="alternate" href={`${baseUrl}/ua${slug}`} hrefLang="x-default" />
@@ -72,22 +69,29 @@ export const App = () => {
 
   useEffect(() => {
     const pathSegments = location.pathname.split('/').filter(Boolean);
-    const langInUrl = pathSegments[0]; // Отримуємо 'ua' або 'en'
+    const langInUrl = pathSegments[0]; // 'ua' або 'en'
 
-    if (langInUrl === 'ua' && i18n.language !== 'uk') {
-      i18n.changeLanguage('uk');
-    } else if (langInUrl === 'en' && i18n.language !== 'en') {
-      i18n.changeLanguage('en');
+    if (langInUrl) {
+      const targetI18nLang = langInUrl === 'ua' ? 'uk' : 'en';
+      if (i18n.language !== targetI18nLang) {
+        i18n.changeLanguage(targetI18nLang);
+      }
     }
-  }, [location.pathname, i18n]);
+  }, [location.pathname])
 
+  const RootRedirect = () => {
+    const { i18n } = useTranslation();
+
+    const targetLang = i18n.language === 'uk' ? 'ua' : 'en';
+    return <Navigate to={`/${targetLang}`} replace />;
+  };
 
   return (
     <div className="flex flex-col min-h-screen ">
       <Header />
       <div className="flex-grow">
         <Routes>
-          <Route path="/" element={<Navigate to="/ua" replace />} />
+          <Route path="/" element={<RootRedirect />} />
 
           <Route path="/:lang">
             <Route index element={<><SEOMeta /><MainPage /></>} />

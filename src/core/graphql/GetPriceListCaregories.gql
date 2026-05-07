@@ -1,6 +1,7 @@
 query GetPriceList {
   price_list_categories {
     title
+    title_en
     slug
     id
     price_list_items {
@@ -14,10 +15,12 @@ query GetPriceList {
 query GetPriceListCategories {
   price_list_categories {
     title
+    title_en
     slug
     id
   }
 }
+
 
 query GetPriceListCategoryById {
   price_list {

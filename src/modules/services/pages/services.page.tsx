@@ -21,12 +21,17 @@ export const ServicePage: FC<ServicePageProps> = () => {
     variables: { _eq: id },
   });
 
+
   const service = data?.services[0];
   const isEn = i18n.language === 'en';
 
+  const seoImageObj = useCloudinaryImage(service?.image || "", ["w_800", "q_auto", "f_jpg"]);
+  const fullImageUrl = seoImageObj.toURL();
+
   const title = isEn ? service?.seo_title_en : service?.seo_title;
   const description = isEn ? service?.seo_description_en : service?.seo_description;
-  const serviceName = service?.name ? t(`${service.name}`) : "";
+
+  const serviceName = isEn ? (service?.name_en || service?.name) : service?.name;
 
   if (error) return <ShowInfo type="error"><p>{t("Упс, сталася помилка")}</p></ShowInfo>;
   if (loading) return <ShowInfo type="info"><p>{t("Завантаження...")}</p></ShowInfo>;
@@ -34,19 +39,23 @@ export const ServicePage: FC<ServicePageProps> = () => {
 
   const serviceSchema = {
     "@type": "Service",
-    "serviceType": "MedicalService",
+    "serviceType": "Dentistry",
     "name": serviceName,
     "description": description || (isEn
       ? `Professional ${serviceName} in Bila Tserkva.`
       : `Професійна послуга ${serviceName} у Білій Церкві.`),
+    "image": fullImageUrl,
     "provider": {
-      "@id": "https://toothfairy.clinic/#organization"
+      "@id": "https://toothfairy.clinic/#organization",
+      "@type": "Dentist",
+      "name": isEn ? "Tooth Fairy Dental Clinic" : "Стоматологічна клініка Зубна Фея"
     },
     "areaServed": {
-      "@type": "City",
-      "name": "Bila Tserkva"
+      "@type": "AdministrativeArea",
+      "name": isEn ? "Bila Tserkva" : "Біла Церква"
     }
   };
+
 
   return (
     <>

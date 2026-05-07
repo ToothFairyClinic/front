@@ -15,18 +15,10 @@ const LanguageSwitcher: React.FC = () => {
   const currentLangFromUrl = location.pathname.split('/')[1] || 'ua';
 
   const changeLanguage = (lang: string): void => {
-    const i18nLang = lang === 'ua' ? 'uk' : lang;
-    i18n.changeLanguage(i18nLang);
-
-    localStorage.setItem('language', lang);
-
     const pathSegments = location.pathname.split('/').filter(Boolean);
-    if (pathSegments.length > 0) {
-      pathSegments[0] = lang;
-      navigate(`/${pathSegments.join('/')}`);
-    } else {
-      navigate(`/${lang}`);
-    }
+    pathSegments[0] = lang;
+
+    navigate(`/${pathSegments.join('/')}`);
   };
 
   const getButtonStyles = (lang: string) => clsx(

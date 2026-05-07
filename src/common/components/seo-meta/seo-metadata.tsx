@@ -11,27 +11,33 @@ interface SEOProps {
 
 export const SEOMeta = ({ title, description, path, type = 'Webpage', schemaData }: SEOProps) => {
     const { i18n } = useTranslation();
-    const currentLang = i18n.language === 'ua' ? 'ua' : 'en'
+    const currentLang = i18n.language === 'uk' ? 'ua' : 'en'
+
     const baseUrl = "https://toothfairy.clinic"
     const fullUrl = `${baseUrl}/${currentLang}${path}`;
+
+    const breadcrumbsItems = [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": i18n.language === 'uk' ? "Головна" : "Home",
+            "item": `${baseUrl}/${currentLang}`
+        }
+    ];
+
+    if (path && path !== "") {
+        breadcrumbsItems.push({
+            "@type": "ListItem",
+            "position": 2,
+            "name": title,
+            "item": fullUrl
+        });
+    }
 
     const breadcrumbsSchema = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Головна",
-                "item": `${baseUrl}/${currentLang}`
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": title,
-                "item": fullUrl
-            }
-        ]
+        "itemListElement": breadcrumbsItems
     };
 
     const pageSchema = {

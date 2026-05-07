@@ -2,25 +2,31 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-const getInitialLang = () => {
-  const path = window.location.pathname;
-  const firstSegment = path.split('/')[1]; // Отримуємо 'ua' або 'en'
-
-  if (firstSegment === 'ua') return 'uk';
-  if (firstSegment === 'en') return 'en';
-
-  // Якщо в URL нічого немає, перевіряємо localStorage або даємо дефолт
-  return localStorage.getItem('i18nextLng') || 'uk';
-};
-
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    lng: getInitialLang(),
+    fallbackLng: 'uk',
+    supportedLngs: ['uk', 'en'],
+    detection: {
+      order: ['path', 'localStorage', 'cookie'],
+      lookupFromPathIndex: 0,
+      convertDetectedLanguage: (lng) => lng === 'ua' ? 'uk' : lng,
+    },
     resources: {
       en: {
         translation: {
+          "Як нас знайти: м. Біла Церква, вул. Вокзальна 22. Телефони для запису, графік роботи.": "How to find us: Bila Tserkva, Vokzalna St. 22. Phone numbers for appointments, working hours.",
+          "Контакти стоматології Зубна Фея у Білій Церкві": "Contacts of the Tooth Fairy dentistry in Bila Tserkva",
+          "Галерея результатів лікування до та після": "Gallery of treatment results before and after",
+          "Фото результатів лікування пацієнтів до та після.": "Photos of patient treatment results before and after.",
+          "Галерея робіт стоматології Зубна Фея": "Gallery of dental work Tooth Fairy",
+          "Перегляньте результати роботи наших стоматологів: реставрації, протезування та інше.": "View the results of our dentists' work: restorations, prosthetics, and more.",
+          "Наші роботи | Стоматологія Зубна Фея": "Our works | Dentistry Tooth Fairy",
+          "Актуальний прайс-лист стоматологічної клініки Зубна Фея...": "Current price list of the dental clinic Zubna Feya...",
+          "Ціни на послуги стоматології | Зубна Фея Біла Церква": "Prices for dentistry services | Tooth Fairy Bila Tserkva",
+          "Дізнайтеся, що говорять пацієнти про лікування в клініці Зубна Фея.": "Find out what patients say about treatment at the Tooth Fairy clinic.",
+          "Відгуки пацієнтів | Стоматологія Зубна Фея": "Patient Reviews | Dentistry Tooth Fairy",
           "Залишити свій відгук": "Leave your review",
           "Відгуки пацієнтів": "Patient reviews",
           "Підтвердити": "Submit",
@@ -128,6 +134,10 @@ i18n
       },
       uk: {
         translation: {
+          "Актуальний прайс-лист стоматологічної клініки Зубна Фея...": "Актуальний прайс-лист стоматологічної клініки Зубна Фея...",
+          "Ціни на послуги стоматології | Зубна Фея Біла Церква": "Ціни на послуги стоматології | Зубна Фея Біла Церква",
+          "Дізнайтеся, що говорять пацієнти про лікування в клініці Зубна Фея.": "Дізнайтеся, що говорять пацієнти про лікування в клініці Зубна Фея.",
+          "Відгуки пацієнтів | Стоматологія Зубна Фея": "Відгуки пацієнтів | Стоматологія Зубна Фея",
           "Залишити свій відгук": "Залишити свій відгук",
           "Відгуки пацієнтів": "Відгуки пацієнтів",
           "Список відгуків": "Список відгуків",
@@ -234,11 +244,6 @@ i18n
           "Стоматологія": "Стоматологія"
         },
       },
-    },
-    fallbackLng: 'uk',
-    detection: {
-      order: ['path', 'localStorage', 'navigator'],
-      lookupFromPathIndex: 0,
     },
   });
 

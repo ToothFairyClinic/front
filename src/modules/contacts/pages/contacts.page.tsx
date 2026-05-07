@@ -29,15 +29,15 @@ export const ContactPage: FC = () => {
     "mainEntity": {
       "@id": "https://toothfairy.clinic/#organization",
       "@type": "Dentist",
-      "name": "Зубна Фея",
+      "name": isEn ? "Tooth Fairy Dental Clinic" : "Зубна Фея",
       "image": "https://toothfairy.clinic/assets/favicon/android-chrome-512x512.png",
       "telephone": ["+380681689911", "+380934599911"],
       "email": "admin@toothfairy.clinic",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "вул. Вокзальна, 22",
-        "addressLocality": "Біла Церква",
-        "addressRegion": "Київська область",
+        "streetAddress": isEn ? "22 Vokzalna St" : "вул. Вокзальна, 22",
+        "addressLocality": isEn ? "Bila Tserkva" : "Біла Церква",
+        "addressRegion": isEn ? "Kyiv Oblast" : "Київська область",
         "postalCode": "09100",
         "addressCountry": "UA"
       },
@@ -60,8 +60,8 @@ export const ContactPage: FC = () => {
   return (
     <main className="flex lg:flex-row flex-col-reverse dark:bg-darkGray gap-14 py-24 justify-center items-center lg:items-start">
       <SEOMeta
-        title={currentTitle || "Контакти стоматології Зубна Фея у Білій Церкві"}
-        description={currentDescription || "Як нас знайти: м. Біла Церква, вул. Вокзальна 22. Телефони для запису, графік роботи."}
+        title={currentTitle || t("Контакти стоматології Зубна Фея у Білій Церкві")}
+        description={currentDescription || t("Як нас знайти: м. Біла Церква, вул. Вокзальна 22. Телефони для запису, графік роботи.")}
         path="/contacts"
         type="ContactPage"
         schemaData={contactSchema}
