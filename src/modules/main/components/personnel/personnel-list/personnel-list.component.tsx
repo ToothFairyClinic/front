@@ -51,7 +51,7 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
         {t("Наша команда")}
       </MainTitle>
 
-      <div className="lg:px-20">
+      <div className="lg:px-20 min-h-[550px]">
         <Swiper
           style={{ minHeight: '520px' }}
           breakpoints={{

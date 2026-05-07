@@ -11,7 +11,7 @@ export const AdvantagesGroup: FC<AdvantagesGroupProps> = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="py-12 flex flex-col items-center gap-16 dark:bg-darkGray transition delay-150 min-h-[500px]">
+    <section className="py-12 flex flex-col items-center gap-16 dark:bg-darkGray min-h-[500px]">
       <div className="w-full">
         <MainTitle>{t("Наші переваги")}</MainTitle>
       </div>

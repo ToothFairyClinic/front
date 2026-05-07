@@ -36,7 +36,7 @@ export const ServicesItem: FC<ServicesItemProps & Services> = ({
   return (
     <Link
       to={`/${urlLang}/services/${id}`}
-      className="group block no-underline focus:outline-none focus:ring-2 focus:ring-paleOlive rounded-xl"
+      className="group block w-m-[126px] h-m-[126px]  no-underline focus:outline-none focus:ring-2 focus:ring-paleOlive rounded-xl"
     >
       <article className="hover:bg-white/20 flex flex-col justify-center items-center py-5 px-15 rounded-xl w-90 max-w-90 opacity-70 group-hover:opacity-100 transition-all duration-300 transform group-hover:-translate-y-1">        <div className="mb-4">
         <AdvancedImage
@@ -45,7 +45,7 @@ export const ServicesItem: FC<ServicesItemProps & Services> = ({
           height={126}
           alt={t(name)}
           loading="lazy"
-          className="rounded-t-2xl object-contain"
+          className="rounded-t-2xl object-contain w-[126px] h-[126px]"
         />
       </div>
 

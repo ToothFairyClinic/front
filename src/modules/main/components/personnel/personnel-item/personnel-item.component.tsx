@@ -43,7 +43,7 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
         height={440}
         alt={t(name)}
         loading="lazy"
-        className="rounded-t-2xl w-full object-cover"
+        className="rounded-t-2xl w-full object-cover h-[500px]"
       />
 
       <div className="px-4 mt-4">
