@@ -37,14 +37,15 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
 
   return (
     <div className="lg:w-96 dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md dark:shadow-sm dark:shadow-white/20 dark:bg-darkGray transition-shadow duration-300">
-      <AdvancedImage
-        cldImg={imageCld}
-        width={385}
-        height={440}
-        alt={t(name)}
-        loading="lazy"
-        className="rounded-t-2xl w-full object-cover h-[500px]"
-      />
+
+      <div className="w-full h-[440px] overflow-hidden rounded-t-2xl bg-gray-100 dark:bg-gray-800">
+        <AdvancedImage
+          cldImg={imageCld}
+          alt={t(name)}
+          loading="lazy"
+          className="w-full h-full object-cover"
+        />
+      </div>
 
       <div className="px-4 mt-4">
         <h3 className="text-2xl font-semibold mb-1">
