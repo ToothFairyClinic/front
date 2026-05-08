@@ -53,9 +53,12 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
 
       <div className="lg:px-20 min-h-[550px]">
         {loading ? (
-          <div className="flex gap-10 overflow-hidden animate-pulse">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="min-w-[384px] h-[520px] bg-gray-200 dark:bg-gray-700 rounded-2xl" />
+          <div className="flex gap-10 overflow-hidden animate-pulse h-[550px] pb-12">
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className="flex-1 min-w-[300px] h-full bg-gray-200 dark:bg-gray-700 rounded-2xl"
+              />
             ))}
           </div>
         ) : (<Swiper

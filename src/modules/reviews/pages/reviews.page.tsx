@@ -78,7 +78,7 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
   };
 
   return (
-    <main className="py-24 pt-11 dark:bg-darkGray ">
+    <main className="py-24 pt-11 dark:bg-darkGray  min-h-screen">
 
       <SEOMeta
         title={currentTitle || t("Відгуки пацієнтів | Стоматологія Зубна Фея")}

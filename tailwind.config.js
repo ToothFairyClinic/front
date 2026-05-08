@@ -4,6 +4,9 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
       spacing: {
         0.25: "0.063rem",
         0.5: "0.125rem",

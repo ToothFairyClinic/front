@@ -1,4 +1,4 @@
-import { ReactComponent as Logotype } from "@app/assets/images/logo.svg";
+// import { ReactComponent as Logotype } from "@app/assets/images/logo.svg";
 import { ReactComponent as AccessTimeIcon } from "@app/assets/icons/access_time.svg";
 import { ReactComponent as SmartPhoneIcon } from "@app/assets/icons/smartphone.svg";
 import { ReactComponent as InstagramIcon } from "@app/assets/icons/instagram.svg";
@@ -21,7 +21,18 @@ export const Footer = () => {
     <footer className="bg-paleOlive dark:bg-darkGray/75 p-5 z-10 transition duration-300 px-5 py-10 flex flex-col items-center md:px-1 min-h-[450px]">
 
       <Link to="/" aria-label={t("На головну")}>
-        <Logotype width={216} height={71} className="mb-8" />
+        {themeStateCurrent ? <img
+          src="/assets/logo.svg"
+          alt="Зубна Фея логотип"
+          width="216"
+          height="71"
+
+        /> : <img
+          src="/assets/logo_light.svg"
+          alt="Tooth Fairy Clinic Logo"
+          width="216"
+          height="71"
+        />}
       </Link>
 
       <div className="text-darkGray dark:text-palePeach text-xl font-normal flex flex-col gap-8 sm:flex-row md:gap-36 flex-wrap justify-center">

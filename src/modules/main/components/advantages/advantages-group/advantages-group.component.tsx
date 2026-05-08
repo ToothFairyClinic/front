@@ -16,7 +16,7 @@ export const AdvantagesGroup: FC<AdvantagesGroupProps> = () => {
         <MainTitle>{t("Наші переваги")}</MainTitle>
       </div>
 
-      <ul className="flex justify-center flex-wrap gap-10 list-none p-0 w-full max-w-7xl">
+      <ul className="flex justify-center flex-wrap gap-10 list-none p-0 w-full">
         {loading ? (
           Array.from({ length: 4 }).map((_, i) => (
             <li key={i} className="w-72 h-48 bg-gray-100 dark:bg-gray-800 rounded-2xl animate-pulse" />

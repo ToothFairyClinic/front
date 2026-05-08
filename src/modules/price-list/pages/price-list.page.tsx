@@ -55,7 +55,7 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
   if (loadingCategories || loadingPriceList) return <ShowInfo type="info"><p>{t("Завантаження...")}</p></ShowInfo>;
 
   return (
-    <main className="px-9 pt-15 pb-24 bg-palePeach dark:bg-darkGray ">
+    <main className="px-9 pt-15 pb-24 bg-palePeach dark:bg-darkGray  min-h-screen">
       <SEOMeta
         title={currentTitle || t("Ціни на послуги стоматології | Зубна Фея Біла Церква")}
         description={currentDescription || t("Актуальний прайс-лист стоматологічної клініки Зубна Фея...")}

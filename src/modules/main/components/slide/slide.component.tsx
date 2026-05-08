@@ -2,7 +2,6 @@ import { FC, useMemo } from "react";
 import { AdvancedVideo, lazyload } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { fill } from "@cloudinary/url-gen/actions/resize";
-import CatImage from "@app/assets/images/cat.svg";
 import { useTranslation } from 'react-i18next';
 import { bitRate } from "@cloudinary/url-gen/actions/transcode";
 
@@ -67,7 +66,7 @@ export const Slide: FC = () => {
 
       <div className="absolute -bottom-52 right-10 z-50 hidden lg:block pointer-events-none" aria-hidden="true">
         <img
-          src={CatImage}
+          src="/assets/cat.svg"
           alt=""
           width="400"
           height="350"

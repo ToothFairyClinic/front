@@ -1,7 +1,6 @@
 import { Services } from "@app/core/types";
 import { FC, useRef } from "react";
 import { ServicesItem } from "../services-main-item/services-main-item.component";
-import { MainTitle } from "@app/common/components/main-title/main-title.component";
 import { useTranslation } from 'react-i18next';
 
 interface ServicesListProps {

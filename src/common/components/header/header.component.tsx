@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ReactComponent as LightThemeSolidIcon } from "@app/assets/icons/lightThemeIcon.svg";
 import { ReactComponent as DarkThemeSolidIcon } from "@app/assets/icons/darkThemeIcon.svg";
-import { ReactComponent as Logotype } from "@app/assets/images/logo.svg";
-import { ReactComponent as LogotypeLight } from "@app/assets/images/logo_light.svg";
+// import { ReactComponent as Logotype } from "@app/assets/images/logo.svg";
+// import { ReactComponent as LogotypeLight } from "../../../../public/assets/logo_light.svg";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../button/button.component";
 import { LinkHeader } from "../link-header/link-header.component";
@@ -67,7 +67,19 @@ export const Header: FC<HeaderProps> = ({ }) => {
         {/* Логотип */}
         <div className="flex-shrink-0">
           <Link to="/" aria-label={t("Зубна Фея — на головну")}>
-            {themeStateCurrent ? <Logotype /> : <LogotypeLight />}
+            {themeStateCurrent ? <img
+              src="/assets/logo.svg"
+              alt="Зубна Фея логотип"
+              width="180"
+              height="50"
+              className="h-24 w-auto"
+            /> : <img
+              src="/assets/logo_light.svg"
+              alt="Tooth Fairy Clinic Logo"
+              width="180"
+              height="50"
+              className="h-24 w-auto"
+            />}
           </Link>
         </div>
 
