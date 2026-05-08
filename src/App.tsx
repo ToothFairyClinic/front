@@ -3,18 +3,30 @@ import { useLocation } from "react-router-dom";
 import { isLoggedInReactive } from "./modules/auth/store/reactive-vars";
 import { Header } from "./common/components/header/header.component";
 import { Routes, Route } from "react-router-dom";
-import { MainPage } from "./modules/main/pages/main.page";
+// import { MainPage } from "./modules/main/pages/main.page";
 import { Footer } from "./common/components/footer/footer.component";
-import { PriceListPage } from "./modules/price-list/pages/price-list.page";
-import { ServicePage } from "./modules/services/pages/services.page";
-import { ReviewsPage } from "./modules/reviews/pages/reviews.page";
-import { OurWorkPage } from "./modules/our-works/page/our-work.page";
-import { ContactPage } from "./modules/contacts/pages/contacts.page";
+// import { PriceListPage } from "./modules/price-list/pages/price-list.page";
+// import { ServicePage } from "./modules/services/pages/services.page";
+// import { ReviewsPage } from "./modules/reviews/pages/reviews.page";
+// import { OurWorkPage } from "./modules/our-works/page/our-work.page";
+// import { ContactPage } from "./modules/contacts/pages/contacts.page";
 import ReactGA from "react-ga4";
 import { config } from "./core/config";
 import { Helmet } from "react-helmet-async";
 import { Navigate, useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import React, { Suspense, lazy } from 'react';
+
+
+// <Route path="contacts" element={<><SEOMeta /><ContactPage /></>} />
+
+const MainPage = lazy(() => import('./modules/main/pages/main.page'));
+const PriceListPage = lazy(() => import('./modules/price-list/pages/price-list.page'));
+const ServicePage = lazy(() => import('./modules/services/pages/services.page'));
+const ReviewsPage = lazy(() => import('./modules/reviews/pages/reviews.page'));
+const OurWorkPage = lazy(() => import('./modules/our-works/page/our-work.page'));
+const ContactPage = lazy(() => import('./modules/contacts/pages/contacts.page'));
+
 
 
 
@@ -43,7 +55,7 @@ const SEOMeta = () => {
 export const App = () => {
   const location = useLocation();
   const GA_ID = config.GA_MEASUREMENT_ID;
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
 
   useEffect(() => {
@@ -90,20 +102,23 @@ export const App = () => {
     <div className="flex flex-col min-h-screen ">
       <Header />
       <div className="flex-grow">
-        <Routes>
-          <Route path="/" element={<RootRedirect />} />
+        <Suspense fallback={<div className="flex justify-center py-20">{t("Завантаження...")}</div>}>
+          <Routes>
+            <Route path="/" element={<RootRedirect />} />
 
-          <Route path="/:lang">
-            <Route index element={<><SEOMeta /><MainPage /></>} />
-            <Route path="price-list" element={<><SEOMeta /><PriceListPage /></>} />
-            <Route path="services/:id" element={<><SEOMeta /><ServicePage /></>} />
-            <Route path="review" element={<><SEOMeta /><ReviewsPage /></>} />
-            <Route path="our-work" element={<><SEOMeta /><OurWorkPage /></>} />
-            <Route path="contacts" element={<><SEOMeta /><ContactPage /></>} />
-          </Route>
+            <Route path="/:lang">
+              <Route index element={<><SEOMeta /><MainPage /></>} />
+              <Route path="price-list" element={<><SEOMeta /><PriceListPage /></>} />
+              <Route path="services/:id" element={<><SEOMeta /><ServicePage /></>} />
+              <Route path="review" element={<><SEOMeta /><ReviewsPage /></>} />
+              <Route path="our-work" element={<><SEOMeta /><OurWorkPage /></>} />
+              <Route path="contacts" element={<><SEOMeta /><ContactPage /></>} />
+            </Route>
 
-          <Route path="*" element={<Navigate to="/ua" replace />} />
-        </Routes>
+            <Route path="*" element={<Navigate to="/ua" replace />} />
+          </Routes>
+        </Suspense>
+
       </div>
       <Footer />
     </div>

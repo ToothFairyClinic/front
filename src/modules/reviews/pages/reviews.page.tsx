@@ -135,3 +135,5 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
     </main>
   );
 };
+
+export default ReviewsPage;

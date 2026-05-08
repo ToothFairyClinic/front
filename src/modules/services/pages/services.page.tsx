@@ -80,3 +80,5 @@ export const ServicePage: FC<ServicePageProps> = () => {
     </>
   );
 };
+
+export default ServicePage;

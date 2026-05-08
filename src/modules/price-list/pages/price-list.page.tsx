@@ -84,3 +84,5 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
     </main>
   );
 };
+
+export default PriceListPage;

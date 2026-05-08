@@ -62,3 +62,5 @@ export const OurWorkPage: FC = () => {
     </main>
   );
 };
+
+export default OurWorkPage;

@@ -117,3 +117,5 @@ export const ContactPage: FC = () => {
     </main>
   );
 };
+
+export default ContactPage;
