@@ -55,8 +55,6 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
   }
 
 
-
-
   const currentLang = getUrlLang(i18n.language);
 
   const baseUrl = "https://toothfairy.clinic";
@@ -77,9 +75,9 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
     "telephone": "+380681689911",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "вул. Вокзальна, 22",
-      "addressLocality": "Біла Церква",
-      "addressRegion": "Київська область",
+      "streetAddress": isEn ? "22 Vokzalna St" : "вул. Вокзальна, 22",
+      "addressLocality": isEn ? "Bila Tserkva" : "Біла Церква",
+      "addressRegion": isEn ? "Kyiv Oblast" : "Київська область",
       "postalCode": "09100",
       "addressCountry": "UA"
     },

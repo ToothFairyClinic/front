@@ -52,7 +52,13 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
       </MainTitle>
 
       <div className="lg:px-20 min-h-[550px]">
-        <Swiper
+        {loading ? (
+          <div className="flex gap-10 overflow-hidden animate-pulse">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="min-w-[384px] h-[520px] bg-gray-200 dark:bg-gray-700 rounded-2xl" />
+            ))}
+          </div>
+        ) : (<Swiper
           autoHeight={false}
           style={{ height: '550px' }}
           setWrapperSize={true}
@@ -84,7 +90,8 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
               />
             </SwiperSlide>
           ))}
-        </Swiper>
+        </Swiper>)}
+
       </div>
     </section>
   );
