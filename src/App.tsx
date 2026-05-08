@@ -101,7 +101,7 @@ export const App = () => {
   return (
     <div className="flex flex-col min-h-screen ">
       <Header />
-      <div className="flex-grow">
+      <div className="flex-grow min-h-screen">
         <Suspense fallback={<div className="flex justify-center py-20">{t("Завантаження...")}</div>}>
           <Routes>
             <Route path="/" element={<RootRedirect />} />

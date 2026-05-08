@@ -4,6 +4,7 @@ import { Cloudinary } from "@cloudinary/url-gen";
 import { fill } from "@cloudinary/url-gen/actions/resize";
 import CatImage from "@app/assets/images/cat.svg";
 import { useTranslation } from 'react-i18next';
+import { bitRate } from "@cloudinary/url-gen/actions/transcode";
 
 const cld = new Cloudinary({
   cloud: {
@@ -16,6 +17,7 @@ export const Slide: FC = () => {
 
   const myVideo = useMemo(() =>
     cld.video("videos/cjqq4jqlqe6vqia4xyot")
+      .addTransformation("br_1m")
       .format('auto')
       .quality('auto')
       .resize(fill().width(1280)),
