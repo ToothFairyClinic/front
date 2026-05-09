@@ -50,13 +50,24 @@ export const App = () => {
 
 
   useEffect(() => {
-    if (GA_ID)
-      // ініціалізація GA
-      ReactGA.initialize(GA_ID);
+    if (GA_ID) {
+
+      const timer = setTimeout(() => {
+        ReactGA.initialize(GA_ID);
+
+        ReactGA.send({
+          hitType: "pageview",
+          page: location.pathname + location.search,
+          title: document.title,
+        });
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
   }, [GA_ID]);
 
   useEffect(() => {
-    if (GA_ID) {
+    if (GA_ID && ReactGA.isInitialized) {
       ReactGA.send({
         hitType: "pageview",
         page: location.pathname + location.search,

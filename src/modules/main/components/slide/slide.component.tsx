@@ -14,28 +14,30 @@ const cld = new Cloudinary({
 export const Slide: FC = () => {
   const { t } = useTranslation();
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   const myVideo = useMemo(() =>
     cld.video("videos/cjqq4jqlqe6vqia4xyot")
       .addTransformation("br_1m")
       .format('auto')
       .quality('auto')
-      .resize(fill().width(1280)),
-    []
+      .resize(fill().width(isMobile ? 640 : 1280)),
+    [isMobile]
   );
 
   const videoPoster = useMemo(() =>
     cld.image("videos/cjqq4jqlqe6vqia4xyot")
       .setAssetType('video')
       .format('auto')
-      .quality('auto')
-      .resize(fill().width(1280))
+      .quality('auto:best')
+      .resize(fill().width(isMobile ? 640 : 1280))
       .toURL(),
-    []
+    [isMobile]
   );
 
   return (
     <section
-      className="relative h-165 lg:h-screen flex justify-center items-end pb-15 bg-paleOlive "
+      className="relative h-165 lg:h-screen flex justify-center items-end pb-15 bg-paleOlive"
       aria-label={t("Головний екран клініки")}
     >
       <div className="absolute inset-0 z-0" aria-hidden="true">
@@ -46,6 +48,9 @@ export const Slide: FC = () => {
           autoPlay
           loop
           muted
+          // "high" каже браузеру, що цей елемент найважливіший на сторінці
+          // @ts-ignore
+          fetchpriority="high"
           preload="auto"
           poster={videoPoster}
         />
@@ -72,6 +77,8 @@ export const Slide: FC = () => {
           height="350"
           className="w-auto h-auto object-contain"
           loading="eager"
+          // @ts-ignore
+          fetchpriority="low"
         />
       </div>
     </section>
