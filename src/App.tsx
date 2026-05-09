@@ -51,7 +51,6 @@ export const App = () => {
 
   useEffect(() => {
     if (GA_ID) {
-
       const timer = setTimeout(() => {
         ReactGA.initialize(GA_ID);
 

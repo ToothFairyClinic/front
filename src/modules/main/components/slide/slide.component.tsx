@@ -16,20 +16,25 @@ export const Slide: FC = () => {
 
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
-  const myVideo = useMemo(() =>
-    cld.video("videos/cjqq4jqlqe6vqia4xyot")
-      .addTransformation("br_1m")
+  const myVideo = useMemo(() => {
+    const video = cld.video("videos/cjqq4jqlqe6vqia4xyot")
       .format('auto')
-      .quality('auto')
-      .resize(fill().width(isMobile ? 640 : 1280)),
-    [isMobile]
-  );
+      .quality('auto');
+
+    if (isMobile) {
+      return video
+        .resize(fill().width(640))
+        .addTransformation("br_500k");
+    }
+
+    return video.resize(fill().width(1280)).addTransformation("br_1m");
+  }, [isMobile]);
 
   const videoPoster = useMemo(() =>
     cld.image("videos/cjqq4jqlqe6vqia4xyot")
       .setAssetType('video')
       .format('auto')
-      .quality('auto:best')
+      .quality('auto')
       .resize(fill().width(isMobile ? 640 : 1280))
       .toURL(),
     [isMobile]
@@ -48,7 +53,7 @@ export const Slide: FC = () => {
           autoPlay
           loop
           muted
-          // "high" каже браузеру, що цей елемент найважливіший на сторінці
+          // Пріоритет та попереднє завантаження для LCP
           // @ts-ignore
           fetchpriority="high"
           preload="auto"
