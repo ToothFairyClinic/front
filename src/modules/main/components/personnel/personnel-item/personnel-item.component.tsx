@@ -49,7 +49,7 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
       </div>
 
       <div className="px-4 mt-4">
-        <h3 className="text-2xl font-semibold mb-1">
+        <h3 className="text-2xl mb-1">
           {t(name)}
         </h3>
 
