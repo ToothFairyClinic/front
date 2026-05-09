@@ -13,9 +13,13 @@ import { useReactiveVar } from "@apollo/client";
 import clsx from "clsx";
 import LanguageSwitcher from "../language-switcher/language-switcher.component"; // Імпортуйте компонент
 import { useTranslation } from 'react-i18next';
+import { ServicesDropdown } from "../services-dropdown/services-dropdown";
+
 
 
 interface HeaderProps { }
+
+
 
 export const Header: FC<HeaderProps> = ({ }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -50,13 +54,13 @@ export const Header: FC<HeaderProps> = ({ }) => {
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-  // Спільний список посилань
-  const NavLinks = () => (
+  const NavLinks = ({ onLinkClick }: { onLinkClick?: () => void }) => (
     <ul className="flex flex-col md:flex-row md:space-x-5 lg:gap-15 md:gap-5 list-none">
-      <li><LinkHeader url={`/${urlLang}/review`}>{t("Відгуки")}</LinkHeader></li>
-      <li><LinkHeader url={`/${urlLang}/price-list`}>{t("Прайс лист")}</LinkHeader></li>
-      <li><LinkHeader url={`/${urlLang}/our-work`}>{t("Роботи")}</LinkHeader></li>
-      <li><LinkHeader url={`/${urlLang}/contacts`}>{t("Контакти")}</LinkHeader></li>
+      <li><ServicesDropdown urlLang={urlLang} t={t} onLinkClick={onLinkClick} /></li>
+      <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/review`}>{t("Відгуки")}</LinkHeader></li>
+      <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/price-list`}>{t("Прайс лист")}</LinkHeader></li>
+      <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/our-work`}>{t("Роботи")}</LinkHeader></li>
+      <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/contacts`}>{t("Контакти")}</LinkHeader></li>
     </ul>
   );
 
@@ -115,7 +119,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
           >
             <MenuIcon
               className={clsx("w-6 h-6 transition-colors",
-                themeStateCurrent ? "fill-darkGray" : "fill-white"
+                themeStateCurrent ? "text-darkGray" : "text-white"
               )}
             />
           </button>
@@ -126,10 +130,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
       {isMobileMenuOpen && (
         <nav className="md:hidden mt-5 pb-5 border-t border-white/10" aria-label={t("Мобільна навігація")}>
           <div className="flex flex-col space-y-4 pt-4">
-            {/* Використовуємо div замість button для обгортки посилань, щоб не було вкладених інтерактивних елементів */}
-            <div onClick={() => setIsMobileMenuOpen(false)}>
-              <NavLinks />
-            </div>
+            <NavLinks onLinkClick={() => setIsMobileMenuOpen(false)} />
 
             <div className="flex items-center justify-between border-t border-white/10 pt-4 px-2">
               <LanguageSwitcher />
