@@ -12,26 +12,34 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-interface PersonnelListProps { }
-export const PersonnelList: FC<PersonnelListProps> = () => {
-  const { data, loading, error } = useGetPersonnelQuery();
-  const personnelRef = useRef<HTMLDivElement>(null);
+interface PersonnelListProps {
+  isLoading?: boolean;
+}
+
+export const PersonnelList: FC<PersonnelListProps> = ({ isLoading }) => {
+  const { data, loading: queryLoading, error } = useGetPersonnelQuery();
+  const isCurrentlyLoading = queryLoading || isLoading;
   const { t } = useTranslation();
+  const personnelRef = useRef<HTMLDivElement>(null);
+
 
   if (error) return (
-    <section className="py-28 min-h-[600px] flex items-center justify-center">
+    <section className="py-28 min-h-[700px] flex items-center justify-center">
       <ShowInfo type="error"><p>{t("Упс, сталася помилка")}</p></ShowInfo>
     </section>
   );
 
 
-  if (loading) {
+  if (isCurrentlyLoading && !data?.personnel) {
     return (
       <section className="dark:bg-darkGray py-28 flex flex-col gap-10 min-h-[700px]">
         <MainTitle as="h2">{t("Наша команда")}</MainTitle>
-        <div className="lg:px-20 flex gap-10 overflow-hidden animate-pulse">
+        <div className="lg:px-20 flex gap-10 overflow-hidden">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="w-96 h-[500px] bg-gray-200 dark:bg-gray-700 rounded-2xl" />
+            <div
+              key={i}
+              className="flex-1 min-w-[300px] h-[550px] bg-gray-200 dark:bg-gray-700 rounded-2xl animate-pulse"
+            />
           ))}
         </div>
       </section>
@@ -40,28 +48,20 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
 
   if (!data?.personnel || data.personnel.length === 0) return null;
 
+
   return (
     <section
       ref={personnelRef}
       id="personnel"
       aria-labelledby="personnel-title"
-      className="dark:bg-darkGray py-28 flex flex-col gap-10 transition-colors duration-300 min-h-[700px]"
+      className="dark:bg-darkGray py-28 flex flex-col gap-10 min-h-[700px]"
     >
       <MainTitle as="h2">
         {t("Наша команда")}
       </MainTitle>
 
       <div className="lg:px-20 min-h-[550px]">
-        {loading ? (
-          <div className="flex gap-10 overflow-hidden animate-pulse h-[550px] pb-12">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="flex-1 min-w-[300px] h-full bg-gray-200 dark:bg-gray-700 rounded-2xl"
-              />
-            ))}
-          </div>
-        ) : (<Swiper
+        <Swiper
           autoHeight={false}
           style={{ height: '550px' }}
           setWrapperSize={true}
@@ -93,7 +93,7 @@ export const PersonnelList: FC<PersonnelListProps> = () => {
               />
             </SwiperSlide>
           ))}
-        </Swiper>)}
+        </Swiper>
 
       </div>
     </section>

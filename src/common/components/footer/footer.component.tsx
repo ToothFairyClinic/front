@@ -26,12 +26,15 @@ export const Footer = () => {
           alt="Зубна Фея логотип"
           width="216"
           height="71"
-
+          className="h-24 w-auto"
+          style={{ aspectRatio: '216 / 71' }}
         /> : <img
           src="/assets/logo_light.svg"
           alt="Tooth Fairy Clinic Logo"
           width="216"
           height="71"
+          className="h-24 w-auto"
+          style={{ aspectRatio: '216 / 71' }}
         />}
       </Link>
 

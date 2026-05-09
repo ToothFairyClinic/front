@@ -21,9 +21,6 @@ const ReviewsPage = lazy(() => import('./modules/reviews/pages/reviews.page'));
 const OurWorkPage = lazy(() => import('./modules/our-works/page/our-work.page'));
 const ContactPage = lazy(() => import('./modules/contacts/pages/contacts.page'));
 
-
-
-
 const SEOMeta = () => {
   const location = useLocation();
   const baseUrl = "https://toothfairy.clinic";

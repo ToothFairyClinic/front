@@ -73,12 +73,14 @@ export const Header: FC<HeaderProps> = ({ }) => {
               width="180"
               height="50"
               className="h-24 w-auto"
+              style={{ aspectRatio: '216 / 71' }}
             /> : <img
               src="/assets/logo_light.svg"
               alt="Tooth Fairy Clinic Logo"
               width="180"
               height="50"
               className="h-24 w-auto"
+              style={{ aspectRatio: '216 / 71' }}
             />}
           </Link>
         </div>

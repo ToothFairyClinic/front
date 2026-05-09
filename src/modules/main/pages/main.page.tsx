@@ -13,9 +13,9 @@ import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 interface MainPageProps { }
 
 export const MainPage: FC<MainPageProps> = ({ }) => {
-  const { data, loading, error } = useGetServicesQuery();
+  const { data, loading: servicesLoading, error } = useGetServicesQuery();
+  const { data: PageMetadata, loading: metaLoading } = useGetPageMetadataQuery({ variables: { route: '/' } });
 
-  const { data: PageMetadata } = useGetPageMetadataQuery({ variables: { route: '/' } });
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
 
@@ -116,7 +116,7 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
 
   return (
     <main className="">
-      {currentTitle && currentDescription ? (
+      {(!metaLoading && currentTitle && currentDescription) ? (
         <SEOMeta
           title={currentTitle}
           description={currentDescription}
@@ -133,8 +133,8 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
 
       <Slide />
       <AdvantagesGroup />
-      <SerivcesList items={sortedServices} />
-      <PersonnelList />
+      <SerivcesList items={sortedServices} isLoading={servicesLoading} />
+      <PersonnelList isLoading={servicesLoading} />
 
       {error && <div className="text-red-500 text-center py-4">{t("Помилка завантаження даних")}</div>}
     </main>

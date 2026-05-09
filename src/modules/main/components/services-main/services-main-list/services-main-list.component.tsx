@@ -6,11 +6,22 @@ import { useTranslation } from 'react-i18next';
 interface ServicesListProps {
   items: Services[];
   title?: string;
+  isLoading?: boolean;
 }
 
-export const SerivcesList: FC<ServicesListProps> = ({ items }) => {
+export const SerivcesList: FC<ServicesListProps> = ({ items, isLoading }) => {
   const servicesRef = useRef<HTMLElement>(null);
   const { t } = useTranslation();
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="h-40 bg-gray-200 animate-pulse rounded-lg" />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <section
