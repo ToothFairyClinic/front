@@ -13,7 +13,10 @@
   <!-- Замініть Montserrat на той шрифт, який ви обрали -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    media="print" onload="this.media='all'">
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://toothfairy.clinic/ua" />
@@ -26,7 +29,8 @@
   <link rel="preconnect" href="https://hasura.toothfairy.clinic" crossorigin />
   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
 
-  <link rel="preload" href="/assets/images/logo_light.svg" as="image" type="image/svg+xml">
+  <!-- <link rel="preload" href="/assets/images/logo_light.svg" as="image" type="image/svg+xml" fetchpriority="high"> -->
+  <link rel="preload" href="/assets/images/logo.svg" as="image" type="image/svg+xml" fetchpriority="high">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png" />
@@ -45,6 +49,10 @@
     gtag('js', new Date());
     gtag('config', 'G-2K745N448M', { 'animate_ad_view': false });
   </script>
+
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+  </noscript>
 </head>
 
 <body>

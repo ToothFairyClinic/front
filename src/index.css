@@ -1,4 +1,6 @@
-@import "~react-toastify/dist/ReactToastify.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 input[type="number"] {
   -moz-appearance: textfield;
@@ -19,7 +21,3 @@ body {
   width: 15px !important;
   height: 15px !important;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
