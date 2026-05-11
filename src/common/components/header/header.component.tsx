@@ -68,7 +68,6 @@ export const Header: FC<HeaderProps> = ({ }) => {
     <header className={headerClasses} role="banner">
       <div className="container mx-auto flex justify-around items-center md:flex-col lg:flex-row">
 
-        {/* Логотип */}
         <div className="flex-shrink-0">
           <Link to="/" aria-label={t("Зубна Фея — на головну")}>
             {themeStateCurrent ? <img
@@ -89,7 +88,6 @@ export const Header: FC<HeaderProps> = ({ }) => {
           </Link>
         </div>
 
-        {/* Десктопна навігація */}
         <nav className="hidden md:flex items-center space-x-5 md:gap-10" aria-label={t("Основна навігація")}>
           <NavLinks />
 

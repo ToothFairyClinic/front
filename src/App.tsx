@@ -48,6 +48,10 @@ export const App = () => {
   const GA_ID = config.GA_MEASUREMENT_ID;
   const { t, i18n } = useTranslation();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
 
   useEffect(() => {
     if (GA_ID) {

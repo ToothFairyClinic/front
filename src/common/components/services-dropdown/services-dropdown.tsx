@@ -59,7 +59,6 @@ export const ServicesDropdown = ({ urlLang, t, onLinkClick }: { urlLang: string,
     };
 
     const handleButtonClick = () => {
-        // На десктопі клік не потрібен (є hover), але додаємо для надійності
         setIsOpen(prev => !prev);
     };
 
