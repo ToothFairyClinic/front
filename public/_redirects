@@ -1,6 +1,73 @@
-/sitemap.xml  https://api.toothfairy.clinic/.netlify/functions/sitemap  200!
+# =========================================================================
+# БЛОК 1: Проксі файлів (Пріоритетні технічні правила)
+# =========================================================================
+sitemap.xml  https://api.toothfairy.clinic/.netlify/functions/sitemap  200!
 
-/uk-UA/*  /ua/:splat  301!
-/uk/*     /ua/:splat  301!
 
-/*  /index.html  200
+# =========================================================================
+# БЛОК 2: Точкові 301 редиректи для послуг (З UUID на нові ЧПУ)
+# Специфічні правила стоять вище загальних масок, щоб уникнути ланцюжків
+# =========================================================================
+
+# Ендодонтія / Endodontics
+/ua/services/adb69206-ca61-499e-be74-9a5e20b0ece9    /ua/services/likuvannya-kanaliv    301
+/en/services/adb69206-ca61-499e-be74-9a5e20b0ece9    /en/services/root-canal-treatment    301
+
+# Консультація / Consultation
+/ua/services/f1f8b7da-6771-4ac5-9af4-cb7158f83c24    /ua/services/konsultaciya-stomatologa    301
+/en/services/f1f8b7da-6771-4ac5-9af4-cb7158f83c24    /en/services/dental-consultation    301
+
+# Дитяча стоматологія / Pediatric dentistry
+/ua/services/2ea61115-67b4-4b99-8b39-9e19e68c101e    /ua/services/dytyacha-stomatologiya    301
+/en/services/2ea61115-67b4-4b99-8b39-9e19e68c101e    /en/services/pediatric-dentistry    301
+
+# Терапія / Therapy
+/ua/services/7a0dc235-4755-4a33-9081-32f9dd0bd6f9    /ua/services/terapevtychna-stomatologiya    301
+/en/services/7a0dc235-4755-4a33-9081-32f9dd0bd6f9    /en/services/general-dentistry    301
+
+# Імплантація / Implantation
+/ua/services/831d0d69-1b94-4791-88a5-121c345b60c8    /ua/services/implantaciya-zubiv    301
+/en/services/831d0d69-1b94-4791-88a5-121c345b60c8    /en/services/dental-implants    301
+
+# Ортодонтія / Orthodontics
+/ua/services/bdf1e15a-49e8-4c0e-9605-2c18a21a46f4    /ua/services/vypravlennya-prikusu    301
+/en/services/bdf1e15a-49e8-4c0e-9605-2c18a21a46f4    /en/services/bite-correction    301
+
+# Спеціаліст з грудного вигодовування / Breastfeeding specialist
+/ua/services/66dc34a7-232d-4a19-b30b-c2b412e7afd9    /ua/services/konsultaciya-z-grudnogo-vygodovuvannya    301
+/en/services/66dc34a7-232d-4a19-b30b-c2b412e7afd9    /en/services/breastfeeding-consultation    301
+
+# Наркоз / Narcosis
+/ua/services/819cb2aa-956b-4e07-8019-dd373485dd15    /ua/services/likuvannya-pid-narkozom    301
+/en/services/819cb2aa-956b-4e07-8019-dd373485dd15    /en/services/treatment-under-anesthesia    301
+
+# Хірургія / Surgery
+/ua/services/2e0f0583-17a1-4fe1-872d-b16f5aa76f57    /ua/services/vydalennya-zubiv    301
+/en/services/2e0f0583-17a1-4fe1-872d-b16f5aa76f57    /en/services/tooth-extraction    301
+
+# Ортопедія / Orthopedics
+/ua/services/b69865ce-d3c2-4e0a-8191-0b96428b19b6    /ua/services/protezuvannya-zubiv    301
+/en/services/b69865ce-d3c2-4e0a-8191-0b96428b19b6    /en/services/dental-prosthetics    301
+
+# Естетична стоматологія / Aesthetic dentistry
+/ua/services/580fa779-d1c1-4111-be47-eab3dbb9031a    /ua/services/viniry    301
+/en/services/580fa779-d1c1-4111-be47-eab3dbb9031a    /en/services/veneers    301
+
+# Кабінет КТ, ТРГ, ОПТГ / Computed tomography room
+/ua/services/959ed98e-0b59-4d89-81a5-4b1f43ba0677    /ua/services/kt-zubiv    301
+/en/services/959ed98e-0b59-4d89-81a5-4b1f43ba0677    /en/services/dental-ct    301
+
+
+# =========================================================================
+# БЛОК 3: Загальні правила локалізації (Глобальний редирект застарілих мов)
+# Спрацьовує, якщо запит не збігся з конкретними UUID вище
+# =========================================================================
+/uk-UA/* /ua/:splat  301!
+/uk/* /ua/:splat  301!
+
+
+# =========================================================================
+# БЛОК 4: Фоллбек для React Router (Обов'язково в самому кінці)
+# Перенаправляє всі інші запити на клієнтський роутинг SPA з кодом 200
+# =========================================================================
+/* /index.html  200
