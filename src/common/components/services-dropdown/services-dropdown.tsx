@@ -99,7 +99,7 @@ export const ServicesDropdown = ({ urlLang, t, onLinkClick }: { urlLang: string,
                     {sortedServices.map((service) => (
                         <li key={service.id}>
                             <Link
-                                to={`/${urlLang}/services/${service.id}`}
+                                to={`/${urlLang}/services/${urlLang === 'ua' ? service.slug : service.slug_en}`}
                                 className="block px-5 py-3 text-sm hover:bg-paleOlive/20 dark:hover:bg-paleOlive/10 transition-colors"
                                 onClick={() => {
                                     setIsOpen(false);
