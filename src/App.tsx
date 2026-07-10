@@ -114,7 +114,7 @@ export const App = () => {
             <Route path="/:lang">
               <Route index element={<><SEOMeta /><MainPage /></>} />
               <Route path="price-list" element={<><SEOMeta /><PriceListPage /></>} />
-              <Route path="services/:id" element={<><SEOMeta /><ServicePage /></>} />
+              <Route path="services/:slug" element={<><SEOMeta /><ServicePage /></>} />
               <Route path="review" element={<><SEOMeta /><ReviewsPage /></>} />
               <Route path="our-work" element={<><SEOMeta /><OurWorkPage /></>} />
               <Route path="contacts" element={<><SEOMeta /><ContactPage /></>} />

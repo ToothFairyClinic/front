@@ -1,28 +1,47 @@
-import { FC } from "react";
-import { useParams } from "react-router-dom";
+import { FC, useEffect, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
-import { useGetServiceByIdQuery } from "@app/core/types";
 import { ServiceItem } from "../components/service-item-component";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
+import { useGetServiceBySlugQuery } from "@app/core/types";
 
 interface ServicePageProps { }
 
 export const ServicePage: FC<ServicePageProps> = () => {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate(); // Ініціалізуємо навігацію
 
-  const { data, loading, error } = useGetServiceByIdQuery({
-    variables: { _eq: id },
+  const prevLangRef = useRef(i18n.language);
+
+  const { data, loading, error } = useGetServiceBySlugQuery({
+    variables: { slug: slug! },
   });
-
 
   const service = data?.services[0];
   const isEn = i18n.language === 'en';
+
+  useEffect(() => {
+    // Якщо сервіс ще не завантажився або мова не змінилася — нічого не робимо
+    if (!service || prevLangRef.current === i18n.language) return;
+
+    // Якщо мова змінилася на англійську, а ми не на англійському слюгу
+    if (i18n.language === 'en' && slug !== service.slug_en) {
+      navigate(`/en/services/${service.slug_en}`, { replace: true });
+    }
+    // Якщо мова змінилася на українську, а ми не на українському слюгу
+    else if ((i18n.language === 'uk' || i18n.language === 'ua') && slug !== service.slug) {
+      navigate(`/ua/services/${service.slug}`, { replace: true });
+    }
+
+
+    prevLangRef.current = i18n.language;
+  }, [i18n.language, service, slug, navigate]);
 
   const seoImageObj = useCloudinaryImage(service?.image || "", ["w_800", "q_auto", "f_jpg"]);
   const fullImageUrl = seoImageObj.toURL();
@@ -63,7 +82,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
         description={description || (isEn
           ? `Learn more about ${serviceName} at Tooth Fairy Clinic.`
           : `Дізнайтеся більше про послугу ${serviceName} у клініці Зубна Фея.`)}
-        path={`/services/${id}`}
+        path={`/services/${slug}`}
         type="Service"
         schemaData={serviceSchema}
       />

@@ -3469,6 +3469,8 @@ export type Services = {
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
   seo_title_en?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slug_en?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
@@ -3510,6 +3512,8 @@ export type Services_Bool_Exp = {
   seo_description_en?: InputMaybe<String_Comparison_Exp>;
   seo_title?: InputMaybe<String_Comparison_Exp>;
   seo_title_en?: InputMaybe<String_Comparison_Exp>;
+  slug?: InputMaybe<String_Comparison_Exp>;
+  slug_en?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
 };
 
@@ -3532,6 +3536,8 @@ export type Services_Insert_Input = {
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
   seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  slug_en?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
@@ -3549,6 +3555,8 @@ export type Services_Max_Fields = {
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
   seo_title_en?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slug_en?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
@@ -3566,6 +3574,8 @@ export type Services_Min_Fields = {
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
   seo_title_en?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slug_en?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
@@ -3598,6 +3608,8 @@ export type Services_Order_By = {
   seo_description_en?: InputMaybe<Order_By>;
   seo_title?: InputMaybe<Order_By>;
   seo_title_en?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  slug_en?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
 
@@ -3631,6 +3643,10 @@ export enum Services_Select_Column {
   /** column name */
   SeoTitleEn = 'seo_title_en',
   /** column name */
+  Slug = 'slug',
+  /** column name */
+  SlugEn = 'slug_en',
+  /** column name */
   UpdatedAt = 'updated_at'
 }
 
@@ -3647,6 +3663,8 @@ export type Services_Set_Input = {
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
   seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  slug_en?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
@@ -3671,6 +3689,8 @@ export type Services_Stream_Cursor_Value_Input = {
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
   seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  slug_en?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
@@ -3698,6 +3718,10 @@ export enum Services_Update_Column {
   SeoTitle = 'seo_title',
   /** column name */
   SeoTitleEn = 'seo_title_en',
+  /** column name */
+  Slug = 'slug',
+  /** column name */
+  SlugEn = 'slug_en',
   /** column name */
   UpdatedAt = 'updated_at'
 }
@@ -4262,14 +4286,14 @@ export type GetPriceListCategoryByIdQuery = { __typename?: 'query_root', price_l
 export type GetServicesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, image: string, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
+export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
 
-export type GetServiceByIdQueryVariables = Exact<{
-  _eq: Scalars['uuid']['input'];
+export type GetServiceBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
 }>;
 
 
-export type GetServiceByIdQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, image: string, mainImage?: string | null, description?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
+export type GetServiceBySlugQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, mainImage?: string | null, description?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
 
 
 export const CreateReviewDocument = gql`
@@ -4664,6 +4688,8 @@ export const GetServicesDocument = gql`
     id
     name
     name_en
+    slug
+    slug_en
     image
     seo_title
     seo_description
@@ -4705,12 +4731,14 @@ export type GetServicesQueryHookResult = ReturnType<typeof useGetServicesQuery>;
 export type GetServicesLazyQueryHookResult = ReturnType<typeof useGetServicesLazyQuery>;
 export type GetServicesSuspenseQueryHookResult = ReturnType<typeof useGetServicesSuspenseQuery>;
 export type GetServicesQueryResult = Apollo.QueryResult<GetServicesQuery, GetServicesQueryVariables>;
-export const GetServiceByIdDocument = gql`
-    query GetServiceById($_eq: uuid!) {
-  services(where: {id: {_eq: $_eq}}) {
+export const GetServiceBySlugDocument = gql`
+    query GetServiceBySlug($slug: String!) {
+  services(where: {_or: [{slug: {_eq: $slug}}, {slug_en: {_eq: $slug}}]}) {
     id
     name
     name_en
+    slug
+    slug_en
     image
     mainImage
     description
@@ -4724,34 +4752,34 @@ export const GetServiceByIdDocument = gql`
     `;
 
 /**
- * __useGetServiceByIdQuery__
+ * __useGetServiceBySlugQuery__
  *
- * To run a query within a React component, call `useGetServiceByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetServiceByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetServiceBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetServiceBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetServiceByIdQuery({
+ * const { data, loading, error } = useGetServiceBySlugQuery({
  *   variables: {
- *      _eq: // value for '_eq'
+ *      slug: // value for 'slug'
  *   },
  * });
  */
-export function useGetServiceByIdQuery(baseOptions: Apollo.QueryHookOptions<GetServiceByIdQuery, GetServiceByIdQueryVariables> & ({ variables: GetServiceByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetServiceBySlugQuery(baseOptions: Apollo.QueryHookOptions<GetServiceBySlugQuery, GetServiceBySlugQueryVariables> & ({ variables: GetServiceBySlugQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetServiceByIdQuery, GetServiceByIdQueryVariables>(GetServiceByIdDocument, options);
+        return Apollo.useQuery<GetServiceBySlugQuery, GetServiceBySlugQueryVariables>(GetServiceBySlugDocument, options);
       }
-export function useGetServiceByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetServiceByIdQuery, GetServiceByIdQueryVariables>) {
+export function useGetServiceBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetServiceBySlugQuery, GetServiceBySlugQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetServiceByIdQuery, GetServiceByIdQueryVariables>(GetServiceByIdDocument, options);
+          return Apollo.useLazyQuery<GetServiceBySlugQuery, GetServiceBySlugQueryVariables>(GetServiceBySlugDocument, options);
         }
-export function useGetServiceByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetServiceByIdQuery, GetServiceByIdQueryVariables>) {
+export function useGetServiceBySlugSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetServiceBySlugQuery, GetServiceBySlugQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetServiceByIdQuery, GetServiceByIdQueryVariables>(GetServiceByIdDocument, options);
+          return Apollo.useSuspenseQuery<GetServiceBySlugQuery, GetServiceBySlugQueryVariables>(GetServiceBySlugDocument, options);
         }
-export type GetServiceByIdQueryHookResult = ReturnType<typeof useGetServiceByIdQuery>;
-export type GetServiceByIdLazyQueryHookResult = ReturnType<typeof useGetServiceByIdLazyQuery>;
-export type GetServiceByIdSuspenseQueryHookResult = ReturnType<typeof useGetServiceByIdSuspenseQuery>;
-export type GetServiceByIdQueryResult = Apollo.QueryResult<GetServiceByIdQuery, GetServiceByIdQueryVariables>;
+export type GetServiceBySlugQueryHookResult = ReturnType<typeof useGetServiceBySlugQuery>;
+export type GetServiceBySlugLazyQueryHookResult = ReturnType<typeof useGetServiceBySlugLazyQuery>;
+export type GetServiceBySlugSuspenseQueryHookResult = ReturnType<typeof useGetServiceBySlugSuspenseQuery>;
+export type GetServiceBySlugQueryResult = Apollo.QueryResult<GetServiceBySlugQuery, GetServiceBySlugQueryVariables>;

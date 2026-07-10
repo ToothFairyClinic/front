@@ -3,6 +3,8 @@ query GetServices {
     id
     name
     name_en
+    slug      
+    slug_en     
     image
     seo_title
     seo_description
@@ -13,11 +15,18 @@ query GetServices {
 }
 
 
-query GetServiceById($_eq: uuid!) {
-  services(where: { id: { _eq: $_eq } }) {
+query GetServiceBySlug($slug: String!) {
+  services(where: {
+    _or: [
+      { slug: { _eq: $slug } },
+      { slug_en: { _eq: $slug } }
+    ]
+  }) {
     id
     name
     name_en
+    slug        
+    slug_en 
     image
     mainImage
     description
