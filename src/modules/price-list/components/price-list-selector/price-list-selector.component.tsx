@@ -8,10 +8,13 @@ import {
   darkColorStyles,
   lightColorStyles,
 } from "./price-list-selector-styles";
+import { useTranslation } from "react-i18next";
 
 interface PriceListSelectProps {
   data: GetPriceListCategoriesQuery | undefined;
 }
+
+
 
 const handlerChange = (newValue: any, actionMeta: ActionMeta<unknown>) => {
   priceListCurrent(newValue?.value);
@@ -24,6 +27,8 @@ export const PriceListSelect: FC<PriceListSelectProps> = ({ data }) => {
       label: `${item.title}`,
     })) || [],
   ];
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (options[0].length > 0 && priceListCurrent() === null) {
@@ -50,7 +55,9 @@ export const PriceListSelect: FC<PriceListSelectProps> = ({ data }) => {
         defaultValue={options[0].find(
           (opt) => opt.value === priceListCurrent()
         )}
-        placeholder="Оберіть категорію"
+        placeholder={t("Оберіть категорію")}
+        isSearchable={false}
+        openMenuOnFocus={true}
       />
     </div>
   );

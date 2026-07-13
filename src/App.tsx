@@ -10,6 +10,7 @@ import { Helmet } from "react-helmet-async";
 import { Navigate, useParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import React, { Suspense, lazy } from 'react';
+import { PrivacyPolicy } from "./modules/privacy-policy/privacy-policy.page";
 
 
 // <Route path="contacts" element={<><SEOMeta /><ContactPage /></>} />
@@ -53,22 +54,23 @@ export const App = () => {
   }, [location]);
 
 
+  // Ефект 1: Лише ініціалізація
   useEffect(() => {
-    if (GA_ID) {
-      const timer = setTimeout(() => {
-        ReactGA.initialize(GA_ID);
+    if (!GA_ID || ReactGA.isInitialized) return;
 
-        ReactGA.send({
-          hitType: "pageview",
-          page: location.pathname + location.search,
-          title: document.title,
-        });
-      }, 3000);
+    const timer = setTimeout(() => {
+      ReactGA.initialize(GA_ID);
+      ReactGA.send({
+        hitType: "pageview",
+        page: window.location.pathname + window.location.search,
+        title: document.title,
+      });
+    }, 3000);
 
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(timer);
   }, [GA_ID]);
 
+  // Ефект 2: Відстеження подальших переходів
   useEffect(() => {
     if (GA_ID && ReactGA.isInitialized) {
       ReactGA.send({
@@ -77,7 +79,8 @@ export const App = () => {
         title: document.title,
       });
     }
-  }, [location, GA_ID]);
+  }, [location.pathname, location.search, GA_ID]);
+
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -118,6 +121,7 @@ export const App = () => {
               <Route path="review" element={<><SEOMeta /><ReviewsPage /></>} />
               <Route path="our-work" element={<><SEOMeta /><OurWorkPage /></>} />
               <Route path="contacts" element={<><SEOMeta /><ContactPage /></>} />
+              <Route path="privacy-policy" element={<><SEOMeta /><PrivacyPolicy /></>} />
             </Route>
 
             <Route path="*" element={<Navigate to="/ua" replace />} />
