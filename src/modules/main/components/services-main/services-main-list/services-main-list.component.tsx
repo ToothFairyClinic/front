@@ -28,7 +28,10 @@ export const SerivcesList: FC<ServicesListProps> = ({ items, isLoading }) => {
       ref={servicesRef}
       id="services"
       aria-labelledby="services-title"
-      className="py-7 flex flex-col gap-19 bg-[url('@app/assets/images/servicesImage.avif')] bg-no-repeat bg-cover bg-center relative min-h-[600px]"
+      className="py-7 flex flex-col gap-8 md:gap-19 bg-no-repeat bg-cover bg-center relative min-h-[600px]
+  bg-[url('@app/assets/images/servicesImageMobile.avif')]
+  md:bg-[url('@app/assets/images/servicesImage.avif')]
+  "
     >
       <div id="services-title" className="relative z-10 w-full overflow-hidden">
         <h2 className="text-white text-3xl md:text-6xl border-b border-paleOlive px-4 md:px-10 py-3 w-full md:w-140 max-w-full box-border">
