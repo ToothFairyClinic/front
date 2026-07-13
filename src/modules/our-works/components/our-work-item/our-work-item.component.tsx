@@ -25,7 +25,7 @@ export const OurWorkItem: FC<Our_Works & OurWorkItemProps> = ({
   const imageCldBefore = useCloudinaryImage(image_before, transformations);
 
   return (
-    <article className="w-96 dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md transition-shadow dark:shadow-white dark:bg-darkGray overflow-hidden">
+    <article className="w-full dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md transition-shadow dark:shadow-white dark:bg-darkGray overflow-hidden">
       <figure>
         <div className="relative">
           <AdvancedImage

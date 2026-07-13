@@ -22,7 +22,7 @@ export const MainTitle: FC<MainTitleProps & PropsWithChildren> = ({
 }) => {
   const { t } = useTranslation();
   const titleClasses = clsx(
-    "text-6xl  border-b border-paleOlive px-10  py-3 z-10 text-darkGray dark:text-white",
+    "md:text-6xl text-3xl  border-b border-paleOlive px-10  py-3 z-10 text-darkGray dark:text-white",
     {
       "text-white": darkken,
       "lg:w-165": size === TitleSize.md,
