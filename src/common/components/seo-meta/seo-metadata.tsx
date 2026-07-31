@@ -22,18 +22,15 @@ export const SEOMeta = ({
     const { i18n } = useTranslation();
     const location = useLocation();
 
-    // 1. Визначення мови та шляхів
+    // 1. Мова та шляхи
     const currentLang = i18n.language === 'uk' || i18n.language === 'ua' ? 'ua' : 'en';
+    const isEn = currentLang === 'en';
     const baseUrl = "https://toothfairy.clinic";
 
-    // Якщо path не передано, беремо поточний роут з react-router
     const currentPath = path || location.pathname;
-
-    // Уникаємо дублювання домену, якщо path вже містить його (наприклад, з useLocation)
     const isAbsolute = currentPath.startsWith('http');
     const fullUrl = isAbsolute ? currentPath : `${baseUrl}${currentPath.startsWith('/') ? currentPath : `/${currentPath}`}`;
 
-    // Вилучення slug для hreflang (відкидаємо мовний префікс)
     const pathSegments = currentPath.split('/').filter(Boolean);
     const cleanPath = pathSegments[0] === 'ua' || pathSegments[0] === 'en'
         ? pathSegments.slice(1).join('/')
@@ -41,12 +38,12 @@ export const SEOMeta = ({
 
     const slug = cleanPath ? `/${cleanPath}` : '';
 
-    // 2. Формування Breadcrumbs
+    // 2. Breadcrumbs
     const breadcrumbsItems = [
         {
             "@type": "ListItem",
             "position": 1,
-            "name": currentLang === 'ua' ? "Головна" : "Home",
+            "name": isEn ? "Home" : "Головна",
             "item": `${baseUrl}/${currentLang}`
         }
     ];
@@ -60,36 +57,74 @@ export const SEOMeta = ({
         });
     }
 
-    const breadcrumbsSchema = {
-        "@context": "https://schema.org",
+    const breadcrumbsEntity = {
         "@type": "BreadcrumbList",
+        "@id": `${fullUrl}/#breadcrumb`,
         "itemListElement": breadcrumbsItems
     };
 
-    // 3. Формування основної сутності сторінки
-    const pageSchema = {
+    // 3. WebPage
+    const pageEntity = {
         "@type": type === 'Service' ? 'WebPage' : type,
         "@id": `${fullUrl}/#webpage`,
         "url": fullUrl,
         "name": title,
         "description": description,
         "breadcrumb": { "@id": `${fullUrl}/#breadcrumb` },
-        "inLanguage": currentLang === "ua" ? "uk-UA" : "en-US",
+        "inLanguage": isEn ? "en-US" : "uk-UA",
     };
 
-    // 4. Об'єднання сутностей у плоский @graph
-    const buildMainSchema = () => {
-        const graph: any[] = [pageSchema];
+    // 4. Фолбек для Організації (використовується для сторінок Послуг, де Dentist не передається явно)
+    const defaultOrganizationEntity = {
+        "@type": "Dentist",
+        "@id": `${baseUrl}/#organization`,
+        "name": isEn ? "Tooth Fairy Dental Clinic" : "Стоматологічна клініка Зубна Фея",
+        "url": `${baseUrl}/${currentLang}`,
+        "additionalType": "https://schema.org/Organization",
+        "logo": {
+            "@type": "ImageObject",
+            "url": `${baseUrl}/logo-seo.svg`
+        },
+        "telephone": "+380681689911",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": isEn ? "22 Vokzalna St" : "вул. Вокзальна, 22",
+            "addressLocality": isEn ? "Bila Tserkva" : "Біла Церква",
+            "addressRegion": isEn ? "Kyiv Oblast" : "Київська область",
+            "postalCode": "09100",
+            "addressCountry": "UA"
+        },
+        "priceRange": "$$"
+    };
 
+    // 5. Побудова чистого @graph без дублів
+    const buildMainSchema = () => {
+        const customNodes: any[] = [];
+
+        // Збираємо всі зовнішні вузли з schemaData в один плоский масив
         if (schemaData) {
             if (Array.isArray(schemaData)) {
-                graph.push(...schemaData.flat());
+                customNodes.push(...schemaData.flat());
             } else if (schemaData["@graph"] && Array.isArray(schemaData["@graph"])) {
-                graph.push(...schemaData["@graph"].flat());
+                customNodes.push(...schemaData["@graph"].flat());
             } else {
-                graph.push(schemaData);
+                customNodes.push(schemaData);
             }
         }
+
+        // ПЕРЕВІРКА: чи передав батьківський компонент свого Dentist з таким же @id
+        const hasCustomOrganization = customNodes.some(
+            (node) => node["@id"] === `${baseUrl}/#organization` || node["@type"] === "Dentist"
+        );
+
+        const graph: any[] = [pageEntity, breadcrumbsEntity];
+
+        // Додаємо дефолтну організацію ТІЛЬКИ якщо її не було передано в schemaData
+        if (!hasCustomOrganization) {
+            graph.push(defaultOrganizationEntity);
+        }
+
+        graph.push(...customNodes);
 
         return {
             "@context": "https://schema.org",
@@ -101,21 +136,17 @@ export const SEOMeta = ({
 
     return (
         <Helmet>
-            {/* Глобальні налаштування та локалізація */}
             <html lang={i18n.language} />
             <link rel="canonical" href={fullUrl} />
             <link rel="alternate" href={`${baseUrl}/ua${slug}`} hrefLang="uk" />
             <link rel="alternate" href={`${baseUrl}/en${slug}`} hrefLang="en" />
             <link rel="alternate" href={`${baseUrl}/ua${slug}`} hrefLang="x-default" />
 
-            {/* Директиви індексування */}
             {robots && <meta name="robots" content={robots} />}
 
-            {/* Базові мета-теги */}
             <title>{title}</title>
             {description && <meta name="description" content={description} />}
 
-            {/* OpenGraph */}
             <meta property="og:site_name" content="Tooth Fairy Clinic" />
             <meta property="og:type" content="website" />
             <meta property="og:title" content={title} />
@@ -125,16 +156,10 @@ export const SEOMeta = ({
             <meta property="og:image:width" content="512" />
             <meta property="og:image:height" content="512" />
 
-            {/* Twitter Card */}
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
             <meta name="twitter:image" content={defaultImage} />
-
-            {/* Structured Data */}
-            <script type="application/ld+json">
-                {JSON.stringify(breadcrumbsSchema)}
-            </script>
 
             <script type="application/ld+json">
                 {JSON.stringify(buildMainSchema())}

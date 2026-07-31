@@ -25,36 +25,33 @@ export const ContactPage: FC = () => {
   const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
   const contactSchema = {
-    "@type": "ContactPage",
-    "mainEntity": {
-      "@id": "https://toothfairy.clinic/#organization",
-      "@type": "Dentist",
-      "name": isEn ? "Tooth Fairy Dental Clinic" : "Зубна Фея",
-      "image": "https://toothfairy.clinic/assets/favicon/android-chrome-512x512.png",
-      "telephone": ["+380681689911", "+380934599911"],
-      "email": "admin@toothfairy.clinic",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": isEn ? "22 Vokzalna St" : "вул. Вокзальна, 22",
-        "addressLocality": isEn ? "Bila Tserkva" : "Біла Церква",
-        "addressRegion": isEn ? "Kyiv Oblast" : "Київська область",
-        "postalCode": "09100",
-        "addressCountry": "UA"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 49.81106092703584,
-        "longitude": 30.10824757616152
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          "opens": "09:30",
-          "closes": "19:00"
-        }
-      ]
-    }
+    "@id": "https://toothfairy.clinic/#organization",
+    "@type": "Dentist",
+    "name": isEn ? "Tooth Fairy Dental Clinic" : "Стоматологічна клініка Зубна Фея",
+    "image": "https://toothfairy.clinic/assets/favicon/android-chrome-512x512.png",
+    "telephone": ["+380681689911", "+380934599911"],
+    "email": "admin@toothfairy.clinic",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": isEn ? "22 Vokzalna St" : "вул. Вокзальна, 22",
+      "addressLocality": isEn ? "Bila Tserkva" : "Біла Церква",
+      "addressRegion": isEn ? "Kyiv Oblast" : "Київська область",
+      "postalCode": "09100",
+      "addressCountry": "UA"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 49.81106092703584,
+      "longitude": 30.10824757616152
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "09:30",
+        "closes": "19:00"
+      }
+    ]
   };
 
   return (
