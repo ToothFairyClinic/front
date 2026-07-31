@@ -15,6 +15,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  jsonb: { input: any; output: any; }
   numeric: { input: any; output: any; }
   timestamp: { input: any; output: any; }
   timestamptz: { input: any; output: any; }
@@ -35,6 +36,19 @@ export type AdminRegisterInput = {
 export type AdminRegisterOutput = {
   __typename?: 'AdminRegisterOutput';
   accessToken: Scalars['String']['output'];
+};
+
+/** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
+export type Boolean_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Boolean']['input']>;
+  _gt?: InputMaybe<Scalars['Boolean']['input']>;
+  _gte?: InputMaybe<Scalars['Boolean']['input']>;
+  _in?: InputMaybe<Array<Scalars['Boolean']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['Boolean']['input']>;
+  _lte?: InputMaybe<Scalars['Boolean']['input']>;
+  _neq?: InputMaybe<Scalars['Boolean']['input']>;
+  _nin?: InputMaybe<Array<Scalars['Boolean']['input']>>;
 };
 
 export type CloudinarySignatureOutput = {
@@ -391,6 +405,34 @@ export enum Cursor_Ordering {
   /** descending ordering of the cursor */
   Desc = 'DESC'
 }
+
+export type Jsonb_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
+export type Jsonb_Comparison_Exp = {
+  _cast?: InputMaybe<Jsonb_Cast_Exp>;
+  /** is the column contained in the given json value */
+  _contained_in?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the column contain the given json value at the top level */
+  _contains?: InputMaybe<Scalars['jsonb']['input']>;
+  _eq?: InputMaybe<Scalars['jsonb']['input']>;
+  _gt?: InputMaybe<Scalars['jsonb']['input']>;
+  _gte?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the string exist as a top-level key in the column */
+  _has_key?: InputMaybe<Scalars['String']['input']>;
+  /** do all of these strings exist as top-level keys in the column */
+  _has_keys_all?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** do any of these strings exist as top-level keys in the column */
+  _has_keys_any?: InputMaybe<Array<Scalars['String']['input']>>;
+  _in?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['jsonb']['input']>;
+  _lte?: InputMaybe<Scalars['jsonb']['input']>;
+  _neq?: InputMaybe<Scalars['jsonb']['input']>;
+  _nin?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+};
 
 /** mutation root */
 export type Mutation_Root = {
@@ -1111,6 +1153,11 @@ export type Mutation_RootUpdate_Reviews_ManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_ServicesArgs = {
+  _append?: InputMaybe<Services_Append_Input>;
+  _delete_at_path?: InputMaybe<Services_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Services_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Services_Delete_Key_Input>;
+  _prepend?: InputMaybe<Services_Prepend_Input>;
   _set?: InputMaybe<Services_Set_Input>;
   where: Services_Bool_Exp;
 };
@@ -1118,6 +1165,11 @@ export type Mutation_RootUpdate_ServicesArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Services_By_PkArgs = {
+  _append?: InputMaybe<Services_Append_Input>;
+  _delete_at_path?: InputMaybe<Services_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Services_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Services_Delete_Key_Input>;
+  _prepend?: InputMaybe<Services_Prepend_Input>;
   _set?: InputMaybe<Services_Set_Input>;
   pk_columns: Services_Pk_Columns_Input;
 };
@@ -3458,13 +3510,25 @@ export type Reviews_Updates = {
 /** columns and relationships of "services" */
 export type Services = {
   __typename?: 'services';
+  /** An array relationship */
+  child_services: Array<Services>;
+  /** An aggregate relationship */
+  child_services_aggregate: Services_Aggregate;
   created_at: Scalars['timestamp']['output'];
+  custom_robots?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  description_en?: Maybe<Scalars['String']['output']>;
+  faq_en?: Maybe<Scalars['jsonb']['output']>;
+  faq_ua?: Maybe<Scalars['jsonb']['output']>;
   id: Scalars['uuid']['output'];
   image: Scalars['String']['output'];
+  is_geo_page?: Maybe<Scalars['Boolean']['output']>;
   mainImage?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   name_en?: Maybe<Scalars['String']['output']>;
+  parent_id?: Maybe<Scalars['uuid']['output']>;
+  /** An object relationship */
+  parent_service?: Maybe<Services>;
   seo_description?: Maybe<Scalars['String']['output']>;
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
@@ -3474,11 +3538,70 @@ export type Services = {
   updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
+
+/** columns and relationships of "services" */
+export type ServicesChild_ServicesArgs = {
+  distinct_on?: InputMaybe<Array<Services_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Services_Order_By>>;
+  where?: InputMaybe<Services_Bool_Exp>;
+};
+
+
+/** columns and relationships of "services" */
+export type ServicesChild_Services_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Services_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Services_Order_By>>;
+  where?: InputMaybe<Services_Bool_Exp>;
+};
+
+
+/** columns and relationships of "services" */
+export type ServicesFaq_EnArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "services" */
+export type ServicesFaq_UaArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** aggregated selection of "services" */
 export type Services_Aggregate = {
   __typename?: 'services_aggregate';
   aggregate?: Maybe<Services_Aggregate_Fields>;
   nodes: Array<Services>;
+};
+
+export type Services_Aggregate_Bool_Exp = {
+  bool_and?: InputMaybe<Services_Aggregate_Bool_Exp_Bool_And>;
+  bool_or?: InputMaybe<Services_Aggregate_Bool_Exp_Bool_Or>;
+  count?: InputMaybe<Services_Aggregate_Bool_Exp_Count>;
+};
+
+export type Services_Aggregate_Bool_Exp_Bool_And = {
+  arguments: Services_Select_Column_Services_Aggregate_Bool_Exp_Bool_And_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Services_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type Services_Aggregate_Bool_Exp_Bool_Or = {
+  arguments: Services_Select_Column_Services_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Services_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type Services_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Services_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Services_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
 };
 
 /** aggregate fields of "services" */
@@ -3496,18 +3619,47 @@ export type Services_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+/** order by aggregate values of table "services" */
+export type Services_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Services_Max_Order_By>;
+  min?: InputMaybe<Services_Min_Order_By>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Services_Append_Input = {
+  faq_en?: InputMaybe<Scalars['jsonb']['input']>;
+  faq_ua?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** input type for inserting array relation for remote table "services" */
+export type Services_Arr_Rel_Insert_Input = {
+  data: Array<Services_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Services_On_Conflict>;
+};
+
 /** Boolean expression to filter rows from the table "services". All fields are combined with a logical 'AND'. */
 export type Services_Bool_Exp = {
   _and?: InputMaybe<Array<Services_Bool_Exp>>;
   _not?: InputMaybe<Services_Bool_Exp>;
   _or?: InputMaybe<Array<Services_Bool_Exp>>;
+  child_services?: InputMaybe<Services_Bool_Exp>;
+  child_services_aggregate?: InputMaybe<Services_Aggregate_Bool_Exp>;
   created_at?: InputMaybe<Timestamp_Comparison_Exp>;
+  custom_robots?: InputMaybe<String_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
+  description_en?: InputMaybe<String_Comparison_Exp>;
+  faq_en?: InputMaybe<Jsonb_Comparison_Exp>;
+  faq_ua?: InputMaybe<Jsonb_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   image?: InputMaybe<String_Comparison_Exp>;
+  is_geo_page?: InputMaybe<Boolean_Comparison_Exp>;
   mainImage?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   name_en?: InputMaybe<String_Comparison_Exp>;
+  parent_id?: InputMaybe<Uuid_Comparison_Exp>;
+  parent_service?: InputMaybe<Services_Bool_Exp>;
   seo_description?: InputMaybe<String_Comparison_Exp>;
   seo_description_en?: InputMaybe<String_Comparison_Exp>;
   seo_title?: InputMaybe<String_Comparison_Exp>;
@@ -3523,15 +3675,41 @@ export enum Services_Constraint {
   ServicesPkey = 'services_pkey'
 }
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Services_Delete_At_Path_Input = {
+  faq_en?: InputMaybe<Array<Scalars['String']['input']>>;
+  faq_ua?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Services_Delete_Elem_Input = {
+  faq_en?: InputMaybe<Scalars['Int']['input']>;
+  faq_ua?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Services_Delete_Key_Input = {
+  faq_en?: InputMaybe<Scalars['String']['input']>;
+  faq_ua?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** input type for inserting data into table "services" */
 export type Services_Insert_Input = {
+  child_services?: InputMaybe<Services_Arr_Rel_Insert_Input>;
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
+  custom_robots?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  description_en?: InputMaybe<Scalars['String']['input']>;
+  faq_en?: InputMaybe<Scalars['jsonb']['input']>;
+  faq_ua?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  is_geo_page?: InputMaybe<Scalars['Boolean']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   name_en?: InputMaybe<Scalars['String']['input']>;
+  parent_id?: InputMaybe<Scalars['uuid']['input']>;
+  parent_service?: InputMaybe<Services_Obj_Rel_Insert_Input>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
@@ -3545,12 +3723,15 @@ export type Services_Insert_Input = {
 export type Services_Max_Fields = {
   __typename?: 'services_max_fields';
   created_at?: Maybe<Scalars['timestamp']['output']>;
+  custom_robots?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  description_en?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   mainImage?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   name_en?: Maybe<Scalars['String']['output']>;
+  parent_id?: Maybe<Scalars['uuid']['output']>;
   seo_description?: Maybe<Scalars['String']['output']>;
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
@@ -3560,16 +3741,40 @@ export type Services_Max_Fields = {
   updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
+/** order by max() on columns of table "services" */
+export type Services_Max_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  custom_robots?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  description_en?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  image?: InputMaybe<Order_By>;
+  mainImage?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  name_en?: InputMaybe<Order_By>;
+  parent_id?: InputMaybe<Order_By>;
+  seo_description?: InputMaybe<Order_By>;
+  seo_description_en?: InputMaybe<Order_By>;
+  seo_title?: InputMaybe<Order_By>;
+  seo_title_en?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  slug_en?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
 /** aggregate min on columns */
 export type Services_Min_Fields = {
   __typename?: 'services_min_fields';
   created_at?: Maybe<Scalars['timestamp']['output']>;
+  custom_robots?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  description_en?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   mainImage?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   name_en?: Maybe<Scalars['String']['output']>;
+  parent_id?: Maybe<Scalars['uuid']['output']>;
   seo_description?: Maybe<Scalars['String']['output']>;
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
@@ -3577,6 +3782,27 @@ export type Services_Min_Fields = {
   slug?: Maybe<Scalars['String']['output']>;
   slug_en?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamp']['output']>;
+};
+
+/** order by min() on columns of table "services" */
+export type Services_Min_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  custom_robots?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  description_en?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  image?: InputMaybe<Order_By>;
+  mainImage?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  name_en?: InputMaybe<Order_By>;
+  parent_id?: InputMaybe<Order_By>;
+  seo_description?: InputMaybe<Order_By>;
+  seo_description_en?: InputMaybe<Order_By>;
+  seo_title?: InputMaybe<Order_By>;
+  seo_title_en?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  slug_en?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "services" */
@@ -3588,6 +3814,13 @@ export type Services_Mutation_Response = {
   returning: Array<Services>;
 };
 
+/** input type for inserting object relation for remote table "services" */
+export type Services_Obj_Rel_Insert_Input = {
+  data: Services_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Services_On_Conflict>;
+};
+
 /** on_conflict condition type for table "services" */
 export type Services_On_Conflict = {
   constraint: Services_Constraint;
@@ -3597,13 +3830,21 @@ export type Services_On_Conflict = {
 
 /** Ordering options when selecting data from "services". */
 export type Services_Order_By = {
+  child_services_aggregate?: InputMaybe<Services_Aggregate_Order_By>;
   created_at?: InputMaybe<Order_By>;
+  custom_robots?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
+  description_en?: InputMaybe<Order_By>;
+  faq_en?: InputMaybe<Order_By>;
+  faq_ua?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   image?: InputMaybe<Order_By>;
+  is_geo_page?: InputMaybe<Order_By>;
   mainImage?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   name_en?: InputMaybe<Order_By>;
+  parent_id?: InputMaybe<Order_By>;
+  parent_service?: InputMaybe<Services_Order_By>;
   seo_description?: InputMaybe<Order_By>;
   seo_description_en?: InputMaybe<Order_By>;
   seo_title?: InputMaybe<Order_By>;
@@ -3618,22 +3859,40 @@ export type Services_Pk_Columns_Input = {
   id: Scalars['uuid']['input'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Services_Prepend_Input = {
+  faq_en?: InputMaybe<Scalars['jsonb']['input']>;
+  faq_ua?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
 /** select columns of table "services" */
 export enum Services_Select_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  CustomRobots = 'custom_robots',
+  /** column name */
   Description = 'description',
+  /** column name */
+  DescriptionEn = 'description_en',
+  /** column name */
+  FaqEn = 'faq_en',
+  /** column name */
+  FaqUa = 'faq_ua',
   /** column name */
   Id = 'id',
   /** column name */
   Image = 'image',
+  /** column name */
+  IsGeoPage = 'is_geo_page',
   /** column name */
   MainImage = 'mainImage',
   /** column name */
   Name = 'name',
   /** column name */
   NameEn = 'name_en',
+  /** column name */
+  ParentId = 'parent_id',
   /** column name */
   SeoDescription = 'seo_description',
   /** column name */
@@ -3650,15 +3909,33 @@ export enum Services_Select_Column {
   UpdatedAt = 'updated_at'
 }
 
+/** select "services_aggregate_bool_exp_bool_and_arguments_columns" columns of table "services" */
+export enum Services_Select_Column_Services_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+  /** column name */
+  IsGeoPage = 'is_geo_page'
+}
+
+/** select "services_aggregate_bool_exp_bool_or_arguments_columns" columns of table "services" */
+export enum Services_Select_Column_Services_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+  /** column name */
+  IsGeoPage = 'is_geo_page'
+}
+
 /** input type for updating data in table "services" */
 export type Services_Set_Input = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
+  custom_robots?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  description_en?: InputMaybe<Scalars['String']['input']>;
+  faq_en?: InputMaybe<Scalars['jsonb']['input']>;
+  faq_ua?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  is_geo_page?: InputMaybe<Scalars['Boolean']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   name_en?: InputMaybe<Scalars['String']['input']>;
+  parent_id?: InputMaybe<Scalars['uuid']['input']>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
@@ -3679,12 +3956,18 @@ export type Services_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Services_Stream_Cursor_Value_Input = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
+  custom_robots?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  description_en?: InputMaybe<Scalars['String']['input']>;
+  faq_en?: InputMaybe<Scalars['jsonb']['input']>;
+  faq_ua?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  is_geo_page?: InputMaybe<Scalars['Boolean']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   name_en?: InputMaybe<Scalars['String']['input']>;
+  parent_id?: InputMaybe<Scalars['uuid']['input']>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
@@ -3699,17 +3982,29 @@ export enum Services_Update_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  CustomRobots = 'custom_robots',
+  /** column name */
   Description = 'description',
+  /** column name */
+  DescriptionEn = 'description_en',
+  /** column name */
+  FaqEn = 'faq_en',
+  /** column name */
+  FaqUa = 'faq_ua',
   /** column name */
   Id = 'id',
   /** column name */
   Image = 'image',
+  /** column name */
+  IsGeoPage = 'is_geo_page',
   /** column name */
   MainImage = 'mainImage',
   /** column name */
   Name = 'name',
   /** column name */
   NameEn = 'name_en',
+  /** column name */
+  ParentId = 'parent_id',
   /** column name */
   SeoDescription = 'seo_description',
   /** column name */
@@ -3727,6 +4022,16 @@ export enum Services_Update_Column {
 }
 
 export type Services_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Services_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Services_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Services_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Services_Delete_Key_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Services_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Services_Set_Input>;
   /** filter the rows which have to be updated */
@@ -4286,14 +4591,14 @@ export type GetPriceListCategoryByIdQuery = { __typename?: 'query_root', price_l
 export type GetServicesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
+export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, description?: string | null, description_en?: string | null, mainImage?: string | null, slug?: string | null, slug_en?: string | null, image: string, parent_id?: any | null, is_geo_page?: boolean | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, parent_id?: any | null, is_geo_page?: boolean | null }> }> };
 
 export type GetServiceBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type GetServiceBySlugQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, mainImage?: string | null, description?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any }> };
+export type GetServiceBySlugQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, mainImage?: string | null, description?: string | null, description_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, parent_id?: any | null, is_geo_page?: boolean | null, custom_robots?: string | null, faq_ua?: any | null, faq_en?: any | null, parent_service?: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null } | null, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string }> }> };
 
 
 export const CreateReviewDocument = gql`
@@ -4684,18 +4989,36 @@ export type GetPriceListCategoryByIdSuspenseQueryHookResult = ReturnType<typeof 
 export type GetPriceListCategoryByIdQueryResult = Apollo.QueryResult<GetPriceListCategoryByIdQuery, GetPriceListCategoryByIdQueryVariables>;
 export const GetServicesDocument = gql`
     query GetServices {
-  services(order_by: {created_at: asc}) {
+  services(
+    where: {parent_id: {_is_null: true}, _or: [{is_geo_page: {_eq: false}}, {is_geo_page: {_is_null: true}}]}
+    order_by: {created_at: asc}
+  ) {
     id
     name
     name_en
+    description
+    description_en
+    mainImage
     slug
     slug_en
     image
+    parent_id
+    is_geo_page
     seo_title
     seo_description
     seo_title_en
     seo_description_en
     created_at
+    child_services(order_by: {created_at: asc}) {
+      id
+      name
+      name_en
+      slug
+      slug_en
+      image
+      parent_id
+      is_geo_page
+    }
   }
 }
     `;
@@ -4742,11 +5065,32 @@ export const GetServiceBySlugDocument = gql`
     image
     mainImage
     description
+    description_en
     seo_title
     seo_description
     seo_title_en
     seo_description_en
     created_at
+    parent_id
+    is_geo_page
+    custom_robots
+    faq_ua
+    faq_en
+    parent_service {
+      id
+      name
+      name_en
+      slug
+      slug_en
+    }
+    child_services(order_by: {created_at: asc}) {
+      id
+      name
+      name_en
+      slug
+      slug_en
+      image
+    }
   }
 }
     `;

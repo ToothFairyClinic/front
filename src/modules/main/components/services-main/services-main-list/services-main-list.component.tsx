@@ -1,10 +1,13 @@
-import { Services } from "@app/core/types";
+import { GetServicesQuery } from "@app/core/types";
 import { FC, useRef } from "react";
 import { ServicesItem } from "../services-main-item/services-main-item.component";
 import { useTranslation } from 'react-i18next';
 
+export type ServicesListItem = GetServicesQuery['services'][number];
+
+
 interface ServicesListProps {
-  items: Services[];
+  items: ServicesListItem[];
   title?: string;
   isLoading?: boolean;
 }

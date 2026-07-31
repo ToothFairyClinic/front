@@ -103,7 +103,7 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
       "@type": "OfferCatalog",
       "name": i18n.language === 'en' ? "Dental Services" : "Послуги стоматології",
       "itemListElement": sortedServices.map((service) => ({
-        "@type": "OfferCatalog",
+        "@type": "Offer", // Виправлено: кінцевий елемент каталогу є Offer
         "itemOffered": {
           "@type": "Service",
           "name": (i18n.language === 'en' && service.seo_title_en)
@@ -114,6 +114,7 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
     }
   };
 
+
   return (
     <main className="">
       {(!metaLoading && currentTitle && currentDescription) ? (
@@ -121,7 +122,7 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
           title={currentTitle}
           description={currentDescription}
           path=""
-          type="Webpage"
+          type="WebPage"
           schemaData={dentistSchema}
         />
       ) : (

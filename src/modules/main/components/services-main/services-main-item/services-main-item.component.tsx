@@ -1,20 +1,22 @@
-import { Button } from "@app/common/components/button/button.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
-import { Services } from "@app/core/types";
 import { AdvancedImage } from "@cloudinary/react";
 import { FC, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { ServicesListItem } from "../services-main-list/services-main-list.component";
+
 
 interface ServicesItemProps {
-  image: string;
-  name: string;
   fitImage?: boolean;
 }
 
-export const ServicesItem: FC<ServicesItemProps & Services> = ({
+type TestServicesItemProps = Pick<ServicesListItem, 'name' | 'slug' | 'slug_en' | 'image' | 'name_en'>
+
+
+export const ServicesItem: FC<ServicesItemProps & TestServicesItemProps> = ({
   image,
   name,
+  name_en,
   slug,
   slug_en,
   fitImage = true,
@@ -33,6 +35,7 @@ export const ServicesItem: FC<ServicesItemProps & Services> = ({
 
   const urlLang = i18n.language === 'uk' ? 'ua' : i18n.language;
 
+  const currentName = i18n.language === 'en' ? name_en : name;
 
   return (
     <Link
@@ -44,7 +47,7 @@ export const ServicesItem: FC<ServicesItemProps & Services> = ({
           cldImg={imageCld}
           width={126}
           height={126}
-          alt={t(name)}
+          alt={currentName}
           loading="lazy"
           className="rounded-t-2xl object-contain w-[126px] h-[126px]"
           style={{ width: '100%', height: '100%' }}
@@ -52,7 +55,7 @@ export const ServicesItem: FC<ServicesItemProps & Services> = ({
       </div>
 
         <h3 className="text-white text-3xl text-center font-normal">
-          {t(name)}
+          {currentName}
         </h3>
       </article>
     </Link>

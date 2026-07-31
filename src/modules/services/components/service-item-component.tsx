@@ -1,24 +1,25 @@
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
-import { Services } from "@app/core/types";
+import { ServicesListItem } from "@app/modules/main/components/services-main/services-main-list/services-main-list.component";
 import { AdvancedImage } from "@cloudinary/react";
-import { image } from "@cloudinary/url-gen/qualifiers/source";
 import { FC } from "react";
 import { useTranslation } from 'react-i18next';
+import DOMPurify from 'isomorphic-dompurify';
 
 interface ServiceItemProps {
   fitImage?: boolean;
 }
 
-export const ServiceItem: FC<ServiceItemProps & Services> = ({
+export const ServiceItem: FC<ServiceItemProps & ServicesListItem> = ({
   fitImage = true,
-  image,
   name,
   description,
-  id,
+  description_en,
   mainImage,
 }) => {
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const isEn = i18n.language === 'en';
 
   const transformations = ["w_600", "h_526"];
   if (fitImage) {
@@ -26,6 +27,17 @@ export const ServiceItem: FC<ServiceItemProps & Services> = ({
   }
 
   const imageCld = useCloudinaryImage(mainImage!, transformations);
+
+  const currentDescription = isEn ? description_en : description;
+
+  if (!currentDescription) {
+    return null;
+  }
+
+  const sanitizedHtml = DOMPurify.sanitize(currentDescription, {
+    ADD_ATTR: ['target'],
+  });
+  const className = "text-xl dark:text-white text-left"
 
   return (
     <div className="">
@@ -39,12 +51,10 @@ export const ServiceItem: FC<ServiceItemProps & Services> = ({
           style={{ width: '100%', height: '100%' }}
         />
       </div>
-      <div className="">
-        <p
-          dangerouslySetInnerHTML={{ __html: t(`${description}`) }}
-          className="text-2xl dark:text-white text-left"
-        />
-      </div>
+      <div
+        className={`prose dark:prose-invert max-w-none ${className}`}
+        dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+      />
     </div>
   );
 };
