@@ -28,8 +28,6 @@ export const SEOMeta = ({
     const baseUrl = "https://toothfairy.clinic";
 
     const currentPath = path || location.pathname;
-    const isAbsolute = currentPath.startsWith('http');
-    const fullUrl = isAbsolute ? currentPath : `${baseUrl}${currentPath.startsWith('/') ? currentPath : `/${currentPath}`}`;
 
     const pathSegments = currentPath.split('/').filter(Boolean);
     const cleanPath = pathSegments[0] === 'ua' || pathSegments[0] === 'en'
@@ -37,6 +35,9 @@ export const SEOMeta = ({
         : pathSegments.join('/');
 
     const slug = cleanPath ? `/${cleanPath}` : '';
+
+    const fullUrl = `${baseUrl}/${currentLang}${slug}`;
+
 
     // 2. Breadcrumbs
     const breadcrumbsItems = [

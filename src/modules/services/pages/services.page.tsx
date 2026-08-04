@@ -119,6 +119,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
   if (loading) return <ShowInfo type="info"><p>{t("Завантаження...")}</p></ShowInfo>;
   if (!service) return <ShowInfo type="info"><p>{t("На жаль, таку послугу не знайдено")}</p></ShowInfo>;
 
+
   return (
     <>
       <SEOMeta
@@ -126,16 +127,15 @@ export const ServicePage: FC<ServicePageProps> = () => {
         description={description || (isEn
           ? `Learn more about ${serviceName} at Tooth Fairy Clinic.`
           : `Дізнайтеся більше про послугу ${serviceName} у клініці Зубна Фея.`)}
-        // path більше не передаємо вручну, SEOMeta сам візьме location.pathname (/ua/services/slug)
         type="Service"
         schemaData={schemaGraph}
         robots={service?.custom_robots}
       />
 
       <main className="py-24 flex flex-col gap-16 dark:bg-darkGray min-h-screen">
-        <MainTitle darkken={false} size="md">
+        <h1 className="md:text-6xl text-3xl  border-b border-paleOlive px-10  py-3 z-10 text-darkGray dark:text-white text-white lg:w-165">
           {serviceName}
-        </MainTitle>
+        </h1>
 
         <div className="lg:px-24 px-6 flex flex-col gap-16">
           <ServiceItem {...service} />
