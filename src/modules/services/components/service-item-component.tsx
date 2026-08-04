@@ -34,10 +34,14 @@ export const ServiceItem: FC<ServiceItemProps & ServicesListItem> = ({
     return null;
   }
 
-  const sanitizedHtml = DOMPurify.sanitize(currentDescription, {
+  const cleanedDescription = currentDescription.replace(/<p>\s*(?:&nbsp;|&#160;|ㅤ)?\s*<\/p>/gi, '');
+
+  const sanitizedHtml = DOMPurify.sanitize(cleanedDescription, {
     ADD_ATTR: ['target'],
-    FORBID_ATTR: ['style'],
+    FORBID_ATTR: ['style', 'color'],
+    FORBID_TAGS: ['font'],
   });
+
 
   const className = "text-xl dark:text-white text-left"
 
