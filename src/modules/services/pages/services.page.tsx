@@ -133,7 +133,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
       />
 
       <main className="py-24 flex flex-col gap-16 dark:bg-darkGray min-h-screen">
-        <h1 className="md:text-6xl text-3xl  border-b border-paleOlive px-10  py-3 z-10 text-darkGray dark:text-white text-white lg:w-165">
+        <h1 className="md:text-6xl text-3xl  border-b border-paleOlive px-10  py-3 z-10 text-darkGray dark:text-white lg:w-165">
           {serviceName}
         </h1>
 
