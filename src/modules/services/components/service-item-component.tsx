@@ -36,7 +36,9 @@ export const ServiceItem: FC<ServiceItemProps & ServicesListItem> = ({
 
   const sanitizedHtml = DOMPurify.sanitize(currentDescription, {
     ADD_ATTR: ['target'],
+    FORBID_ATTR: ['style'],
   });
+
   const className = "text-xl dark:text-white text-left"
 
   return (
