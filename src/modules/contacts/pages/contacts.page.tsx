@@ -9,9 +9,18 @@ import { ReactComponent as LocationIcon } from "@app/assets/icons/location.svg";
 import { useTranslation } from "react-i18next";
 import { useGetPageMetadataQuery } from "@app/core/types";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
+import { ReactComponent as InstagramIcon } from "@app/assets/icons/instagram.svg";
+import { ReactComponent as FacebookIcon } from "@app/assets/icons/facebook.svg";
+import { ReactComponent as ViberIcon } from "@app/assets/icons/viber.svg";
+
 
 export const ContactPage: FC = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  const PHONE_NUMBER_SECONDARY = "+380681689911";
+
+  const viberLink = `viber://chat?number=%2B${PHONE_NUMBER_SECONDARY.replace('+', '')}`;
+
 
 
   const { data: PageMetadata } = useGetPageMetadataQuery({ variables: { route: '/contacts' } });
@@ -51,6 +60,10 @@ export const ContactPage: FC = () => {
         "opens": "09:30",
         "closes": "19:00"
       }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/toothfairy.clinic",
+      "https://www.facebook.com/bcdentist.toothfairy/"
     ]
   };
 
@@ -104,8 +117,27 @@ export const ContactPage: FC = () => {
           <div className="px-15 dark:text-white border-b border-paleOlive py-4">
             <ul className="flex flex-col gap-7 md:gap-3 text-lg sm:text-3xl lg:text-3xl">
               <li className="flex gap-2 dark:hover:text-paleOlive items-center">
-                <LocationIcon width={31} height={31} />
+                <LocationIcon width={40} height={40} className="" />
                 <span>{t("Київська область, Біла Церква, Вокзальна 22")}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="px-15 dark:text-white border-b border-paleOlive py-4">
+            <ul className="flex flex-col gap-7 md:gap-3 text-lg sm:text-3xl lg:text-3xl">
+              <li className="flex gap-2 dark:hover:text-paleOlive items-center">
+                <InstagramIcon width={31} height={31} />
+                <a href="https://www.instagram.com/toothfairy.clinic" target="_blank" rel="noopener noreferrer">Instagram</a>
+              </li>
+              <li className="flex gap-2 dark:hover:text-paleOlive items-center">
+                <FacebookIcon width={31} height={31} />
+                <a href="https://www.facebook.com/bcdentist.toothfairy/" target="_blank" rel="noopener noreferrer">Facebook</a>
+              </li>
+              <li className="flex gap-2 dark:hover:text-paleOlive items-center">
+                <ViberIcon width={31} height={31} />
+                <a href={viberLink} aria-label={t("Написати у Viber")}>
+                  Viber
+                </a>
               </li>
             </ul>
           </div>
