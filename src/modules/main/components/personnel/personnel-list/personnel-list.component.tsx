@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { Link } from "react-router-dom";
 
 interface PersonnelListProps {
   isLoading?: boolean;
@@ -19,9 +20,10 @@ interface PersonnelListProps {
 export const PersonnelList: FC<PersonnelListProps> = ({ isLoading }) => {
   const { data, loading: queryLoading, error } = useGetPersonnelQuery();
   const isCurrentlyLoading = queryLoading || isLoading;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const personnelRef = useRef<HTMLDivElement>(null);
-
+  const isEn = i18n.language === "en";
+  const currentLang = isEn ? "en" : "ua";
 
   if (error) return (
     <section className="py-28 min-h-[700px] flex items-center justify-center">
@@ -83,16 +85,25 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading }) => {
           className="pb-12"
 
         >
-          {data.personnel.map(({ image, ...item }) => (
-            <SwiperSlide key={item.id} tag="article">
-              <PersonnelItem
-                image={`${image}`}
-                personnel_category_str={item.personnel_category?.title || ""}
-                personnel_category_second_str={item.personnel_category_second?.title}
-                {...item}
-              />
+          {data.personnel.map(({ image, ...item }) => {
+            const doctorSlug = isEn && item.slug_en ? item.slug_en : (item.slug || item.id);
+
+
+            return <SwiperSlide key={item.id} tag="article">
+              <Link
+                key={item.id}
+                to={`/${currentLang}/doctors/${doctorSlug}`}
+                className="w-full flex justify-center transition-transform hover:-translate-y-1"
+              >
+
+                <PersonnelItem
+                  image={`${image}`}
+                  personnel_categories={item.categories}
+                  {...item}
+                />
+              </Link>
             </SwiperSlide>
-          ))}
+          })}
         </Swiper>
 
       </div>

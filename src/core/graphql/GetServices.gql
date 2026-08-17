@@ -1,44 +1,42 @@
-query GetServices {
-  services(
-    where: {
-      parent_id: { _is_null: true }
-      _or: [{ is_geo_page: { _eq: false } }, { is_geo_page: { _is_null: true } }]
-    }
-    order_by: { created_at: asc }
-  ) {
-    id
-    name
-    name_en
-    description
-    description_en
-    mainImage
-    slug
-    slug_en
-    image
-    parent_id
-    is_geo_page
-    seo_title
-    seo_description
-    seo_title_en
-    seo_description_en
-    created_at
-    child_services(order_by: { created_at: asc }) {
+  query GetServices {
+    services(
+      where: {
+        parent_id: { _is_null: true }
+        _or: [{ is_geo_page: { _eq: false } }, { is_geo_page: { _is_null: true } }]
+      }
+      order_by: { created_at: asc }
+    ) {
       id
       name
       name_en
+      description
+      description_en
+      mainImage
       slug
       slug_en
       image
       parent_id
       is_geo_page
+      seo_title
+      seo_description
+      seo_title_en
+      seo_description_en
+      created_at
+      child_services(order_by: { created_at: asc }) {
+        id
+        name
+        name_en
+        slug
+        slug_en
+        image
+        parent_id
+        is_geo_page
+      }
     }
   }
-}
 
 query GetServiceBySlug($slug: String!) {
-  services(
-    where: { _or: [{ slug: { _eq: $slug } }, { slug_en: { _eq: $slug } }] }
-  ) {
+  services(where: {_or: [{slug: {_eq: $slug}}, {slug_en: {_eq: $slug}}]}) {
     id
     name
     name_en
@@ -65,13 +63,32 @@ query GetServiceBySlug($slug: String!) {
       slug
       slug_en
     }
-    child_services(order_by: { created_at: asc }) {
+    child_services(order_by: {created_at: asc}) {
       id
       name
       name_en
       slug
       slug_en
       image
+    }
+    personnel_services {
+      personnel {
+        name_en
+        name
+        id
+        image
+        description
+        description_en
+        categories {
+          category {
+            title
+            title_en
+            id
+          }
+        }
+        slug_en
+        slug
+      }
     }
   }
 }

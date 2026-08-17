@@ -9,6 +9,7 @@ export interface SEOProps {
     type?: 'WebPage' | 'Service' | 'AboutPage' | 'ContactPage';
     schemaData?: Record<string, any> | Array<Record<string, any>>;
     robots?: string | null;
+    hasBreadcrumbs?: boolean; // <- додаємо прапорець
 }
 
 export const SEOMeta = ({
@@ -17,7 +18,8 @@ export const SEOMeta = ({
     path,
     type = 'WebPage',
     schemaData,
-    robots = null
+    robots = null,
+    hasBreadcrumbs = true
 }: SEOProps) => {
     const { i18n } = useTranslation();
     const location = useLocation();
@@ -118,11 +120,15 @@ export const SEOMeta = ({
             (node) => node["@id"] === `${baseUrl}/#organization` || node["@type"] === "Dentist"
         );
 
-        const graph: any[] = [pageEntity, breadcrumbsEntity];
+        const graph: any[] = [pageEntity];
 
         // Додаємо дефолтну організацію ТІЛЬКИ якщо її не було передано в schemaData
         if (!hasCustomOrganization) {
             graph.push(defaultOrganizationEntity);
+        }
+
+        if (hasBreadcrumbs) {
+            graph.push(breadcrumbsEntity);
         }
 
         graph.push(...customNodes);

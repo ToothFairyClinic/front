@@ -1,5 +1,5 @@
-query GetPersonnel {
-  personnel(order_by: {id: asc}) {
+query GetDoctorBySlug($slug: String!) {
+  personnel(where: {_or: [{slug: {_eq: $slug}}, {slug_en: {_eq: $slug}}]}) {
     id
     name
     name_en
@@ -10,19 +10,13 @@ query GetPersonnel {
     slug_en
     experience
     experience_en
-    seo_description
-    seo_description_en
     seo_title
+    seo_description
     seo_title_en
+    seo_description_en
     certificates
-    categories {
-      category {
-        id
-        slug
-        title
-        title_en
-      }
-    }
+    image_alt
+    image_alt_en
     personnel_services {
       service {
         id
@@ -33,7 +27,13 @@ query GetPersonnel {
         image
       }
     }
-    image_alt
-    image_alt_en
+    categories {
+      category {
+        title_en
+        title
+        slug
+        id
+      }
+    }
   }
 }

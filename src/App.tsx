@@ -6,10 +6,9 @@ import { Routes, Route } from "react-router-dom";
 import { Footer } from "./common/components/footer/footer.component";
 import ReactGA from "react-ga4";
 import { config } from "./core/config";
-import { Helmet } from "react-helmet-async";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { PrivacyPolicy } from "./modules/privacy-policy/privacy-policy.page";
 
 
@@ -21,6 +20,9 @@ const ServicePage = lazy(() => import('./modules/services/pages/services.page'))
 const ReviewsPage = lazy(() => import('./modules/reviews/pages/reviews.page'));
 const OurWorkPage = lazy(() => import('./modules/our-works/page/our-work.page'));
 const ContactPage = lazy(() => import('./modules/contacts/pages/contacts.page'));
+const DoctorsPage = lazy(() => import('./modules/doctors/pages/doctors.page'));
+const DoctorDetailPage = lazy(() => import('./modules/doctor-detail/pages/doctor-detail.page'));
+
 
 export const App = () => {
   const location = useLocation();
@@ -100,6 +102,8 @@ export const App = () => {
               <Route path="our-work" element={<OurWorkPage />} />
               <Route path="contacts" element={<ContactPage />} />
               <Route path="privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="doctors" element={<DoctorsPage />} />
+              <Route path="doctors/:slug" element={<DoctorDetailPage />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/ua" replace />} />

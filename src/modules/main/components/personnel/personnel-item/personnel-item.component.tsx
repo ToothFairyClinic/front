@@ -3,25 +3,38 @@ import { AdvancedImage } from "@cloudinary/react";
 import { FC, useMemo } from "react";
 import { useTranslation } from 'react-i18next';
 
+interface PersonnelCategories {
+  __typename?: 'personnel_personnel_categories',
+  category: {
+    __typename?: 'personnel_categories',
+    id: any,
+    slug?: string | null,
+    title: string,
+    title_en?: string | null
+  }
+}
+
+
 interface PersonnelItemProps {
   image: string;
   name: string;
   description: string;
   id: string;
-  personnel_category_str: string;
-  personnel_category_second_str?: string;
+  personnel_categories: PersonnelCategories[];
   fitImage?: boolean;
+  alt?: string;
 }
 
 
 export const PersonnelItem: FC<PersonnelItemProps> = ({
   image,
   name,
-  personnel_category_str,
-  personnel_category_second_str,
+  personnel_categories,
   fitImage = true,
+  alt,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === "en";
 
   const transformations = useMemo(() => {
     const base = ["w_385", "h_440", "f_auto", "q_auto"];
@@ -41,7 +54,7 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
       <div className="w-full h-[440px] overflow-hidden rounded-t-2xl bg-gray-100 dark:bg-gray-800">
         <AdvancedImage
           cldImg={imageCld}
-          alt={t(name)}
+          alt={alt}
           loading="lazy"
           className="w-full h-full object-cover"
           style={{ width: '100%', height: '100%' }}
@@ -52,15 +65,17 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
         <h3 className="text-2xl mb-1">
           {t(name)}
         </h3>
+        <div className="h-px w-20 bg-paleOlive mt-3" aria-hidden="true"></div>
 
         <div className="text-lg opacity-80">
-          <span>{t(personnel_category_str)}</span>
-          {personnel_category_second_str && (
-            <span>, {t(personnel_category_second_str)}</span>
-          )}
+          {personnel_categories.map((category, index) => (
+            <span key={index}>
+              {(isEn && category.category.title_en) ? category.category.title_en : category.category.title}
+              {index < personnel_categories.length - 1 && ", "}
+            </span>
+          ))}
         </div>
 
-        <div className="h-px w-20 bg-paleOlive mt-3" aria-hidden="true"></div>
       </div>
     </div>
   );

@@ -462,6 +462,14 @@ export type Mutation_Root = {
   delete_personnel_categories?: Maybe<Personnel_Categories_Mutation_Response>;
   /** delete single row from the table: "personnel_categories" */
   delete_personnel_categories_by_pk?: Maybe<Personnel_Categories>;
+  /** delete data from the table: "personnel_personnel_categories" */
+  delete_personnel_personnel_categories?: Maybe<Personnel_Personnel_Categories_Mutation_Response>;
+  /** delete single row from the table: "personnel_personnel_categories" */
+  delete_personnel_personnel_categories_by_pk?: Maybe<Personnel_Personnel_Categories>;
+  /** delete data from the table: "personnel_services" */
+  delete_personnel_services?: Maybe<Personnel_Services_Mutation_Response>;
+  /** delete single row from the table: "personnel_services" */
+  delete_personnel_services_by_pk?: Maybe<Personnel_Services>;
   /** delete data from the table: "price_list" */
   delete_price_list?: Maybe<Price_List_Mutation_Response>;
   /** delete single row from the table: "price_list" */
@@ -510,6 +518,14 @@ export type Mutation_Root = {
   insert_personnel_categories_one?: Maybe<Personnel_Categories>;
   /** insert a single row into the table: "personnel" */
   insert_personnel_one?: Maybe<Personnel>;
+  /** insert data into the table: "personnel_personnel_categories" */
+  insert_personnel_personnel_categories?: Maybe<Personnel_Personnel_Categories_Mutation_Response>;
+  /** insert a single row into the table: "personnel_personnel_categories" */
+  insert_personnel_personnel_categories_one?: Maybe<Personnel_Personnel_Categories>;
+  /** insert data into the table: "personnel_services" */
+  insert_personnel_services?: Maybe<Personnel_Services_Mutation_Response>;
+  /** insert a single row into the table: "personnel_services" */
+  insert_personnel_services_one?: Maybe<Personnel_Services>;
   /** insert data into the table: "price_list" */
   insert_price_list?: Maybe<Price_List_Mutation_Response>;
   /** insert data into the table: "price_list_categories" */
@@ -570,6 +586,18 @@ export type Mutation_Root = {
   update_personnel_categories_many?: Maybe<Array<Maybe<Personnel_Categories_Mutation_Response>>>;
   /** update multiples rows of table: "personnel" */
   update_personnel_many?: Maybe<Array<Maybe<Personnel_Mutation_Response>>>;
+  /** update data of the table: "personnel_personnel_categories" */
+  update_personnel_personnel_categories?: Maybe<Personnel_Personnel_Categories_Mutation_Response>;
+  /** update single row of the table: "personnel_personnel_categories" */
+  update_personnel_personnel_categories_by_pk?: Maybe<Personnel_Personnel_Categories>;
+  /** update multiples rows of table: "personnel_personnel_categories" */
+  update_personnel_personnel_categories_many?: Maybe<Array<Maybe<Personnel_Personnel_Categories_Mutation_Response>>>;
+  /** update data of the table: "personnel_services" */
+  update_personnel_services?: Maybe<Personnel_Services_Mutation_Response>;
+  /** update single row of the table: "personnel_services" */
+  update_personnel_services_by_pk?: Maybe<Personnel_Services>;
+  /** update multiples rows of table: "personnel_services" */
+  update_personnel_services_many?: Maybe<Array<Maybe<Personnel_Services_Mutation_Response>>>;
   /** update data of the table: "price_list" */
   update_price_list?: Maybe<Price_List_Mutation_Response>;
   /** update single row of the table: "price_list" */
@@ -683,6 +711,30 @@ export type Mutation_RootDelete_Personnel_CategoriesArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Personnel_Categories_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Personnel_Personnel_CategoriesArgs = {
+  where: Personnel_Personnel_Categories_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Personnel_Personnel_Categories_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Personnel_ServicesArgs = {
+  where: Personnel_Services_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Personnel_Services_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -840,6 +892,34 @@ export type Mutation_RootInsert_Personnel_Categories_OneArgs = {
 export type Mutation_RootInsert_Personnel_OneArgs = {
   object: Personnel_Insert_Input;
   on_conflict?: InputMaybe<Personnel_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Personnel_Personnel_CategoriesArgs = {
+  objects: Array<Personnel_Personnel_Categories_Insert_Input>;
+  on_conflict?: InputMaybe<Personnel_Personnel_Categories_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Personnel_Personnel_Categories_OneArgs = {
+  object: Personnel_Personnel_Categories_Insert_Input;
+  on_conflict?: InputMaybe<Personnel_Personnel_Categories_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Personnel_ServicesArgs = {
+  objects: Array<Personnel_Services_Insert_Input>;
+  on_conflict?: InputMaybe<Personnel_Services_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Personnel_Services_OneArgs = {
+  object: Personnel_Services_Insert_Input;
+  on_conflict?: InputMaybe<Personnel_Services_On_Conflict>;
 };
 
 
@@ -1009,6 +1089,11 @@ export type Mutation_RootUpdate_Page_Metadata_ManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_PersonnelArgs = {
+  _append?: InputMaybe<Personnel_Append_Input>;
+  _delete_at_path?: InputMaybe<Personnel_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Personnel_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Personnel_Delete_Key_Input>;
+  _prepend?: InputMaybe<Personnel_Prepend_Input>;
   _set?: InputMaybe<Personnel_Set_Input>;
   where: Personnel_Bool_Exp;
 };
@@ -1016,6 +1101,11 @@ export type Mutation_RootUpdate_PersonnelArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Personnel_By_PkArgs = {
+  _append?: InputMaybe<Personnel_Append_Input>;
+  _delete_at_path?: InputMaybe<Personnel_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Personnel_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Personnel_Delete_Key_Input>;
+  _prepend?: InputMaybe<Personnel_Prepend_Input>;
   _set?: InputMaybe<Personnel_Set_Input>;
   pk_columns: Personnel_Pk_Columns_Input;
 };
@@ -1044,6 +1134,46 @@ export type Mutation_RootUpdate_Personnel_Categories_ManyArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Personnel_ManyArgs = {
   updates: Array<Personnel_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Personnel_Personnel_CategoriesArgs = {
+  _set?: InputMaybe<Personnel_Personnel_Categories_Set_Input>;
+  where: Personnel_Personnel_Categories_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Personnel_Personnel_Categories_By_PkArgs = {
+  _set?: InputMaybe<Personnel_Personnel_Categories_Set_Input>;
+  pk_columns: Personnel_Personnel_Categories_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Personnel_Personnel_Categories_ManyArgs = {
+  updates: Array<Personnel_Personnel_Categories_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Personnel_ServicesArgs = {
+  _set?: InputMaybe<Personnel_Services_Set_Input>;
+  where: Personnel_Services_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Personnel_Services_By_PkArgs = {
+  _set?: InputMaybe<Personnel_Services_Set_Input>;
+  pk_columns: Personnel_Services_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Personnel_Services_ManyArgs = {
+  updates: Array<Personnel_Services_Updates>;
 };
 
 
@@ -1602,16 +1732,78 @@ export type Page_Metadata_Updates = {
 /** columns and relationships of "personnel" */
 export type Personnel = {
   __typename?: 'personnel';
+  /** An array relationship */
+  categories: Array<Personnel_Personnel_Categories>;
+  /** An aggregate relationship */
+  categories_aggregate: Personnel_Personnel_Categories_Aggregate;
+  certificates?: Maybe<Scalars['jsonb']['output']>;
   description: Scalars['String']['output'];
+  description_en?: Maybe<Scalars['String']['output']>;
+  experience?: Maybe<Scalars['String']['output']>;
+  experience_en?: Maybe<Scalars['String']['output']>;
   id: Scalars['uuid']['output'];
   image: Scalars['String']['output'];
+  image_alt?: Maybe<Scalars['String']['output']>;
+  image_alt_en?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
-  /** An object relationship */
-  personnel_category?: Maybe<Personnel_Categories>;
-  personnel_category_id: Scalars['uuid']['output'];
-  personnel_category_id_second?: Maybe<Scalars['uuid']['output']>;
-  /** An object relationship */
-  personnel_category_second?: Maybe<Personnel_Categories>;
+  name_en?: Maybe<Scalars['String']['output']>;
+  /** An array relationship */
+  personnel_services: Array<Personnel_Services>;
+  /** An aggregate relationship */
+  personnel_services_aggregate: Personnel_Services_Aggregate;
+  seo_description?: Maybe<Scalars['String']['output']>;
+  seo_description_en?: Maybe<Scalars['String']['output']>;
+  seo_title?: Maybe<Scalars['String']['output']>;
+  seo_title_en?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slug_en?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
+};
+
+
+/** columns and relationships of "personnel" */
+export type PersonnelCategoriesArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Personnel_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Personnel_Categories_Order_By>>;
+  where?: InputMaybe<Personnel_Personnel_Categories_Bool_Exp>;
+};
+
+
+/** columns and relationships of "personnel" */
+export type PersonnelCategories_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Personnel_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Personnel_Categories_Order_By>>;
+  where?: InputMaybe<Personnel_Personnel_Categories_Bool_Exp>;
+};
+
+
+/** columns and relationships of "personnel" */
+export type PersonnelCertificatesArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "personnel" */
+export type PersonnelPersonnel_ServicesArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Services_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Services_Order_By>>;
+  where?: InputMaybe<Personnel_Services_Bool_Exp>;
+};
+
+
+/** columns and relationships of "personnel" */
+export type PersonnelPersonnel_Services_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Services_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Services_Order_By>>;
+  where?: InputMaybe<Personnel_Services_Bool_Exp>;
 };
 
 /** aggregated selection of "personnel" */
@@ -1619,17 +1811,6 @@ export type Personnel_Aggregate = {
   __typename?: 'personnel_aggregate';
   aggregate?: Maybe<Personnel_Aggregate_Fields>;
   nodes: Array<Personnel>;
-};
-
-export type Personnel_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Personnel_Aggregate_Bool_Exp_Count>;
-};
-
-export type Personnel_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Personnel_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Personnel_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
 };
 
 /** aggregate fields of "personnel" */
@@ -1647,18 +1828,9 @@ export type Personnel_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-/** order by aggregate values of table "personnel" */
-export type Personnel_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Personnel_Max_Order_By>;
-  min?: InputMaybe<Personnel_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "personnel" */
-export type Personnel_Arr_Rel_Insert_Input = {
-  data: Array<Personnel_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Personnel_On_Conflict>;
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Personnel_Append_Input = {
+  certificates?: InputMaybe<Scalars['jsonb']['input']>;
 };
 
 /** Boolean expression to filter rows from the table "personnel". All fields are combined with a logical 'AND'. */
@@ -1666,70 +1838,37 @@ export type Personnel_Bool_Exp = {
   _and?: InputMaybe<Array<Personnel_Bool_Exp>>;
   _not?: InputMaybe<Personnel_Bool_Exp>;
   _or?: InputMaybe<Array<Personnel_Bool_Exp>>;
+  categories?: InputMaybe<Personnel_Personnel_Categories_Bool_Exp>;
+  categories_aggregate?: InputMaybe<Personnel_Personnel_Categories_Aggregate_Bool_Exp>;
+  certificates?: InputMaybe<Jsonb_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
+  description_en?: InputMaybe<String_Comparison_Exp>;
+  experience?: InputMaybe<String_Comparison_Exp>;
+  experience_en?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   image?: InputMaybe<String_Comparison_Exp>;
+  image_alt?: InputMaybe<String_Comparison_Exp>;
+  image_alt_en?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
-  personnel_category?: InputMaybe<Personnel_Categories_Bool_Exp>;
-  personnel_category_id?: InputMaybe<Uuid_Comparison_Exp>;
-  personnel_category_id_second?: InputMaybe<Uuid_Comparison_Exp>;
-  personnel_category_second?: InputMaybe<Personnel_Categories_Bool_Exp>;
+  name_en?: InputMaybe<String_Comparison_Exp>;
+  personnel_services?: InputMaybe<Personnel_Services_Bool_Exp>;
+  personnel_services_aggregate?: InputMaybe<Personnel_Services_Aggregate_Bool_Exp>;
+  seo_description?: InputMaybe<String_Comparison_Exp>;
+  seo_description_en?: InputMaybe<String_Comparison_Exp>;
+  seo_title?: InputMaybe<String_Comparison_Exp>;
+  seo_title_en?: InputMaybe<String_Comparison_Exp>;
+  slug?: InputMaybe<String_Comparison_Exp>;
+  slug_en?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
 };
 
 /** columns and relationships of "personnel_categories" */
 export type Personnel_Categories = {
   __typename?: 'personnel_categories';
   id: Scalars['uuid']['output'];
-  /** An array relationship */
-  personnel_items: Array<Personnel>;
-  /** An aggregate relationship */
-  personnel_items_aggregate: Personnel_Aggregate;
-  /** An array relationship */
-  presonnel_items_second: Array<Personnel>;
-  /** An aggregate relationship */
-  presonnel_items_second_aggregate: Personnel_Aggregate;
   slug?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
-};
-
-
-/** columns and relationships of "personnel_categories" */
-export type Personnel_CategoriesPersonnel_ItemsArgs = {
-  distinct_on?: InputMaybe<Array<Personnel_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Personnel_Order_By>>;
-  where?: InputMaybe<Personnel_Bool_Exp>;
-};
-
-
-/** columns and relationships of "personnel_categories" */
-export type Personnel_CategoriesPersonnel_Items_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Personnel_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Personnel_Order_By>>;
-  where?: InputMaybe<Personnel_Bool_Exp>;
-};
-
-
-/** columns and relationships of "personnel_categories" */
-export type Personnel_CategoriesPresonnel_Items_SecondArgs = {
-  distinct_on?: InputMaybe<Array<Personnel_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Personnel_Order_By>>;
-  where?: InputMaybe<Personnel_Bool_Exp>;
-};
-
-
-/** columns and relationships of "personnel_categories" */
-export type Personnel_CategoriesPresonnel_Items_Second_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Personnel_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Personnel_Order_By>>;
-  where?: InputMaybe<Personnel_Bool_Exp>;
+  title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregated selection of "personnel_categories" */
@@ -1760,12 +1899,9 @@ export type Personnel_Categories_Bool_Exp = {
   _not?: InputMaybe<Personnel_Categories_Bool_Exp>;
   _or?: InputMaybe<Array<Personnel_Categories_Bool_Exp>>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
-  personnel_items?: InputMaybe<Personnel_Bool_Exp>;
-  personnel_items_aggregate?: InputMaybe<Personnel_Aggregate_Bool_Exp>;
-  presonnel_items_second?: InputMaybe<Personnel_Bool_Exp>;
-  presonnel_items_second_aggregate?: InputMaybe<Personnel_Aggregate_Bool_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
+  title_en?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "personnel_categories" */
@@ -1777,10 +1913,9 @@ export enum Personnel_Categories_Constraint {
 /** input type for inserting data into table "personnel_categories" */
 export type Personnel_Categories_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
-  personnel_items?: InputMaybe<Personnel_Arr_Rel_Insert_Input>;
-  presonnel_items_second?: InputMaybe<Personnel_Arr_Rel_Insert_Input>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregate max on columns */
@@ -1789,6 +1924,7 @@ export type Personnel_Categories_Max_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+  title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
@@ -1797,6 +1933,7 @@ export type Personnel_Categories_Min_Fields = {
   id?: Maybe<Scalars['uuid']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+  title_en?: Maybe<Scalars['String']['output']>;
 };
 
 /** response of any mutation on the table "personnel_categories" */
@@ -1825,10 +1962,9 @@ export type Personnel_Categories_On_Conflict = {
 /** Ordering options when selecting data from "personnel_categories". */
 export type Personnel_Categories_Order_By = {
   id?: InputMaybe<Order_By>;
-  personnel_items_aggregate?: InputMaybe<Personnel_Aggregate_Order_By>;
-  presonnel_items_second_aggregate?: InputMaybe<Personnel_Aggregate_Order_By>;
   slug?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
+  title_en?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: personnel_categories */
@@ -1843,7 +1979,9 @@ export enum Personnel_Categories_Select_Column {
   /** column name */
   Slug = 'slug',
   /** column name */
-  Title = 'title'
+  Title = 'title',
+  /** column name */
+  TitleEn = 'title_en'
 }
 
 /** input type for updating data in table "personnel_categories" */
@@ -1851,6 +1989,7 @@ export type Personnel_Categories_Set_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Streaming cursor of the table "personnel_categories" */
@@ -1866,6 +2005,7 @@ export type Personnel_Categories_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  title_en?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** update columns of table "personnel_categories" */
@@ -1875,7 +2015,9 @@ export enum Personnel_Categories_Update_Column {
   /** column name */
   Slug = 'slug',
   /** column name */
-  Title = 'title'
+  Title = 'title',
+  /** column name */
+  TitleEn = 'title_en'
 }
 
 export type Personnel_Categories_Updates = {
@@ -1891,58 +2033,87 @@ export enum Personnel_Constraint {
   PersonnelPkey = 'personnel_pkey'
 }
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Personnel_Delete_At_Path_Input = {
+  certificates?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Personnel_Delete_Elem_Input = {
+  certificates?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Personnel_Delete_Key_Input = {
+  certificates?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** input type for inserting data into table "personnel" */
 export type Personnel_Insert_Input = {
+  categories?: InputMaybe<Personnel_Personnel_Categories_Arr_Rel_Insert_Input>;
+  certificates?: InputMaybe<Scalars['jsonb']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  description_en?: InputMaybe<Scalars['String']['input']>;
+  experience?: InputMaybe<Scalars['String']['input']>;
+  experience_en?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  image_alt?: InputMaybe<Scalars['String']['input']>;
+  image_alt_en?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  personnel_category?: InputMaybe<Personnel_Categories_Obj_Rel_Insert_Input>;
-  personnel_category_id?: InputMaybe<Scalars['uuid']['input']>;
-  personnel_category_id_second?: InputMaybe<Scalars['uuid']['input']>;
-  personnel_category_second?: InputMaybe<Personnel_Categories_Obj_Rel_Insert_Input>;
+  name_en?: InputMaybe<Scalars['String']['input']>;
+  personnel_services?: InputMaybe<Personnel_Services_Arr_Rel_Insert_Input>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_description_en?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
+  seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  slug_en?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
 /** aggregate max on columns */
 export type Personnel_Max_Fields = {
   __typename?: 'personnel_max_fields';
   description?: Maybe<Scalars['String']['output']>;
+  description_en?: Maybe<Scalars['String']['output']>;
+  experience?: Maybe<Scalars['String']['output']>;
+  experience_en?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   image?: Maybe<Scalars['String']['output']>;
+  image_alt?: Maybe<Scalars['String']['output']>;
+  image_alt_en?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
-  personnel_category_id?: Maybe<Scalars['uuid']['output']>;
-  personnel_category_id_second?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by max() on columns of table "personnel" */
-export type Personnel_Max_Order_By = {
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  image?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  personnel_category_id?: InputMaybe<Order_By>;
-  personnel_category_id_second?: InputMaybe<Order_By>;
+  name_en?: Maybe<Scalars['String']['output']>;
+  seo_description?: Maybe<Scalars['String']['output']>;
+  seo_description_en?: Maybe<Scalars['String']['output']>;
+  seo_title?: Maybe<Scalars['String']['output']>;
+  seo_title_en?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slug_en?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** aggregate min on columns */
 export type Personnel_Min_Fields = {
   __typename?: 'personnel_min_fields';
   description?: Maybe<Scalars['String']['output']>;
+  description_en?: Maybe<Scalars['String']['output']>;
+  experience?: Maybe<Scalars['String']['output']>;
+  experience_en?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   image?: Maybe<Scalars['String']['output']>;
+  image_alt?: Maybe<Scalars['String']['output']>;
+  image_alt_en?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
-  personnel_category_id?: Maybe<Scalars['uuid']['output']>;
-  personnel_category_id_second?: Maybe<Scalars['uuid']['output']>;
-};
-
-/** order by min() on columns of table "personnel" */
-export type Personnel_Min_Order_By = {
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  image?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  personnel_category_id?: InputMaybe<Order_By>;
-  personnel_category_id_second?: InputMaybe<Order_By>;
+  name_en?: Maybe<Scalars['String']['output']>;
+  seo_description?: Maybe<Scalars['String']['output']>;
+  seo_description_en?: Maybe<Scalars['String']['output']>;
+  seo_title?: Maybe<Scalars['String']['output']>;
+  seo_title_en?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slug_en?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** response of any mutation on the table "personnel" */
@@ -1954,6 +2125,13 @@ export type Personnel_Mutation_Response = {
   returning: Array<Personnel>;
 };
 
+/** input type for inserting object relation for remote table "personnel" */
+export type Personnel_Obj_Rel_Insert_Input = {
+  data: Personnel_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Personnel_On_Conflict>;
+};
+
 /** on_conflict condition type for table "personnel" */
 export type Personnel_On_Conflict = {
   constraint: Personnel_Constraint;
@@ -1963,14 +2141,221 @@ export type Personnel_On_Conflict = {
 
 /** Ordering options when selecting data from "personnel". */
 export type Personnel_Order_By = {
+  categories_aggregate?: InputMaybe<Personnel_Personnel_Categories_Aggregate_Order_By>;
+  certificates?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
+  description_en?: InputMaybe<Order_By>;
+  experience?: InputMaybe<Order_By>;
+  experience_en?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   image?: InputMaybe<Order_By>;
+  image_alt?: InputMaybe<Order_By>;
+  image_alt_en?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
-  personnel_category?: InputMaybe<Personnel_Categories_Order_By>;
-  personnel_category_id?: InputMaybe<Order_By>;
-  personnel_category_id_second?: InputMaybe<Order_By>;
-  personnel_category_second?: InputMaybe<Personnel_Categories_Order_By>;
+  name_en?: InputMaybe<Order_By>;
+  personnel_services_aggregate?: InputMaybe<Personnel_Services_Aggregate_Order_By>;
+  seo_description?: InputMaybe<Order_By>;
+  seo_description_en?: InputMaybe<Order_By>;
+  seo_title?: InputMaybe<Order_By>;
+  seo_title_en?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  slug_en?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories = {
+  __typename?: 'personnel_personnel_categories';
+  /** An object relationship */
+  category: Personnel_Categories;
+  category_id: Scalars['uuid']['output'];
+  id: Scalars['uuid']['output'];
+  /** An object relationship */
+  personnel: Personnel;
+  personnel_id: Scalars['uuid']['output'];
+};
+
+/** aggregated selection of "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_Aggregate = {
+  __typename?: 'personnel_personnel_categories_aggregate';
+  aggregate?: Maybe<Personnel_Personnel_Categories_Aggregate_Fields>;
+  nodes: Array<Personnel_Personnel_Categories>;
+};
+
+export type Personnel_Personnel_Categories_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Personnel_Personnel_Categories_Aggregate_Bool_Exp_Count>;
+};
+
+export type Personnel_Personnel_Categories_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Personnel_Personnel_Categories_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Personnel_Personnel_Categories_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_Aggregate_Fields = {
+  __typename?: 'personnel_personnel_categories_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Personnel_Personnel_Categories_Max_Fields>;
+  min?: Maybe<Personnel_Personnel_Categories_Min_Fields>;
+};
+
+
+/** aggregate fields of "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Personnel_Personnel_Categories_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Personnel_Personnel_Categories_Max_Order_By>;
+  min?: InputMaybe<Personnel_Personnel_Categories_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_Arr_Rel_Insert_Input = {
+  data: Array<Personnel_Personnel_Categories_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Personnel_Personnel_Categories_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "personnel_personnel_categories". All fields are combined with a logical 'AND'. */
+export type Personnel_Personnel_Categories_Bool_Exp = {
+  _and?: InputMaybe<Array<Personnel_Personnel_Categories_Bool_Exp>>;
+  _not?: InputMaybe<Personnel_Personnel_Categories_Bool_Exp>;
+  _or?: InputMaybe<Array<Personnel_Personnel_Categories_Bool_Exp>>;
+  category?: InputMaybe<Personnel_Categories_Bool_Exp>;
+  category_id?: InputMaybe<Uuid_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  personnel?: InputMaybe<Personnel_Bool_Exp>;
+  personnel_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "personnel_personnel_categories" */
+export enum Personnel_Personnel_Categories_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  PersonnelPersonnelCategoriesPkey = 'personnel_personnel_categories_pkey'
+}
+
+/** input type for inserting data into table "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_Insert_Input = {
+  category?: InputMaybe<Personnel_Categories_Obj_Rel_Insert_Input>;
+  category_id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  personnel?: InputMaybe<Personnel_Obj_Rel_Insert_Input>;
+  personnel_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type Personnel_Personnel_Categories_Max_Fields = {
+  __typename?: 'personnel_personnel_categories_max_fields';
+  category_id?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  personnel_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_Max_Order_By = {
+  category_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  personnel_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Personnel_Personnel_Categories_Min_Fields = {
+  __typename?: 'personnel_personnel_categories_min_fields';
+  category_id?: Maybe<Scalars['uuid']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  personnel_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_Min_Order_By = {
+  category_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  personnel_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_Mutation_Response = {
+  __typename?: 'personnel_personnel_categories_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Personnel_Personnel_Categories>;
+};
+
+/** on_conflict condition type for table "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_On_Conflict = {
+  constraint: Personnel_Personnel_Categories_Constraint;
+  update_columns?: Array<Personnel_Personnel_Categories_Update_Column>;
+  where?: InputMaybe<Personnel_Personnel_Categories_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "personnel_personnel_categories". */
+export type Personnel_Personnel_Categories_Order_By = {
+  category?: InputMaybe<Personnel_Categories_Order_By>;
+  category_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  personnel?: InputMaybe<Personnel_Order_By>;
+  personnel_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: personnel_personnel_categories */
+export type Personnel_Personnel_Categories_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "personnel_personnel_categories" */
+export enum Personnel_Personnel_Categories_Select_Column {
+  /** column name */
+  CategoryId = 'category_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  PersonnelId = 'personnel_id'
+}
+
+/** input type for updating data in table "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_Set_Input = {
+  category_id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  personnel_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** Streaming cursor of the table "personnel_personnel_categories" */
+export type Personnel_Personnel_Categories_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Personnel_Personnel_Categories_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Personnel_Personnel_Categories_Stream_Cursor_Value_Input = {
+  category_id?: InputMaybe<Scalars['uuid']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  personnel_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** update columns of table "personnel_personnel_categories" */
+export enum Personnel_Personnel_Categories_Update_Column {
+  /** column name */
+  CategoryId = 'category_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  PersonnelId = 'personnel_id'
+}
+
+export type Personnel_Personnel_Categories_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Personnel_Personnel_Categories_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Personnel_Personnel_Categories_Bool_Exp;
 };
 
 /** primary key columns input for table: personnel */
@@ -1978,30 +2363,266 @@ export type Personnel_Pk_Columns_Input = {
   id: Scalars['uuid']['input'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Personnel_Prepend_Input = {
+  certificates?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
 /** select columns of table "personnel" */
 export enum Personnel_Select_Column {
   /** column name */
+  Certificates = 'certificates',
+  /** column name */
   Description = 'description',
+  /** column name */
+  DescriptionEn = 'description_en',
+  /** column name */
+  Experience = 'experience',
+  /** column name */
+  ExperienceEn = 'experience_en',
   /** column name */
   Id = 'id',
   /** column name */
   Image = 'image',
   /** column name */
+  ImageAlt = 'image_alt',
+  /** column name */
+  ImageAltEn = 'image_alt_en',
+  /** column name */
   Name = 'name',
   /** column name */
-  PersonnelCategoryId = 'personnel_category_id',
+  NameEn = 'name_en',
   /** column name */
-  PersonnelCategoryIdSecond = 'personnel_category_id_second'
+  SeoDescription = 'seo_description',
+  /** column name */
+  SeoDescriptionEn = 'seo_description_en',
+  /** column name */
+  SeoTitle = 'seo_title',
+  /** column name */
+  SeoTitleEn = 'seo_title_en',
+  /** column name */
+  Slug = 'slug',
+  /** column name */
+  SlugEn = 'slug_en',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
+
+/** columns and relationships of "personnel_services" */
+export type Personnel_Services = {
+  __typename?: 'personnel_services';
+  id: Scalars['uuid']['output'];
+  /** An object relationship */
+  personnel: Personnel;
+  personnel_id: Scalars['uuid']['output'];
+  /** An object relationship */
+  service: Services;
+  service_id: Scalars['uuid']['output'];
+};
+
+/** aggregated selection of "personnel_services" */
+export type Personnel_Services_Aggregate = {
+  __typename?: 'personnel_services_aggregate';
+  aggregate?: Maybe<Personnel_Services_Aggregate_Fields>;
+  nodes: Array<Personnel_Services>;
+};
+
+export type Personnel_Services_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Personnel_Services_Aggregate_Bool_Exp_Count>;
+};
+
+export type Personnel_Services_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Personnel_Services_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Personnel_Services_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "personnel_services" */
+export type Personnel_Services_Aggregate_Fields = {
+  __typename?: 'personnel_services_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max?: Maybe<Personnel_Services_Max_Fields>;
+  min?: Maybe<Personnel_Services_Min_Fields>;
+};
+
+
+/** aggregate fields of "personnel_services" */
+export type Personnel_Services_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Personnel_Services_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "personnel_services" */
+export type Personnel_Services_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Personnel_Services_Max_Order_By>;
+  min?: InputMaybe<Personnel_Services_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "personnel_services" */
+export type Personnel_Services_Arr_Rel_Insert_Input = {
+  data: Array<Personnel_Services_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Personnel_Services_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "personnel_services". All fields are combined with a logical 'AND'. */
+export type Personnel_Services_Bool_Exp = {
+  _and?: InputMaybe<Array<Personnel_Services_Bool_Exp>>;
+  _not?: InputMaybe<Personnel_Services_Bool_Exp>;
+  _or?: InputMaybe<Array<Personnel_Services_Bool_Exp>>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  personnel?: InputMaybe<Personnel_Bool_Exp>;
+  personnel_id?: InputMaybe<Uuid_Comparison_Exp>;
+  service?: InputMaybe<Services_Bool_Exp>;
+  service_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "personnel_services" */
+export enum Personnel_Services_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  PersonnelServicesPkey = 'personnel_services_pkey'
+}
+
+/** input type for inserting data into table "personnel_services" */
+export type Personnel_Services_Insert_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  personnel?: InputMaybe<Personnel_Obj_Rel_Insert_Input>;
+  personnel_id?: InputMaybe<Scalars['uuid']['input']>;
+  service?: InputMaybe<Services_Obj_Rel_Insert_Input>;
+  service_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** aggregate max on columns */
+export type Personnel_Services_Max_Fields = {
+  __typename?: 'personnel_services_max_fields';
+  id?: Maybe<Scalars['uuid']['output']>;
+  personnel_id?: Maybe<Scalars['uuid']['output']>;
+  service_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by max() on columns of table "personnel_services" */
+export type Personnel_Services_Max_Order_By = {
+  id?: InputMaybe<Order_By>;
+  personnel_id?: InputMaybe<Order_By>;
+  service_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Personnel_Services_Min_Fields = {
+  __typename?: 'personnel_services_min_fields';
+  id?: Maybe<Scalars['uuid']['output']>;
+  personnel_id?: Maybe<Scalars['uuid']['output']>;
+  service_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** order by min() on columns of table "personnel_services" */
+export type Personnel_Services_Min_Order_By = {
+  id?: InputMaybe<Order_By>;
+  personnel_id?: InputMaybe<Order_By>;
+  service_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "personnel_services" */
+export type Personnel_Services_Mutation_Response = {
+  __typename?: 'personnel_services_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Personnel_Services>;
+};
+
+/** on_conflict condition type for table "personnel_services" */
+export type Personnel_Services_On_Conflict = {
+  constraint: Personnel_Services_Constraint;
+  update_columns?: Array<Personnel_Services_Update_Column>;
+  where?: InputMaybe<Personnel_Services_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "personnel_services". */
+export type Personnel_Services_Order_By = {
+  id?: InputMaybe<Order_By>;
+  personnel?: InputMaybe<Personnel_Order_By>;
+  personnel_id?: InputMaybe<Order_By>;
+  service?: InputMaybe<Services_Order_By>;
+  service_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: personnel_services */
+export type Personnel_Services_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "personnel_services" */
+export enum Personnel_Services_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  PersonnelId = 'personnel_id',
+  /** column name */
+  ServiceId = 'service_id'
+}
+
+/** input type for updating data in table "personnel_services" */
+export type Personnel_Services_Set_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  personnel_id?: InputMaybe<Scalars['uuid']['input']>;
+  service_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** Streaming cursor of the table "personnel_services" */
+export type Personnel_Services_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Personnel_Services_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Personnel_Services_Stream_Cursor_Value_Input = {
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  personnel_id?: InputMaybe<Scalars['uuid']['input']>;
+  service_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** update columns of table "personnel_services" */
+export enum Personnel_Services_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  PersonnelId = 'personnel_id',
+  /** column name */
+  ServiceId = 'service_id'
+}
+
+export type Personnel_Services_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Personnel_Services_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Personnel_Services_Bool_Exp;
+};
 
 /** input type for updating data in table "personnel" */
 export type Personnel_Set_Input = {
+  certificates?: InputMaybe<Scalars['jsonb']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  description_en?: InputMaybe<Scalars['String']['input']>;
+  experience?: InputMaybe<Scalars['String']['input']>;
+  experience_en?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  image_alt?: InputMaybe<Scalars['String']['input']>;
+  image_alt_en?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  personnel_category_id?: InputMaybe<Scalars['uuid']['input']>;
-  personnel_category_id_second?: InputMaybe<Scalars['uuid']['input']>;
+  name_en?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_description_en?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
+  seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  slug_en?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
 /** Streaming cursor of the table "personnel" */
@@ -2014,31 +2635,77 @@ export type Personnel_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Personnel_Stream_Cursor_Value_Input = {
+  certificates?: InputMaybe<Scalars['jsonb']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  description_en?: InputMaybe<Scalars['String']['input']>;
+  experience?: InputMaybe<Scalars['String']['input']>;
+  experience_en?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  image_alt?: InputMaybe<Scalars['String']['input']>;
+  image_alt_en?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  personnel_category_id?: InputMaybe<Scalars['uuid']['input']>;
-  personnel_category_id_second?: InputMaybe<Scalars['uuid']['input']>;
+  name_en?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  seo_description_en?: InputMaybe<Scalars['String']['input']>;
+  seo_title?: InputMaybe<Scalars['String']['input']>;
+  seo_title_en?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  slug_en?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
 /** update columns of table "personnel" */
 export enum Personnel_Update_Column {
   /** column name */
+  Certificates = 'certificates',
+  /** column name */
   Description = 'description',
+  /** column name */
+  DescriptionEn = 'description_en',
+  /** column name */
+  Experience = 'experience',
+  /** column name */
+  ExperienceEn = 'experience_en',
   /** column name */
   Id = 'id',
   /** column name */
   Image = 'image',
   /** column name */
+  ImageAlt = 'image_alt',
+  /** column name */
+  ImageAltEn = 'image_alt_en',
+  /** column name */
   Name = 'name',
   /** column name */
-  PersonnelCategoryId = 'personnel_category_id',
+  NameEn = 'name_en',
   /** column name */
-  PersonnelCategoryIdSecond = 'personnel_category_id_second'
+  SeoDescription = 'seo_description',
+  /** column name */
+  SeoDescriptionEn = 'seo_description_en',
+  /** column name */
+  SeoTitle = 'seo_title',
+  /** column name */
+  SeoTitleEn = 'seo_title_en',
+  /** column name */
+  Slug = 'slug',
+  /** column name */
+  SlugEn = 'slug_en',
+  /** column name */
+  UpdatedAt = 'updated_at'
 }
 
 export type Personnel_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Personnel_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Personnel_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Personnel_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Personnel_Delete_Key_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Personnel_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Personnel_Set_Input>;
   /** filter the rows which have to be updated */
@@ -3018,6 +3685,18 @@ export type Query_Root = {
   personnel_categories_aggregate: Personnel_Categories_Aggregate;
   /** fetch data from the table: "personnel_categories" using primary key columns */
   personnel_categories_by_pk?: Maybe<Personnel_Categories>;
+  /** fetch data from the table: "personnel_personnel_categories" */
+  personnel_personnel_categories: Array<Personnel_Personnel_Categories>;
+  /** fetch aggregated fields from the table: "personnel_personnel_categories" */
+  personnel_personnel_categories_aggregate: Personnel_Personnel_Categories_Aggregate;
+  /** fetch data from the table: "personnel_personnel_categories" using primary key columns */
+  personnel_personnel_categories_by_pk?: Maybe<Personnel_Personnel_Categories>;
+  /** An array relationship */
+  personnel_services: Array<Personnel_Services>;
+  /** An aggregate relationship */
+  personnel_services_aggregate: Personnel_Services_Aggregate;
+  /** fetch data from the table: "personnel_services" using primary key columns */
+  personnel_services_by_pk?: Maybe<Personnel_Services>;
   /** fetch data from the table: "price_list" */
   price_list: Array<Price_List>;
   /** fetch aggregated fields from the table: "price_list" */
@@ -3196,6 +3875,52 @@ export type Query_RootPersonnel_Categories_AggregateArgs = {
 
 
 export type Query_RootPersonnel_Categories_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootPersonnel_Personnel_CategoriesArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Personnel_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Personnel_Categories_Order_By>>;
+  where?: InputMaybe<Personnel_Personnel_Categories_Bool_Exp>;
+};
+
+
+export type Query_RootPersonnel_Personnel_Categories_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Personnel_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Personnel_Categories_Order_By>>;
+  where?: InputMaybe<Personnel_Personnel_Categories_Bool_Exp>;
+};
+
+
+export type Query_RootPersonnel_Personnel_Categories_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootPersonnel_ServicesArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Services_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Services_Order_By>>;
+  where?: InputMaybe<Personnel_Services_Bool_Exp>;
+};
+
+
+export type Query_RootPersonnel_Services_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Services_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Services_Order_By>>;
+  where?: InputMaybe<Personnel_Services_Bool_Exp>;
+};
+
+
+export type Query_RootPersonnel_Services_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -3529,6 +4254,10 @@ export type Services = {
   parent_id?: Maybe<Scalars['uuid']['output']>;
   /** An object relationship */
   parent_service?: Maybe<Services>;
+  /** An array relationship */
+  personnel_services: Array<Personnel_Services>;
+  /** An aggregate relationship */
+  personnel_services_aggregate: Personnel_Services_Aggregate;
   seo_description?: Maybe<Scalars['String']['output']>;
   seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
@@ -3568,6 +4297,26 @@ export type ServicesFaq_EnArgs = {
 /** columns and relationships of "services" */
 export type ServicesFaq_UaArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "services" */
+export type ServicesPersonnel_ServicesArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Services_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Services_Order_By>>;
+  where?: InputMaybe<Personnel_Services_Bool_Exp>;
+};
+
+
+/** columns and relationships of "services" */
+export type ServicesPersonnel_Services_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Services_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Services_Order_By>>;
+  where?: InputMaybe<Personnel_Services_Bool_Exp>;
 };
 
 /** aggregated selection of "services" */
@@ -3660,6 +4409,8 @@ export type Services_Bool_Exp = {
   name_en?: InputMaybe<String_Comparison_Exp>;
   parent_id?: InputMaybe<Uuid_Comparison_Exp>;
   parent_service?: InputMaybe<Services_Bool_Exp>;
+  personnel_services?: InputMaybe<Personnel_Services_Bool_Exp>;
+  personnel_services_aggregate?: InputMaybe<Personnel_Services_Aggregate_Bool_Exp>;
   seo_description?: InputMaybe<String_Comparison_Exp>;
   seo_description_en?: InputMaybe<String_Comparison_Exp>;
   seo_title?: InputMaybe<String_Comparison_Exp>;
@@ -3710,6 +4461,7 @@ export type Services_Insert_Input = {
   name_en?: InputMaybe<Scalars['String']['input']>;
   parent_id?: InputMaybe<Scalars['uuid']['input']>;
   parent_service?: InputMaybe<Services_Obj_Rel_Insert_Input>;
+  personnel_services?: InputMaybe<Personnel_Services_Arr_Rel_Insert_Input>;
   seo_description?: InputMaybe<Scalars['String']['input']>;
   seo_description_en?: InputMaybe<Scalars['String']['input']>;
   seo_title?: InputMaybe<Scalars['String']['input']>;
@@ -3845,6 +4597,7 @@ export type Services_Order_By = {
   name_en?: InputMaybe<Order_By>;
   parent_id?: InputMaybe<Order_By>;
   parent_service?: InputMaybe<Services_Order_By>;
+  personnel_services_aggregate?: InputMaybe<Personnel_Services_Aggregate_Order_By>;
   seo_description?: InputMaybe<Order_By>;
   seo_description_en?: InputMaybe<Order_By>;
   seo_title?: InputMaybe<Order_By>;
@@ -4086,6 +4839,22 @@ export type Subscription_Root = {
   personnel_categories_by_pk?: Maybe<Personnel_Categories>;
   /** fetch data from the table in a streaming manner: "personnel_categories" */
   personnel_categories_stream: Array<Personnel_Categories>;
+  /** fetch data from the table: "personnel_personnel_categories" */
+  personnel_personnel_categories: Array<Personnel_Personnel_Categories>;
+  /** fetch aggregated fields from the table: "personnel_personnel_categories" */
+  personnel_personnel_categories_aggregate: Personnel_Personnel_Categories_Aggregate;
+  /** fetch data from the table: "personnel_personnel_categories" using primary key columns */
+  personnel_personnel_categories_by_pk?: Maybe<Personnel_Personnel_Categories>;
+  /** fetch data from the table in a streaming manner: "personnel_personnel_categories" */
+  personnel_personnel_categories_stream: Array<Personnel_Personnel_Categories>;
+  /** An array relationship */
+  personnel_services: Array<Personnel_Services>;
+  /** An aggregate relationship */
+  personnel_services_aggregate: Personnel_Services_Aggregate;
+  /** fetch data from the table: "personnel_services" using primary key columns */
+  personnel_services_by_pk?: Maybe<Personnel_Services>;
+  /** fetch data from the table in a streaming manner: "personnel_services" */
+  personnel_services_stream: Array<Personnel_Services>;
   /** fetch data from the table in a streaming manner: "personnel" */
   personnel_stream: Array<Personnel>;
   /** fetch data from the table: "price_list" */
@@ -4309,6 +5078,66 @@ export type Subscription_RootPersonnel_Categories_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Personnel_Categories_Stream_Cursor_Input>>;
   where?: InputMaybe<Personnel_Categories_Bool_Exp>;
+};
+
+
+export type Subscription_RootPersonnel_Personnel_CategoriesArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Personnel_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Personnel_Categories_Order_By>>;
+  where?: InputMaybe<Personnel_Personnel_Categories_Bool_Exp>;
+};
+
+
+export type Subscription_RootPersonnel_Personnel_Categories_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Personnel_Categories_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Personnel_Categories_Order_By>>;
+  where?: InputMaybe<Personnel_Personnel_Categories_Bool_Exp>;
+};
+
+
+export type Subscription_RootPersonnel_Personnel_Categories_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootPersonnel_Personnel_Categories_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Personnel_Personnel_Categories_Stream_Cursor_Input>>;
+  where?: InputMaybe<Personnel_Personnel_Categories_Bool_Exp>;
+};
+
+
+export type Subscription_RootPersonnel_ServicesArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Services_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Services_Order_By>>;
+  where?: InputMaybe<Personnel_Services_Bool_Exp>;
+};
+
+
+export type Subscription_RootPersonnel_Services_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Personnel_Services_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personnel_Services_Order_By>>;
+  where?: InputMaybe<Personnel_Services_Bool_Exp>;
+};
+
+
+export type Subscription_RootPersonnel_Services_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootPersonnel_Services_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Personnel_Services_Stream_Cursor_Input>>;
+  where?: InputMaybe<Personnel_Services_Bool_Exp>;
 };
 
 
@@ -4556,6 +5385,13 @@ export type GetAdvantagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAdvantagesQuery = { __typename?: 'query_root', advantages: Array<{ __typename?: 'advantages', id: any, title: string }> };
 
+export type GetDoctorBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetDoctorBySlugQuery = { __typename?: 'query_root', personnel: Array<{ __typename?: 'personnel', id: any, name: string, name_en?: string | null, description: string, description_en?: string | null, image: string, slug?: string | null, slug_en?: string | null, experience?: string | null, experience_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, certificates?: any | null, image_alt?: string | null, image_alt_en?: string | null, personnel_services: Array<{ __typename?: 'personnel_services', service: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string } }>, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title_en?: string | null, title: string, slug?: string | null, id: any } }> }> };
+
 export type GetOurWorkQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4571,7 +5407,7 @@ export type GetPageMetadataQuery = { __typename?: 'query_root', page_metadata: A
 export type GetPersonnelQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPersonnelQuery = { __typename?: 'query_root', personnel: Array<{ __typename?: 'personnel', name: string, description: string, image: string, id: any, personnel_category?: { __typename?: 'personnel_categories', title: string } | null, personnel_category_second?: { __typename?: 'personnel_categories', title: string } | null }> };
+export type GetPersonnelQuery = { __typename?: 'query_root', personnel: Array<{ __typename?: 'personnel', id: any, name: string, name_en?: string | null, description: string, description_en?: string | null, image: string, slug?: string | null, slug_en?: string | null, experience?: string | null, experience_en?: string | null, seo_description?: string | null, seo_description_en?: string | null, seo_title?: string | null, seo_title_en?: string | null, certificates?: any | null, image_alt?: string | null, image_alt_en?: string | null, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', id: any, slug?: string | null, title: string, title_en?: string | null } }>, personnel_services: Array<{ __typename?: 'personnel_services', service: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string } }> }> };
 
 export type GetPriceListQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4598,7 +5434,7 @@ export type GetServiceBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetServiceBySlugQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, mainImage?: string | null, description?: string | null, description_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, parent_id?: any | null, is_geo_page?: boolean | null, custom_robots?: string | null, faq_ua?: any | null, faq_en?: any | null, parent_service?: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null } | null, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string }> }> };
+export type GetServiceBySlugQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, mainImage?: string | null, description?: string | null, description_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, parent_id?: any | null, is_geo_page?: boolean | null, custom_robots?: string | null, faq_ua?: any | null, faq_en?: any | null, parent_service?: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null } | null, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string }>, personnel_services: Array<{ __typename?: 'personnel_services', personnel: { __typename?: 'personnel', name_en?: string | null, name: string, id: any, image: string, description: string, description_en?: string | null, slug_en?: string | null, slug?: string | null, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null, id: any } }> } }> }> };
 
 
 export const CreateReviewDocument = gql`
@@ -4723,6 +5559,80 @@ export type GetAdvantagesQueryHookResult = ReturnType<typeof useGetAdvantagesQue
 export type GetAdvantagesLazyQueryHookResult = ReturnType<typeof useGetAdvantagesLazyQuery>;
 export type GetAdvantagesSuspenseQueryHookResult = ReturnType<typeof useGetAdvantagesSuspenseQuery>;
 export type GetAdvantagesQueryResult = Apollo.QueryResult<GetAdvantagesQuery, GetAdvantagesQueryVariables>;
+export const GetDoctorBySlugDocument = gql`
+    query GetDoctorBySlug($slug: String!) {
+  personnel(where: {_or: [{slug: {_eq: $slug}}, {slug_en: {_eq: $slug}}]}) {
+    id
+    name
+    name_en
+    description
+    description_en
+    image
+    slug
+    slug_en
+    experience
+    experience_en
+    seo_title
+    seo_description
+    seo_title_en
+    seo_description_en
+    certificates
+    image_alt
+    image_alt_en
+    personnel_services {
+      service {
+        id
+        name
+        name_en
+        slug
+        slug_en
+        image
+      }
+    }
+    categories {
+      category {
+        title_en
+        title
+        slug
+        id
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetDoctorBySlugQuery__
+ *
+ * To run a query within a React component, call `useGetDoctorBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDoctorBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDoctorBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetDoctorBySlugQuery(baseOptions: Apollo.QueryHookOptions<GetDoctorBySlugQuery, GetDoctorBySlugQueryVariables> & ({ variables: GetDoctorBySlugQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetDoctorBySlugQuery, GetDoctorBySlugQueryVariables>(GetDoctorBySlugDocument, options);
+      }
+export function useGetDoctorBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDoctorBySlugQuery, GetDoctorBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetDoctorBySlugQuery, GetDoctorBySlugQueryVariables>(GetDoctorBySlugDocument, options);
+        }
+export function useGetDoctorBySlugSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetDoctorBySlugQuery, GetDoctorBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetDoctorBySlugQuery, GetDoctorBySlugQueryVariables>(GetDoctorBySlugDocument, options);
+        }
+export type GetDoctorBySlugQueryHookResult = ReturnType<typeof useGetDoctorBySlugQuery>;
+export type GetDoctorBySlugLazyQueryHookResult = ReturnType<typeof useGetDoctorBySlugLazyQuery>;
+export type GetDoctorBySlugSuspenseQueryHookResult = ReturnType<typeof useGetDoctorBySlugSuspenseQuery>;
+export type GetDoctorBySlugQueryResult = Apollo.QueryResult<GetDoctorBySlugQuery, GetDoctorBySlugQueryVariables>;
 export const GetOurWorkDocument = gql`
     query GetOurWork {
   our_works {
@@ -4811,17 +5721,42 @@ export type GetPageMetadataSuspenseQueryHookResult = ReturnType<typeof useGetPag
 export type GetPageMetadataQueryResult = Apollo.QueryResult<GetPageMetadataQuery, GetPageMetadataQueryVariables>;
 export const GetPersonnelDocument = gql`
     query GetPersonnel {
-  personnel {
-    name
-    description
-    image
+  personnel(order_by: {id: asc}) {
     id
-    personnel_category {
-      title
+    name
+    name_en
+    description
+    description_en
+    image
+    slug
+    slug_en
+    experience
+    experience_en
+    seo_description
+    seo_description_en
+    seo_title
+    seo_title_en
+    certificates
+    categories {
+      category {
+        id
+        slug
+        title
+        title_en
+      }
     }
-    personnel_category_second {
-      title
+    personnel_services {
+      service {
+        id
+        name
+        name_en
+        slug
+        slug_en
+        image
+      }
     }
+    image_alt
+    image_alt_en
   }
 }
     `;
@@ -5090,6 +6025,25 @@ export const GetServiceBySlugDocument = gql`
       slug
       slug_en
       image
+    }
+    personnel_services {
+      personnel {
+        name_en
+        name
+        id
+        image
+        description
+        description_en
+        categories {
+          category {
+            title
+            title_en
+            id
+          }
+        }
+        slug_en
+        slug
+      }
     }
   }
 }

@@ -16,6 +16,14 @@ i18n
     resources: {
       en: {
         translation: {
+          "Фахівці, які надають цю послугу": "Specialists who provide this service",
+          "Лікарі стоматологічної клініки Зубна Фея у Білій Церкві": "Dentists of the Tooth Fairy dental clinic in Bila Tserkva",
+          "Наша команда досвідчених дитячих та дорослих стоматологів у Білій Церкві.": "Our team of experienced pediatric and adult dentists in Bila Tserkva.",
+          "Наші лікарі": "Our doctors",
+          "Лікарі": "Doctors",
+          "Досвід роботи": "Experience",
+          "Напрями роботи та послуги": "Areas of work and services",
+          "Дипломи та сертифікати": "Diplomas and certificates",
           "Оберіть категорію": "Select a category",
           "вул. Вокзальна 22, м. Біла Церква": "Vokzalna St. 22, Bila Tserkva",
           "Ознайомтесь із політикою конфіденційності клініки Зубна Фея. Дізнайтеся, як ми збираємо, обробляємо та захищаємо ваші персональні дані.": "Read the privacy policy of the Zubna Feya clinic. Find out how we collect, process and protect your personal data.Dentistry Zubna Feya",
