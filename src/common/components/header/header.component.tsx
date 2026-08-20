@@ -34,7 +34,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
   const urlLang = i18n.language === 'uk' ? 'ua' : i18n.language;
 
   const headerClasses = clsx(
-    "w-full p-5 z-30 transition-all duration-300 bg-paleOlive dark:bg-darkGray lg:bg-paleOlive/75 lg:dark:bg-darkGray/75",
+    "w-full py-5 z-30 transition-all duration-300 bg-paleOlive dark:bg-darkGray lg:bg-paleOlive/75 lg:dark:bg-darkGray/75",
     {
       "absolute": isMainPage,
       "relative": !isMainPage,
@@ -66,29 +66,29 @@ export const Header: FC<HeaderProps> = ({ }) => {
 
   return (
     <header className={headerClasses} role="banner">
-      <div className="container mx-auto flex justify-around items-center md:flex-col lg:flex-row">
+      <div className="  flex justify-around items-center md:flex-col lg:flex-row">
 
         <div className="flex-shrink-0">
           <Link to="/" aria-label={t("Зубна Фея — на головну")}>
             {themeStateCurrent ? <img
               src="/assets/logo.svg"
               alt="Зубна Фея логотип"
-              width="180"
+              width="50"
               height="50"
-              className="h-24 w-auto"
+              className="h-24 w-36"
               style={{ aspectRatio: '216 / 71' }}
             /> : <img
               src="/assets/logo_light.svg"
               alt="Tooth Fairy Clinic Logo"
-              width="180"
+              width="50"
               height="50"
-              className="h-24 w-auto"
+              className="h-24 w-36 "
               style={{ aspectRatio: '216 / 71' }}
             />}
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center space-x-5 md:gap-10" aria-label={t("Основна навігація")}>
+        <nav className="hidden md:flex items-center  md:gap-10" aria-label={t("Основна навігація")}>
           <NavLinks />
 
           <div className="flex items-center space-x-5 ml-auto gap-2">
@@ -104,11 +104,19 @@ export const Header: FC<HeaderProps> = ({ }) => {
               )}
             </button>
             <LanguageSwitcher />
+            <Link to={`/${urlLang}/contacts`}>
+              <Button variant="header" >{t('Записатися')}</Button>
+            </Link>
           </div>
         </nav>
 
-        {/* Мобільна кнопка меню */}
+
         <div className="md:hidden ml-auto flex items-center gap-4">
+
+          <Link to={`/${urlLang}/contacts`}>
+            <Button variant="header" >{t('Записатися')}</Button>
+          </Link>
+
           <button
             onClick={toggleMobileMenu}
             aria-expanded={isMobileMenuOpen}
@@ -127,6 +135,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
       {/* Мобільне меню */}
       {isMobileMenuOpen && (
         <nav className="md:hidden mt-5 pb-5 border-t border-white/10" aria-label={t("Мобільна навігація")}>
+
           <div className="flex flex-col space-y-4 pt-4">
             <NavLinks onLinkClick={() => setIsMobileMenuOpen(false)} />
 
@@ -145,6 +154,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
               </button>
             </div>
           </div>
+
         </nav>
       )}
     </header>

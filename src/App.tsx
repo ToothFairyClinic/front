@@ -10,6 +10,7 @@ import { Navigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { Suspense, lazy } from 'react';
 import { PrivacyPolicy } from "./modules/privacy-policy/privacy-policy.page";
+import { PreFooterConsultationForm } from "./common/components/pre-footer-form/pre-footer-form.component";
 
 
 // <Route path="contacts" element={<><SEOMeta /><ContactPage /></>} />
@@ -28,6 +29,10 @@ export const App = () => {
   const location = useLocation();
   const GA_ID = config.GA_MEASUREMENT_ID;
   const { t, i18n } = useTranslation();
+
+  const isExcludedPreFooterPage =
+    location.pathname.includes('/our-work') ||
+    location.pathname.includes('/review');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -111,6 +116,7 @@ export const App = () => {
         </Suspense>
 
       </div>
+      {!isExcludedPreFooterPage && <PreFooterConsultationForm />}
       <Footer />
     </div>
   );
