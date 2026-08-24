@@ -24,7 +24,6 @@ const LanguageSwitcher: React.FC = () => {
   const getButtonStyles = (lang: string) => clsx(
     "text-xl font-normal transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-paleOlive rounded-md px-1",
     {
-      // Порівнюємо з мовою з URL
       "font-bold underline decoration-darkGray underline-offset-4 dark:decoration-paleOlive": currentLangFromUrl === lang,
       "text-darkGray hover:text-gray-600": themeStateCurrent,
       "text-white hover:text-paleOlive": !themeStateCurrent,

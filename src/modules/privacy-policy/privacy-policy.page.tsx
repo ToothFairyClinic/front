@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useReactiveVar } from "@apollo/client";
 import { themeState } from "@app/modules/cart/store/theme-state";
 
-// Нові імпорти для SEO
 import { useGetPageMetadataQuery } from "@app/core/types";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 
@@ -11,20 +10,16 @@ export const PrivacyPolicy = () => {
     const { t, i18n } = useTranslation();
     const themeStateCurrent = useReactiveVar(themeState);
 
-    // КРОК 1: Запит SEO-даних з вашої бази даних для конкретного роуту
     const { data: PageMetadata } = useGetPageMetadataQuery({
         variables: { route: '/privacy-policy' }
     });
 
-    // КРОК 2: Визначення поточної мови та вилучення потрібних полів
     const isEn = i18n.language === 'en';
     const pageMeta = PageMetadata?.page_metadata[0];
 
-    // Якщо є дані з бази, беремо їх. Якщо ні — буде undefined
     const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
     const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
-    // Прокрутка сторінки вгору при монтуванні компонента
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -32,7 +27,6 @@ export const PrivacyPolicy = () => {
     return (
         <main className="min-h-screen bg-white dark:bg-darkGray text-darkGray dark:text-palePeach py-16 px-5 md:px-10 transition-colors duration-300">
 
-            {/* КРОК 3: Ін'єкція мета-тегів у <head> */}
             <SEOMeta
                 title={currentTitle || t("Політика конфіденційності | Стоматологія Зубна Фея")}
                 description={currentDescription || t("Ознайомтесь із політикою конфіденційності клініки Зубна Фея. Дізнайтеся, як ми збираємо, обробляємо та захищаємо ваші персональні дані.")}

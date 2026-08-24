@@ -99,7 +99,6 @@ export const PreFooterConsultationForm: FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-12">
           
-          {/* Left Column: Heading & Short Text */}
           <div className="lg:w-5/12 text-center lg:text-left">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-darkGray dark:text-white mb-3">
               {t("Записатись на консультацію")}
@@ -109,14 +108,12 @@ export const PreFooterConsultationForm: FC = () => {
             </p>
           </div>
 
-          {/* Right Column: Form Fields & Button */}
           <div className="lg:w-7/12 w-full">
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate
               className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-start"
             >
-              {/* Honeypot field for anti-spam */}
               <Controller
                 name="website_hp"
                 control={control}
@@ -132,7 +129,6 @@ export const PreFooterConsultationForm: FC = () => {
                 )}
               />
 
-              {/* Name Field */}
               <div className="flex-1 flex flex-col">
                 <label htmlFor="prefooter-name" className="sr-only">
                   {t("Введіть ваше ім'я")}
@@ -174,7 +170,6 @@ export const PreFooterConsultationForm: FC = () => {
                 />
               </div>
 
-              {/* Phone Field with Mask */}
               <div className="flex-1 flex flex-col">
                 <label htmlFor="prefooter-phone" className="sr-only">
                   {t("Введіть ваш телефон")}
@@ -219,7 +214,6 @@ export const PreFooterConsultationForm: FC = () => {
                 />
               </div>
 
-              {/* Submit Button */}
               <div className="sm:w-auto flex flex-col">
                 <button
                   type="submit"

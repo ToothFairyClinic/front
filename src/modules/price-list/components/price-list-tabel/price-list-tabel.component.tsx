@@ -30,13 +30,13 @@ export const PriceListTabel: FC<PriceListTabelProps> = ({ data: DataPriceList })
 
   useEffect(() => {
     const foundObject_local = DataPriceList?.price_list_categories.find(
-      (item) => item.id === selection // Використовуємо selection з useReactiveVar
+      (item) => item.id === selection
     );
 
     if (foundObject_local) {
       setFoundObject(foundObject_local.price_list_items);
     }
-  }, [selection, DataPriceList]); // Залежимо від змінної та вхідних даних
+  }, [selection, DataPriceList]);
 
   const columns = [
     columnHelper.accessor("title", {
@@ -56,10 +56,9 @@ export const PriceListTabel: FC<PriceListTabelProps> = ({ data: DataPriceList })
   });
 
   return (
-    <div className="overflow-x-auto"> {/* Додаємо контейнер для горизонтального скролу на мобілках */}
+    <div className="overflow-x-auto">
       {foundObject.length !== 0 ? (
         <table className="w-full text-left border-collapse">
-          {/* Семантичний заголовок таблиці для скринрідерів */}
           <caption className="sr-only">{t("Детальний прайс-лист послуг клініки")}</caption>
 
           <thead className="bg-gray-50 border-t border-b border-gray-200 h-11 text-gray-900 dark:bg-darkGray dark:text-white">
@@ -68,7 +67,7 @@ export const PriceListTabel: FC<PriceListTabelProps> = ({ data: DataPriceList })
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    scope="col" // Вказуємо область дії заголовка
+                    scope="col"
                     className="font-semibold py-3 px-6"
                   >
                     {header.isPlaceholder

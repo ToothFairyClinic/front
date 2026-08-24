@@ -97,7 +97,6 @@ export const ConsultationModal: FC<ConsultationModalProps> = ({ isOpen, onClose 
         form_id: "consultation-modal",
         name: trimmedName,
         phone: data.phoneNumber,
-        phoneNumber: data.phoneNumber,
         comment: data.comment || "",
       };
 
@@ -138,7 +137,6 @@ export const ConsultationModal: FC<ConsultationModalProps> = ({ isOpen, onClose 
         className="relative w-full max-w-lg bg-white dark:bg-darkGray border border-paleOlive/60 dark:border-paleOlive/40 rounded-2xl shadow-2xl p-6 sm:p-8 text-darkGray dark:text-white transition-all duration-300 transform scale-100 max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
         <button
           onClick={onClose}
           aria-label={t("Закрити")}
@@ -149,7 +147,6 @@ export const ConsultationModal: FC<ConsultationModalProps> = ({ isOpen, onClose 
           </svg>
         </button>
 
-        {/* Modal Header */}
         <div className="text-center mb-6 pr-6">
           <h2
             id="consultation-modal-title"
@@ -162,7 +159,6 @@ export const ConsultationModal: FC<ConsultationModalProps> = ({ isOpen, onClose 
           </p>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-3">
           <Controller
             name="website_hp"
@@ -241,7 +237,6 @@ export const ConsultationModal: FC<ConsultationModalProps> = ({ isOpen, onClose 
           </div>
         </form>
 
-        {/* Alternative Quick Contact */}
         <div className="mt-6 pt-5 border-t border-gray-200 dark:border-white/10 text-center">
           <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-3">
             {t("Зателефонувати нам:")}

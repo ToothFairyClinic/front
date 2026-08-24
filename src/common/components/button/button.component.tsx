@@ -45,7 +45,6 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
       "bg-red-400 dark:bg-red-400 text-white border-red-400 hover:bg-red-500 hover:border-red-500 disabled:hover:border-red-400 disabled:hover:bg-red-400":
         variant === ButtonVariant.danger,
 
-      // Варіант для шапки (прозорий фон, кольорова тінь при наведенні)
       "bg-transparent font-medium border border-darkGray shadow-md shadow-darkGray/10 text-darkGray dark:border-paleOlive dark:shadow-paleOlive/20 dark:text-white hover:bg-darkGray hover:text-white dark:hover:bg-paleOlive dark:hover:text-darkGray hover:scale-105 active:scale-95": variant === ButtonVariant.header,
     }
   );

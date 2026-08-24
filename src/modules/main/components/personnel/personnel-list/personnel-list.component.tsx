@@ -7,7 +7,6 @@ import { MainTitle } from "@app/common/components/main-title/main-title.componen
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useTranslation } from 'react-i18next';
 
-// Імпорт стилів
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";

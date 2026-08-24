@@ -149,7 +149,6 @@ export const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                                                 className={clsx(
                                                     'w-4 h-4 transform transition-transform duration-200',
                                                     isSubMenuOpen ? 'rotate-0 md:-rotate-90' : 'rotate-180 md:-rotate-90',
-                                                    // На десктопі стрілка завжди вказує вправо (-90), на мобілці - вниз/вгору
                                                 )}
                                                 fill="none"
                                                 stroke="currentColor"
@@ -170,7 +169,6 @@ export const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
                                 {hasChildren && isSubMenuOpen && (
                                     <ul
                                         role="menu"
-                                        // ОНОВЛЕНІ КЛАСИ: Адаптивне позиціонування
                                         className="relative w-full z-10 md:absolute md:left-full md:top-0 md:pl-2 md:w-72"
                                     >
                                         <div className="bg-gray-50 dark:bg-gray-800/50 md:bg-white md:dark:bg-darkGray md:shadow-xl rounded-lg py-2 border-y md:border dark:text-white border-gray-100 dark:border-gray-800 animate-fadeIn">

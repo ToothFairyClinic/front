@@ -64,7 +64,6 @@ export const ServicePage: FC<ServicePageProps> = () => {
   const description = isEn ? service?.seo_description_en : service?.seo_description;
   const serviceName = isEn ? (service?.name_en || service?.name) : service?.name;
 
-  // Безпечне отримання масиву FAQ
   const rawFaq = isEn ? service?.faq_en : service?.faq_ua;
   const faqList: FAQItem[] = useMemo(() => {
     if (!rawFaq) return [];
@@ -82,7 +81,6 @@ export const ServicePage: FC<ServicePageProps> = () => {
     return Array.isArray(rawFaq) ? (rawFaq as FAQItem[]) : [];
   }, [rawFaq]);
 
-  // Генерація Schema.org даних
   const schemaGraph = useMemo((): Record<string, any>[] | undefined => {
     if (!service) return undefined;
 
@@ -148,7 +146,6 @@ export const ServicePage: FC<ServicePageProps> = () => {
         <div className="lg:px-24 px-6 flex flex-col gap-16">
           <ServiceItem {...service} />
 
-          {/* Візуальне відображення FAQ */}
           {faqList.length > 0 && (
             <section className="flex flex-col gap-6 w-full mx-auto mt-8">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white border-b pb-4 border-paleOlive">
@@ -184,7 +181,6 @@ export const ServicePage: FC<ServicePageProps> = () => {
             </section>
           )}
 
-          {/* Блок фахівців, які надають послугу */}
           {service.personnel_services && service.personnel_services.length > 0 && (
             <section className="flex flex-col gap-6">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white border-b pb-4 border-paleOlive">
@@ -198,7 +194,6 @@ export const ServicePage: FC<ServicePageProps> = () => {
                   const doctorName = isEn ? (doctor.name_en || doctor.name) : doctor.name;
                   const doctorSlug = isEn ? (doctor.slug_en || doctor.slug || doctor.id) : (doctor.slug || doctor.id);
 
-                  // Витяг першої категорії/спеціалізації лікаря
                   const primaryCategory = doctor.categories?.[0]?.category;
                   const doctorCategoryTitle = primaryCategory
                     ? (isEn && primaryCategory.title_en ? primaryCategory.title_en : primaryCategory.title)

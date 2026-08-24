@@ -39,7 +39,6 @@ export const App = () => {
   }, [location]);
 
 
-  // Ефект 1: Лише ініціалізація
   useEffect(() => {
     if (!GA_ID || ReactGA.isInitialized) return;
 
@@ -55,7 +54,6 @@ export const App = () => {
     return () => clearTimeout(timer);
   }, [GA_ID]);
 
-  // Ефект 2: Відстеження подальших переходів
   useEffect(() => {
     if (GA_ID && ReactGA.isInitialized) {
       ReactGA.send({

@@ -41,7 +41,7 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
     if (fitImage) {
       base.unshift("c_pad");
     } else {
-      base.unshift("c_fill", "g_face"); // Якщо не pad, то фокусуємось на обличчі
+      base.unshift("c_fill", "g_face");
     }
     return base;
   }, [fitImage]);

@@ -36,7 +36,6 @@ export const OurWorkList: FC<OurWorkListProps> = ({ }) => {
   }
 
   return (
-    // Прибираємо лишній section, бо ми вже обгорнули OurWorkList в article/section на сторінці OurWorkPage
     <div className="dark:bg-darkGray py-10">
       <ul className="flex gap-10 flex-wrap lg:px-32 justify-center list-none">
         {data.our_works.map((item) => (

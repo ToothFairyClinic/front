@@ -56,7 +56,6 @@ export const Slide: FC = () => {
             autoPlay
             loop
             muted
-            // Пріоритет та попереднє завантаження для LCP
             // @ts-ignore
             fetchpriority="high"
             preload="auto"

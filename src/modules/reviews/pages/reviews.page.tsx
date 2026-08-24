@@ -64,7 +64,6 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
     try {
       phoneNumber = validatePhoneNumber(values.phoneNumber);
     } catch (error) {
-      // Можна додати тост-повідомлення про помилку валідації номера
       return console.error("Validation error", error);
     }
 

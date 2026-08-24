@@ -132,7 +132,6 @@ export const Header: FC<HeaderProps> = ({ }) => {
         </div>
       </div>
 
-      {/* Мобільне меню */}
       {isMobileMenuOpen && (
         <nav className="md:hidden mt-5 pb-5 border-t border-white/10" aria-label={t("Мобільна навігація")}>
 

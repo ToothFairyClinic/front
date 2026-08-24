@@ -24,7 +24,6 @@ export const SEOMeta = ({
     const { i18n } = useTranslation();
     const location = useLocation();
 
-    // 1. Мова та шляхи
     const currentLang = i18n.language === 'uk' || i18n.language === 'ua' ? 'ua' : 'en';
     const isEn = currentLang === 'en';
     const baseUrl = "https://toothfairy.clinic";
@@ -40,8 +39,6 @@ export const SEOMeta = ({
 
     const fullUrl = `${baseUrl}/${currentLang}${slug}`;
 
-
-    // 2. Breadcrumbs
     const breadcrumbsItems = [
         {
             "@type": "ListItem",
@@ -66,7 +63,6 @@ export const SEOMeta = ({
         "itemListElement": breadcrumbsItems
     };
 
-    // 3. WebPage
     const pageEntity = {
         "@type": type === 'Service' ? 'WebPage' : type,
         "@id": `${fullUrl}/#webpage`,
@@ -77,7 +73,6 @@ export const SEOMeta = ({
         "inLanguage": isEn ? "en-US" : "uk-UA",
     };
 
-    // 4. Фолбек для Організації (використовується для сторінок Послуг, де Dentist не передається явно)
     const defaultOrganizationEntity = {
         "@type": "Dentist",
         "@id": `${baseUrl}/#organization`,
@@ -100,11 +95,9 @@ export const SEOMeta = ({
         "priceRange": "$$"
     };
 
-    // 5. Побудова чистого @graph без дублів
     const buildMainSchema = () => {
         const customNodes: any[] = [];
 
-        // Збираємо всі зовнішні вузли з schemaData в один плоский масив
         if (schemaData) {
             if (Array.isArray(schemaData)) {
                 customNodes.push(...schemaData.flat());
@@ -115,14 +108,12 @@ export const SEOMeta = ({
             }
         }
 
-        // ПЕРЕВІРКА: чи передав батьківський компонент свого Dentist з таким же @id
         const hasCustomOrganization = customNodes.some(
             (node) => node["@id"] === `${baseUrl}/#organization` || node["@type"] === "Dentist"
         );
 
         const graph: any[] = [pageEntity];
 
-        // Додаємо дефолтну організацію ТІЛЬКИ якщо її не було передано в schemaData
         if (!hasCustomOrganization) {
             graph.push(defaultOrganizationEntity);
         }

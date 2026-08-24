@@ -34,7 +34,6 @@ export const lightColorStyles = {
     ...styles,
     color: "#333335",
   }),
-  // Додайте ці стилі для підсвітки тексту при наведенні на опцію
   menu: (styles: any) => ({
     ...styles,
     "&:hover": {
