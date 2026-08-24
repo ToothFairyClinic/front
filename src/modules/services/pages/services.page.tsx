@@ -63,6 +63,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
   const title = isEn ? service?.seo_title_en : service?.seo_title;
   const description = isEn ? service?.seo_description_en : service?.seo_description;
   const serviceName = isEn ? (service?.name_en || service?.name) : service?.name;
+  const altText = isEn ? service?.image_alt_en : service?.image_alt;
 
   const rawFaq = isEn ? service?.faq_en : service?.faq_ua;
   const faqList: FAQItem[] = useMemo(() => {
@@ -144,7 +145,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
         </h1>
 
         <div className="lg:px-24 px-6 flex flex-col gap-16">
-          <ServiceItem {...service} />
+          <ServiceItem {...service} altText={altText} />
 
           {faqList.length > 0 && (
             <section className="flex flex-col gap-6 w-full mx-auto mt-8">

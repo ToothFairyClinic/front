@@ -90,5 +90,7 @@ query GetServiceBySlug($slug: String!) {
         slug
       }
     }
+    image_alt
+    image_alt_en
   }
 }

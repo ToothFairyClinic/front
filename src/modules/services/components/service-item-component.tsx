@@ -7,6 +7,7 @@ import DOMPurify from 'isomorphic-dompurify';
 
 interface ServiceItemProps {
   fitImage?: boolean;
+  altText?: string | null;
 }
 
 export const ServiceItem: FC<ServiceItemProps & ServicesListItem> = ({
@@ -15,6 +16,7 @@ export const ServiceItem: FC<ServiceItemProps & ServicesListItem> = ({
   description,
   description_en,
   mainImage,
+  altText,
 }) => {
 
   const { t, i18n } = useTranslation();
@@ -53,7 +55,7 @@ export const ServiceItem: FC<ServiceItemProps & ServicesListItem> = ({
           width={600}
           height={526}
           className="rounded-2xl w-full h-auto shadow-lg"
-          alt={t(name || "service image")}
+          alt={t(altText || "service image")}
           style={{ width: '100%', height: '100%' }}
         />
       </div>

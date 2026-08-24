@@ -30,7 +30,7 @@ export const ServicesItem: FC<ServicesItemProps & TestServicesItemProps> = ({
     return base;
   }, [fitImage]);
 
-  const imageCld = useCloudinaryImage(image, transformations);
+  const imageCld = useCloudinaryImage(image || "", transformations);
   const { t, i18n } = useTranslation();
 
   const urlLang = i18n.language === 'uk' ? 'ua' : i18n.language;

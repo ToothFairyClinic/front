@@ -4246,7 +4246,9 @@ export type Services = {
   faq_en?: Maybe<Scalars['jsonb']['output']>;
   faq_ua?: Maybe<Scalars['jsonb']['output']>;
   id: Scalars['uuid']['output'];
-  image: Scalars['String']['output'];
+  image?: Maybe<Scalars['String']['output']>;
+  image_alt?: Maybe<Scalars['String']['output']>;
+  image_alt_en?: Maybe<Scalars['String']['output']>;
   is_geo_page?: Maybe<Scalars['Boolean']['output']>;
   mainImage?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
@@ -4403,6 +4405,8 @@ export type Services_Bool_Exp = {
   faq_ua?: InputMaybe<Jsonb_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   image?: InputMaybe<String_Comparison_Exp>;
+  image_alt?: InputMaybe<String_Comparison_Exp>;
+  image_alt_en?: InputMaybe<String_Comparison_Exp>;
   is_geo_page?: InputMaybe<Boolean_Comparison_Exp>;
   mainImage?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
@@ -4455,6 +4459,8 @@ export type Services_Insert_Input = {
   faq_ua?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  image_alt?: InputMaybe<Scalars['String']['input']>;
+  image_alt_en?: InputMaybe<Scalars['String']['input']>;
   is_geo_page?: InputMaybe<Scalars['Boolean']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -4480,6 +4486,8 @@ export type Services_Max_Fields = {
   description_en?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   image?: Maybe<Scalars['String']['output']>;
+  image_alt?: Maybe<Scalars['String']['output']>;
+  image_alt_en?: Maybe<Scalars['String']['output']>;
   mainImage?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   name_en?: Maybe<Scalars['String']['output']>;
@@ -4501,6 +4509,8 @@ export type Services_Max_Order_By = {
   description_en?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   image?: InputMaybe<Order_By>;
+  image_alt?: InputMaybe<Order_By>;
+  image_alt_en?: InputMaybe<Order_By>;
   mainImage?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   name_en?: InputMaybe<Order_By>;
@@ -4523,6 +4533,8 @@ export type Services_Min_Fields = {
   description_en?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   image?: Maybe<Scalars['String']['output']>;
+  image_alt?: Maybe<Scalars['String']['output']>;
+  image_alt_en?: Maybe<Scalars['String']['output']>;
   mainImage?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   name_en?: Maybe<Scalars['String']['output']>;
@@ -4544,6 +4556,8 @@ export type Services_Min_Order_By = {
   description_en?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   image?: InputMaybe<Order_By>;
+  image_alt?: InputMaybe<Order_By>;
+  image_alt_en?: InputMaybe<Order_By>;
   mainImage?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   name_en?: InputMaybe<Order_By>;
@@ -4591,6 +4605,8 @@ export type Services_Order_By = {
   faq_ua?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   image?: InputMaybe<Order_By>;
+  image_alt?: InputMaybe<Order_By>;
+  image_alt_en?: InputMaybe<Order_By>;
   is_geo_page?: InputMaybe<Order_By>;
   mainImage?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
@@ -4636,6 +4652,10 @@ export enum Services_Select_Column {
   Id = 'id',
   /** column name */
   Image = 'image',
+  /** column name */
+  ImageAlt = 'image_alt',
+  /** column name */
+  ImageAltEn = 'image_alt_en',
   /** column name */
   IsGeoPage = 'is_geo_page',
   /** column name */
@@ -4684,6 +4704,8 @@ export type Services_Set_Input = {
   faq_ua?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  image_alt?: InputMaybe<Scalars['String']['input']>;
+  image_alt_en?: InputMaybe<Scalars['String']['input']>;
   is_geo_page?: InputMaybe<Scalars['Boolean']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -4716,6 +4738,8 @@ export type Services_Stream_Cursor_Value_Input = {
   faq_ua?: InputMaybe<Scalars['jsonb']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  image_alt?: InputMaybe<Scalars['String']['input']>;
+  image_alt_en?: InputMaybe<Scalars['String']['input']>;
   is_geo_page?: InputMaybe<Scalars['Boolean']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -4748,6 +4772,10 @@ export enum Services_Update_Column {
   Id = 'id',
   /** column name */
   Image = 'image',
+  /** column name */
+  ImageAlt = 'image_alt',
+  /** column name */
+  ImageAltEn = 'image_alt_en',
   /** column name */
   IsGeoPage = 'is_geo_page',
   /** column name */
@@ -5390,7 +5418,7 @@ export type GetDoctorBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetDoctorBySlugQuery = { __typename?: 'query_root', personnel: Array<{ __typename?: 'personnel', id: any, name: string, name_en?: string | null, description: string, description_en?: string | null, image: string, slug?: string | null, slug_en?: string | null, experience?: string | null, experience_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, certificates?: any | null, image_alt?: string | null, image_alt_en?: string | null, personnel_services: Array<{ __typename?: 'personnel_services', service: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string } }>, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title_en?: string | null, title: string, slug?: string | null, id: any } }> }> };
+export type GetDoctorBySlugQuery = { __typename?: 'query_root', personnel: Array<{ __typename?: 'personnel', id: any, name: string, name_en?: string | null, description: string, description_en?: string | null, image: string, slug?: string | null, slug_en?: string | null, experience?: string | null, experience_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, certificates?: any | null, image_alt?: string | null, image_alt_en?: string | null, personnel_services: Array<{ __typename?: 'personnel_services', service: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null } }>, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title_en?: string | null, title: string, slug?: string | null, id: any } }> }> };
 
 export type GetOurWorkQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5407,7 +5435,7 @@ export type GetPageMetadataQuery = { __typename?: 'query_root', page_metadata: A
 export type GetPersonnelQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPersonnelQuery = { __typename?: 'query_root', personnel: Array<{ __typename?: 'personnel', id: any, name: string, name_en?: string | null, description: string, description_en?: string | null, image: string, slug?: string | null, slug_en?: string | null, experience?: string | null, experience_en?: string | null, seo_description?: string | null, seo_description_en?: string | null, seo_title?: string | null, seo_title_en?: string | null, certificates?: any | null, image_alt?: string | null, image_alt_en?: string | null, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', id: any, slug?: string | null, title: string, title_en?: string | null } }>, personnel_services: Array<{ __typename?: 'personnel_services', service: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string } }> }> };
+export type GetPersonnelQuery = { __typename?: 'query_root', personnel: Array<{ __typename?: 'personnel', id: any, name: string, name_en?: string | null, description: string, description_en?: string | null, image: string, slug?: string | null, slug_en?: string | null, experience?: string | null, experience_en?: string | null, seo_description?: string | null, seo_description_en?: string | null, seo_title?: string | null, seo_title_en?: string | null, certificates?: any | null, image_alt?: string | null, image_alt_en?: string | null, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', id: any, slug?: string | null, title: string, title_en?: string | null } }>, personnel_services: Array<{ __typename?: 'personnel_services', service: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null } }> }> };
 
 export type GetPriceListQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5427,14 +5455,14 @@ export type GetPriceListCategoryByIdQuery = { __typename?: 'query_root', price_l
 export type GetServicesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, description?: string | null, description_en?: string | null, mainImage?: string | null, slug?: string | null, slug_en?: string | null, image: string, parent_id?: any | null, is_geo_page?: boolean | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, parent_id?: any | null, is_geo_page?: boolean | null }> }> };
+export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, description?: string | null, description_en?: string | null, mainImage?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null, parent_id?: any | null, is_geo_page?: boolean | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null, parent_id?: any | null, is_geo_page?: boolean | null }> }> };
 
 export type GetServiceBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type GetServiceBySlugQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, mainImage?: string | null, description?: string | null, description_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, parent_id?: any | null, is_geo_page?: boolean | null, custom_robots?: string | null, faq_ua?: any | null, faq_en?: any | null, parent_service?: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null } | null, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string }>, personnel_services: Array<{ __typename?: 'personnel_services', personnel: { __typename?: 'personnel', name_en?: string | null, name: string, id: any, image: string, description: string, description_en?: string | null, slug_en?: string | null, slug?: string | null, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null, id: any } }> } }> }> };
+export type GetServiceBySlugQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null, mainImage?: string | null, description?: string | null, description_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, parent_id?: any | null, is_geo_page?: boolean | null, custom_robots?: string | null, faq_ua?: any | null, faq_en?: any | null, image_alt?: string | null, image_alt_en?: string | null, parent_service?: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null } | null, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null }>, personnel_services: Array<{ __typename?: 'personnel_services', personnel: { __typename?: 'personnel', name_en?: string | null, name: string, id: any, image: string, description: string, description_en?: string | null, slug_en?: string | null, slug?: string | null, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null, id: any } }> } }> }> };
 
 
 export const CreateReviewDocument = gql`
@@ -6045,6 +6073,8 @@ export const GetServiceBySlugDocument = gql`
         slug
       }
     }
+    image_alt
+    image_alt_en
   }
 }
     `;
