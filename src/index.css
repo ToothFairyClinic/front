@@ -17,7 +17,8 @@ body {
 }
 
 .swiper-pagination-bullet {
-  background: #d9dbb3 !important;
+  /* background: #d9dbb3 !important; */
+  background: #79797f !important;
   width: 15px !important;
   height: 15px !important;
 }

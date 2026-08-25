@@ -16,6 +16,7 @@ i18n
     resources: {
       en: {
         translation: {
+          "Ціни": "Prices",
           "Записатися": "Book Now",
           "Фахівці, які надають цю послугу": "Specialists who provide this service",
           "Лікарі стоматологічної клініки Зубна Фея у Білій Церкві": "Dentists of the Tooth Fairy dental clinic in Bila Tserkva",

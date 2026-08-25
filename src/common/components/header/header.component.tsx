@@ -58,9 +58,10 @@ export const Header: FC<HeaderProps> = ({ }) => {
     <ul className="flex flex-col md:flex-row md:space-x-5 lg:gap-15 md:gap-5 list-none">
       <li><ServicesDropdown urlLang={urlLang} t={t} onLinkClick={onLinkClick} /></li>
       <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/review`}>{t("Відгуки")}</LinkHeader></li>
-      <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/price-list`}>{t("Прайс лист")}</LinkHeader></li>
+      <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/price-list`}>{t("Ціни")}</LinkHeader></li>
       <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/our-work`}>{t("Роботи")}</LinkHeader></li>
       <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/contacts`}>{t("Контакти")}</LinkHeader></li>
+      <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/doctors`}>{t("Лікарі")}</LinkHeader></li>
     </ul>
   );
 

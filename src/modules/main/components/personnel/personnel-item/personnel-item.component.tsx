@@ -49,7 +49,7 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
   const imageCld = useCloudinaryImage(image, transformations);
 
   return (
-    <div className="lg:w-96 dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md dark:shadow-sm dark:shadow-white/20 dark:bg-darkGray transition-shadow duration-300">
+    <div className="lg:w-96 min-h-128 dark:text-white bg-white  rounded-2xl hover:shadow-md dark:shadow-sm dark:shadow-white/20 dark:bg-darkGray transition-shadow duration-300">
 
       <div className="w-full h-[440px] overflow-hidden rounded-t-2xl bg-gray-100 dark:bg-gray-800">
         <AdvancedImage

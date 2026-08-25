@@ -61,10 +61,10 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading }) => {
         {t("Наша команда")}
       </MainTitle>
 
-      <div className="lg:px-20 min-h-[550px]">
+      <div className="lg:px-20 min-h-[650px]">
         <Swiper
-          autoHeight={false}
-          style={{ height: '550px' }}
+          autoHeight={true}
+          style={{ height: '650px' }}
           setWrapperSize={true}
           breakpoints={{
             320: { slidesPerView: 1, spaceBetween: 20 },
@@ -81,7 +81,7 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading }) => {
             dynamicBullets: true,
           }}
           modules={[Autoplay, Pagination, Navigation]}
-          className="pb-12"
+        // className="pb-12"
 
         >
           {data.personnel.map(({ image, ...item }) => {
