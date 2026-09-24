@@ -27,7 +27,7 @@ export const Footer = () => {
   return (
     <footer className="bg-paleOlive dark:bg-darkGray/75 p-5 z-10 transition duration-300 px-5 py-10 flex flex-col items-center md:px-1 min-h-[450px]">
 
-      <Link to="/" aria-label={t("На головну")}>
+      <Link to={`/${lang}`} aria-label={t("На головну")}>
         {themeStateCurrent ? (
           <img
             src="/assets/logo.svg"
@@ -55,16 +55,16 @@ export const Footer = () => {
           <div className="flex flex-col gap-8 sm:flex-row md:gap-36">
             <ul className="flex flex-col gap-3 list-none">
               <li className="dark:hover:text-paleOlive hover:text-white min-h-[28px] transition-colors">
-                <Link to="/">{t("Головна")}</Link>
+                <Link to={`/${lang}`}>{t("Головна")}</Link>
               </li>
               <li className="dark:hover:text-paleOlive hover:text-white min-h-[28px] transition-colors">
-                <Link smooth to="/#services">{t("Послуги")}</Link>
+                <Link smooth to={`/${lang}#services`}>{t("Послуги")}</Link>
               </li>
             </ul>
 
             <ul className="flex flex-col gap-3 list-none">
               <li className="dark:hover:text-paleOlive hover:text-white min-h-[28px] transition-colors">
-                <Link smooth to="/#personnel">{t("Персонал")}</Link>
+                <Link smooth to={`/${lang}#personnel`}>{t("Персонал")}</Link>
               </li>
               <li className="dark:hover:text-paleOlive hover:text-white min-h-[28px] transition-colors">
                 <Link to={`/${lang}/price-list`}>{t("Прайс лист")}</Link>
