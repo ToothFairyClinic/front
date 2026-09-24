@@ -86,7 +86,7 @@ i18n
           "Тут": "here",
           "Прайс лист": "Price list",
           "Роботи": "Portfolio ",
-          "Контакти": "Contacts ",
+          "Контакти": "Contacts",
           "Головна": "Home",
           "Послуги": "Services",
           "Персонал": "Personnel",

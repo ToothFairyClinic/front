@@ -56,6 +56,8 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
 
   const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
 
+  const pageHeading = (isEn ? pageMeta?.h1_en : pageMeta?.h1) || t("Відгуки пацієнтів");
+
   const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
   const handlerCheckoutSubmit = async (values: ReviewFormValues) => {
@@ -114,7 +116,7 @@ export const ReviewsPage: FC<ReviewsPageProps> = ({ }) => {
         }}
       />
 
-      <MainTitle size="base" as="h1">{t("Відгуки пацієнтів")}</MainTitle>
+      <MainTitle size="base" as="h1">{pageHeading}</MainTitle>
 
       <section aria-label={t("Список відгуків")}>
         <ReviewsList />

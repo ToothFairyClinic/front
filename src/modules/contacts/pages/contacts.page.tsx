@@ -31,6 +31,8 @@ export const ContactPage: FC = () => {
 
   const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
 
+  const pageHeading = (isEn ? pageMeta?.h1_en : pageMeta?.h1) || t("Контакти");
+
   const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
   const contactSchema = {
@@ -83,7 +85,7 @@ export const ContactPage: FC = () => {
 
       <div className="flex flex-col max-w-xl">
         <h1 className="text-4xl sm:text-6xl lg:text-6xl dark:text-white border-b border-paleOlive px-15 py-4">
-          {t("Контакти")}
+          {pageHeading}
         </h1>
 
         <address className="not-italic">

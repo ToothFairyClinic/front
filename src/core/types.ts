@@ -1536,6 +1536,8 @@ export type Our_Works_Updates = {
 /** columns and relationships of "page_metadata" */
 export type Page_Metadata = {
   __typename?: 'page_metadata';
+  h1?: Maybe<Scalars['String']['output']>;
+  h1_en?: Maybe<Scalars['String']['output']>;
   id: Scalars['uuid']['output'];
   page_route: Scalars['String']['output'];
   seo_description: Scalars['String']['output'];
@@ -4235,6 +4237,8 @@ export type Reviews_Updates = {
 /** columns and relationships of "services" */
 export type Services = {
   __typename?: 'services';
+  h1?: Maybe<Scalars['String']['output']>;
+  h1_en?: Maybe<Scalars['String']['output']>;
   /** An array relationship */
   child_services: Array<Services>;
   /** An aggregate relationship */
@@ -5430,7 +5434,7 @@ export type GetPageMetadataQueryVariables = Exact<{
 }>;
 
 
-export type GetPageMetadataQuery = { __typename?: 'query_root', page_metadata: Array<{ __typename?: 'page_metadata', seo_title: string, seo_description: string, seo_title_en?: string | null, seo_description_en?: string | null }> };
+export type GetPageMetadataQuery = { __typename?: 'query_root', page_metadata: Array<{ __typename?: 'page_metadata', h1?: string | null, h1_en?: string | null, seo_title: string, seo_description: string, seo_title_en?: string | null, seo_description_en?: string | null }> };
 
 export type GetPersonnelQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5462,7 +5466,7 @@ export type GetServiceBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetServiceBySlugQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null, mainImage?: string | null, description?: string | null, description_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, parent_id?: any | null, is_geo_page?: boolean | null, custom_robots?: string | null, faq_ua?: any | null, faq_en?: any | null, image_alt?: string | null, image_alt_en?: string | null, parent_service?: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null } | null, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null }>, personnel_services: Array<{ __typename?: 'personnel_services', personnel: { __typename?: 'personnel', name_en?: string | null, name: string, id: any, image: string, description: string, description_en?: string | null, slug_en?: string | null, slug?: string | null, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null, id: any } }> } }> }> };
+export type GetServiceBySlugQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, h1?: string | null, h1_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null, mainImage?: string | null, description?: string | null, description_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, parent_id?: any | null, is_geo_page?: boolean | null, custom_robots?: string | null, faq_ua?: any | null, faq_en?: any | null, image_alt?: string | null, image_alt_en?: string | null, parent_service?: { __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null } | null, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null }>, personnel_services: Array<{ __typename?: 'personnel_services', personnel: { __typename?: 'personnel', name_en?: string | null, name: string, id: any, image: string, description: string, description_en?: string | null, slug_en?: string | null, slug?: string | null, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null, id: any } }> } }> }> };
 
 
 export const CreateReviewDocument = gql`
@@ -5707,6 +5711,8 @@ export type GetOurWorkQueryResult = Apollo.QueryResult<GetOurWorkQuery, GetOurWo
 export const GetPageMetadataDocument = gql`
     query GetPageMetadata($route: String!) {
   page_metadata(where: {page_route: {_eq: $route}}) {
+    h1
+    h1_en
     seo_title
     seo_description
     seo_title_en
@@ -6023,6 +6029,8 @@ export const GetServiceBySlugDocument = gql`
     id
     name
     name_en
+    h1
+    h1_en
     slug
     slug_en
     image

@@ -40,6 +40,8 @@ query GetServiceBySlug($slug: String!) {
     id
     name
     name_en
+    h1
+    h1_en
     slug
     slug_en
     image

@@ -27,6 +27,7 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
 
   const pageMeta = PageMetadata?.page_metadata[0];
   const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
+  const pageHeading = (isEn ? pageMeta?.h1_en : pageMeta?.h1) || t("Прайс-лист послуг");
   const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
   const priceSchema = {
@@ -64,7 +65,7 @@ export const PriceListPage: FC<PriceListPageProps> = () => {
       />
 
       <div className="mb-10">
-        <MainTitle size="base" as="h1">{t("Прайс-лист послуг")}</MainTitle>
+        <MainTitle size="base" as="h1">{pageHeading}</MainTitle>
       </div>
 
       <div className="pb-12">

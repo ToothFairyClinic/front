@@ -18,6 +18,8 @@ export const PrivacyPolicy = () => {
     const pageMeta = PageMetadata?.page_metadata[0];
 
     const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
+
+    const pageHeading = (isEn ? pageMeta?.h1_en : pageMeta?.h1) || t("Політика конфіденційності");
     const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
     useEffect(() => {
@@ -49,7 +51,7 @@ export const PrivacyPolicy = () => {
             <article className="max-w-4xl mx-auto flex flex-col gap-6">
 
                 <h1 className="text-3xl md:text-5xl font-bold mb-4 text-center">
-                    {t("Політика конфіденційності")}
+                    {pageHeading}
                 </h1>
 
                 <p className="text-sm opacity-70 mb-8 text-center">

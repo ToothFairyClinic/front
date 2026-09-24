@@ -25,6 +25,7 @@ export const DoctorsPage: FC = () => {
 
     const pageMeta = metaData?.page_metadata[0];
     const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
+    const pageHeading = (isEn ? pageMeta?.h1_en : pageMeta?.h1) || t("Наші лікарі");
     const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
 
@@ -96,7 +97,7 @@ export const DoctorsPage: FC = () => {
                 />
 
                 <MainTitle as="h1" size="base">
-                    {t("Наші лікарі")}
+                    {pageHeading}
                 </MainTitle>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">

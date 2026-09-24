@@ -64,6 +64,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
   const title = isEn ? service?.seo_title_en : service?.seo_title;
   const description = isEn ? service?.seo_description_en : service?.seo_description;
   const serviceName = isEn ? (service?.name_en || service?.name) : service?.name;
+  const pageHeading = (isEn ? (service?.h1_en || service?.h1) : service?.h1) || serviceName;
   const altText = isEn ? service?.image_alt_en : service?.image_alt;
 
   const rawFaq = isEn ? service?.faq_en : service?.faq_ua;
@@ -168,7 +169,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
         <Breadcrumbs items={crumbs} className="lg:px-24 px-6" />
 
         <h1 className="md:text-6xl text-3xl border-b border-paleOlive px-10 py-3 z-10 text-darkGray dark:text-white lg:w-165">
-          {serviceName}
+          {pageHeading}
         </h1>
 
         <div className="lg:px-24 px-6 flex flex-col gap-16">

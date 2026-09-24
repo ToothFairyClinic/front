@@ -15,6 +15,7 @@ export const OurWorkPage: FC = () => {
 
   const pageMeta = metaData?.page_metadata[0];
   const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
+  const pageHeading = (isEn ? pageMeta?.h1_en : pageMeta?.h1) || t("Наші роботи");
   const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
 
 
@@ -51,7 +52,7 @@ export const OurWorkPage: FC = () => {
 
       <section className="px-9 pt-15 pb-24">
         <MainTitle as="h1" size="base">
-          {t("Наші роботи")}
+          {pageHeading}
         </MainTitle>
 
         <article className="mt-10">
