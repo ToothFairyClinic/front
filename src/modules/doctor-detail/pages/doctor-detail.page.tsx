@@ -239,7 +239,7 @@ export const DoctorDetailPage: FC = () => {
 
                         {sanitizedHtml && (
                             <div
-                                className="prose dark:prose-invert max-w-none text-xl dark:text-white text-left"
+                                className="prose max-w-none text-xl dark:text-white text-left"
                                 dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
                             />
                         )}

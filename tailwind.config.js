@@ -39,8 +39,22 @@ module.exports = {
         5: "5px",
         6: "6px",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: "inherit",
+            maxWidth: "none",
+            "h1, h2, h3, h4, h5, h6, strong, b, em": {
+              color: "inherit",
+            },
+            "ul > li::marker, ol > li::marker": {
+              color: "currentColor",
+            },
+          },
+        },
+      },
     },
   },
 
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

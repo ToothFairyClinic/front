@@ -60,7 +60,7 @@ export const ServiceItem: FC<ServiceItemProps & ServicesListItem> = ({
         />
       </div>
       <div
-        className={`prose dark:prose-invert max-w-none ${className}`}
+        className={`prose max-w-none ${className}`}
         dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
       />
     </div>
