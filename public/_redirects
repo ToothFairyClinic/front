@@ -50,8 +50,12 @@ sitemap.xml  https://api.toothfairy.clinic/.netlify/functions/sitemap  200!
 /en/services/b69865ce-d3c2-4e0a-8191-0b96428b19b6    /en/services/dental-prosthetics    301
 
 # Естетична стоматологія / Aesthetic dentistry
-/ua/services/580fa779-d1c1-4111-be47-eab3dbb9031a    /ua/services/viniry    301
-/en/services/580fa779-d1c1-4111-be47-eab3dbb9031a    /en/services/veneers    301
+/ua/services/580fa779-d1c1-4111-be47-eab3dbb9031a    /ua/services/estetychna-stomatolohiia    301
+/en/services/580fa779-d1c1-4111-be47-eab3dbb9031a    /en/services/aesthetic-dentistry    301
+/ua/services/viniry    /ua/services/estetychna-stomatolohiia    301
+/en/services/veneers    /en/services/aesthetic-dentistry    301
+/ua/services/estetychna-stomatolohiia/    /ua/services/estetychna-stomatolohiia    301
+/en/services/aesthetic-dentistry/    /en/services/aesthetic-dentistry    301
 
 # Кабінет КТ, ТРГ, ОПТГ / Computed tomography room
 /ua/services/959ed98e-0b59-4d89-81a5-4b1f43ba0677    /ua/services/kt-zubiv    301
