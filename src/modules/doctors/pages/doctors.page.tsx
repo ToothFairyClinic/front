@@ -5,6 +5,7 @@ import { useGetPageMetadataQuery, useGetPersonnelQuery } from "@app/core/types";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
+import { Breadcrumbs } from "@app/common/components/breadcrumbs/breadcrumbs.component";
 import { PersonnelItem } from "@app/modules/main/components/personnel/personnel-item/personnel-item.component";
 
 export const DoctorsPage: FC = () => {
@@ -87,6 +88,13 @@ export const DoctorsPage: FC = () => {
                 schemaData={doctorsSchema || undefined} />
 
             <div className="max-w-7xl mx-auto flex flex-col gap-12">
+                <Breadcrumbs
+                    items={[
+                        { label: t("Головна"), to: `/${currentLang}` },
+                        { label: t("Лікарі") },
+                    ]}
+                />
+
                 <MainTitle as="h1" size="base">
                     {t("Наші лікарі")}
                 </MainTitle>

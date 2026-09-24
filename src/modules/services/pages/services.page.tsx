@@ -6,6 +6,7 @@ import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { ServiceItem } from "../components/service-item-component";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
+import { Breadcrumbs, buildBreadcrumbSchema, Crumb } from "@app/common/components/breadcrumbs/breadcrumbs.component";
 import { useGetServiceBySlugQuery } from "@app/core/types";
 import { AdvancedImage } from "@cloudinary/react";
 
@@ -82,6 +83,23 @@ export const ServicePage: FC<ServicePageProps> = () => {
     return Array.isArray(rawFaq) ? (rawFaq as FAQItem[]) : [];
   }, [rawFaq]);
 
+  const crumbs: Crumb[] = useMemo(() => {
+    if (!service) return [];
+
+    const parent = service.parent_service;
+    const parentName = parent ? (isEn ? parent.name_en || parent.name : parent.name) : null;
+    const parentSlug = parent ? (isEn ? parent.slug_en || parent.slug : parent.slug) : null;
+
+    return [
+      { label: t("Головна"), to: `/${currentLang}` },
+      { label: t("Послуги"), to: `/${currentLang}#services` },
+      ...(parentName && parentSlug
+        ? [{ label: parentName, to: `/${currentLang}/services/${parentSlug}` }]
+        : []),
+      { label: serviceName || "" },
+    ];
+  }, [service, serviceName, isEn, currentLang, t]);
+
   const schemaGraph = useMemo((): Record<string, any>[] | undefined => {
     if (!service) return undefined;
 
@@ -104,8 +122,14 @@ export const ServicePage: FC<ServicePageProps> = () => {
       }
     };
 
+    const breadcrumbSchema = buildBreadcrumbSchema(
+      crumbs,
+      "https://toothfairy.clinic",
+      `https://toothfairy.clinic/${currentLang}/services/${slug}/#breadcrumb`
+    );
+
     if (!faqList || faqList.length === 0) {
-      return [serviceSchema];
+      return [serviceSchema, breadcrumbSchema];
     }
 
     const faqSchema = {
@@ -120,8 +144,8 @@ export const ServicePage: FC<ServicePageProps> = () => {
       }))
     };
 
-    return [serviceSchema, faqSchema];
-  }, [service, serviceName, description, isEn, fullImageUrl, faqList]);
+    return [serviceSchema, faqSchema, breadcrumbSchema];
+  }, [service, serviceName, description, isEn, fullImageUrl, faqList, crumbs, currentLang, slug]);
 
   if (error) return <ShowInfo type="error"><p>{t("Упс, сталася помилка")}</p></ShowInfo>;
   if (loading) return <ShowInfo type="info"><p>{t("Завантаження...")}</p></ShowInfo>;
@@ -137,9 +161,12 @@ export const ServicePage: FC<ServicePageProps> = () => {
         type="Service"
         schemaData={schemaGraph}
         robots={service?.custom_robots}
+        hasBreadcrumbs={false}
       />
 
       <main className="py-24 flex flex-col gap-16 dark:bg-darkGray min-h-screen">
+        <Breadcrumbs items={crumbs} className="lg:px-24 px-6" />
+
         <h1 className="md:text-6xl text-3xl border-b border-paleOlive px-10 py-3 z-10 text-darkGray dark:text-white lg:w-165">
           {serviceName}
         </h1>

@@ -5,6 +5,7 @@ import { useGetDoctorBySlugQuery } from "@app/core/types";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
+import { Breadcrumbs, buildBreadcrumbSchema, Crumb } from "@app/common/components/breadcrumbs/breadcrumbs.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { AdvancedImage } from "@cloudinary/react";
 import DOMPurify from "isomorphic-dompurify";
@@ -96,6 +97,12 @@ export const DoctorDetailPage: FC = () => {
 
     const activeSlug = isEn ? (doctor?.slug_en || doctor?.slug) : (doctor?.slug || doctor?.slug_en);
 
+    const crumbs: Crumb[] = useMemo(() => [
+        { label: t("Головна"), to: `/${currentLang}` },
+        { label: t("Лікарі"), to: `/${currentLang}/doctors` },
+        { label: doctorName || "" },
+    ], [t, currentLang, doctorName]);
+
     const doctorSchema = useMemo(() => {
         if (!doctor) return null;
 
@@ -106,30 +113,11 @@ export const DoctorDetailPage: FC = () => {
         return {
             "@context": "https://schema.org",
             "@graph": [
-                {
-                    "@type": "BreadcrumbList",
-                    "@id": `${baseUrl}/${currentLang}/doctors/${activeSlug}/#breadcrumb`,
-                    "itemListElement": [
-                        {
-                            "@type": "ListItem",
-                            "position": 1,
-                            "name": isEn ? "Home" : "Головна",
-                            "item": `${baseUrl}/${currentLang}`
-                        },
-                        {
-                            "@type": "ListItem",
-                            "position": 2,
-                            "name": isEn ? "Doctors" : "Лікарі",
-                            "item": `${baseUrl}/${currentLang}/doctors`
-                        },
-                        {
-                            "@type": "ListItem",
-                            "position": 3,
-                            "name": doctorName,
-                            "item": `${baseUrl}/${currentLang}/doctors/${activeSlug}`
-                        }
-                    ]
-                },
+                buildBreadcrumbSchema(
+                    crumbs,
+                    baseUrl,
+                    `${baseUrl}/${currentLang}/doctors/${activeSlug}/#breadcrumb`
+                ),
                 {
                     "@type": "Person",
                     "@id": `${baseUrl}/${currentLang}/doctors/${activeSlug}/#person`,
@@ -187,25 +175,7 @@ export const DoctorDetailPage: FC = () => {
             />
 
             <div className="max-w-6xl mx-auto flex flex-col gap-10">
-                <nav className="text-sm text-gray-500 dark:text-gray-400">
-                    <ul className="flex flex-wrap items-center gap-2">
-                        <li>
-                            <Link to={`/${currentLang}`} className="hover:underline">
-                                {t("Головна")}
-                            </Link>
-                        </li>
-                        <li>/</li>
-                        <li>
-                            <Link to={`/${currentLang}/doctors`} className="hover:underline">
-                                {t("Лікарі")}
-                            </Link>
-                        </li>
-                        <li>/</li>
-                        <li className="text-gray-800 dark:text-gray-200 font-medium">
-                            {doctorName}
-                        </li>
-                    </ul>
-                </nav>
+                <Breadcrumbs items={crumbs} />
 
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-10 shadow-lg flex flex-col md:flex-row gap-8 items-start">
                     <div className="w-full md:w-1/3 flex-shrink-0 overflow-hidden rounded-xl">

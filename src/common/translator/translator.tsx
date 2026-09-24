@@ -175,6 +175,7 @@ i18n
           "Дякуємо! Вашу заявку успішно відправлено. Наш адміністратор зв'яжеться з вами найближчим часом.": "Thank you! Your request has been sent successfully. Our manager will contact you shortly.",
           "Не вдалося відправити заявку. Спробуйте ще раз або зателефонуйте нам.": "Failed to send request. Please try again or call us.",
           "Часті запитання": "FAQ",
+          "Хлібні крихти": "Breadcrumbs",
           "Наші Послуги": "Our Services",
           "Наша команда": "Our Team",
           "Лікар-стоматолог": "Dentist",
