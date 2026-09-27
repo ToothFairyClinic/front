@@ -31,7 +31,14 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ items, className = "" }) => 
           const isLast = index === visible.length - 1;
 
           return (
-            <li key={`${item.label}-${index}`} className="flex items-center gap-x-2">
+            <li
+              key={`${item.label}-${index}`}
+              className={
+                isLast
+                  ? "flex items-center gap-x-2"
+                  : "flex items-center gap-x-2 after:content-['/']"
+              }
+            >
               {item.to && !isLast ? (
                 <HashLink smooth to={item.to} className="hover:underline">
                   {item.label}
@@ -44,7 +51,6 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ items, className = "" }) => 
                   {item.label}
                 </span>
               )}
-              {!isLast && <span aria-hidden="true">/</span>}
             </li>
           );
         })}
