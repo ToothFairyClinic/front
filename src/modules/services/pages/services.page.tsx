@@ -164,6 +164,8 @@ export const ServicePage: FC<ServicePageProps> = () => {
         schemaData={schemaGraph}
         robots={service?.custom_robots}
         hasBreadcrumbs={false}
+        pathUa={`/services/${service.slug || slug}`}
+        pathEn={`/services/${service.slug_en || service.slug || slug}`}
       />
 
       <main className="py-24 flex flex-col gap-16 dark:bg-darkGray min-h-screen">
