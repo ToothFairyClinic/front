@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Link } from "react-router-dom";
+import { doctorPath } from "@app/common/utils/doctors-path";
 
 interface PersonnelListProps {
   isLoading?: boolean;
@@ -91,7 +92,7 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading }) => {
             return <SwiperSlide key={item.id} tag="article">
               <Link
                 key={item.id}
-                to={`/${currentLang}/doctors/${doctorSlug}`}
+                to={doctorPath(currentLang, doctorSlug)}
                 className="w-full flex justify-center transition-transform hover:-translate-y-1"
               >
 

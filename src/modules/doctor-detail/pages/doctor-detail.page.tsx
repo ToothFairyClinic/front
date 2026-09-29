@@ -9,6 +9,7 @@ import { Breadcrumbs, buildBreadcrumbSchema, Crumb } from "@app/common/component
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { AdvancedImage } from "@cloudinary/react";
 import DOMPurify from "isomorphic-dompurify";
+import { doctorPath, doctorsPath } from "@app/common/utils/doctors-path";
 
 const ServiceImageItem: FC<{ imagePublicId: string; altText: string }> = ({ imagePublicId, altText }) => {
     const transformations = useMemo(() => ["w_100", "h_100", "f_auto", "q_auto", "c_fill"], []);
@@ -58,9 +59,9 @@ export const DoctorDetailPage: FC = () => {
         if (!doctor || prevLangRef.current === i18n.language) return;
 
         if (isEn && doctor.slug_en && slug !== doctor.slug_en) {
-            navigate(`/en/doctors/${doctor.slug_en}`, { replace: true });
+            navigate(doctorPath("en", doctor.slug_en), { replace: true });
         } else if (!isEn && doctor.slug && slug !== doctor.slug) {
-            navigate(`/ua/doctors/${doctor.slug}`, { replace: true });
+            navigate(doctorPath("ua", doctor.slug), { replace: true });
         }
 
         prevLangRef.current = i18n.language;
@@ -99,7 +100,7 @@ export const DoctorDetailPage: FC = () => {
 
     const crumbs: Crumb[] = useMemo(() => [
         { label: t("Головна"), to: `/${currentLang}` },
-        { label: t("Лікарі"), to: `/${currentLang}/doctors` },
+        { label: t("Лікарі"), to: doctorsPath(currentLang) },
         { label: doctorName || "" },
     ], [t, currentLang, doctorName]);
 
@@ -116,16 +117,16 @@ export const DoctorDetailPage: FC = () => {
                 buildBreadcrumbSchema(
                     crumbs,
                     baseUrl,
-                    `${baseUrl}/${currentLang}/doctors/${activeSlug}/#breadcrumb`
+                    `${baseUrl}${doctorPath(currentLang, activeSlug)}/#breadcrumb`
                 ),
                 {
                     "@type": "Person",
-                    "@id": `${baseUrl}/${currentLang}/doctors/${activeSlug}/#person`,
+                    "@id": `${baseUrl}${doctorPath(currentLang, activeSlug)}/#person`,
                     "name": doctorName,
                     "jobTitle": doctor.categories?.map((category) => isEn && category.category.title_en ? category.category.title_en : category.category.title),
                     "description": seoCleanDescription,
                     "image": imageUrl,
-                    "url": `${baseUrl}/${currentLang}/doctors/${activeSlug}`,
+                    "url": `${baseUrl}${doctorPath(currentLang, activeSlug)}`,
                     "worksFor": {
                         "@id": `${baseUrl}/#organization`
                     }
@@ -169,7 +170,9 @@ export const DoctorDetailPage: FC = () => {
             <SEOMeta
                 title={seoTitle}
                 description={seoDescription}
-                path={`/doctors/${activeSlug}`}
+                path={doctorPath(currentLang, activeSlug)}
+                pathUa={doctorPath("ua", doctor.slug || activeSlug)}
+                pathEn={doctorPath("en", doctor.slug_en || activeSlug)}
                 schemaData={doctorSchema || undefined}
                 hasBreadcrumbs={false}
             />

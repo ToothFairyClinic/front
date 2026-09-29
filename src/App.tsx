@@ -107,6 +107,8 @@ export const App = () => {
               <Route path="privacy-policy" element={<PrivacyPolicy />} />
               <Route path="doctors" element={<DoctorsPage />} />
               <Route path="doctors/:slug" element={<DoctorDetailPage />} />
+              <Route path="likari" element={<DoctorsPage />} />
+              <Route path="likari/:slug" element={<DoctorDetailPage />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/ua" replace />} />

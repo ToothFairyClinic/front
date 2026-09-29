@@ -7,6 +7,7 @@ import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
 import { Breadcrumbs } from "@app/common/components/breadcrumbs/breadcrumbs.component";
 import { PersonnelItem } from "@app/modules/main/components/personnel/personnel-item/personnel-item.component";
+import { doctorPath, doctorsPath } from "@app/common/utils/doctors-path";
 
 export const DoctorsPage: FC = () => {
     const { t, i18n } = useTranslation();
@@ -50,7 +51,7 @@ export const DoctorsPage: FC = () => {
                         "name": doctorName,
                         "jobTitle": [...doctor.categories.map((category) => isEn && category.category.title_en ? category.category.title_en : category.category.title)],
                         "image": doctor.image?.startsWith("http") ? doctor.image : `${baseUrl}/assets/${doctor.image}`,
-                        "url": `${baseUrl}/${currentLang}/doctors/${doctorSlug}`,
+                        "url": `${baseUrl}${doctorPath(currentLang, doctorSlug)}`,
                         "worksFor": {
                             "@id": `${baseUrl}/#organization`
                         }
@@ -84,7 +85,9 @@ export const DoctorsPage: FC = () => {
             <SEOMeta
                 title={currentTitle || t("Лікарі стоматологічної клініки Зубна Фея у Білій Церкві")}
                 description={currentDescription || t("Наша команда досвідчених дитячих та дорослих стоматологів у Білій Церкві.")}
-                path="/doctors"
+                path={doctorsPath(currentLang)}
+                pathUa={doctorsPath("ua")}
+                pathEn={doctorsPath("en")}
                 type="WebPage"
                 schemaData={doctorsSchema || undefined} />
 
@@ -115,7 +118,7 @@ export const DoctorsPage: FC = () => {
                         return (
                             <Link
                                 key={doctor.id}
-                                to={`/${currentLang}/doctors/${doctorSlug}`}
+                                to={doctorPath(currentLang, doctorSlug)}
                                 className="w-full flex justify-center transition-transform hover:-translate-y-1"
                             >
                                 <PersonnelItem

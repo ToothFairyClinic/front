@@ -9,6 +9,7 @@ import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 import { Breadcrumbs, buildBreadcrumbSchema, Crumb } from "@app/common/components/breadcrumbs/breadcrumbs.component";
 import { useGetServiceBySlugQuery } from "@app/core/types";
 import { AdvancedImage } from "@cloudinary/react";
+import { doctorPath } from "@app/common/utils/doctors-path";
 
 const DoctorImageItem: FC<{ imagePublicId: string; altText: string }> = ({ imagePublicId, altText }) => {
   const transformations = useMemo(() => ["w_100", "h_100", "f_auto", "q_auto", "c_fill"], []);
@@ -233,7 +234,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
                   return (
                     <Link
                       key={doctor.id}
-                      to={`/${currentLang}/doctors/${doctorSlug}`}
+                      to={doctorPath(currentLang, doctorSlug)}
                       className="flex items-center gap-3 bg-white dark:bg-gray-800 p-3 rounded-xl shadow-sm hover:shadow-md transition-all"
                     >
                       {doctor.image ? (

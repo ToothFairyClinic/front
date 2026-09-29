@@ -14,6 +14,7 @@ import clsx from "clsx";
 import LanguageSwitcher from "../language-switcher/language-switcher.component"; // Імпортуйте компонент
 import { useTranslation } from 'react-i18next';
 import { ServicesDropdown } from "../services-dropdown/services-dropdown";
+import { doctorsPath } from "@app/common/utils/doctors-path";
 
 
 
@@ -61,7 +62,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
       <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/price-list`}>{t("Ціни")}</LinkHeader></li>
       <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/our-work`}>{t("Роботи")}</LinkHeader></li>
       <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/contacts`}>{t("Контакти")}</LinkHeader></li>
-      <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/doctors`}>{t("Лікарі")}</LinkHeader></li>
+      <li onClick={onLinkClick}><LinkHeader url={doctorsPath(urlLang)}>{t("Лікарі")}</LinkHeader></li>
     </ul>
   );
 

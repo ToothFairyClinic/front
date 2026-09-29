@@ -61,6 +61,42 @@ sitemap.xml  https://api.toothfairy.clinic/.netlify/functions/sitemap  200!
 
 
 # =========================================================================
+# БЛОК 2b: Лікарі — перехід на /ua/likari/ та нові ЧПУ
+# Конкретні правила зі старими слагами стоять вище загальної маски
+# =========================================================================
+
+/ua/doctors/Gerasimenko%20Alina%20Konstantinovna    /ua/likari/herasymenko-alina    301
+/en/doctors/Gerasimenko%20Alina%20Konstantinovna    /en/doctors/herasymenko-alina    301
+/ua/doctors/Zhadko%20Kateryna%20Oleksandrivna    /ua/likari/zhadko-kateryna    301
+/en/doctors/Zhadko%20Kateryna%20Oleksandrivna    /en/doctors/zhadko-kateryna    301
+/ua/doctors/Kyrychok%20Alena%20Oleksandrivna    /ua/likari/kyrychok-alona    301
+/en/doctors/Kyrychok%20Alena%20Oleksandrivna    /en/doctors/kyrychok-alona    301
+/ua/doctors/Klymenko%20Vladyslav%20Oleksandrovych    /ua/likari/klymenko-vladyslav    301
+/en/doctors/Klymenko%20Vladyslav%20Oleksandrovych    /en/doctors/klymenko-vladyslav    301
+/ua/doctors/Leonchuk%20Maksym%20Dmytrovych    /ua/likari/leonchuk-maksym    301
+/en/doctors/Leonchuk%20Maksym%20Dmytrovych    /en/doctors/leonchuk-maksym    301
+/ua/doctors/Poberezhnyk%20Olga%20Viktorovna    /ua/likari/poberezhnyk-olha    301
+/en/doctors/Poberezhnyk%20Olga%20Viktorovna    /en/doctors/poberezhnyk-olha    301
+/ua/doctors/Potikha%20Svetlana%20Serhiivna    /ua/likari/potikha-svitlana    301
+/en/doctors/Potikha%20Svetlana%20Serhiivna    /en/doctors/potikha-svitlana    301
+/ua/doctors/Malysheva%20Victoria%20Oleksandrivna    /ua/likari/sych-viktoriia    301
+/en/doctors/Malysheva%20Victoria%20Oleksandrivna    /en/doctors/sych-viktoriia    301
+/ua/doctors/Tertichna%20Alena%20Leonidovna    /ua/likari/tertychna-alona    301
+/en/doctors/Tertichna%20Alena%20Leonidovna    /en/doctors/tertychna-alona    301
+/ua/doctors/Umanets%20Alina%20Vadymivna    /ua/likari/umanets-alina    301
+/en/doctors/Umanets%20Alina%20Vadymivna    /en/doctors/umanets-alina    301
+/ua/doctors/Kharchenko-Maryna-Vasylivna    /ua/likari/kharchenko-maryna    301
+/en/doctors/Kharchenko-Maryna-Vasylivna    /en/doctors/kharchenko-maryna    301
+
+/ua/likari/malyshcheva-viktoriia    /ua/likari/sych-viktoriia    301
+/en/doctors/malyshcheva-viktoriia    /en/doctors/sych-viktoriia    301
+
+/ua/doctors    /ua/likari    301
+/ua/doctors/*    /ua/likari/:splat    301
+/en/likari    /en/doctors    301
+/en/likari/*    /en/doctors/:splat    301
+
+# =========================================================================
 # БЛОК 3: Загальні правила локалізації (Глобальний редирект застарілих мов)
 # Спрацьовує, якщо запит не збігся з конкретними UUID вище
 # =========================================================================

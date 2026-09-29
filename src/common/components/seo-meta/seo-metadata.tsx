@@ -10,6 +10,8 @@ export interface SEOProps {
     schemaData?: Record<string, any> | Array<Record<string, any>>;
     robots?: string | null;
     hasBreadcrumbs?: boolean; // <- додаємо прапорець
+    pathUa?: string;
+    pathEn?: string;
 }
 
 export const SEOMeta = ({
@@ -19,7 +21,9 @@ export const SEOMeta = ({
     type = 'WebPage',
     schemaData,
     robots = null,
-    hasBreadcrumbs = true
+    hasBreadcrumbs = true,
+    pathUa,
+    pathEn
 }: SEOProps) => {
     const { i18n } = useTranslation();
     const location = useLocation();
@@ -37,7 +41,17 @@ export const SEOMeta = ({
 
     const slug = cleanPath ? `/${cleanPath}` : '';
 
-    const fullUrl = `${baseUrl}/${currentLang}${slug}`;
+    const normalize = (value?: string) => {
+        if (!value) return undefined;
+        const parts = value.split('/').filter(Boolean);
+        const rest = parts[0] === 'ua' || parts[0] === 'en' ? parts.slice(1) : parts;
+        return rest.length ? `/${rest.join('/')}` : '';
+    };
+
+    const slugUa = normalize(pathUa) ?? slug;
+    const slugEn = normalize(pathEn) ?? slug;
+
+    const fullUrl = `${baseUrl}/${currentLang}${isEn ? slugEn : slugUa}`;
 
     const breadcrumbsItems = [
         {
@@ -136,9 +150,9 @@ export const SEOMeta = ({
         <Helmet>
             <html lang={i18n.language} />
             <link rel="canonical" href={fullUrl} />
-            <link rel="alternate" href={`${baseUrl}/ua${slug}`} hrefLang="uk" />
-            <link rel="alternate" href={`${baseUrl}/en${slug}`} hrefLang="en" />
-            <link rel="alternate" href={`${baseUrl}/ua${slug}`} hrefLang="x-default" />
+            <link rel="alternate" href={`${baseUrl}/ua${slugUa}`} hrefLang="uk" />
+            <link rel="alternate" href={`${baseUrl}/en${slugEn}`} hrefLang="en" />
+            <link rel="alternate" href={`${baseUrl}/ua${slugUa}`} hrefLang="x-default" />
 
             {robots && <meta name="robots" content={robots} />}
 
