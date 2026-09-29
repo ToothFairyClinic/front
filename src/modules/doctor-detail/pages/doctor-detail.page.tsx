@@ -166,7 +166,7 @@ export const DoctorDetailPage: FC = () => {
         : (doctor.experience || doctor.experience_en);
 
     return (
-        <main className="bg-palePeach dark:bg-darkGray min-h-screen py-24 px-6 md:px-16">
+        <main className="bg-palePeach dark:bg-darkGray min-h-screen pt-12 pb-24 px-6 md:px-16">
             <SEOMeta
                 title={seoTitle}
                 description={seoDescription}

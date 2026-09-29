@@ -81,7 +81,7 @@ export const DoctorsPage: FC = () => {
 
 
     return (
-        <main className="bg-palePeach dark:bg-darkGray min-h-screen py-24 px-6 md:px-16">
+        <main className="bg-palePeach dark:bg-darkGray min-h-screen pt-12 pb-24 px-6 md:px-16">
             <SEOMeta
                 title={currentTitle || t("Лікарі стоматологічної клініки Зубна Фея у Білій Церкві")}
                 description={currentDescription || t("Наша команда досвідчених дитячих та дорослих стоматологів у Білій Церкві.")}

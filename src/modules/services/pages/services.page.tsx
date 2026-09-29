@@ -168,7 +168,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
         pathEn={`/services/${service.slug_en || service.slug || slug}`}
       />
 
-      <main className="py-24 flex flex-col gap-16 dark:bg-darkGray min-h-screen">
+      <main className="pt-12 pb-24 flex flex-col gap-16 dark:bg-darkGray min-h-screen">
         <div className="flex flex-col gap-4">
           <Breadcrumbs items={crumbs} className="lg:px-24 px-6" />
 
