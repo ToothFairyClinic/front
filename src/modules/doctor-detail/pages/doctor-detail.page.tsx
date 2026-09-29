@@ -174,9 +174,11 @@ export const DoctorDetailPage: FC = () => {
                 hasBreadcrumbs={false}
             />
 
-            <div className="max-w-6xl mx-auto flex flex-col gap-10">
+            <div className="max-w-6xl mx-auto mb-4">
                 <Breadcrumbs items={crumbs} />
+            </div>
 
+            <div className="max-w-6xl mx-auto flex flex-col gap-10">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-10 shadow-lg flex flex-col md:flex-row gap-8 items-start">
                     <div className="w-full md:w-1/3 flex-shrink-0 overflow-hidden rounded-xl">
                         <AdvancedImage

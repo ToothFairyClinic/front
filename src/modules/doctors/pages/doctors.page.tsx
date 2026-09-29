@@ -88,13 +88,16 @@ export const DoctorsPage: FC = () => {
                 type="WebPage"
                 schemaData={doctorsSchema || undefined} />
 
-            <div className="max-w-7xl mx-auto flex flex-col gap-12">
+            <div className="max-w-7xl mx-auto mb-4">
                 <Breadcrumbs
                     items={[
                         { label: t("Головна"), to: `/${currentLang}` },
                         { label: t("Лікарі") },
                     ]}
                 />
+            </div>
+
+            <div className="max-w-7xl mx-auto flex flex-col gap-12">
 
                 <MainTitle as="h1" size="base">
                     {pageHeading}

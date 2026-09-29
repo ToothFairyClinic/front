@@ -166,11 +166,13 @@ export const ServicePage: FC<ServicePageProps> = () => {
       />
 
       <main className="py-24 flex flex-col gap-16 dark:bg-darkGray min-h-screen">
-        <Breadcrumbs items={crumbs} className="lg:px-24 px-6" />
+        <div className="flex flex-col gap-4">
+          <Breadcrumbs items={crumbs} className="lg:px-24 px-6" />
 
-        <h1 className="md:text-6xl text-3xl border-b border-paleOlive px-10 py-3 z-10 text-darkGray dark:text-white lg:w-165">
-          {pageHeading}
-        </h1>
+          <h1 className="md:text-6xl text-3xl border-b border-paleOlive px-10 py-3 z-10 text-darkGray dark:text-white lg:w-165">
+            {pageHeading}
+          </h1>
+        </div>
 
         <div className="lg:px-24 px-6 flex flex-col gap-16">
           <ServiceItem {...service} altText={altText} />
