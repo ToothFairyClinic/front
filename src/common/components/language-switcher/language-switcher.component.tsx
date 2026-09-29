@@ -5,6 +5,7 @@ import { themeState } from "@app/modules/cart/store/theme-state";
 import { useReactiveVar } from "@apollo/client";
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { DOCTORS_SEGMENT_EN, DOCTORS_SEGMENT_UA, doctorsSegment } from '@app/common/utils/doctors-path';
 
 const LanguageSwitcher: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -17,6 +18,10 @@ const LanguageSwitcher: React.FC = () => {
   const changeLanguage = (lang: string): void => {
     const pathSegments = location.pathname.split('/').filter(Boolean);
     pathSegments[0] = lang;
+
+    if (pathSegments[1] === DOCTORS_SEGMENT_UA || pathSegments[1] === DOCTORS_SEGMENT_EN) {
+      pathSegments[1] = doctorsSegment(lang);
+    }
 
     navigate(`/${pathSegments.join('/')}`);
   };
