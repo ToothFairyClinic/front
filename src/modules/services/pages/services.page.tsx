@@ -1,6 +1,7 @@
 import { FC, useEffect, useRef, useMemo } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
@@ -151,7 +152,15 @@ export const ServicePage: FC<ServicePageProps> = () => {
 
   if (error) return <ShowInfo type="error"><p>{t("Упс, сталася помилка")}</p></ShowInfo>;
   if (loading) return <ShowInfo type="info"><p>{t("Завантаження...")}</p></ShowInfo>;
-  if (!service) return <ShowInfo type="info"><p>{t("На жаль, таку послугу не знайдено")}</p></ShowInfo>;
+  if (!service) return (
+      <>
+          <Helmet>
+              <title>{t("Сторінку не знайдено | Стоматологія Зубна Фея")}</title>
+              <meta name="robots" content="noindex, follow" />
+          </Helmet>
+          <ShowInfo type="info"><p>{t("На жаль, таку послугу не знайдено")}</p></ShowInfo>
+      </>
+  );
 
   return (
     <>

@@ -123,9 +123,9 @@ sitemap.xml  https://api.toothfairy.clinic/.netlify/functions/sitemap  200!
 /en/privacy-policy    /index.html    200
 /ua/likari    /index.html    200
 /en/doctors    /index.html    200
-/ua/likari/*    /index.html    200
-/en/doctors/*    /index.html    200
-/ua/services/*    /index.html    200
-/en/services/*    /index.html    200
+/ua/likari/:slug    /index.html    200
+/en/doctors/:slug    /index.html    200
+/ua/services/:slug    /index.html    200
+/en/services/:slug    /index.html    200
 
 /*    /index.html    404

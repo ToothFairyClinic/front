@@ -1,6 +1,7 @@
 import { FC, useEffect, useRef, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 import { useGetDoctorBySlugQuery } from "@app/core/types";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
@@ -149,7 +150,15 @@ export const DoctorDetailPage: FC = () => {
 
     if (error) return <ShowInfo type="error"><p>{t("Упс, сталася помилка")}</p></ShowInfo>;
     if (loading) return <ShowInfo type="info"><p>{t("Завантаження...")}</p></ShowInfo>;
-    if (!doctor) return <ShowInfo type="info"><p>{t("На жаль, такого лікаря не знайдено")}</p></ShowInfo>;
+    if (!doctor) return (
+        <>
+            <Helmet>
+                <title>{t("Сторінку не знайдено | Стоматологія Зубна Фея")}</title>
+                <meta name="robots" content="noindex, follow" />
+            </Helmet>
+            <ShowInfo type="info"><p>{t("На жаль, такого лікаря не знайдено")}</p></ShowInfo>
+        </>
+    );
 
     const certificatesList: string[] = Array.isArray(doctor.certificates)
         ? doctor.certificates
