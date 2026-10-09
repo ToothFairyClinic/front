@@ -106,6 +106,26 @@ sitemap.xml  https://api.toothfairy.clinic/.netlify/functions/sitemap  200!
 
 # =========================================================================
 # БЛОК 4: Фоллбек для React Router (Обов'язково в самому кінці)
-# Перенаправляє всі інші запити на клієнтський роутинг SPA з кодом 200
+# Реальні маршрути — 200, усі інші адреси — 404
 # =========================================================================
-/* /index.html  200
+/    /index.html    200
+/ua    /index.html    200
+/en    /index.html    200
+/ua/price-list    /index.html    200
+/en/price-list    /index.html    200
+/ua/review    /index.html    200
+/en/review    /index.html    200
+/ua/our-work    /index.html    200
+/en/our-work    /index.html    200
+/ua/contacts    /index.html    200
+/en/contacts    /index.html    200
+/ua/privacy-policy    /index.html    200
+/en/privacy-policy    /index.html    200
+/ua/likari    /index.html    200
+/en/doctors    /index.html    200
+/ua/likari/*    /index.html    200
+/en/doctors/*    /index.html    200
+/ua/services/*    /index.html    200
+/en/services/*    /index.html    200
+
+/*    /index.html    404

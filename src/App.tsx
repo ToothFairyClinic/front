@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { isLoggedInReactive } from "./modules/auth/store/reactive-vars";
 import { Header } from "./common/components/header/header.component";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet, useParams } from "react-router-dom";
 import { Footer } from "./common/components/footer/footer.component";
 import ReactGA from "react-ga4";
 import { config } from "./core/config";
@@ -23,6 +23,14 @@ const OurWorkPage = lazy(() => import('./modules/our-works/page/our-work.page'))
 const ContactPage = lazy(() => import('./modules/contacts/pages/contacts.page'));
 const DoctorsPage = lazy(() => import('./modules/doctors/pages/doctors.page'));
 const DoctorDetailPage = lazy(() => import('./modules/doctor-detail/pages/doctor-detail.page'));
+const NotFoundPage = lazy(() => import('./modules/not-found/not-found.page'));
+
+const SUPPORTED_LANGS = ['ua', 'en'];
+
+const LangGuard = () => {
+  const { lang } = useParams();
+  return SUPPORTED_LANGS.includes(lang || '') ? <Outlet /> : <NotFoundPage />;
+};
 
 
 export const App = () => {
@@ -97,7 +105,7 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<RootRedirect />} />
 
-            <Route path="/:lang">
+            <Route path="/:lang" element={<LangGuard />}>
               <Route index element={<MainPage />} />
               <Route path="price-list" element={<PriceListPage />} />
               <Route path="services/:slug" element={<ServicePage />} />
@@ -109,9 +117,10 @@ export const App = () => {
               <Route path="doctors/:slug" element={<DoctorDetailPage />} />
               <Route path="likari" element={<DoctorsPage />} />
               <Route path="likari/:slug" element={<DoctorDetailPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
 
-            <Route path="*" element={<Navigate to="/ua" replace />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
 
