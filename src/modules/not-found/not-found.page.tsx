@@ -21,7 +21,7 @@ export const NotFoundPage: FC = () => {
     ];
 
     return (
-        <main className="min-h-screen bg-white dark:bg-darkGray text-darkGray dark:text-palePeach pt-12 pb-24 px-5 md:px-10 transition-colors duration-300">
+        <main className="min-h-screen flex items-center justify-center bg-white dark:bg-darkGray text-darkGray dark:text-palePeach py-24 px-5 md:px-10 transition-colors duration-300">
 
             <Helmet>
                 <title>{t("Сторінку не знайдено | Стоматологія Зубна Фея")}</title>
