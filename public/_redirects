@@ -43,7 +43,7 @@ sitemap.xml  https://api.toothfairy.clinic/.netlify/functions/sitemap  200!
 
 # Хірургія / Surgery
 /ua/services/2e0f0583-17a1-4fe1-872d-b16f5aa76f57    /ua/services/vydalennya-zubiv    301
-/en/services/2e0f0583-17a1-4fe1-872d-b16f5aa76f57    /en/services/tooth-extraction    301
+/en/services/2e0f0583-17a1-4fe1-872d-b16f5aa76f57    /en/services/dental-surgery    301
 
 # Ортопедія / Orthopedics
 /ua/services/b69865ce-d3c2-4e0a-8191-0b96428b19b6    /ua/services/protezuvannya-zubiv    301
