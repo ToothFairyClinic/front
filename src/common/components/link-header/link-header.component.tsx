@@ -15,7 +15,7 @@ export const LinkHeader: FC<HeaderLinkItemProps & PropsWithChildren> = ({
   const themeStateCurrent = useReactiveVar(themeState);
 
   const LinkHeaderStyles = clsx(
-    "text-2xl font-normal flex items-center justify-center text-darkGray   hover:text-white dark:hover:text-paleOlive text-center",
+    "text-lg xl:text-xl 2xl:text-2xl whitespace-nowrap font-normal flex items-center justify-center text-darkGray hover:text-white dark:hover:text-paleOlive text-center",
     {
       "text-white": !themeStateCurrent,
     }

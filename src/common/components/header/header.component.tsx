@@ -15,6 +15,7 @@ import LanguageSwitcher from "../language-switcher/language-switcher.component";
 import { useTranslation } from 'react-i18next';
 import { ServicesDropdown } from "../services-dropdown/services-dropdown";
 import { doctorsPath } from "@app/common/utils/doctors-path";
+import { blogPath } from "@app/common/utils/blog-path";
 
 
 
@@ -56,19 +57,20 @@ export const Header: FC<HeaderProps> = ({ }) => {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   const NavLinks = ({ onLinkClick }: { onLinkClick?: () => void }) => (
-    <ul className="flex flex-col md:flex-row md:space-x-5 lg:gap-15 md:gap-5 list-none">
+    <ul className="flex flex-col lg:flex-row lg:gap-3 xl:gap-6 2xl:gap-15 list-none">
       <li><ServicesDropdown urlLang={urlLang} t={t} onLinkClick={onLinkClick} /></li>
       <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/review`}>{t("Відгуки")}</LinkHeader></li>
       <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/price-list`}>{t("Ціни")}</LinkHeader></li>
       <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/our-work`}>{t("Роботи")}</LinkHeader></li>
       <li onClick={onLinkClick}><LinkHeader url={`/${urlLang}/contacts`}>{t("Контакти")}</LinkHeader></li>
       <li onClick={onLinkClick}><LinkHeader url={doctorsPath(urlLang)}>{t("Лікарі")}</LinkHeader></li>
+      <li onClick={onLinkClick}><LinkHeader url={blogPath(urlLang)}>{t("Блог")}</LinkHeader></li>
     </ul>
   );
 
   return (
     <header className={headerClasses} role="banner">
-      <div className="  flex justify-around items-center md:flex-col lg:flex-row">
+      <div className="flex justify-around items-center lg:flex-row">
 
         <div className="flex-shrink-0">
           <Link to="/" aria-label={t("Зубна Фея — на головну")}>
@@ -90,10 +92,10 @@ export const Header: FC<HeaderProps> = ({ }) => {
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center  md:gap-10" aria-label={t("Основна навігація")}>
+        <nav className="hidden lg:flex items-center lg:gap-4 xl:gap-8 2xl:gap-10" aria-label={t("Основна навігація")}>
           <NavLinks />
 
-          <div className="flex items-center space-x-5 ml-auto gap-2">
+          <div className="flex items-center ml-auto lg:gap-2 xl:gap-4">
             <button
               onClick={toggleTheme}
               aria-label={themeStateCurrent ? t("Увімкнути темну тему") : t("Увімкнути світлу тему")}
@@ -113,7 +115,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
         </nav>
 
 
-        <div className="md:hidden ml-auto flex items-center gap-4">
+        <div className="lg:hidden ml-auto flex items-center gap-4">
 
           <Link to={`/${urlLang}/contacts`}>
             <Button variant="header" >{t('Записатися')}</Button>
@@ -135,7 +137,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
       </div>
 
       {isMobileMenuOpen && (
-        <nav className="md:hidden mt-5 pb-5 border-t border-white/10" aria-label={t("Мобільна навігація")}>
+        <nav className="lg:hidden mt-5 pb-5 border-t border-white/10" aria-label={t("Мобільна навігація")}>
 
           <div className="flex flex-col space-y-4 pt-4">
             <NavLinks onLinkClick={() => setIsMobileMenuOpen(false)} />

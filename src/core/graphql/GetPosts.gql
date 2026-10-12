@@ -1,0 +1,17 @@
+query GetPosts($limit: Int!, $offset: Int!) {
+  posts(order_by: { published_at: desc }, limit: $limit, offset: $offset) {
+    id
+    slug
+    slug_en
+    title
+    title_en
+    excerpt
+    excerpt_en
+    published_at
+  }
+  posts_aggregate {
+    aggregate {
+      count
+    }
+  }
+}

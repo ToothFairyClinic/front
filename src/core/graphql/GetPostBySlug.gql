@@ -1,0 +1,57 @@
+query GetPostBySlug($slug: String!) {
+  posts(where: { _or: [{ slug: { _eq: $slug } }, { slug_en: { _eq: $slug } }] }) {
+    id
+    slug
+    slug_en
+    title
+    title_en
+    h1
+    h1_en
+    excerpt
+    excerpt_en
+    content
+    content_en
+    hero_image
+    hero_image_alt
+    hero_image_alt_en
+    seo_title
+    seo_description
+    seo_title_en
+    seo_description_en
+    custom_robots
+    faq_ua
+    faq_en
+    published_at
+    updated_at
+    author {
+      id
+      name
+      name_en
+      slug
+      slug_en
+      image
+      image_alt
+      image_alt_en
+      categories {
+        category {
+          title
+          title_en
+        }
+      }
+    }
+    reviewer {
+      id
+      name
+      name_en
+      slug
+      slug_en
+      image
+      categories {
+        category {
+          title
+          title_en
+        }
+      }
+    }
+  }
+}

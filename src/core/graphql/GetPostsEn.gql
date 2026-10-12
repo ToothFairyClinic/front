@@ -1,0 +1,22 @@
+query GetPostsEn($limit: Int!, $offset: Int!) {
+  posts(
+    where: { slug_en: { _is_null: false } }
+    order_by: { published_at: desc }
+    limit: $limit
+    offset: $offset
+  ) {
+    id
+    slug
+    slug_en
+    title
+    title_en
+    excerpt
+    excerpt_en
+    published_at
+  }
+  posts_aggregate(where: { slug_en: { _is_null: false } }) {
+    aggregate {
+      count
+    }
+  }
+}

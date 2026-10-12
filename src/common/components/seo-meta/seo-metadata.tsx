@@ -6,7 +6,9 @@ export interface SEOProps {
     title: string;
     description?: string;
     path?: string;
-    type?: 'WebPage' | 'Service' | 'AboutPage' | 'ContactPage';
+    type?: 'WebPage' | 'Service' | 'AboutPage' | 'ContactPage' | 'CollectionPage' | 'BlogPosting';
+    ogType?: string;
+    hasEn?: boolean;
     schemaData?: Record<string, any> | Array<Record<string, any>>;
     robots?: string | null;
     hasBreadcrumbs?: boolean; // <- додаємо прапорець
@@ -23,7 +25,9 @@ export const SEOMeta = ({
     robots = null,
     hasBreadcrumbs = true,
     pathUa,
-    pathEn
+    pathEn,
+    ogType = 'website',
+    hasEn = true
 }: SEOProps) => {
     const { i18n } = useTranslation();
     const location = useLocation();
@@ -78,7 +82,7 @@ export const SEOMeta = ({
     };
 
     const pageEntity = {
-        "@type": type === 'Service' ? 'WebPage' : type,
+        "@type": type === 'Service' || type === 'BlogPosting' ? 'WebPage' : type,
         "@id": `${fullUrl}/#webpage`,
         "url": fullUrl,
         "name": title,
@@ -151,7 +155,7 @@ export const SEOMeta = ({
             <html lang={i18n.language} />
             <link rel="canonical" href={fullUrl} />
             <link rel="alternate" href={`${baseUrl}/ua${slugUa}`} hrefLang="uk" />
-            <link rel="alternate" href={`${baseUrl}/en${slugEn}`} hrefLang="en" />
+            {hasEn && <link rel="alternate" href={`${baseUrl}/en${slugEn}`} hrefLang="en" />}
             <link rel="alternate" href={`${baseUrl}/ua${slugUa}`} hrefLang="x-default" />
 
             {robots && <meta name="robots" content={robots} />}
@@ -160,7 +164,7 @@ export const SEOMeta = ({
             {description && <meta name="description" content={description} />}
 
             <meta property="og:site_name" content="Tooth Fairy Clinic" />
-            <meta property="og:type" content="website" />
+            <meta property="og:type" content={ogType} />
             <meta property="og:title" content={title} />
             {description && <meta property="og:description" content={description} />}
             <meta property="og:url" content={fullUrl} />

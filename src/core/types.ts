@@ -6119,3 +6119,250 @@ export type GetServiceBySlugQueryHookResult = ReturnType<typeof useGetServiceByS
 export type GetServiceBySlugLazyQueryHookResult = ReturnType<typeof useGetServiceBySlugLazyQuery>;
 export type GetServiceBySlugSuspenseQueryHookResult = ReturnType<typeof useGetServiceBySlugSuspenseQuery>;
 export type GetServiceBySlugQueryResult = Apollo.QueryResult<GetServiceBySlugQuery, GetServiceBySlugQueryVariables>;
+
+export type GetPostBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+export type GetPostBySlugQuery = { __typename?: 'query_root', posts: Array<{ __typename?: 'posts', id: any, slug: string, slug_en?: string | null, title: string, title_en?: string | null, h1?: string | null, h1_en?: string | null, excerpt?: string | null, excerpt_en?: string | null, content?: string | null, content_en?: string | null, hero_image?: string | null, hero_image_alt?: string | null, hero_image_alt_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, custom_robots?: string | null, faq_ua?: any | null, faq_en?: any | null, published_at?: any | null, updated_at: any, author?: { __typename?: 'personnel', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, image_alt?: string | null, image_alt_en?: string | null, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null } }> } | null, reviewer?: { __typename?: 'personnel', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null } }> } | null }> };
+
+export type GetPostsQueryVariables = Exact<{
+  limit: Scalars['Int']['input'];
+  offset: Scalars['Int']['input'];
+}>;
+
+export type GetPostsQuery = { __typename?: 'query_root', posts: Array<{ __typename?: 'posts', id: any, slug: string, slug_en?: string | null, title: string, title_en?: string | null, excerpt?: string | null, excerpt_en?: string | null, published_at?: any | null }>, posts_aggregate: { __typename?: 'posts_aggregate', aggregate?: { __typename?: 'posts_aggregate_fields', count: number } | null } };
+
+export type GetPostsEnQueryVariables = Exact<{
+  limit: Scalars['Int']['input'];
+  offset: Scalars['Int']['input'];
+}>;
+
+export type GetPostsEnQuery = { __typename?: 'query_root', posts: Array<{ __typename?: 'posts', id: any, slug: string, slug_en?: string | null, title: string, title_en?: string | null, excerpt?: string | null, excerpt_en?: string | null, published_at?: any | null }>, posts_aggregate: { __typename?: 'posts_aggregate', aggregate?: { __typename?: 'posts_aggregate_fields', count: number } | null } };
+
+export const GetPostBySlugDocument = gql`
+    query GetPostBySlug($slug: String!) {
+  posts(where: {_or: [{slug: {_eq: $slug}}, {slug_en: {_eq: $slug}}]}) {
+    id
+    slug
+    slug_en
+    title
+    title_en
+    h1
+    h1_en
+    excerpt
+    excerpt_en
+    content
+    content_en
+    hero_image
+    hero_image_alt
+    hero_image_alt_en
+    seo_title
+    seo_description
+    seo_title_en
+    seo_description_en
+    custom_robots
+    faq_ua
+    faq_en
+    published_at
+    updated_at
+    author {
+      id
+      name
+      name_en
+      slug
+      slug_en
+      image
+      image_alt
+      image_alt_en
+      categories {
+        category {
+          title
+          title_en
+        }
+      }
+    }
+    reviewer {
+      id
+      name
+      name_en
+      slug
+      slug_en
+      image
+      categories {
+        category {
+          title
+          title_en
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostBySlugQuery__
+ *
+ * To run a query within a React component, call `useGetPostBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostBySlugQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+
+export function useGetPostBySlugQuery(baseOptions: Apollo.QueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables> & ({ variables: GetPostBySlugQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
+      }
+
+export function useGetPostBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
+        }
+
+export function useGetPostBySlugSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostBySlugQuery, GetPostBySlugQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostBySlugQuery, GetPostBySlugQueryVariables>(GetPostBySlugDocument, options);
+        }
+
+export type GetPostBySlugQueryHookResult = ReturnType<typeof useGetPostBySlugQuery>;
+
+export type GetPostBySlugLazyQueryHookResult = ReturnType<typeof useGetPostBySlugLazyQuery>;
+
+export type GetPostBySlugSuspenseQueryHookResult = ReturnType<typeof useGetPostBySlugSuspenseQuery>;
+
+export type GetPostBySlugQueryResult = Apollo.QueryResult<GetPostBySlugQuery, GetPostBySlugQueryVariables>;
+
+export const GetPostsDocument = gql`
+    query GetPosts($limit: Int!, $offset: Int!) {
+  posts(order_by: {published_at: desc}, limit: $limit, offset: $offset) {
+    id
+    slug
+    slug_en
+    title
+    title_en
+    excerpt
+    excerpt_en
+    published_at
+  }
+  posts_aggregate {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsQuery__
+ *
+ * To run a query within a React component, call `useGetPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+
+export function useGetPostsQuery(baseOptions: Apollo.QueryHookOptions<GetPostsQuery, GetPostsQueryVariables> & ({ variables: GetPostsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+      }
+
+export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+        }
+
+export function useGetPostsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostsQuery, GetPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, options);
+        }
+
+export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
+
+export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
+
+export type GetPostsSuspenseQueryHookResult = ReturnType<typeof useGetPostsSuspenseQuery>;
+
+export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
+
+export const GetPostsEnDocument = gql`
+    query GetPostsEn($limit: Int!, $offset: Int!) {
+  posts(
+    where: {slug_en: {_is_null: false}}
+    order_by: {published_at: desc}
+    limit: $limit
+    offset: $offset
+  ) {
+    id
+    slug
+    slug_en
+    title
+    title_en
+    excerpt
+    excerpt_en
+    published_at
+  }
+  posts_aggregate(where: {slug_en: {_is_null: false}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsEnQuery__
+ *
+ * To run a query within a React component, call `useGetPostsEnQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsEnQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsEnQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+
+export function useGetPostsEnQuery(baseOptions: Apollo.QueryHookOptions<GetPostsEnQuery, GetPostsEnQueryVariables> & ({ variables: GetPostsEnQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsEnQuery, GetPostsEnQueryVariables>(GetPostsEnDocument, options);
+      }
+
+export function useGetPostsEnLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsEnQuery, GetPostsEnQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsEnQuery, GetPostsEnQueryVariables>(GetPostsEnDocument, options);
+        }
+
+export function useGetPostsEnSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetPostsEnQuery, GetPostsEnQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetPostsEnQuery, GetPostsEnQueryVariables>(GetPostsEnDocument, options);
+        }
+
+export type GetPostsEnQueryHookResult = ReturnType<typeof useGetPostsEnQuery>;
+
+export type GetPostsEnLazyQueryHookResult = ReturnType<typeof useGetPostsEnLazyQuery>;
+
+export type GetPostsEnSuspenseQueryHookResult = ReturnType<typeof useGetPostsEnSuspenseQuery>;
+
+export type GetPostsEnQueryResult = Apollo.QueryResult<GetPostsEnQuery, GetPostsEnQueryVariables>;

@@ -23,6 +23,8 @@ const OurWorkPage = lazy(() => import('./modules/our-works/page/our-work.page'))
 const ContactPage = lazy(() => import('./modules/contacts/pages/contacts.page'));
 const DoctorsPage = lazy(() => import('./modules/doctors/pages/doctors.page'));
 const DoctorDetailPage = lazy(() => import('./modules/doctor-detail/pages/doctor-detail.page'));
+const BlogListPage = lazy(() => import('./modules/blog/pages/blog-list.page'));
+const BlogPostPage = lazy(() => import('./modules/blog/pages/blog-post.page'));
 const NotFoundPage = lazy(() => import('./modules/not-found/not-found.page'));
 
 const SUPPORTED_LANGS = ['ua', 'en'];
@@ -117,6 +119,8 @@ export const App = () => {
               <Route path="doctors/:slug" element={<DoctorDetailPage />} />
               <Route path="likari" element={<DoctorsPage />} />
               <Route path="likari/:slug" element={<DoctorDetailPage />} />
+              <Route path="blog" element={<BlogListPage />} />
+              <Route path="blog/:slug" element={<BlogPostPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
 
