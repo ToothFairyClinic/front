@@ -99,16 +99,16 @@ export const BlogListPage: FC = () => {
         pathEn={blogPath("en")}
       />
 
-      <main className="pt-12 pb-24 dark:bg-darkGray min-h-screen">
-        <div className="flex flex-col gap-4">
-          <Breadcrumbs items={crumbs} className="lg:px-24 px-6" />
+      <main className="pt-12 pb-24 px-6 md:px-16 dark:bg-darkGray min-h-screen">
+        <div className="max-w-7xl mx-auto flex flex-col gap-4">
+          <Breadcrumbs items={crumbs} />
 
-          <h1 className="md:text-6xl text-3xl border-b border-paleOlive px-10 py-3 z-10 text-darkGray dark:text-white lg:w-165">
+          <h1 className="md:text-6xl text-3xl border-b border-paleOlive py-3 z-10 text-darkGray dark:text-white lg:w-165">
             {heading}
           </h1>
         </div>
 
-        <div className="lg:px-24 px-6 mt-12">
+        <div className="max-w-7xl mx-auto mt-12">
           {loading && (
             <ShowInfo type="info">
               <p>{t("Завантаження...")}</p>

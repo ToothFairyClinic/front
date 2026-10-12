@@ -191,16 +191,16 @@ export const BlogPostPage: FC = () => {
         hasEn={Boolean(post.slug_en)}
       />
 
-      <main className="pt-12 pb-24 dark:bg-darkGray min-h-screen">
-        <div className="flex flex-col gap-4">
-          <Breadcrumbs items={crumbs} className="lg:px-24 px-6" />
+      <main className="pt-12 pb-24 px-6 md:px-16 dark:bg-darkGray min-h-screen">
+        <div className="max-w-4xl mx-auto flex flex-col gap-4">
+          <Breadcrumbs items={crumbs} />
 
-          <h1 className="md:text-5xl text-3xl border-b border-paleOlive px-10 py-3 z-10 text-darkGray dark:text-white lg:w-175">
+          <h1 className="md:text-5xl text-3xl border-b border-paleOlive py-3 z-10 text-darkGray dark:text-white">
             {heading}
           </h1>
         </div>
 
-        <article className="lg:px-24 px-6 mt-10 flex flex-col gap-10 max-w-200 mx-auto lg:mx-0">
+        <article className="max-w-4xl mx-auto mt-10 flex flex-col gap-10">
           {post.published_at && (
             <time
               dateTime={post.published_at}
