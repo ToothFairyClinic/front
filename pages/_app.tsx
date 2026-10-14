@@ -56,7 +56,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <div className="flex flex-col min-h-screen">
           <Header />
           <div className="flex-grow min-h-screen">
-            <Component {...pageProps} />
+            {/* key: при переході між сторінками одного шаблону (послуга -> послуга, лікар -> лікар) сторінка
+                монтується заново, інакше React перевикористовує <img> і на мить видно фото попередньої сторінки */}
+            <Component key={router.asPath.split(/[?#]/)[0]} {...pageProps} />
           </div>
           {!hidePreFooter && <PreFooterConsultationForm />}
           <Footer />
