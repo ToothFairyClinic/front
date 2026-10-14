@@ -17,6 +17,15 @@ i18n
       en: {
         translation: {
           "Ціни": "Prices",
+          "Записатися на консультацію": "Book a consultation",
+          "Ціни на послугу": "Service prices",
+          "Запис на прийом": "Book an appointment",
+          "Адміністратор допоможе обрати лікаря та зручний час прийому.": "Our reception team will help you choose a dentist and a convenient time.",
+          "Послуги напрямку": "Services in this area",
+          "Послуга": "Service",
+          "Вартість": "Price",
+          "Остаточну вартість лікар визначає після огляду. Усі ціни клініки - у": "The final cost is set by the dentist after an examination. All clinic prices are in the",
+          "прайсі": "price list",
           "Записатися": "Book Now",
           "Фахівці, які надають цю послугу": "Specialists who provide this service",
           "Лікарі стоматологічної клініки Зубна Фея у Білій Церкві": "Dentists of the Tooth Fairy dental clinic in Bila Tserkva",

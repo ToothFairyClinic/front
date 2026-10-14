@@ -7,19 +7,21 @@ import { Mascot } from "../mascot/mascot.component";
 interface HomeFaqProps {
   title?: string;
   items?: HomeFaqItem[];
+  /** Усередині сторінки, яка вже має контейнер: без власних відступів і без котика. */
+  embedded?: boolean;
 }
 
-export const HomeFaq: FC<HomeFaqProps> = ({ title, items = [] }) => {
+export const HomeFaq: FC<HomeFaqProps> = ({ title, items = [], embedded = false }) => {
   const faq = items.filter((item) => item.question && item.answer);
   if (!title || faq.length === 0) return null;
 
   return (
-    <section aria-labelledby="faq-title" className="px-4 md:px-10 py-8 md:py-12 dark:bg-darkGray">
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-8">
+    <section aria-labelledby="faq-title" className={embedded ? "" : "px-4 md:px-10 py-8 md:py-12 dark:bg-darkGray"}>
+      <div className={embedded ? "flex flex-col gap-6" : "max-w-[1440px] mx-auto flex flex-col gap-8"}>
         <SectionHeading id="faq-title" title={title} />
 
         <div className="flex flex-col gap-4 relative">
-          <Mascot pose="question" height={165} className="bottom-full right-10 -mb-1" />
+          {!embedded && <Mascot pose="question" height={165} className="bottom-full right-10 -mb-1" />}
           {faq.map((item, index) => (
             <details
               key={`${index}-${item.question}`}

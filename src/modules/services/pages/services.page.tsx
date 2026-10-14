@@ -1,11 +1,18 @@
-import { FC, useEffect, useRef, useMemo } from "react";
+import { FC, useEffect, useRef, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet-async";
 
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
-import { ServiceItem } from "../components/service-item-component";
+import { HtmlContent } from "@app/common/components/html-content/html-content.component";
+import { ConsultationModal } from "@app/common/components/consultation-modal/consultation-modal.component";
+import { SectionHeading } from "@app/modules/main/components/section-heading/section-heading.component";
+import { HomeFaq } from "@app/modules/main/components/home-faq/home-faq.component";
+import { ServicePrices } from "../components/service-prices.component";
+import { SubServices } from "../components/sub-services.component";
+import { ServiceBookingCard } from "../components/service-booking-card.component";
+import { PriceListRow, useGetServiceExtrasQuery } from "../graphql/service-extras";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 import { Breadcrumbs, buildBreadcrumbSchema, Crumb } from "@app/common/components/breadcrumbs/breadcrumbs.component";
 import { useGetServiceBySlugQuery } from "@app/core/types";
@@ -13,16 +20,23 @@ import { AdvancedImage } from "@cloudinary/react";
 import { doctorPath } from "@app/common/utils/doctors-path";
 
 const DoctorImageItem: FC<{ imagePublicId: string; altText: string }> = ({ imagePublicId, altText }) => {
-  const transformations = useMemo(() => ["w_100", "h_100", "f_auto", "q_auto", "c_fill"], []);
+  const transformations = useMemo(() => ["w_128", "h_128", "f_auto", "q_auto", "c_fill", "g_face"], []);
   const cldImg = useCloudinaryImage(imagePublicId, transformations);
 
   return (
     <AdvancedImage
       cldImg={cldImg}
       alt={altText}
-      className="w-12 h-12 rounded-lg object-cover"
+      className="w-16 h-16 rounded-xl object-cover shrink-0"
     />
   );
+};
+
+const HERO_TRANSFORMATIONS = ["c_fill", "g_auto", "w_960", "h_720", "f_auto", "q_auto"];
+
+const ServiceHeroImage: FC<{ publicId: string; alt: string }> = ({ publicId, alt }) => {
+  const cldImg = useCloudinaryImage(publicId, HERO_TRANSFORMATIONS);
+  return <AdvancedImage cldImg={cldImg} alt={alt} width={960} height={720} className="w-full h-full object-cover" />;
 };
 
 export interface FAQItem {
@@ -45,6 +59,8 @@ export const ServicePage: FC<ServicePageProps> = () => {
   });
 
   const service = data?.services[0];
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const { data: extras } = useGetServiceExtrasQuery(service?.id);
   const isEn = i18n.language === "en";
   const currentLang = isEn ? "en" : "ua";
 
@@ -85,6 +101,14 @@ export const ServicePage: FC<ServicePageProps> = () => {
 
     return Array.isArray(rawFaq) ? (rawFaq as FAQItem[]) : [];
   }, [rawFaq]);
+
+  const summary = isEn ? extras?.services_by_pk?.summary_en : extras?.services_by_pk?.summary;
+
+  const priceRows: PriceListRow[] = useMemo(() => {
+    const refs = extras?.services_by_pk?.price_items ?? [];
+    const byId = new Map((extras?.price_list ?? []).map((row) => [row.id, row]));
+    return refs.flatMap((ref) => byId.get(ref.price_list_id) ?? []);
+  }, [extras]);
 
   const crumbs: Crumb[] = useMemo(() => {
     if (!service) return [];
@@ -177,102 +201,111 @@ export const ServicePage: FC<ServicePageProps> = () => {
         pathEn={`/services/${service.slug_en || service.slug || slug}`}
       />
 
-      <main className="pt-12 pb-24 flex flex-col gap-16 dark:bg-darkGray min-h-screen">
-        <div className="flex flex-col gap-4">
-          <Breadcrumbs items={crumbs} className="lg:px-24 px-6" />
-
-          <h1 className="md:text-6xl text-3xl border-b border-paleOlive px-10 py-3 z-10 text-darkGray dark:text-white lg:w-165">
-            {pageHeading}
-          </h1>
-        </div>
-
-        <div className="lg:px-24 px-6 flex flex-col gap-16">
-          <ServiceItem {...service} altText={altText} />
-
-          {faqList.length > 0 && (
-            <section className="flex flex-col gap-6 w-full mx-auto mt-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white border-b pb-4 border-paleOlive">
-                {t("Часті запитання")}
-              </h2>
-
-              <div className="flex flex-col gap-4">
-                {faqList.map((item, index) => (
-                  <details
-                    key={index}
-                    className="group border-paleOlive p-6 rounded-lg shadow-sm border transition-all [&[open]]:shadow-md"
-                  >
-                    <summary className="flex justify-between items-center font-semibold text-lg cursor-pointer list-none text-gray-900 dark:text-white select-none">
-                      <span>{item.question}</span>
-                      <span className="transition group-open:rotate-180 ml-4 shrink-0 text-gray-500">
-                        <svg
-                          className="w-4 h-4 ml-1 transition-transform duration-200"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          aria-hidden="true"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </span>
-                    </summary>
-                    <p className="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">
-                      {item.answer}
-                    </p>
-                  </details>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {service.personnel_services && service.personnel_services.length > 0 && (
+      <main className="pt-10 lg:pt-12 pb-16 dark:bg-darkGray min-h-screen">
+        <div className="px-4 md:px-10">
+          <div className="max-w-[1440px] mx-auto flex flex-col gap-12 md:gap-16">
             <section className="flex flex-col gap-6">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white border-b pb-4 border-paleOlive">
-                {t("Фахівці, які надають цю послугу")}
-              </h2>
-              <div className="flex flex-wrap gap-4">
-                {service.personnel_services.map((item) => {
-                  const doctor = item.personnel;
-                  if (!doctor) return null;
-
-                  const doctorName = isEn ? (doctor.name_en || doctor.name) : doctor.name;
-                  const doctorSlug = isEn ? (doctor.slug_en || doctor.slug || doctor.id) : (doctor.slug || doctor.id);
-
-                  const primaryCategory = doctor.categories?.[0]?.category;
-                  const doctorCategoryTitle = primaryCategory
-                    ? (isEn && primaryCategory.title_en ? primaryCategory.title_en : primaryCategory.title)
-                    : t("Лікар-стоматолог");
-
-                  return (
-                    <Link
-                      key={doctor.id}
-                      to={doctorPath(currentLang, doctorSlug)}
-                      className="flex items-center gap-3 bg-white dark:bg-gray-800 p-3 rounded-xl shadow-sm hover:shadow-md transition-all"
+              <Breadcrumbs items={crumbs} />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                <div className="flex flex-col gap-6 md:gap-8">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal leading-tight text-darkGray dark:text-white">
+                    {pageHeading}
+                  </h1>
+                  {summary && (
+                    <p className="text-lg md:text-xl leading-relaxed text-darkGray/80 dark:text-white/80 max-w-2xl">
+                      {summary}
+                    </p>
+                  )}
+                  <div className="flex flex-wrap gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setIsConsultationOpen(true)}
+                      className="inline-flex items-center justify-center font-semibold text-base sm:text-lg px-8 py-3.5 rounded-full bg-darkGray text-white hover:bg-black dark:bg-paleOlive dark:text-darkGray dark:hover:bg-white transition-all duration-300 shadow-md hover:shadow-xl active:scale-95"
                     >
-                      {doctor.image ? (
-                        <DoctorImageItem
-                          imagePublicId={doctor.image}
-                          altText={doctorName}
-                        />
-                      ) : (
-                        <div className="w-12 h-12 rounded-full bg-paleOlive flex items-center justify-center text-gray-500 text-sm font-bold">
-                          {doctorName?.charAt(0).toUpperCase()}
-                        </div>
-                      )}
-                      <div>
-                        <div className="text-sm font-semibold text-gray-900 dark:text-white">
-                          {doctorName}
-                        </div>
-                        <div className="text-xs text-gray-600 dark:text-gray-400">
-                          {doctorCategoryTitle}
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                })}
+                      {t("Записатися на консультацію")}
+                    </button>
+                    {priceRows.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => document.getElementById("prices")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                        className="inline-flex items-center justify-center font-semibold text-base sm:text-lg px-8 py-3 rounded-full border-2 border-darkGray text-darkGray hover:bg-darkGray hover:text-white dark:border-paleOlive dark:text-paleOlive dark:hover:bg-paleOlive dark:hover:text-darkGray transition-colors duration-300"
+                      >
+                        {t("Ціни")}
+                      </button>
+                    )}
+                  </div>
+                </div>
+                {service.mainImage && (
+                  <div className="w-full aspect-[4/3] overflow-hidden rounded-[2rem] bg-paleOlive/40">
+                    <ServiceHeroImage publicId={service.mainImage} alt={altText || pageHeading || ""} />
+                  </div>
+                )}
               </div>
             </section>
-          )}
+
+            <SubServices title={t("Послуги напрямку")} items={extras?.sub_services ?? []} isEn={isEn} />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+              <article className="lg:col-span-8">
+                <HtmlContent
+                  html={isEn ? service.description_en : service.description}
+                  className="prose-p:leading-relaxed prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:font-normal prose-h2:mt-12 prose-h2:mb-5 prose-h3:text-2xl prose-h3:font-semibold"
+                />
+              </article>
+              <aside className="lg:col-span-4 lg:sticky lg:top-28">
+                <ServiceBookingCard hasPrices={priceRows.length > 0} />
+              </aside>
+            </div>
+
+            <ServicePrices title={`${t("Ціни")}: ${serviceName}`} rows={priceRows} isEn={isEn} />
+
+            {faqList.length > 0 && (
+              <HomeFaq title={t("Часті запитання")} items={faqList} embedded />
+            )}
+
+            {service.personnel_services && service.personnel_services.length > 0 && (
+              <section aria-labelledby="service-doctors-title" className="flex flex-col gap-6">
+                <SectionHeading id="service-doctors-title" title={t("Фахівці, які надають цю послугу")} />
+                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 list-none p-0">
+                  {service.personnel_services.map((item) => {
+                    const doctor = item.personnel;
+                    if (!doctor) return null;
+
+                    const doctorName = isEn ? (doctor.name_en || doctor.name) : doctor.name;
+                    const doctorSlug = isEn ? (doctor.slug_en || doctor.slug || doctor.id) : (doctor.slug || doctor.id);
+
+                    const primaryCategory = doctor.categories?.[0]?.category;
+                    const doctorCategoryTitle = primaryCategory
+                      ? (isEn && primaryCategory.title_en ? primaryCategory.title_en : primaryCategory.title)
+                      : t("Лікар-стоматолог");
+
+                    return (
+                      <li key={doctor.id}>
+                        <Link
+                          to={doctorPath(currentLang, doctorSlug)}
+                          className="h-full flex items-center gap-4 bg-white dark:bg-white/5 p-4 rounded-2xl border border-black/5 dark:border-white/10 shadow-sm hover:shadow-md transition-shadow"
+                        >
+                          {doctor.image ? (
+                            <DoctorImageItem imagePublicId={doctor.image} altText={doctorName} />
+                          ) : (
+                            <div className="w-16 h-16 rounded-xl bg-paleOlive flex items-center justify-center text-gray-500 font-bold">
+                              {doctorName?.charAt(0).toUpperCase()}
+                            </div>
+                          )}
+                          <div>
+                            <div className="text-base font-semibold text-darkGray dark:text-white">{doctorName}</div>
+                            <div className="text-sm text-darkGray/70 dark:text-gray-400">{doctorCategoryTitle}</div>
+                          </div>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            )}
+          </div>
         </div>
+        <ConsultationModal isOpen={isConsultationOpen} onClose={() => setIsConsultationOpen(false)} />
       </main>
     </>
   );
