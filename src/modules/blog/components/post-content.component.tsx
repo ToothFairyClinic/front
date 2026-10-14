@@ -1,5 +1,6 @@
 import { FC, useMemo } from "react";
 import DOMPurify from "isomorphic-dompurify";
+import { followInternalLinks } from "@app/common/utils/internal-links";
 
 interface PostContentProps {
   html?: string | null;
@@ -17,7 +18,7 @@ export const PostContent: FC<PostContentProps> = ({ html }) => {
       FORBID_TAGS: ["font"],
     });
 
-    return sanitized
+    return followInternalLinks(sanitized)
       .replace(/<table/gi, '<div class="overflow-x-auto"><table')
       .replace(/<\/table>/gi, "</table></div>");
   }, [html]);

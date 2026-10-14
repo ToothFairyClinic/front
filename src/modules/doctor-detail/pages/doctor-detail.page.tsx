@@ -11,6 +11,7 @@ import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook"
 import { AdvancedImage } from "@cloudinary/react";
 import DOMPurify from "isomorphic-dompurify";
 import { doctorPath, doctorsPath } from "@app/common/utils/doctors-path";
+import { followInternalLinks } from "@app/common/utils/internal-links";
 
 const ServiceImageItem: FC<{ imagePublicId: string; altText: string }> = ({ imagePublicId, altText }) => {
     const transformations = useMemo(() => ["w_100", "h_100", "f_auto", "q_auto", "c_fill"], []);
@@ -74,11 +75,11 @@ export const DoctorDetailPage: FC = () => {
     const sanitizedHtml = useMemo(() => {
         if (!currentDescription) return "";
         const cleaned = currentDescription.replace(/<p>\s*(?:&nbsp;|&#160;|ㅤ)?\s*<\/p>/gi, "");
-        return DOMPurify.sanitize(cleaned, {
+        return followInternalLinks(DOMPurify.sanitize(cleaned, {
             ADD_ATTR: ["target"],
             FORBID_ATTR: ["style", "color"],
             FORBID_TAGS: ["font"],
-        });
+        }));
     }, [currentDescription]);
 
     const seoCleanDescription = useMemo(() => {

@@ -119,7 +119,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
 
     return [
       { label: t("Головна"), to: `/${currentLang}` },
-      { label: t("Послуги"), to: `/${currentLang}#services` },
+      { label: t("Послуги"), to: `/${currentLang}/services` },
       ...(parentName && parentSlug
         ? [{ label: parentName, to: `/${currentLang}/services/${parentSlug}` }]
         : []),

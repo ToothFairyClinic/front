@@ -2,6 +2,7 @@ import { FC, MouseEvent, useMemo } from "react";
 import DOMPurify from "isomorphic-dompurify";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
+import { followInternalLinks } from "@app/common/utils/internal-links";
 
 interface HtmlContentProps {
   html?: string | null;
@@ -17,11 +18,11 @@ export const HtmlContent: FC<HtmlContentProps> = ({ html, className }) => {
   const safeHtml = useMemo(() => {
     if (!html) return "";
     const cleaned = html.replace(/<p>\s*(?:&nbsp;|&#160;)?\s*<\/p>/gi, "");
-    return DOMPurify.sanitize(cleaned, {
+    return followInternalLinks(DOMPurify.sanitize(cleaned, {
       ADD_ATTR: ["target"],
       FORBID_ATTR: ["style", "color"],
       FORBID_TAGS: ["font"],
-    });
+    }));
   }, [html]);
 
   const onClick = (event: MouseEvent<HTMLDivElement>) => {

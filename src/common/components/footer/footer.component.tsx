@@ -58,7 +58,7 @@ export const Footer = () => {
                 <Link to={`/${lang}`}>{t("Головна")}</Link>
               </li>
               <li className="dark:hover:text-paleOlive hover:text-white min-h-[28px] transition-colors">
-                <Link smooth to={`/${lang}#services`}>{t("Послуги")}</Link>
+                <Link to={`/${lang}/services`}>{t("Послуги")}</Link>
               </li>
             </ul>
 

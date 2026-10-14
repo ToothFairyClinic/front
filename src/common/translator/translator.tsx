@@ -17,6 +17,9 @@ i18n
       en: {
         translation: {
           "Ціни": "Prices",
+          "Усі послуги": "All services",
+          "Відкрити список послуг": "Open the services list",
+          "Зубна Фея у Білій Церкві лікує зуби дітям і дорослим: від профілактичних оглядів і лікування карієсу до ортодонтії, імплантації та протезування. У клініці є власна діагностика - КТ, панорамні знімки та ТРГ. Оберіть напрям, щоб дізнатися про послуги, лікарів і ціни.": "Tooth Fairy in Bila Tserkva treats children and adults, from check-ups and cavity treatment to orthodontics, implants and prosthodontics. The clinic has its own diagnostic imaging, including CT scans, panoramic X-rays and cephalometric X-rays. Choose an area to learn about the services, dentists and prices.",
           "Записатися на консультацію": "Book a consultation",
           "Ціни на послугу": "Service prices",
           "Запис на прийом": "Book an appointment",

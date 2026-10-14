@@ -18,6 +18,7 @@ import { PreFooterConsultationForm } from "./common/components/pre-footer-form/p
 const MainPage = lazy(() => import('./modules/main/pages/main.page'));
 const PriceListPage = lazy(() => import('./modules/price-list/pages/price-list.page'));
 const ServicePage = lazy(() => import('./modules/services/pages/services.page'));
+const ServicesHubPage = lazy(() => import('./modules/services/pages/services-hub.page'));
 const ReviewsPage = lazy(() => import('./modules/reviews/pages/reviews.page'));
 const OurWorkPage = lazy(() => import('./modules/our-works/page/our-work.page'));
 const ContactPage = lazy(() => import('./modules/contacts/pages/contacts.page'));
@@ -110,6 +111,7 @@ export const App = () => {
             <Route path="/:lang" element={<LangGuard />}>
               <Route index element={<MainPage />} />
               <Route path="price-list" element={<PriceListPage />} />
+              <Route path="services" element={<ServicesHubPage />} />
               <Route path="services/:slug" element={<ServicePage />} />
               <Route path="review" element={<ReviewsPage />} />
               <Route path="our-work" element={<OurWorkPage />} />

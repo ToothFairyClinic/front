@@ -81,33 +81,57 @@ export const ServicesDropdown: React.FC<ServicesDropdownProps> = ({
             onMouseEnter={handleMouseEnterContainer}
             onMouseLeave={handleMouseLeaveContainer}
         >
-            <button
-                type="button"
-                className={LinkHeaderStyles}
-                onClick={() => setIsOpen((prev) => !prev)}
-                aria-expanded={isOpen}
-                aria-haspopup="true"
-            >
-                {t('Послуги')}
-                <svg
-                    className={clsx(
-                        'w-4 h-4 ml-1 transition-transform duration-200',
-                        isOpen && 'rotate-180'
-                    )}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
+            <div className={LinkHeaderStyles}>
+                <Link
+                    to={`/${urlLang}/services`}
+                    className="hover:underline-offset-4"
+                    onClick={() => {
+                        handleCloseAll();
+                        onLinkClick?.();
+                    }}
                 >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-            </button>
+                    {t('Послуги')}
+                </Link>
+                <button
+                    type="button"
+                    className="ml-1 p-1 -m-1"
+                    onClick={() => setIsOpen((prev) => !prev)}
+                    aria-expanded={isOpen}
+                    aria-haspopup="true"
+                    aria-label={t('Відкрити список послуг')}
+                >
+                    <svg
+                        className={clsx(
+                            'w-4 h-4 transition-transform duration-200',
+                            isOpen && 'rotate-180'
+                        )}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+            </div>
 
             {isOpen && !loading && services.length > 0 && (
                 <ul
                     role="menu"
                     className="absolute left-0 top-full w-72 bg-white dark:bg-darkGray shadow-xl rounded-lg py-2 z-[100] border dark:text-white border-gray-100 dark:border-gray-800 animate-fadeIn"
                 >
+                    <li>
+                        <Link
+                            to={`/${urlLang}/services`}
+                            className="block px-5 py-3 text-sm font-semibold hover:bg-paleOlive/20 dark:hover:bg-paleOlive/10 transition-colors"
+                            onClick={() => {
+                                handleCloseAll();
+                                onLinkClick?.();
+                            }}
+                        >
+                            {t('Усі послуги')}
+                        </Link>
+                    </li>
                     {services.map((service) => {
                         const hasChildren = Boolean(
                             service.child_services && service.child_services.length > 0

@@ -1,7 +1,4 @@
 import { makeVar } from "@apollo/client";
 
-export const themeState = makeVar(localStorage.theme == "dark" ? false : true);
-
-export const toggleTheme = () => {
-  themeState(!themeState());
-};
+/** Темну тему прибрано: true = світла тема, завжди. */
+export const themeState = makeVar(true);

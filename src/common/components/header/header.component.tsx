@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ReactComponent as LightThemeSolidIcon } from "@app/assets/icons/lightThemeIcon.svg";
-import { ReactComponent as DarkThemeSolidIcon } from "@app/assets/icons/darkThemeIcon.svg";
 // import { ReactComponent as Logotype } from "@app/assets/images/logo.svg";
 // import { ReactComponent as LogotypeLight } from "../../../../public/assets/logo_light.svg";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../button/button.component";
 import { LinkHeader } from "../link-header/link-header.component";
-import { themeState, toggleTheme } from "@app/modules/cart/store/theme-state";
+import { themeState } from "@app/modules/cart/store/theme-state";
 import { ReactComponent as MenuIcon } from "@app/assets/icons/bars-3.svg";
 import { FC } from "react";
 import { useReactiveVar } from "@apollo/client";
@@ -44,15 +42,12 @@ export const Header: FC<HeaderProps> = ({ }) => {
   );
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (themeStateCurrent) {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    } else {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    }
-  }, [themeStateCurrent]);
+    // Темну тему прибрано: сайт завжди світлий, старий вибір теми з localStorage скидаємо
+    document.documentElement.classList.remove("dark");
+    try {
+      localStorage.removeItem("theme");
+    } catch {}
+  }, []);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -96,17 +91,6 @@ export const Header: FC<HeaderProps> = ({ }) => {
           <NavLinks />
 
           <div className="flex items-center ml-auto lg:gap-2 xl:gap-4">
-            <button
-              onClick={toggleTheme}
-              aria-label={themeStateCurrent ? t("Увімкнути темну тему") : t("Увімкнути світлу тему")}
-              className="p-2 transition-colors"
-            >
-              {themeStateCurrent ? (
-                <DarkThemeSolidIcon className="w-6 h-6 text-darkGray hover:text-white dark:hover:text-paleOlive" />
-              ) : (
-                <LightThemeSolidIcon className="w-6 h-6 text-white hover:text-darkGray dark:hover:text-paleOlive" />
-              )}
-            </button>
             <LanguageSwitcher />
             <Link to={`/${urlLang}/contacts`}>
               <Button variant="header" >{t('Записатися')}</Button>
@@ -144,17 +128,6 @@ export const Header: FC<HeaderProps> = ({ }) => {
 
             <div className="flex items-center justify-between border-t border-white/10 pt-4 px-2">
               <LanguageSwitcher />
-              <button
-                onClick={toggleTheme}
-                aria-label={t("Змінити тему")}
-                className="p-2"
-              >
-                {themeStateCurrent ? (
-                  <DarkThemeSolidIcon className="w-6 h-6 text-darkGray" />
-                ) : (
-                  <LightThemeSolidIcon className="w-6 h-6 text-white" />
-                )}
-              </button>
             </div>
           </div>
 
