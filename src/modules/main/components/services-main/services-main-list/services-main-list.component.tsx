@@ -1,61 +1,74 @@
 import { GetServicesQuery } from "@app/core/types";
-import { FC, useRef } from "react";
-import { ServicesItem } from "../services-main-item/services-main-item.component";
-import { useTranslation } from 'react-i18next';
+import { FC, useMemo } from "react";
+import { ServiceCardLink, ServicesItem } from "../services-main-item/services-main-item.component";
+import { SectionHeading } from "../../section-heading/section-heading.component";
+import { HomeService, HomeServiceRef } from "../../../graphql/home-page";
 
 export type ServicesListItem = GetServicesQuery['services'][number];
 
-
 interface ServicesListProps {
-  items: ServicesListItem[];
   title?: string;
+  intro?: string;
+  items?: HomeService[];
+  services?: HomeServiceRef[];
+  isEn: boolean;
   isLoading?: boolean;
 }
 
-export const SerivcesList: FC<ServicesListProps> = ({ items, isLoading }) => {
-  const servicesRef = useRef<HTMLElement>(null);
-  const { t } = useTranslation();
+export const SerivcesList: FC<ServicesListProps> = ({ title, intro, items = [], services = [], isEn, isLoading }) => {
+  const lang = isEn ? "en" : "ua";
 
-  if (isLoading) {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {[...Array(6)].map((_, i) => (
-          <div key={i} className="h-40 bg-gray-200 animate-pulse rounded-lg" />
-        ))}
-      </div>
-    );
-  }
+  const cards = useMemo(() => {
+    const byId = new Map(services.map((service) => [service.id, service]));
+    const pathOf = (service: HomeServiceRef) => {
+      const slug = isEn ? service.slug_en : service.slug;
+      return slug ? `/${lang}/services/${slug}` : null;
+    };
+
+    return items.flatMap((item) => {
+      const service = byId.get(item.service_id);
+      const to = service && pathOf(service);
+      const cardTitle = isEn ? item.title_en : item.title;
+      if (!service || !to || !cardTitle) return [];
+
+      const links: ServiceCardLink[] = (item.links || []).flatMap((link) => {
+        const target = byId.get(link.service_id);
+        const linkTo = target && pathOf(target);
+        const label = isEn ? link.label_en : link.label;
+        return linkTo && label ? [{ label, to: linkTo }] : [];
+      });
+
+      return [{
+        key: item.service_id,
+        title: cardTitle,
+        description: isEn ? item.description_en : item.description,
+        to,
+        image: service.mainImage,
+        imageAlt: (isEn ? service.image_alt_en : service.image_alt) || cardTitle,
+        links,
+      }];
+    });
+  }, [items, services, isEn, lang]);
+
+  if (!isLoading && cards.length === 0) return null;
 
   return (
-    <section
-      ref={servicesRef}
-      id="services"
-      aria-labelledby="services-title"
-      className="py-7 flex flex-col gap-8 md:gap-19 bg-no-repeat bg-cover bg-center relative min-h-[600px]
-  bg-[url('@app/assets/images/servicesImageMobile.avif')]
-  md:bg-[url('@app/assets/images/servicesImage.avif')]
-  "
-    >
-      <div id="services-title" className="relative z-10 w-full overflow-hidden">
-        <h2 className="text-white text-3xl md:text-6xl border-b border-paleOlive px-4 md:px-10 py-3 w-full md:w-140 max-w-full box-border">
-          {t("Наші Послуги")}
-        </h2>
-      </div>
+    <section id="services" aria-labelledby="services-title" className="px-4 md:px-10 py-8 md:py-12 scroll-mt-24 dark:bg-darkGray">
+      <div className="max-w-[1440px] mx-auto flex flex-col gap-8 md:gap-10">
+        <SectionHeading id="services-title" title={title} intro={intro} />
 
-      <div className="z-10 container mx-auto">
-        <ul className="flex flex-wrap gap-11 justify-center px-4 lg:px-32">
-          {items.map(({ image, ...service }) => (
-            <li key={`services-${service.id}`} className="list-none">
-              <ServicesItem
-                image={`${image}`}
-                {...service}
-              />
-            </li>
-          ))}
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 list-none p-0">
+          {isLoading
+            ? Array.from({ length: 6 }).map((_, i) => (
+                <li key={i} className="h-96 bg-white dark:bg-gray-800 rounded-2xl animate-pulse" />
+              ))
+            : cards.map(({ key, ...card }) => (
+                <li key={key}>
+                  <ServicesItem {...card} />
+                </li>
+              ))}
         </ul>
       </div>
-
-      <div className="bg-black/50 absolute inset-0 z-0" aria-hidden="true"></div>
-    </section >
+    </section>
   );
 };

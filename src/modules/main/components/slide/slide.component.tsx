@@ -12,7 +12,16 @@ const cld = new Cloudinary({
   },
 });
 
-export const Slide: FC = () => {
+interface SlideProps {
+  titleTop?: string;
+  titleMain?: string;
+  titleBottom?: string;
+  text?: string;
+  button?: string;
+  isLoading?: boolean;
+}
+
+export const Slide: FC<SlideProps> = ({ titleTop, titleMain, titleBottom, text, button, isLoading }) => {
   const { t } = useTranslation();
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
 
@@ -64,25 +73,34 @@ export const Slide: FC = () => {
           <div className="absolute inset-0 bg-black/50"></div>
         </div>
 
-        <div className="relative top-10 z-10 text-center text-darkGray max-w-150 w-full bg-paleOlive/80 dark:bg-darkGray/80 dark:text-white py-8 px-6 sm:py-10 sm:px-8 md:py-12 md:px-10 rounded-3xl lg:rounded-full transition duration-500 ease-in-out flex flex-col items-center shadow-lg">
-          <h1 className="font-normal text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 sm:mb-6">
-            <span className="block text-xl sm:text-2xl md:text-3xl uppercase tracking-widest mb-1.5 sm:mb-2 opacity-90">
-              {t('Стоматологія')}
-            </span>
-            {t('Зубна Фея')}
-          </h1>
-          <p className="font-normal text-lg sm:text-xl md:text-2xl lg:text-3xl leading-relaxed max-w-xl">
-            {t('Cтоматологія, в якій безпечно та в комфортних умовах лікують зубки діти та їх батьки!')}
-          </p>
+        <div className="relative top-10 z-10 text-center text-darkGray max-w-150 w-full bg-paleOlive/80 dark:bg-darkGray/80 dark:text-white py-8 px-6 sm:py-10 sm:px-8 md:py-12 md:px-10 rounded-3xl lg:rounded-[3rem] transition duration-500 ease-in-out flex flex-col items-center shadow-lg">
+          <div className={`flex flex-col items-center transition-opacity duration-300 ${isLoading ? "opacity-0" : "opacity-100"}`}>
+            <h1 className="font-normal mb-4 sm:mb-6 flex flex-col items-center">
+              <span className="block text-xl sm:text-2xl md:text-3xl uppercase tracking-widest mb-1.5 sm:mb-2 opacity-90">
+                {titleTop ?? t('Стоматологія')}
+              </span>
+              <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight">
+                {titleMain ?? t('Зубна Фея')}
+              </span>
+              {titleBottom && (
+                <span className="block text-2xl sm:text-3xl md:text-4xl mt-1 sm:mt-2">
+                  {titleBottom}
+                </span>
+              )}
+            </h1>
+            <p className="font-normal text-lg sm:text-xl md:text-2xl leading-relaxed max-w-xl">
+              {text ?? t('Cтоматологія, в якій безпечно та в комфортних умовах лікують зубки діти та їх батьки!')}
+            </p>
 
-          <div className="mt-6 md:mt-8">
-            <button
-              type="button"
-              onClick={() => setIsConsultationOpen(true)}
-              className="inline-flex items-center justify-center font-medium sm:font-semibold text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-darkGray text-white hover:bg-black dark:bg-paleOlive dark:text-darkGray dark:hover:bg-white transition-all duration-300 shadow-md hover:shadow-xl hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-darkGray dark:focus:ring-paleOlive"
-            >
-              {t('Отримати консультацію')}
-            </button>
+            <div className="mt-6 md:mt-8">
+              <button
+                type="button"
+                onClick={() => setIsConsultationOpen(true)}
+                className="inline-flex items-center justify-center font-medium sm:font-semibold text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-darkGray text-white hover:bg-black dark:bg-paleOlive dark:text-darkGray dark:hover:bg-white transition-all duration-300 shadow-md hover:shadow-xl hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-darkGray dark:focus:ring-paleOlive"
+              >
+                {button ?? t('Отримати консультацію')}
+              </button>
+            </div>
           </div>
         </div>
 

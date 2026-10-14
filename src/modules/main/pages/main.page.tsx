@@ -9,17 +9,30 @@ import { Helmet } from "react-helmet-async";
 import { useTranslation } from 'react-i18next';
 import { getUrlLang } from "@app/common/components/get-lang/get.lang";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
+import { AboutClinic } from "../components/about-clinic/about-clinic.component";
+import { SeoText } from "../components/seo-text/seo-text.component";
+import { HomeFaq } from "../components/home-faq/home-faq.component";
+import { HomeAdvantage, HomeDoctor, HomeFaqItem, HomeService, pick, useGetHomePageQuery } from "../graphql/home-page";
 
 interface MainPageProps { }
 
 export const MainPage: FC<MainPageProps> = ({ }) => {
   const { data, loading: servicesLoading, error } = useGetServicesQuery();
+  const { data: homeData, loading: homeLoading } = useGetHomePageQuery();
   const { data: PageMetadata, loading: metaLoading } = useGetPageMetadataQuery({ variables: { route: '/' } });
 
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
 
   const pageMeta = PageMetadata?.page_metadata[0];
+  const home = homeData?.home_page_by_pk;
+  const text = (field: Parameters<typeof pick>[1]) => pick<string>(home, field, isEn);
+
+  const faqItems = pick<HomeFaqItem[]>(home, "faq", isEn) ?? [];
+  const doctorIds = useMemo(
+    () => (home?.home_doctors ?? []).map((doctor: HomeDoctor) => doctor.personnel_id).filter(Boolean),
+    [home]
+  );
 
   const currentTitle = isEn ? pageMeta?.seo_title_en : pageMeta?.seo_title;
   const currentDescription = isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description;
@@ -115,6 +128,19 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
   };
 
 
+  const faqSchema = faqItems.length > 0 ? {
+    "@type": "FAQPage",
+    "@id": `${baseUrl}/${currentLang}/#faq`,
+    "mainEntity": faqItems.map((item) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim()
+      }
+    }))
+  } : null;
+
   return (
     <main className="">
       {(!metaLoading && currentTitle && currentDescription) ? (
@@ -123,7 +149,7 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
           description={currentDescription}
           path=""
           type="WebPage"
-          schemaData={dentistSchema}
+          schemaData={faqSchema ? [dentistSchema, faqSchema] : dentistSchema}
         />
       ) : (
         <Helmet>
@@ -132,10 +158,49 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
         </Helmet>
       )}
 
-      <Slide />
-      <AdvantagesGroup />
-      <SerivcesList items={sortedServices} isLoading={servicesLoading} />
-      <PersonnelList isLoading={servicesLoading} />
+      <Slide
+        isLoading={homeLoading}
+        titleTop={text("hero_title_top")}
+        titleMain={text("hero_title_main")}
+        titleBottom={text("hero_title_bottom")}
+        text={text("hero_text")}
+        button={text("hero_button")}
+      />
+      <AboutClinic
+        label={text("about_label")}
+        title={text("about_title")}
+        text={text("about_text")}
+        button={text("about_button")}
+        image={home?.about_image}
+        imageAlt={text("about_image_alt")}
+      />
+      <AdvantagesGroup
+        isLoading={homeLoading}
+        title={text("advantages_title")}
+        items={pick<HomeAdvantage[]>(home, "advantages", isEn)}
+      />
+      <SerivcesList
+        isLoading={homeLoading}
+        isEn={isEn}
+        title={text("services_title")}
+        intro={text("services_intro")}
+        items={home?.home_services ?? ([] as HomeService[])}
+        services={homeData?.services}
+      />
+      <PersonnelList
+        isLoading={servicesLoading}
+        title={text("doctors_title")}
+        intro={text("doctors_intro")}
+        selectedIds={doctorIds}
+      />
+      <SeoText
+        title={text("text_title")}
+        intro={text("text_intro")}
+        more={text("text_more")}
+        moreButton={text("text_more_button")}
+        lessButton={text("text_less_button")}
+      />
+      <HomeFaq title={text("faq_title")} items={faqItems} />
 
       {error && <div className="text-red-500 text-center py-4">{t("Помилка завантаження даних")}</div>}
     </main>

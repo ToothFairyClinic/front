@@ -1,9 +1,9 @@
-import { FC, useRef } from "react";
+import { FC, useMemo, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { useGetPersonnelQuery } from "@app/core/types";
 import { PersonnelItem } from "../personnel-item/personnel-item.component";
-import { MainTitle } from "@app/common/components/main-title/main-title.component";
+import { SectionHeading } from "../../section-heading/section-heading.component";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useTranslation } from 'react-i18next';
 
@@ -15,9 +15,13 @@ import { doctorPath } from "@app/common/utils/doctors-path";
 
 interface PersonnelListProps {
   isLoading?: boolean;
+  title?: string;
+  intro?: string;
+  /** Порядок і вибір лікарів з адмінки; порожній список - усі лікарі. */
+  selectedIds?: string[];
 }
 
-export const PersonnelList: FC<PersonnelListProps> = ({ isLoading }) => {
+export const PersonnelList: FC<PersonnelListProps> = ({ isLoading, title, intro, selectedIds = [] }) => {
   const { data, loading: queryLoading, error } = useGetPersonnelQuery();
   const isCurrentlyLoading = queryLoading || isLoading;
   const { t, i18n } = useTranslation();
@@ -25,8 +29,15 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading }) => {
   const isEn = i18n.language === "en";
   const currentLang = isEn ? "en" : "ua";
 
+  const personnel = useMemo(() => {
+    const all = data?.personnel ?? [];
+    if (selectedIds.length === 0) return all;
+    const byId = new Map(all.map((item) => [item.id, item]));
+    return selectedIds.flatMap((id) => byId.get(id) ?? []);
+  }, [data, selectedIds]);
+
   if (error) return (
-    <section className="py-28 min-h-[700px] flex items-center justify-center">
+    <section className="py-12 min-h-[700px] flex items-center justify-center">
       <ShowInfo type="error"><p>{t("Упс, сталася помилка")}</p></ShowInfo>
     </section>
   );
@@ -34,9 +45,8 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading }) => {
 
   if (isCurrentlyLoading && !data?.personnel) {
     return (
-      <section className="dark:bg-darkGray py-28 flex flex-col gap-10 min-h-[700px]">
-        <MainTitle as="h2">{t("Наша команда")}</MainTitle>
-        <div className="lg:px-20 flex gap-10 overflow-hidden">
+      <section className="dark:bg-darkGray px-4 md:px-10 py-8 md:py-12">
+        <div className="max-w-[1440px] mx-auto flex gap-10 overflow-hidden">
           {[1, 2, 3].map((i) => (
             <div
               key={i}
@@ -48,7 +58,11 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading }) => {
     );
   }
 
-  if (!data?.personnel || data.personnel.length === 0) return null;
+  if (personnel.length === 0) return null;
+
+  const heading = (
+    <SectionHeading id="personnel-title" title={title || t("Наша команда")} intro={intro} />
+  );
 
 
   return (
@@ -56,56 +70,56 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading }) => {
       ref={personnelRef}
       id="personnel"
       aria-labelledby="personnel-title"
-      className="dark:bg-darkGray py-28 flex flex-col gap-10 min-h-[700px]"
+      className="dark:bg-darkGray px-4 md:px-10 py-8 md:py-12"
     >
-      <MainTitle as="h2">
-        {t("Наша команда")}
-      </MainTitle>
+      <div className="max-w-[1440px] mx-auto flex flex-col gap-8 md:gap-10">
+        {heading}
 
-      <div className="lg:px-20 min-h-[650px]">
-        <Swiper
-          autoHeight={true}
-          style={{ height: '650px' }}
-          setWrapperSize={true}
-          breakpoints={{
-            320: { slidesPerView: 1, spaceBetween: 20 },
-            768: { slidesPerView: 2, spaceBetween: 40 },
-            1300: { slidesPerView: 3, spaceBetween: 75 },
-          }}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          }}
-          pagination={{
-            clickable: true,
-            dynamicBullets: true,
-          }}
-          modules={[Autoplay, Pagination, Navigation]}
-        // className="pb-12"
+        <div className="min-h-[650px]">
+          <Swiper
+            autoHeight={true}
+            style={{ height: '650px' }}
+            setWrapperSize={true}
+            breakpoints={{
+              320: { slidesPerView: 1, spaceBetween: 20 },
+              768: { slidesPerView: 2, spaceBetween: 40 },
+              1300: { slidesPerView: 3, spaceBetween: 75 },
+            }}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            pagination={{
+              clickable: true,
+              dynamicBullets: true,
+            }}
+            modules={[Autoplay, Pagination, Navigation]}
+          // className="pb-12"
 
-        >
-          {data.personnel.map(({ image, ...item }) => {
-            const doctorSlug = isEn && item.slug_en ? item.slug_en : (item.slug || item.id);
+          >
+            {personnel.map(({ image, ...item }) => {
+              const doctorSlug = isEn && item.slug_en ? item.slug_en : (item.slug || item.id);
 
 
-            return <SwiperSlide key={item.id} tag="article">
-              <Link
-                key={item.id}
-                to={doctorPath(currentLang, doctorSlug)}
-                className="w-full flex justify-center transition-transform hover:-translate-y-1"
-              >
+              return <SwiperSlide key={item.id} tag="article">
+                <Link
+                  key={item.id}
+                  to={doctorPath(currentLang, doctorSlug)}
+                  className="w-full flex justify-center transition-transform hover:-translate-y-1"
+                >
 
-                <PersonnelItem
-                  image={`${image}`}
-                  personnel_categories={item.categories}
-                  {...item}
-                />
-              </Link>
-            </SwiperSlide>
-          })}
-        </Swiper>
+                  <PersonnelItem
+                    image={`${image}`}
+                    personnel_categories={item.categories}
+                    {...item}
+                  />
+                </Link>
+              </SwiperSlide>
+            })}
+          </Swiper>
 
+        </div>
       </div>
     </section>
   );

@@ -1,35 +1,21 @@
 import { FC } from "react";
-import { useTranslation } from 'react-i18next';
 
 interface AdvantageItemProps {
   title: string;
+  description?: string;
   index: number;
 }
 
-export const AdvantageItem: FC<AdvantageItemProps> = ({
-  title,
-
-  index,
-}) => {
-  const formattedIndex = index < 10 ? `0${index}` : index;
-  const { t } = useTranslation();
+export const AdvantageItem: FC<AdvantageItemProps> = ({ title, description, index }) => {
+  const formattedIndex = String(index).padStart(2, "0");
 
   return (
-    <div className="flex items-center lg:items-start gap-4 w-full lg:w-105 flex-col lg:flex-row transition delay-150">
-
-      <div className="flex items-center lg:flex-row flex-col" aria-hidden="true">
-        <span className="text-4xl text-white bg-darkGray rounded-full py-2 px-2 mr-1 dark:text-darkGray dark:bg-paleOlive">
-          {formattedIndex}
-        </span>
-        <div className="lg:h-px lg:w-8 h-8 w-px bg-black dark:bg-white" />
-      </div>
-
-      <div className="flex flex-col gap-2 text-center lg:text-left dark:text-white">
-
-        <h3 className="text-3xl font-normal">
-          {t(title)}
-        </h3>
-      </div>
-    </div>
+    <article className="w-full flex flex-col gap-3 rounded-[2rem] bg-paleOlive/80 dark:bg-white/10 px-7 py-8 md:px-9 md:py-9 text-darkGray dark:text-white">
+      <span className="text-xl font-light opacity-60" aria-hidden="true">
+        {formattedIndex}
+      </span>
+      <h3 className="text-xl md:text-2xl font-bold leading-snug">{title}</h3>
+      {description && <p className="text-lg leading-relaxed opacity-80">{description}</p>}
+    </article>
   );
 };
