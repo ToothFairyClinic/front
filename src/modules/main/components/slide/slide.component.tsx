@@ -3,7 +3,7 @@ import { AdvancedVideo } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { fill } from "@cloudinary/url-gen/actions/resize";
 import { useTranslation } from 'react-i18next';
-import { ConsultationModal } from "@app/common/components/consultation-modal/consultation-modal.component";
+import { ConsultationModal } from "@app/common/components/consultation-modal/lazy-consultation-modal";
 
 
 const cld = new Cloudinary({

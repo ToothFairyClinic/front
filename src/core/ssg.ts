@@ -2,6 +2,7 @@ import { ApolloClient, NormalizedCacheObject, gql } from "@apollo/client";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from "next";
 import { APOLLO_STATE_PROP, initializeApollo } from "./apollo-client";
 import { GetServicesDocument } from "./types";
+import { sanitizeHtml } from "@app/common/utils/sanitize";
 
 export const LANGS = ["ua", "en"] as const;
 export type UrlLang = (typeof LANGS)[number];
@@ -10,6 +11,18 @@ export type UrlLang = (typeof LANGS)[number];
 export const REVALIDATE = 300;
 
 type Params = Record<string, string>;
+
+const HTML_TAG = /<\/?[a-z][a-z0-9]*[\s>/]/i;
+
+/** Очищає всі HTML-рядки в кеші Apollo (описи, тексти, відповіді FAQ у jsonb) перед віддачею в браузер. */
+const sanitizeState = <T,>(value: T): T => {
+  if (typeof value === "string") return (HTML_TAG.test(value) ? sanitizeHtml(value) : value) as T;
+  if (Array.isArray(value)) return value.map(sanitizeState) as T;
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, sanitizeState(v)])) as T;
+  }
+  return value;
+};
 export type Prefetch = (
   client: ApolloClient<NormalizedCacheObject>,
   ctx: { lang: UrlLang; params: Params }
@@ -69,7 +82,7 @@ export const staticProps =
     }
 
     return {
-      props: { lang, [APOLLO_STATE_PROP]: client.cache.extract() },
+      props: { lang, [APOLLO_STATE_PROP]: sanitizeState(client.cache.extract()) },
       revalidate: REVALIDATE,
     };
   };

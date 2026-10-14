@@ -5,17 +5,31 @@ import { useEffect, useMemo } from "react";
 import { ApolloProvider } from "@apollo/client";
 import { I18nextProvider } from "react-i18next";
 import { ToastContainer } from "react-toastify";
-import ReactGA from "react-ga4";
+import dynamic from "next/dynamic";
+import { Montserrat } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import "@app/index.css";
 
 import { useApollo } from "@app/core/apollo-client";
-import { config } from "@app/core/config";
 import { getI18n, langFromUrl } from "@app/common/translator/translator";
 import { Header } from "@app/common/components/header/header.component";
 import { Footer } from "@app/common/components/footer/footer.component";
-import { PreFooterConsultationForm } from "@app/common/components/pre-footer-form/pre-footer-form.component";
 import { isLoggedInReactive } from "@app/modules/auth/store/reactive-vars";
+import { PreFooterPlaceholder } from "@app/common/components/pre-footer-form/pre-footer-placeholder.component";
+
+// Шрифт роздається з нашого домену і передзавантажується: текст першого екрана не чекає Google Fonts
+const montserrat = Montserrat({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-montserrat",
+});
+
+// Форма запису внизу сторінки з валідацією підвантажується окремо, після основного контенту
+const PreFooterConsultationForm = dynamic(
+  () => import("@app/common/components/pre-footer-form/pre-footer-form.component").then((m) => m.PreFooterConsultationForm),
+  { ssr: false, loading: () => <PreFooterPlaceholder /> }
+);
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -35,25 +49,8 @@ export default function App({ Component, pageProps }: AppProps) {
     document.documentElement.lang = urlLang === "en" ? "en" : "uk";
   }, [urlLang]);
 
-  useEffect(() => {
-    const gaId = config.GA_MEASUREMENT_ID;
-    if (!gaId || ReactGA.isInitialized) return;
-    const timer = setTimeout(() => {
-      ReactGA.initialize(gaId);
-      ReactGA.send({ hitType: "pageview", page: window.location.pathname + window.location.search, title: document.title });
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const onRouteChange = (url: string) => {
-      if (config.GA_MEASUREMENT_ID && ReactGA.isInitialized) {
-        ReactGA.send({ hitType: "pageview", page: url, title: document.title });
-      }
-    };
-    router.events.on("routeChangeComplete", onRouteChange);
-    return () => router.events.off("routeChangeComplete", onRouteChange);
-  }, [router.events]);
+  // GA4 підключений через GTM (тег Google G-2K745N448M), переходи між сторінками він рахує сам
+  // через історію браузера, тому окремий react-ga4 прибрано: він дублював перегляди.
 
   return (
     <ApolloProvider client={apolloClient}>
@@ -63,6 +60,11 @@ export default function App({ Component, pageProps }: AppProps) {
           <title key="title">Стоматологічна клініка Зубна Фея | Біла Церква</title>
           <meta key="meta:og:image" property="og:image" content="https://toothfairy.clinic/assets/favicon/android-chrome-512x512.png" />
         </Head>
+        <style jsx global>{`
+          :root {
+            --font-montserrat: ${montserrat.style.fontFamily};
+          }
+        `}</style>
         <ToastContainer />
         <div className="flex flex-col min-h-screen">
           <Header />

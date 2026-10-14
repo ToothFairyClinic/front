@@ -1,5 +1,5 @@
 import { FC, MouseEvent, useMemo } from "react";
-import { sanitizeHtml } from "@app/common/utils/sanitize";
+import { stripUnsafe } from "@app/common/utils/strip-unsafe";
 import clsx from "clsx";
 import { useNavigate } from "@app/common/router/router";
 import { followInternalLinks } from "@app/common/utils/internal-links";
@@ -18,7 +18,7 @@ export const HtmlContent: FC<HtmlContentProps> = ({ html, className }) => {
   const safeHtml = useMemo(() => {
     if (!html) return "";
     const cleaned = html.replace(/<p>\s*(?:&nbsp;|&#160;)?\s*<\/p>/gi, "");
-    return followInternalLinks(sanitizeHtml(cleaned));
+    return followInternalLinks(stripUnsafe(cleaned));
   }, [html]);
 
   const onClick = (event: MouseEvent<HTMLDivElement>) => {

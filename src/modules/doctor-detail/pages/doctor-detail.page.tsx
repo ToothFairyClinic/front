@@ -9,7 +9,7 @@ import { MainTitle } from "@app/common/components/main-title/main-title.componen
 import { Breadcrumbs, buildBreadcrumbSchema, Crumb } from "@app/common/components/breadcrumbs/breadcrumbs.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { AdvancedImage } from "@cloudinary/react";
-import { sanitizeHtml } from "@app/common/utils/sanitize";
+import { stripUnsafe } from "@app/common/utils/strip-unsafe";
 import { doctorPath, doctorsPath } from "@app/common/utils/doctors-path";
 import { followInternalLinks } from "@app/common/utils/internal-links";
 
@@ -75,7 +75,7 @@ export const DoctorDetailPage: FC = () => {
     const sanitizedHtml = useMemo(() => {
         if (!currentDescription) return "";
         const cleaned = currentDescription.replace(/<p>\s*(?:&nbsp;|&#160;|ㅤ)?\s*<\/p>/gi, "");
-        return followInternalLinks(sanitizeHtml(cleaned));
+        return followInternalLinks(stripUnsafe(cleaned));
     }, [currentDescription]);
 
     const seoCleanDescription = useMemo(() => {

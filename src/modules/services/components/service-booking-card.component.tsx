@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ConsultationModal } from "@app/common/components/consultation-modal/consultation-modal.component";
+import { ConsultationModal } from "@app/common/components/consultation-modal/lazy-consultation-modal";
 import { Mascot } from "@app/modules/main/components/mascot/mascot.component";
 
 const PHONES = [

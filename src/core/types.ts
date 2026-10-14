@@ -5759,34 +5759,15 @@ export const GetPersonnelDocument = gql`
     id
     name
     name_en
-    description
-    description_en
     image
     slug
     slug_en
-    experience
-    experience_en
-    seo_description
-    seo_description_en
-    seo_title
-    seo_title_en
-    certificates
     categories {
       category {
         id
         slug
         title
         title_en
-      }
-    }
-    personnel_services {
-      service {
-        id
-        name
-        name_en
-        slug
-        slug_en
-        image
       }
     }
     image_alt

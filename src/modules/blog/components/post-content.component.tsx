@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import { sanitizeHtml } from "@app/common/utils/sanitize";
+import { stripUnsafe } from "@app/common/utils/strip-unsafe";
 import { followInternalLinks } from "@app/common/utils/internal-links";
 
 interface PostContentProps {
@@ -12,7 +12,7 @@ export const PostContent: FC<PostContentProps> = ({ html }) => {
 
     const cleaned = html.replace(/<p>\s*(?:&nbsp;|&#160;|ㅤ)?\s*<\/p>/gi, "");
 
-    const sanitized = sanitizeHtml(cleaned);
+    const sanitized = stripUnsafe(cleaned);
 
     return followInternalLinks(sanitized)
       .replace(/<table/gi, '<div class="overflow-x-auto"><table')

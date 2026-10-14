@@ -6,7 +6,7 @@ import { Helmet } from "@app/common/components/head/head";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { HtmlContent } from "@app/common/components/html-content/html-content.component";
-import { ConsultationModal } from "@app/common/components/consultation-modal/consultation-modal.component";
+import { ConsultationModal } from "@app/common/components/consultation-modal/lazy-consultation-modal";
 import { SectionHeading } from "@app/modules/main/components/section-heading/section-heading.component";
 import { HomeFaq } from "@app/modules/main/components/home-faq/home-faq.component";
 import { ServicePrices } from "../components/service-prices.component";
@@ -32,12 +32,24 @@ const DoctorImageItem: FC<{ imagePublicId: string; altText: string }> = ({ image
   );
 };
 
-const HERO_TRANSFORMATIONS = ["c_fill", "g_auto", "w_960", "h_720", "f_auto", "q_auto"];
+const heroUrl = (publicId: string, width: number) =>
+  `https://res.cloudinary.com/dc7d3byxg/image/upload/c_fill,g_auto,w_${width},h_${Math.round(width * 0.75)},f_auto,q_auto/${publicId}`;
 
-const ServiceHeroImage: FC<{ publicId: string; alt: string }> = ({ publicId, alt }) => {
-  const cldImg = useCloudinaryImage(publicId, HERO_TRANSFORMATIONS);
-  return <AdvancedImage cldImg={cldImg} alt={alt} width={960} height={720} className="w-full h-full object-cover" />;
-};
+/** Фото першого екрана: розмір під екран (телефон не тягне десктопну версію) і високий пріоритет завантаження. */
+const ServiceHeroImage: FC<{ publicId: string; alt: string }> = ({ publicId, alt }) => (
+  // eslint-disable-next-line @next/next/no-img-element
+  <img
+    src={heroUrl(publicId, 960)}
+    srcSet={[480, 768, 960, 1280].map((w) => `${heroUrl(publicId, w)} ${w}w`).join(", ")}
+    sizes="(min-width: 1024px) 50vw, 100vw"
+    width={960}
+    height={720}
+    alt={alt}
+    decoding="async"
+    {...{ fetchpriority: "high" }}
+    className="w-full h-full object-cover"
+  />
+);
 
 export interface FAQItem {
   question: string;
