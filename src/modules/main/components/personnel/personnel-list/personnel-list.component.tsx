@@ -12,6 +12,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Link } from "react-router-dom";
 import { doctorPath } from "@app/common/utils/doctors-path";
+import { Mascot } from "../../mascot/mascot.component";
 
 interface PersonnelListProps {
   isLoading?: boolean;
@@ -61,7 +62,10 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading, title, intro,
   if (personnel.length === 0) return null;
 
   const heading = (
-    <SectionHeading id="personnel-title" title={title || t("Наша команда")} intro={intro} />
+    <div className="relative lg:pr-48">
+      <SectionHeading id="personnel-title" title={title || t("Наша команда")} intro={intro} />
+      <Mascot pose="wave" height={175} className="right-6 bottom-0" />
+    </div>
   );
 
 

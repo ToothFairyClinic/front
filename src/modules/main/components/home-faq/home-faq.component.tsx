@@ -2,6 +2,7 @@ import { FC } from "react";
 import { SectionHeading } from "../section-heading/section-heading.component";
 import { HtmlContent } from "@app/common/components/html-content/html-content.component";
 import { HomeFaqItem } from "../../graphql/home-page";
+import { Mascot } from "../mascot/mascot.component";
 
 interface HomeFaqProps {
   title?: string;
@@ -17,7 +18,8 @@ export const HomeFaq: FC<HomeFaqProps> = ({ title, items = [] }) => {
       <div className="max-w-[1440px] mx-auto flex flex-col gap-8">
         <SectionHeading id="faq-title" title={title} />
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 relative">
+          <Mascot pose="question" height={165} className="bottom-full right-10 -mb-1" />
           {faq.map((item, index) => (
             <details
               key={`${index}-${item.question}`}

@@ -2,6 +2,7 @@ import { FC } from "react";
 import { AdvancedImage } from "@cloudinary/react";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { HtmlContent } from "@app/common/components/html-content/html-content.component";
+import { Mascot, MASCOT_LINES } from "../mascot/mascot.component";
 
 interface AboutClinicProps {
   label?: string;
@@ -11,6 +12,9 @@ interface AboutClinicProps {
   image?: string | null;
   imageAlt?: string;
 }
+
+const PEEK_HEIGHT = 270;
+const PEEK_WIDTH = Math.round((208 / 480) * PEEK_HEIGHT);
 
 const IMAGE_TRANSFORMATIONS = ["c_fill", "g_auto", "w_780", "h_820", "f_auto", "q_auto"];
 
@@ -25,8 +29,9 @@ export const AboutClinic: FC<AboutClinicProps> = ({ label, title, text, button, 
 
   return (
     <section aria-labelledby="about-title" className="px-4 md:px-10 py-8 md:py-12 dark:bg-darkGray">
-      <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-center">
         {image && (
+          <div className="relative">
           <div className="w-full aspect-[39/41] overflow-hidden rounded-[2rem] bg-paleOlive/40">
             <AdvancedImage
               cldImg={imageCld}
@@ -36,6 +41,8 @@ export const AboutClinic: FC<AboutClinicProps> = ({ label, title, text, button, 
               height={820}
               className="w-full h-full object-cover"
             />
+          </div>
+          <Mascot pose="peek" height={PEEK_HEIGHT} style={{ left: `calc(100% - ${Math.round(MASCOT_LINES.peekWallX * PEEK_WIDTH)}px)`, top: "34%" }} />
           </div>
         )}
 

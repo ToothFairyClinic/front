@@ -2,6 +2,7 @@ import { FC } from "react";
 import { AdvantageItem } from "../advantages-item/advantages-item.component";
 import { SectionHeading } from "../../section-heading/section-heading.component";
 import { HomeAdvantage } from "../../../graphql/home-page";
+import { Mascot } from "../../mascot/mascot.component";
 
 interface AdvantagesGroupProps {
   title?: string;
@@ -17,6 +18,8 @@ export const AdvantagesGroup: FC<AdvantagesGroupProps> = ({ title, items = [], i
       <div className="max-w-[1440px] mx-auto flex flex-col gap-8 md:gap-10">
         <SectionHeading id="advantages-title" title={title} />
 
+        <div className="relative">
+        <Mascot pose="toothbrush" height={170} className="bottom-full right-10 -mb-1" />
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 list-none p-0">
           {isLoading
             ? Array.from({ length: 6 }).map((_, i) => (
@@ -28,6 +31,7 @@ export const AdvantagesGroup: FC<AdvantagesGroupProps> = ({ title, items = [], i
                 </li>
               ))}
         </ul>
+        </div>
       </div>
     </section>
   );

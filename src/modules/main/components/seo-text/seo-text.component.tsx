@@ -1,6 +1,7 @@
 import { FC, useId, useRef, useState } from "react";
 import { SectionHeading } from "../section-heading/section-heading.component";
 import { HtmlContent } from "@app/common/components/html-content/html-content.component";
+import { Mascot } from "../mascot/mascot.component";
 
 interface SeoTextProps {
   title?: string;
@@ -28,7 +29,8 @@ export const SeoText: FC<SeoTextProps> = ({ title, intro, more, moreButton, less
 
   return (
     <section ref={sectionRef} aria-labelledby="seo-text-title" className="px-4 md:px-10 py-8 md:py-12 scroll-mt-24 dark:bg-darkGray">
-      <div className="max-w-[1440px] mx-auto flex flex-col gap-6">
+      <div className="max-w-[1440px] mx-auto flex flex-col gap-6 relative lg:pr-56">
+        <Mascot pose="book" height={160} className="right-4 top-0" />
         <SectionHeading id="seo-text-title" title={title} />
 
         <HtmlContent html={intro} className={TEXT_CLASSES} />

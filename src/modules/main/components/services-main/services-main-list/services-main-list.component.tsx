@@ -3,6 +3,7 @@ import { FC, useMemo } from "react";
 import { ServiceCardLink, ServicesItem } from "../services-main-item/services-main-item.component";
 import { SectionHeading } from "../../section-heading/section-heading.component";
 import { HomeService, HomeServiceRef } from "../../../graphql/home-page";
+import { Mascot, MASCOT_LINES } from "../../mascot/mascot.component";
 
 export type ServicesListItem = GetServicesQuery['services'][number];
 
@@ -57,6 +58,8 @@ export const SerivcesList: FC<ServicesListProps> = ({ title, intro, items = [], 
       <div className="max-w-[1440px] mx-auto flex flex-col gap-8 md:gap-10">
         <SectionHeading id="services-title" title={title} intro={intro} />
 
+        <div className="relative">
+        {!isLoading && <Mascot pose="lying" height={155} className="right-12" style={{ top: -Math.round(MASCOT_LINES.lyingShelfY * 155) }} />}
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 list-none p-0">
           {isLoading
             ? Array.from({ length: 6 }).map((_, i) => (
@@ -68,6 +71,7 @@ export const SerivcesList: FC<ServicesListProps> = ({ title, intro, items = [], 
                 </li>
               ))}
         </ul>
+        </div>
       </div>
     </section>
   );
