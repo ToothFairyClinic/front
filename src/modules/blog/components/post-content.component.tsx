@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import DOMPurify from "isomorphic-dompurify";
+import { sanitizeHtml } from "@app/common/utils/sanitize";
 import { followInternalLinks } from "@app/common/utils/internal-links";
 
 interface PostContentProps {
@@ -12,11 +12,7 @@ export const PostContent: FC<PostContentProps> = ({ html }) => {
 
     const cleaned = html.replace(/<p>\s*(?:&nbsp;|&#160;|ㅤ)?\s*<\/p>/gi, "");
 
-    const sanitized = DOMPurify.sanitize(cleaned, {
-      ADD_ATTR: ["target"],
-      FORBID_ATTR: ["style", "color"],
-      FORBID_TAGS: ["font"],
-    });
+    const sanitized = sanitizeHtml(cleaned);
 
     return followInternalLinks(sanitized)
       .replace(/<table/gi, '<div class="overflow-x-auto"><table')
