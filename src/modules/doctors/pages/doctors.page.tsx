@@ -107,7 +107,7 @@ export const DoctorsPage: FC = () => {
                 </MainTitle>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-                    {personnelData?.personnel.map((doctor) => {
+                    {personnelData?.personnel.map((doctor, index) => {
                         const doctorName = isEn && doctor.name_en ? doctor.name_en : doctor.name;
                         const doctorSlug = isEn && doctor.slug_en ? doctor.slug_en : (doctor.slug || doctor.id);
 
@@ -128,6 +128,8 @@ export const DoctorsPage: FC = () => {
                                     id={doctor.id}
                                     alt={altText}
                                     personnel_categories={doctor.categories || []}
+                                    priority={index === 0}
+                                    headingAs="h2"
                                 />
                             </Link>
                         );

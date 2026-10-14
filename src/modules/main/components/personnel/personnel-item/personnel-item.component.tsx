@@ -23,6 +23,10 @@ interface PersonnelItemProps {
   personnel_categories: PersonnelCategories[];
   fitImage?: boolean;
   alt?: string;
+  // Фото у першому екрані: вантажиться одразу, без lazy (PageSpeed: елемент LCP)
+  priority?: boolean;
+  // На сторінці лікарів імена йдуть одразу після H1, тому там h2
+  headingAs?: "h2" | "h3";
 }
 
 
@@ -32,6 +36,8 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
   personnel_categories,
   fitImage = true,
   alt,
+  priority = false,
+  headingAs: Heading = "h3",
 }) => {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === "en";
@@ -55,16 +61,17 @@ export const PersonnelItem: FC<PersonnelItemProps> = ({
         <AdvancedImage
           cldImg={imageCld}
           alt={alt}
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
+          {...(priority ? { fetchpriority: "high" } : {})}
           className="w-full h-full object-cover"
           style={{ width: '100%', height: '100%' }}
         />
       </div>
 
       <div className="px-4 pt-4 pb-5 flex-1">
-        <h3 className="text-2xl mb-1">
+        <Heading className="text-2xl mb-1">
           {t(name)}
-        </h3>
+        </Heading>
         <div className="h-px w-20 bg-paleOlive mt-3" aria-hidden="true"></div>
 
         <div className="text-lg opacity-80">
