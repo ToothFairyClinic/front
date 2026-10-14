@@ -11,7 +11,7 @@ export const AdvantageItem: FC<AdvantageItemProps> = ({ title, description, inde
 
   return (
     <article className="w-full flex flex-col gap-3 rounded-[2rem] bg-paleOlive/80 dark:bg-white/10 px-7 py-8 md:px-9 md:py-9 text-darkGray dark:text-white">
-      <span className="text-xl font-light opacity-60" aria-hidden="true">
+      <span className="text-xl font-light opacity-80" aria-hidden="true">
         {formattedIndex}
       </span>
       <h3 className="text-xl md:text-2xl font-bold leading-snug">{title}</h3>

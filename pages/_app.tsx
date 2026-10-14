@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import { ApolloProvider } from "@apollo/client";
 import { I18nextProvider } from "react-i18next";
-import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
 import { Montserrat } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,6 +23,8 @@ const montserrat = Montserrat({
   display: "swap",
   variable: "--font-montserrat",
 });
+
+const ToastContainer = dynamic(() => import("react-toastify").then((m) => m.ToastContainer), { ssr: false });
 
 // Форма запису внизу сторінки з валідацією підвантажується окремо, після основного контенту
 const PreFooterConsultationForm = dynamic(

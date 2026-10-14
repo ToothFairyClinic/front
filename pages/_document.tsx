@@ -2,7 +2,11 @@ import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, Next
 
 const GTM_ID = "GTM-MBW8636W";
 
-const GTM_SCRIPT = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`;
+// GTM (GA4, Clarity, мікророзмітка, події) завантажується після завантаження сторінки або при першій дії
+// відвідувача, щоб сторонні скрипти не затримували перший показ. Події до цього накопичуються в dataLayer.
+const GTM_SCRIPT = `(function(){var done=false;function load(){if(done)return;done=true;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');}
+['pointerdown','keydown','scroll','touchstart'].forEach(function(e){window.addEventListener(e,load,{once:true,passive:true});});
+if(document.readyState==='complete'){setTimeout(load,1500);}else{window.addEventListener('load',function(){setTimeout(load,1500);});}})();`;
 
 type Props = DocumentInitialProps & { htmlLang: string };
 

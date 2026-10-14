@@ -37,6 +37,8 @@ const nextConfig = {
   reactStrictMode: false,
   trailingSlash: false,
   eslint: { ignoreDuringBuilds: true },
+  // Критичний CSS вбудовується в HTML, решта стилів вантажиться без блокування першого показу
+  experimental: { optimizeCss: true },
   env: {
     NEXT_PUBLIC_HASURA_ENDPOINT:
       process.env.NEXT_PUBLIC_HASURA_ENDPOINT ||
@@ -45,7 +47,11 @@ const nextConfig = {
     NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID || process.env.REACT_APP_GA_ID || "",
   },
   // Аліас @app/* береться з tsconfig.paths.json
-  webpack(config) {
+  webpack(config, { isServer, webpack }) {
+    // Полифіли для старих браузерів не потрібні сучасним (PageSpeed: "Устаревший код JavaScript")
+    if (!isServer) {
+      config.plugins.push(new webpack.NormalModuleReplacementPlugin(/[\\/]build[\\/]polyfills[\\/]polyfill-module/, require.resolve("./src/empty-polyfills.js")));
+    }
     // SVG як React-компоненти: import { ReactComponent as Icon } from "./icon.svg"
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.(".svg"));
     if (fileLoaderRule) fileLoaderRule.exclude = /\.svg$/i;

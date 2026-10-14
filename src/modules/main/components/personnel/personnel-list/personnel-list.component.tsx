@@ -115,6 +115,7 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading, title, intro,
                   <PersonnelItem
                     image={`${image}`}
                     personnel_categories={item.categories}
+                  alt={(isEn ? item.image_alt_en : item.image_alt) || (isEn ? item.name_en : item.name) || item.name}
                     {...item}
                   />
                 </Link>
