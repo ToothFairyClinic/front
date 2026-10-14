@@ -43,8 +43,8 @@ export const ServicesItem: FC<ServicesItemProps> = ({ title, description, to, im
         </Link>
       )}
 
-      <div className="flex flex-col gap-3 px-6 pt-5 pb-6 text-darkGray dark:text-white">
-        <h3 className="text-xl md:text-2xl font-bold leading-snug">
+      <div className="flex-1 flex flex-col gap-3 px-6 pt-5 pb-6 text-darkGray dark:text-white">
+        <h3 className="text-xl md:text-2xl font-bold leading-snug md:min-h-[4.125rem]">
           <Link to={to} className="group inline-flex items-center gap-3 hover:underline decoration-paleOlive decoration-2 underline-offset-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-paleOlive rounded">
             <span>{title}</span>
             <Arrow />
@@ -54,7 +54,7 @@ export const ServicesItem: FC<ServicesItemProps> = ({ title, description, to, im
         {description && <p className="text-lg leading-relaxed opacity-80">{description}</p>}
 
         {links.length > 0 && (
-          <ul className="list-none p-0 mt-1 flex flex-wrap gap-x-8 gap-y-3">
+          <ul className="list-none p-0 mt-auto pt-1 flex flex-wrap gap-x-8 gap-y-3">
             {links.map((link) => (
               <li key={link.to}>
                 <Link

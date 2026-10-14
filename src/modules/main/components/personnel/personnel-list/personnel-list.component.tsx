@@ -79,11 +79,10 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading, title, intro,
       <div className="max-w-[1440px] mx-auto flex flex-col gap-8 md:gap-10">
         {heading}
 
-        <div className="min-h-[650px]">
+        <div>
+          {/* Слайди тягнуться до найвищої картки, щоб довга спеціалізація не робила картки різної висоти */}
           <Swiper
-            autoHeight={true}
-            style={{ height: '650px' }}
-            setWrapperSize={true}
+            className="!pb-12"
             breakpoints={{
               320: { slidesPerView: 1, spaceBetween: 20 },
               768: { slidesPerView: 2, spaceBetween: 40 },
@@ -106,11 +105,11 @@ export const PersonnelList: FC<PersonnelListProps> = ({ isLoading, title, intro,
               const doctorSlug = isEn && item.slug_en ? item.slug_en : (item.slug || item.id);
 
 
-              return <SwiperSlide key={item.id} tag="article">
+              return <SwiperSlide key={item.id} tag="article" className="!h-auto">
                 <Link
                   key={item.id}
                   to={doctorPath(currentLang, doctorSlug)}
-                  className="w-full flex justify-center transition-transform hover:-translate-y-1"
+                  className="w-full h-full flex justify-center transition-transform hover:-translate-y-1"
                 >
 
                   <PersonnelItem
