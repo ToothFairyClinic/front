@@ -1,4 +1,5 @@
 import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from "next/document";
+import { INLINE_CSS } from "@app/generated/inline-css";
 
 const GTM_ID = "GTM-MBW8636W";
 
@@ -21,6 +22,10 @@ export default class AppDocument extends Document<Props> {
     return (
       <Html lang={this.props.htmlLang}>
         <Head>
+          {/* Весь CSS сайту вбудований: браузер малює сторінку, не чекаючи файлів стилів (scripts/build-inline-css.js) */}
+          <style dangerouslySetInnerHTML={{ __html: INLINE_CSS }} />
+          <link rel="preload" href="/fonts/montserrat-cyrillic.woff2" as="font" type="font/woff2" crossOrigin="" />
+          <link rel="preload" href="/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossOrigin="" />
           <script dangerouslySetInnerHTML={{ __html: GTM_SCRIPT }} />
           <link rel="preconnect" href="https://hasura.toothfairy.clinic" crossOrigin="" />
           <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="" />

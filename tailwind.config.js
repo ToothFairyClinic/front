@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{ts,tsx}"],
+  content: ["./src/**/*.{ts,tsx}", "./pages/**/*.{ts,tsx}"],
   darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-montserrat)', 'Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Montserrat', '"Montserrat Fallback"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       spacing: {
         0.25: "0.063rem",

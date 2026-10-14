@@ -7,9 +7,6 @@ import { ReviewsItem } from "../reviews-item/reviews-item.component";
 import { OldReviewsItem } from "../old-reviews-item/old-reviews-item.component";
 import { useTranslation } from 'react-i18next';
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 interface ReviewsListProps { }
 

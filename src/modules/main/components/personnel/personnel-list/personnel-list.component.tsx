@@ -7,9 +7,6 @@ import { SectionHeading } from "../../section-heading/section-heading.component"
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useTranslation } from 'react-i18next';
 
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
 import { Link } from "@app/common/router/router";
 import { doctorPath } from "@app/common/utils/doctors-path";
 import { Mascot } from "../../mascot/mascot.component";

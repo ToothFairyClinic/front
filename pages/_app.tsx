@@ -5,9 +5,6 @@ import { useEffect, useMemo } from "react";
 import { ApolloProvider } from "@apollo/client";
 import { I18nextProvider } from "react-i18next";
 import dynamic from "next/dynamic";
-import { Montserrat } from "next/font/google";
-import "react-toastify/dist/ReactToastify.css";
-import "@app/index.css";
 
 import { useApollo } from "@app/core/apollo-client";
 import { getI18n, langFromUrl } from "@app/common/translator/translator";
@@ -16,13 +13,7 @@ import { Footer } from "@app/common/components/footer/footer.component";
 import { isLoggedInReactive } from "@app/modules/auth/store/reactive-vars";
 import { PreFooterPlaceholder } from "@app/common/components/pre-footer-form/pre-footer-placeholder.component";
 
-// Шрифт роздається з нашого домену і передзавантажується: текст першого екрана не чекає Google Fonts
-const montserrat = Montserrat({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "700"],
-  display: "swap",
-  variable: "--font-montserrat",
-});
+// Стилі (Tailwind, слайдер, сповіщення, шрифт) вбудовані в HTML у _document, окремих CSS-файлів немає
 
 const ToastContainer = dynamic(() => import("react-toastify").then((m) => m.ToastContainer), { ssr: false });
 
@@ -61,11 +52,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <title key="title">Стоматологічна клініка Зубна Фея | Біла Церква</title>
           <meta key="meta:og:image" property="og:image" content="https://toothfairy.clinic/assets/favicon/android-chrome-512x512.png" />
         </Head>
-        <style jsx global>{`
-          :root {
-            --font-montserrat: ${montserrat.style.fontFamily};
-          }
-        `}</style>
         <ToastContainer />
         <div className="flex flex-col min-h-screen">
           <Header />

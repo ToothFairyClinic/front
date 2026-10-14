@@ -37,8 +37,6 @@ const nextConfig = {
   reactStrictMode: false,
   trailingSlash: false,
   eslint: { ignoreDuringBuilds: true },
-  // Критичний CSS вбудовується в HTML, решта стилів вантажиться без блокування першого показу
-  experimental: { optimizeCss: true },
   env: {
     NEXT_PUBLIC_HASURA_ENDPOINT:
       process.env.NEXT_PUBLIC_HASURA_ENDPOINT ||
