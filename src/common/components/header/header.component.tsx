@@ -33,11 +33,23 @@ export const Header: FC<HeaderProps> = ({ }) => {
 
   const urlLang = i18n.language === 'uk' ? 'ua' : i18n.language;
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Липка шапка: на головній лежить поверх відео (fixed), на інших сторінках займає місце в потоці (sticky)
   const headerClasses = clsx(
-    "w-full py-5 z-30 transition-all duration-300 bg-paleOlive dark:bg-darkGray lg:bg-paleOlive/75 lg:dark:bg-darkGray/75",
+    "w-full top-0 z-50 transition-all duration-300 bg-paleOlive",
     {
-      "absolute": isMainPage,
-      "relative": !isMainPage,
+      "fixed": isMainPage,
+      "sticky": !isMainPage,
+      "py-5 lg:bg-paleOlive/75": !isScrolled,
+      "py-3 lg:bg-paleOlive/95 shadow-md backdrop-blur-sm": isScrolled,
     }
   );
 
@@ -74,7 +86,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
               alt="Зубна Фея логотип"
               width="50"
               height="50"
-              className="h-24 w-36"
+              className={clsx("w-36 transition-all duration-300", isScrolled ? "h-16" : "h-24")}
               style={{ aspectRatio: '216 / 71' }}
             /> : <img
               src="/assets/logo_light.svg"
@@ -121,7 +133,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
       </div>
 
       {isMobileMenuOpen && (
-        <nav className="lg:hidden mt-5 pb-5 border-t border-white/10" aria-label={t("Мобільна навігація")}>
+        <nav className="lg:hidden mt-5 pb-5 border-t border-white/10 max-h-[calc(100svh-6rem)] overflow-y-auto" aria-label={t("Мобільна навігація")}>
 
           <div className="flex flex-col space-y-4 pt-4">
             <NavLinks onLinkClick={() => setIsMobileMenuOpen(false)} />

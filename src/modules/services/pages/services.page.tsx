@@ -252,7 +252,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
                   className="prose-p:leading-relaxed prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:font-normal prose-h2:mt-12 prose-h2:mb-5 prose-h3:text-2xl prose-h3:font-semibold"
                 />
               </article>
-              <aside className="lg:col-span-4 lg:sticky lg:top-28">
+              <aside className="lg:col-span-4 lg:sticky lg:top-24">
                 <ServiceBookingCard hasPrices={priceRows.length > 0} />
               </aside>
             </div>
