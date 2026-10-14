@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@app/common/router/router";
 import { AdvancedImage } from "@cloudinary/react";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { SectionHeading } from "@app/modules/main/components/section-heading/section-heading.component";

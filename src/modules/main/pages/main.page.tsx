@@ -5,7 +5,7 @@ import { SerivcesList } from "../components/services-main/services-main-list/ser
 import { useGetPageMetadataQuery, useGetServicesQuery } from "@app/core/types";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { PersonnelList } from "../components/personnel/personnel-list/personnel-list.component";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@app/common/components/head/head";
 import { useTranslation } from 'react-i18next';
 import { getUrlLang } from "@app/common/components/get-lang/get.lang";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";

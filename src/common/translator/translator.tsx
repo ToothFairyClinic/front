@@ -1,19 +1,12 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18next, { i18n as I18n } from "i18next";
+import { initReactI18next } from "react-i18next";
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    fallbackLng: 'uk',
-    supportedLngs: ['uk', 'en'],
-    detection: {
-      order: ['path', 'localStorage', 'cookie'],
-      lookupFromPathIndex: 0,
-      convertDetectedLanguage: (lng) => lng === 'ua' ? 'uk' : lng,
-    },
-    resources: {
+export type AppLanguage = "uk" | "en";
+
+/** Мова інтерфейсу з префікса адреси: /ua -> uk, /en -> en. */
+export const langFromUrl = (urlLang?: string | null): AppLanguage => (urlLang === "en" ? "en" : "uk");
+
+const resources = {
       en: {
         translation: {
           "Ціни": "Prices",
@@ -353,8 +346,26 @@ i18n
           "Стоматологія": "Стоматологія"
         },
       },
-    },
-  });
+    };
 
-export default i18n;
+const instances = new Map<AppLanguage, I18n>();
 
+/** Окремий екземпляр i18next на кожну мову: на сервері мова не повинна "перетікати" між сторінками. */
+export const getI18n = (lng: AppLanguage): I18n => {
+  let instance = instances.get(lng);
+  if (!instance) {
+    instance = i18next.createInstance();
+    instance.use(initReactI18next).init({
+      lng,
+      fallbackLng: "uk",
+      supportedLngs: ["uk", "en"],
+      resources,
+      initImmediate: false,
+      interpolation: { escapeValue: false },
+    });
+    instances.set(lng, instance);
+  }
+  return instance;
+};
+
+export default getI18n("uk");

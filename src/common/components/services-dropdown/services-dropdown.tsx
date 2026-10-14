@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from "@app/common/router/router";
 import clsx from 'clsx';
 import { GetServicesQuery, useGetServicesQuery } from '@app/core/types';
 import { useReactiveVar } from '@apollo/client';

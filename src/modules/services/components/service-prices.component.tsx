@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@app/common/router/router";
 import { useTranslation } from "react-i18next";
 import { SectionHeading } from "@app/modules/main/components/section-heading/section-heading.component";
 import { PriceListRow } from "../graphql/service-extras";

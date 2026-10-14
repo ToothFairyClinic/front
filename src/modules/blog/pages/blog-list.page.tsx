@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "@app/common/router/router";
 import { useTranslation } from "react-i18next";
 
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";

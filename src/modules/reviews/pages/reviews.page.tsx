@@ -8,7 +8,7 @@ import { ReviewsList } from "../components/reviews-list/reviews-list.component";
 import { validatePhoneNumber } from "@app/core/phoneNumber";
 import { useTranslation } from 'react-i18next';
 import { MainTitle } from "@app/common/components/main-title/main-title.component";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@app/common/components/head/head";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 

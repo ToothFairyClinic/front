@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { AdvancedVideo } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { fill } from "@cloudinary/url-gen/actions/resize";
@@ -25,7 +25,11 @@ export const Slide: FC<SlideProps> = ({ titleTop, titleMain, titleBottom, text, 
   const { t } = useTranslation();
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
 
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  // Ширину вікна знаємо лише в браузері: на сервері рендеримо десктопну версію, потім уточнюємо
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   const myVideo = useMemo(() => {
     const video = cld.video("videos/cjqq4jqlqe6vqia4xyot")

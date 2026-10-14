@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useMemo, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "@app/common/router/router";
 import { useTranslation } from "react-i18next";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@app/common/components/head/head";
 
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";

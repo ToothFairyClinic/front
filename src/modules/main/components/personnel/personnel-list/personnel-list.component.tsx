@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Link } from "react-router-dom";
+import { Link } from "@app/common/router/router";
 import { doctorPath } from "@app/common/utils/doctors-path";
 import { Mascot } from "../../mascot/mascot.component";
 

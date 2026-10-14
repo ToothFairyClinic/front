@@ -1,7 +1,7 @@
 import { FC, MouseEvent, useMemo } from "react";
 import DOMPurify from "isomorphic-dompurify";
 import clsx from "clsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@app/common/router/router";
 import { followInternalLinks } from "@app/common/utils/internal-links";
 
 interface HtmlContentProps {

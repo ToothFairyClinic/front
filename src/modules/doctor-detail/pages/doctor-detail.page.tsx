@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useMemo } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "@app/common/router/router";
 import { useTranslation } from "react-i18next";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@app/common/components/head/head";
 import { useGetDoctorBySlugQuery } from "@app/core/types";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";

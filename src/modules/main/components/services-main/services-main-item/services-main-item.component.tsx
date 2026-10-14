@@ -1,7 +1,7 @@
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { AdvancedImage } from "@cloudinary/react";
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@app/common/router/router";
 
 export interface ServiceCardLink {
   label: string;

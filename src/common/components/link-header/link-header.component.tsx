@@ -2,7 +2,7 @@ import { useReactiveVar } from "@apollo/client";
 import { themeState } from "@app/modules/cart/store/theme-state";
 import clsx from "clsx";
 import { FC, PropsWithChildren } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@app/common/router/router";
 
 interface HeaderLinkItemProps {
   url: string;

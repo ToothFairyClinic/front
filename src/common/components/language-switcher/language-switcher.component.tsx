@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import i18n from 'i18next';
 import clsx from "clsx";
 import { themeState } from "@app/modules/cart/store/theme-state";
 import { useReactiveVar } from "@apollo/client";
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from "@app/common/router/router";
 import { DOCTORS_SEGMENT_EN, DOCTORS_SEGMENT_UA, doctorsSegment } from '@app/common/utils/doctors-path';
 
 const LanguageSwitcher: React.FC = () => {

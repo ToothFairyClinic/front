@@ -5,7 +5,7 @@ import { ReactComponent as FacebookIcon } from "@app/assets/icons/facebook.svg";
 import { ReactComponent as ViberIcon } from "@app/assets/icons/viber.svg";
 import { ReactComponent as HomeAddress } from "@app/assets/icons/home-address.svg";
 import { ReactComponent as Mail } from "@app/assets/icons/Email.svg";
-import { HashLink as Link } from "react-router-hash-link";
+import { HashLink as Link } from "@app/common/router/router";
 import { useReactiveVar } from "@apollo/client";
 import { themeState } from "@app/modules/cart/store/theme-state";
 import { useTranslation } from "react-i18next";

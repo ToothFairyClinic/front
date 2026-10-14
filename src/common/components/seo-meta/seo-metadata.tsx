@@ -1,6 +1,6 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@app/common/components/head/head";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "@app/common/router/router";
 
 export interface SEOProps {
     title: string;

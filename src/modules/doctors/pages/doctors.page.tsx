@@ -1,6 +1,6 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "@app/common/router/router";
 import { useGetPageMetadataQuery, useGetPersonnelQuery } from "@app/core/types";
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";

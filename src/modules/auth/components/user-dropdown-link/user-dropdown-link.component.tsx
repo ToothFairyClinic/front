@@ -1,5 +1,5 @@
 import { ComponentProps, FC, PropsWithChildren } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@app/common/router/router";
 
 interface UserDropdownLinkProps {
   to?: ComponentProps<typeof Link>["to"];

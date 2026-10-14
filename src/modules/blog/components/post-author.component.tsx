@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@app/common/router/router";
 import { useTranslation } from "react-i18next";
 import { AdvancedImage } from "@cloudinary/react";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";

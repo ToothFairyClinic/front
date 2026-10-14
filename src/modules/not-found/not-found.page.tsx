@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@app/common/components/head/head";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link } from "@app/common/router/router";
 
 export const NotFoundPage: FC = () => {
     const { t, i18n } = useTranslation();

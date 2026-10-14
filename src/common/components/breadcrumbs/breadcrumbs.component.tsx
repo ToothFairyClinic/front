@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { HashLink } from "react-router-hash-link";
+import { HashLink } from "@app/common/router/router";
 import { useTranslation } from "react-i18next";
 
 export interface Crumb {

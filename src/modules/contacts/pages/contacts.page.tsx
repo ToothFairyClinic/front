@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@app/common/components/head/head";
 import { Contacts } from "../components/contacts.component";
 import { useMediaQuery } from "react-responsive";
 import { ReactComponent as AccessTimeIcon } from "@app/assets/icons/access_time.svg";

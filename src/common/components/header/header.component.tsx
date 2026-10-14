@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import { ReactComponent as Logotype } from "@app/assets/images/logo.svg";
 // import { ReactComponent as LogotypeLight } from "../../../../public/assets/logo_light.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "@app/common/router/router";
 import { Button } from "../button/button.component";
 import { LinkHeader } from "../link-header/link-header.component";
 import { themeState } from "@app/modules/cart/store/theme-state";
