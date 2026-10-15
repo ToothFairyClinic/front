@@ -58,7 +58,7 @@ export const Slide: FC<SlideProps> = ({ titleTop, titleMain, titleBottom, text, 
   return (
     <div className="relative">
       <section
-        className="relative min-h-[100svh] lg:h-screen flex justify-center items-center pt-24 pb-12 lg:pt-20 lg:pb-12 px-4 bg-paleOlive overflow-hidden"
+        className="relative min-h-[100svh] flex justify-center items-center pt-32 pb-12 lg:pt-40 lg:pb-16 px-4 bg-paleOlive overflow-hidden"
         aria-label={t("Головний екран клініки")}
       >
         <div className="absolute inset-0 z-0" aria-hidden="true">
@@ -77,7 +77,7 @@ export const Slide: FC<SlideProps> = ({ titleTop, titleMain, titleBottom, text, 
           <div className="absolute inset-0 bg-black/50"></div>
         </div>
 
-        <div className="relative top-10 z-10 text-center text-darkGray max-w-150 w-full bg-paleOlive/80 dark:bg-darkGray/80 dark:text-white py-8 px-6 sm:py-10 sm:px-8 md:py-12 md:px-10 rounded-3xl lg:rounded-[3rem] transition duration-500 ease-in-out flex flex-col items-center shadow-lg">
+        <div className="relative z-10 text-center text-darkGray max-w-150 w-full bg-paleOlive/80 dark:bg-darkGray/80 dark:text-white py-8 px-6 sm:py-10 sm:px-8 md:py-12 md:px-10 rounded-3xl lg:rounded-[3rem] transition duration-500 ease-in-out flex flex-col items-center shadow-lg">
           <div className={`flex flex-col items-center transition-opacity duration-300 ${isLoading ? "opacity-0" : "opacity-100"}`}>
             <h1 className="font-normal mb-4 sm:mb-6 flex flex-col items-center">
               <span className="block text-xl sm:text-2xl md:text-3xl uppercase tracking-widest mb-1.5 sm:mb-2 opacity-90">
