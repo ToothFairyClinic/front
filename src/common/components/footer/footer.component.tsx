@@ -35,7 +35,7 @@ export const Footer = () => {
   const services = (data?.services ?? [])
     .map((s) => ({
       id: s.id,
-      name: ((isEn ? s.name_en : s.name) || s.name).replace(/ в Білій Церкві$/, ""),
+      name: ((isEn ? s.name_en : s.name) || s.name).replace(/ (в Білій Церкві|in Bila Tserkva)$/, ""),
       slug: isEn ? s.slug_en : s.slug,
     }))
     .filter((s) => s.slug);
@@ -58,8 +58,8 @@ export const Footer = () => {
   return (
     <footer className="bg-darkGray text-palePeach/80 z-10">
       <div className="max-w-[1440px] mx-auto px-5 md:px-10 pt-14 pb-8 md:pt-20">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.75fr)_minmax(0,0.6fr)_minmax(0,1.05fr)] lg:gap-10">
-          <div>
+        <div className="grid gap-10 md:gap-12 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.75fr)_minmax(0,0.6fr)_minmax(0,1.05fr)] lg:gap-10">
+          <div className="order-1 lg:order-none">
             <Link to={`/${lang}`} aria-label={t("На головну")} className="inline-block">
               <img
                 src="/assets/logo_light.svg"
@@ -90,13 +90,13 @@ export const Footer = () => {
             </ul>
           </div>
 
-          <nav aria-label={t("Послуги")}>
+          <nav aria-label={t("Послуги")} className="order-3 lg:order-none">
             <p className={titleClass}>
               <Link to={`/${lang}/services`} className={linkClass}>
                 {t("Послуги")}
               </Link>
             </p>
-            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 list-none text-base">
+            <ul className="grid grid-cols-2 gap-x-5 gap-y-3 list-none text-sm sm:text-base sm:gap-x-8">
               {services.map((s) => (
                 <li key={s.id}>
                   <Link to={`/${lang}/services/${s.slug}`} className={linkClass}>
@@ -107,9 +107,9 @@ export const Footer = () => {
             </ul>
           </nav>
 
-          <nav aria-label={t("Додаткова навігація")}>
+          <nav aria-label={t("Додаткова навігація")} className="order-4 lg:order-none">
             <p className={titleClass}>{t("Клініка")}</p>
-            <ul className="flex flex-col gap-3 list-none text-base">
+            <ul className="grid grid-cols-3 gap-x-5 gap-y-3 list-none text-sm sm:text-base lg:grid-cols-1">
               {pages.map((p) => (
                 <li key={p.to}>
                   <Link to={p.to} className={linkClass}>
@@ -120,7 +120,7 @@ export const Footer = () => {
             </ul>
           </nav>
 
-          <div>
+          <div className="order-2 lg:order-none">
             <p className={titleClass}>{t("Контакти")}</p>
             <address className="not-italic flex flex-col gap-4 text-base">
               <a href={MAPS_URL} target="_blank" rel="noreferrer" className={`flex gap-3 items-start ${linkClass}`}>
