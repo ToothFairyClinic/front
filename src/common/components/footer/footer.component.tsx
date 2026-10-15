@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ReactComponent as AccessTimeIcon } from "@app/assets/icons/access_time.svg";
 import { ReactComponent as SmartPhoneIcon } from "@app/assets/icons/smartphone.svg";
 import { ReactComponent as InstagramIcon } from "@app/assets/icons/instagram.svg";
@@ -5,9 +6,10 @@ import { ReactComponent as FacebookIcon } from "@app/assets/icons/facebook.svg";
 import { ReactComponent as ViberIcon } from "@app/assets/icons/viber.svg";
 import { ReactComponent as HomeAddress } from "@app/assets/icons/home-address.svg";
 import { ReactComponent as Mail } from "@app/assets/icons/Email.svg";
-import { HashLink as Link } from "@app/common/router/router";
-import { useReactiveVar } from "@apollo/client";
-import { themeState } from "@app/modules/cart/store/theme-state";
+import { Link } from "@app/common/router/router";
+import { ConsultationModal } from "@app/common/components/consultation-modal/lazy-consultation-modal";
+import { useGetServicesQuery } from "@app/core/types";
+import { doctorsPath } from "@app/common/utils/doctors-path";
 import { useTranslation } from "react-i18next";
 
 const PHONE_NUMBER = "+380934599911";
@@ -15,144 +17,155 @@ const PHONE_NUMBER_DISPLAY = "+38 (093) 459-99-11";
 const PHONE_NUMBER_SECONDARY = "+380681689911";
 const PHONE_NUMBER_SECONDARY_DISPLAY = "+38 (068) 168-99-11";
 const EMAIL_ADDRESS = "admin@toothfairy.clinic";
+const MAPS_URL = "https://maps.google.com/?cid=9840173224086134310";
+
+const linkClass = "hover:text-paleOlive transition-colors";
+const titleClass = "text-lg font-bold text-white mb-5";
 
 export const Footer = () => {
-  const themeStateCurrent = useReactiveVar(themeState);
   const { t, i18n } = useTranslation();
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const { data } = useGetServicesQuery();
 
-  const lang = i18n.language === 'uk' ? 'ua' : i18n.language;
+  const lang = i18n.language === "en" ? "en" : "ua";
+  const isEn = lang === "en";
+  const viberLink = `viber://chat?number=%2B${PHONE_NUMBER_SECONDARY.replace("+", "")}`;
 
-  const viberLink = `viber://chat?number=%2B${PHONE_NUMBER_SECONDARY.replace('+', '')}`;
+  // Напрями послуг з тієї ж відповіді, що й меню в шапці (кеш Apollo), тому додаткового запиту немає
+  const services = (data?.services ?? [])
+    .map((s) => ({
+      id: s.id,
+      name: ((isEn ? s.name_en : s.name) || s.name).replace(/ в Білій Церкві$/, ""),
+      slug: isEn ? s.slug_en : s.slug,
+    }))
+    .filter((s) => s.slug);
+
+  const pages = [
+    { to: doctorsPath(lang), label: t("Лікарі") },
+    { to: `/${lang}/price-list`, label: t("Ціни") },
+    { to: `/${lang}/review`, label: t("Відгуки") },
+    { to: `/${lang}/our-work`, label: t("Роботи") },
+    { to: `/${lang}/blog`, label: t("Блог") },
+    { to: `/${lang}/contacts`, label: t("Контакти") },
+  ];
+
+  const socials = [
+    { href: "https://www.instagram.com/toothfairy.clinic", label: "Instagram", Icon: InstagramIcon },
+    { href: "https://www.facebook.com/bcdentist.toothfairy/", label: "Facebook", Icon: FacebookIcon },
+    { href: viberLink, label: "Viber", Icon: ViberIcon },
+  ];
 
   return (
-    <footer className="bg-paleOlive dark:bg-darkGray/75 p-5 z-10 transition duration-300 px-5 py-10 flex flex-col items-center md:px-1 min-h-[450px]">
-
-      <Link to={`/${lang}`} aria-label={t("На головну")}>
-        {themeStateCurrent ? (
-          <img
-            src="/assets/logo.svg"
-            alt={t("Зубна Фея логотип")}
-            width="216"
-            height="71"
-            className="h-24 w-auto"
-            style={{ aspectRatio: '216 / 71' }}
-          />
-        ) : (
-          <img
-            src="/assets/logo_light.svg"
-            alt={t("Зубна Фея логотип")}
-            width="216"
-            height="71"
-            className="h-24 w-auto"
-            style={{ aspectRatio: '216 / 71' }}
-          />
-        )}
-      </Link>
-
-      <div className="text-darkGray dark:text-palePeach text-xl font-normal flex flex-col gap-8 sm:flex-row md:gap-36 flex-wrap justify-center mt-8">
-
-        <nav aria-label={t("Додаткова навігація")}>
-          <div className="flex flex-col gap-8 sm:flex-row md:gap-36">
-            <ul className="flex flex-col gap-3 list-none">
-              <li className="dark:hover:text-paleOlive hover:text-white min-h-[28px] transition-colors">
-                <Link to={`/${lang}`}>{t("Головна")}</Link>
-              </li>
-              <li className="dark:hover:text-paleOlive hover:text-white min-h-[28px] transition-colors">
-                <Link to={`/${lang}/services`}>{t("Послуги")}</Link>
-              </li>
-            </ul>
-
-            <ul className="flex flex-col gap-3 list-none">
-              <li className="dark:hover:text-paleOlive hover:text-white min-h-[28px] transition-colors">
-                <Link smooth to={`/${lang}#personnel`}>{t("Персонал")}</Link>
-              </li>
-              <li className="dark:hover:text-paleOlive hover:text-white min-h-[28px] transition-colors">
-                <Link to={`/${lang}/price-list`}>{t("Прайс лист")}</Link>
-              </li>
+    <footer className="bg-darkGray text-palePeach/80 z-10">
+      <div className="max-w-[1440px] mx-auto px-5 md:px-10 pt-14 pb-8 md:pt-20">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.75fr)_minmax(0,0.6fr)_minmax(0,1.05fr)] lg:gap-10">
+          <div>
+            <Link to={`/${lang}`} aria-label={t("На головну")} className="inline-block">
+              <img
+                src="/assets/logo_light.svg"
+                alt={t("Зубна Фея логотип")}
+                width="160"
+                height="111"
+                loading="lazy"
+                className="h-24 w-auto"
+              />
+            </Link>
+            <p className="mt-6 max-w-xs text-base leading-relaxed">
+              {t("Стоматологія для дітей і дорослих у Білій Церкві. Лікуємо, виправляємо прикус і відновлюємо зуби в одній клініці.")}
+            </p>
+            <ul className="mt-8 flex gap-3 list-none">
+              {socials.map(({ href, label, Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="flex items-center justify-center w-12 h-12 rounded-full border border-palePeach/25 text-palePeach hover:bg-paleOlive hover:border-paleOlive hover:text-darkGray transition-colors"
+                  >
+                    <Icon width={24} height={24} aria-hidden="true" />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
-        </nav>
 
-        <address className="not-italic flex flex-col sm:flex-row gap-8 md:gap-12">
-          <ul className="flex flex-col gap-4 md:gap-3 list-none">
-            <li className="flex gap-2 items-center">
-              <AccessTimeIcon width={31} height={31} aria-hidden="true" />
-              <span>{t("ПН-СБ")}: 9:30-19:00</span>
-            </li>
-            <li className="flex gap-2 items-center group">
-              <HomeAddress width={24} height={32} aria-hidden="true" />
-              <span className="max-w-xs">{t("вул. Вокзальна 22, м. Біла Церква, Київська область")}</span>
-            </li>
-            <li className="flex gap-2 items-center group">
-              <Mail width={24} height={32} aria-hidden="true" />
-              <a href={`mailto:${EMAIL_ADDRESS}`} className="max-w-xs hover:opacity-80 transition-opacity">
-                {EMAIL_ADDRESS}
+          <nav aria-label={t("Послуги")}>
+            <p className={titleClass}>
+              <Link to={`/${lang}/services`} className={linkClass}>
+                {t("Послуги")}
+              </Link>
+            </p>
+            <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 list-none text-base">
+              {services.map((s) => (
+                <li key={s.id}>
+                  <Link to={`/${lang}/services/${s.slug}`} className={linkClass}>
+                    {s.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav aria-label={t("Додаткова навігація")}>
+            <p className={titleClass}>{t("Клініка")}</p>
+            <ul className="flex flex-col gap-3 list-none text-base">
+              {pages.map((p) => (
+                <li key={p.to}>
+                  <Link to={p.to} className={linkClass}>
+                    {p.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            <p className={titleClass}>{t("Контакти")}</p>
+            <address className="not-italic flex flex-col gap-4 text-base">
+              <a href={MAPS_URL} target="_blank" rel="noreferrer" className={`flex gap-3 items-start ${linkClass}`}>
+                <HomeAddress width={22} height={22} className="shrink-0 mt-0.5" aria-hidden="true" />
+                <span>{t("вул. Вокзальна 22, м. Біла Церква, Київська область")}</span>
               </a>
-            </li>
-          </ul>
-
-          <div className="flex flex-col gap-4 md:gap-3">
-            <ul className="flex flex-col gap-4 md:gap-3 list-none">
-              <li className="flex gap-2 items-center group">
-                <SmartPhoneIcon width={31} height={31} aria-hidden="true" />
-                <a href={`tel:${PHONE_NUMBER_SECONDARY}`} className="dark:hover:text-paleOlive hover:text-white transition-colors">
-                  {PHONE_NUMBER_SECONDARY_DISPLAY}
-                </a>
-              </li>
-              <li className="flex gap-2 items-center group">
-                <SmartPhoneIcon width={31} height={31} aria-hidden="true" />
-                <a href={`tel:${PHONE_NUMBER}`} className="dark:hover:text-paleOlive hover:text-white transition-colors">
-                  {PHONE_NUMBER_DISPLAY}
-                </a>
-              </li>
-            </ul>
-
-
-            <a
-              href={`tel:${PHONE_NUMBER_SECONDARY}`}
-              className="mt-2 bg-darkGray dark:bg-palePeach text-palePeach dark:text-darkGray text-center py-3 px-6 rounded-lg font-medium hover:opacity-90 transition-opacity flex items-center justify-center shadow-md"
+              <p className="flex gap-3 items-center">
+                <AccessTimeIcon width={22} height={22} className="shrink-0" aria-hidden="true" />
+                <span>{t("ПН-СБ")}: 9:30-19:00</span>
+              </p>
+              <div className="flex gap-3 items-start">
+                <SmartPhoneIcon width={22} height={22} className="shrink-0 mt-1" aria-hidden="true" />
+                <div className="flex flex-col gap-1 text-lg font-bold text-white">
+                  <a href={`tel:${PHONE_NUMBER_SECONDARY}`} className={linkClass}>
+                    {PHONE_NUMBER_SECONDARY_DISPLAY}
+                  </a>
+                  <a href={`tel:${PHONE_NUMBER}`} className={linkClass}>
+                    {PHONE_NUMBER_DISPLAY}
+                  </a>
+                </div>
+              </div>
+              <a href={`mailto:${EMAIL_ADDRESS}`} className={`flex gap-3 items-center ${linkClass}`}>
+                <Mail width={22} height={22} className="shrink-0" aria-hidden="true" />
+                <span>{EMAIL_ADDRESS}</span>
+              </a>
+            </address>
+            <button
+              type="button"
+              onClick={() => setIsConsultationOpen(true)}
+              className="mt-7 w-full sm:w-auto lg:w-full whitespace-nowrap bg-paleOlive text-darkGray font-bold text-base py-3 px-6 rounded-full hover:bg-white transition-colors"
             >
-              {t("Записатись")}
-            </a>
+              {t("Записатися на консультацію")}
+            </button>
           </div>
-        </address>
+        </div>
+
+        <div className="mt-14 pt-6 border-t border-palePeach/15 flex flex-col md:flex-row gap-3 justify-between text-sm text-palePeach/60">
+          <span>{new Date().getFullYear()} {t("© Клініка “Зубна Фея”. Усі права захищені.")}</span>
+          <Link to={`/${lang}/privacy-policy`} className={linkClass}>
+            {t("Політика конфіденційності")}
+          </Link>
+        </div>
       </div>
 
-      <ul className="flex gap-6 justify-center mt-12 list-none min-h-[32px] text-darkGray dark:text-palePeach">
-        <li>
-          <a href="https://www.instagram.com/toothfairy.clinic" target="_blank" rel="noreferrer" aria-label="Instagram" className="hover:opacity-80 transition-opacity">
-            <InstagramIcon width={42} height={42} />
-          </a>
-        </li>
-        <li>
-          <a href="https://www.facebook.com/bcdentist.toothfairy/" target="_blank" rel="noreferrer" aria-label="Facebook" className="hover:opacity-80 transition-opacity">
-            <FacebookIcon width={42} height={42} />
-          </a>
-        </li>
-        <li>
-          <a
-            href={viberLink}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Viber"
-            className="hover:opacity-80 transition-opacity"
-          >
-            <ViberIcon className="stroke-[2.0]" width={42} height={42} />
-          </a>
-        </li>
-      </ul>
-
-
-      <div className="mt-12 flex flex-col md:flex-row items-center gap-4 text-sm opacity-60 dark:text-white w-full max-w-4xl justify-between border-t border-darkGray/20 dark:border-white/20 pt-6">
-        <span>{new Date().getFullYear()} {t("© Клініка “Зубна Фея”. Усі права захищені.")}</span>
-
-        <Link
-          to={`/${lang}/privacy-policy`}
-          className="hover:underline hover:text-white dark:hover:text-paleOlive transition-colors"
-        >
-          {t("Політика конфіденційності")}
-        </Link>
-      </div>
+      <ConsultationModal isOpen={isConsultationOpen} onClose={() => setIsConsultationOpen(false)} />
     </footer>
   );
 };
