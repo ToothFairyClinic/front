@@ -108,8 +108,6 @@ const resources = {
           "досвід": "experience",
           "Більше про лікаря і запис на прийом": "More about the doctor and booking",
           "хв читання": "min read",
-          "Тривалість": "Duration",
-          "Текст відео": "Video transcript",
           "Зміст": "Contents",
           "Інші публікації": "More articles",
           "Поки що публікацій немає": "There are no articles yet",

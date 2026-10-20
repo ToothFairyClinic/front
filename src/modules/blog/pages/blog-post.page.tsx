@@ -122,7 +122,6 @@ export const BlogPostPage: FC = () => {
     ? {
         title: (isEn ? post.video_title_en : post.video_title) || post.video_title || heading || "",
         description: (isEn ? post.video_description_en : post.video_description) || "",
-        transcript: (isEn ? post.video_transcript_en : post.video_transcript) || "",
         chapters: parseChapters(isEn ? post.video_chapters_en : post.video_chapters, post.video_duration),
       }
     : undefined;
@@ -203,7 +202,6 @@ export const BlogPostPage: FC = () => {
         videoNode.width = post.video_width;
         videoNode.height = post.video_height;
       }
-      if (video.transcript) videoNode.transcript = video.transcript;
       if (video.chapters.length) {
         videoNode.hasPart = video.chapters.map((c) => ({
           "@type": "Clip",
@@ -313,9 +311,6 @@ export const BlogPostPage: FC = () => {
                 poster={post.video_poster}
                 title={video.title}
                 description={video.description}
-                transcript={video.transcript}
-                chapters={video.chapters}
-                duration={post.video_duration}
                 width={post.video_width}
                 height={post.video_height}
               />

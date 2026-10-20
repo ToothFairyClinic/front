@@ -46,11 +46,6 @@ export const isoDuration = (seconds?: number | string | null) => {
   return `PT${m ? `${m}M` : ""}${s ? `${s}S` : m ? "" : "0S"}`;
 };
 
-export const clockTime = (seconds?: number | string | null) => {
-  const total = Math.round(Number(seconds) || 0);
-  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`;
-};
-
 export interface VideoChapter {
   start: number;
   end?: number;
