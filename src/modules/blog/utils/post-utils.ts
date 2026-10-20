@@ -121,3 +121,33 @@ export const withHeadingIds = (html?: string | null): { html: string; toc: TocIt
   });
   return { html: out, toc };
 };
+
+const cellText = (html: string) => html.replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+const cellInner = (html: string) => html.replace(/^\s*<p>([\s\S]*)<\/p>\s*$/i, "$1").trim();
+
+/**
+ * Таблиці статті на телефоні: замість горизонтальної прокрутки кожен рядок стає карткою.
+ * Перша клітинка рядка - заголовок картки, решта - пари "назва колонки: значення".
+ * Таблиця лишається для ширших екранів. Таблиця без рядка заголовків (th) - як є, з прокруткою.
+ */
+export const tablesToCards = (html: string) =>
+  html.replace(/<table[\s\S]*?<\/table>/gi, (table) => {
+    const rows = [...table.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)].map((m) =>
+      [...m[1].matchAll(/<(th|td)[^>]*>([\s\S]*?)<\/\1>/gi)].map((c) => ({ head: c[1].toLowerCase() === "th", html: c[2] }))
+    );
+    const headIndex = rows.findIndex((cells) => cells.length > 1 && cells.every((c) => c.head));
+    if (headIndex === -1) return `<div class="overflow-x-auto">${table}</div>`;
+    const labels = rows[headIndex].map((c) => cellText(c.html));
+    const cards = rows
+      .filter((_, i) => i !== headIndex)
+      .filter((cells) => cells.length)
+      .map((cells) => {
+        const [first, ...rest] = cells;
+        const pairs = rest
+          .map((c, i) => `<p><strong>${labels[i + 1] || ""}:</strong> ${cellInner(c.html)}</p>`)
+          .join("");
+        return `<div class="tf-card"><p class="tf-card-title">${cellInner(first.html)}</p>${pairs}</div>`;
+      })
+      .join("");
+    return `<div class="tf-cards md:hidden">${cards}</div><div class="hidden md:block overflow-x-auto">${table}</div>`;
+  });

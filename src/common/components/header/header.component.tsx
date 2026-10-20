@@ -111,7 +111,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
         </nav>
 
 
-        <div className="lg:hidden ml-auto flex items-center gap-4">
+        <div className="lg:hidden ml-auto flex items-center gap-2 min-[360px]:gap-4">
 
           <Link to={`/${urlLang}/contacts`}>
             <Button variant="header" >{t('Записатися')}</Button>

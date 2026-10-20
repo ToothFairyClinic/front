@@ -59,7 +59,7 @@ export const ServicePrices: FC<ServicePricesProps> = ({ title, rows, isEn }) => 
           <tbody>
             {rows.map((row) => (
               <tr key={row.id} className="border-t border-paleOlive/70 even:bg-palePeach/60 dark:even:bg-white/5">
-                <td className="px-4 md:px-6 py-3 md:py-4 text-base md:text-lg">
+                <td className="px-4 md:px-6 py-3 md:py-4 text-base md:text-lg [overflow-wrap:anywhere]">
                   {(isEn ? row.title_en : row.title)?.trim() || row.title.trim()}
                 </td>
                 <td className="px-4 md:px-6 py-3 md:py-4 text-base md:text-lg font-semibold text-right whitespace-nowrap">

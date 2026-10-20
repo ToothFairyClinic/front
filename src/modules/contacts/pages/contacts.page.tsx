@@ -79,8 +79,8 @@ export const ContactPage: FC = () => {
         schemaData={contactSchema}
       />
 
-      <section aria-label={t("Карта проїзду")}>
-        <Contacts mapHeight={isMobile ? "350" : "586"} mapWidth={isMobile ? "320" : "749"} />
+      <section aria-label={t("Карта проїзду")} className="w-full max-w-[749px] px-4 lg:px-0">
+        <Contacts mapHeight={isMobile ? "350" : "586"} mapWidth="749" />
       </section>
 
       <div className="flex flex-col max-w-xl">
