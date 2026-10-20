@@ -7,19 +7,11 @@ import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { Breadcrumbs, Crumb } from "@app/common/components/breadcrumbs/breadcrumbs.component";
 import { useGetPageMetadataQuery, useGetPostsQuery, useGetPostsEnQuery } from "@app/core/types";
 import { blogPath, postPath } from "@app/common/utils/blog-path";
+import { Mascot } from "@app/modules/main/components/mascot/mascot.component";
+import { PostCard } from "../components/post-card.component";
 
 const PER_PAGE = 12;
 
-const formatDate = (value?: string | null, isEn?: boolean) => {
-  if (!value) return "";
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString(isEn ? "en-GB" : "uk-UA", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-};
 
 export const BlogListPage: FC = () => {
   const { t, i18n } = useTranslation();
@@ -49,6 +41,7 @@ export const BlogListPage: FC = () => {
   const description = (isEn ? pageMeta?.seo_description_en : pageMeta?.seo_description)
     || t("Корисні статті про здоров'я зубів від лікарів клініки Зубна Фея у Білій Церкві.");
   const heading = (isEn ? pageMeta?.h1_en : pageMeta?.h1) || t("Блог");
+  const intro = t("Статті лікарів Зубної Феї про здоров'я зубів дітей і дорослих: як доглядати за зубами вдома і коли час до стоматолога.");
 
   const crumbs: Crumb[] = useMemo(
     () => [{ label: t("Головна"), to: `/${currentLang}` }, { label: heading }],
@@ -72,6 +65,10 @@ export const BlogListPage: FC = () => {
             headline: (isEn && post.title_en) || post.title,
             url: `${baseUrl}${postPath(currentLang, slug)}`,
             ...(post.published_at ? { datePublished: post.published_at } : {}),
+            ...(post.hero_image
+              ? { image: `https://res.cloudinary.com/dc7d3byxg/image/upload/c_fill,g_auto,w_1200,h_900,f_auto,q_auto/${post.hero_image}` }
+              : {}),
+            ...(post.author ? { author: { "@type": "Person", name: (isEn && post.author.name_en) || post.author.name } } : {}),
           };
         }),
       },
@@ -86,6 +83,8 @@ export const BlogListPage: FC = () => {
     );
   }
 
+  const [featured, ...rest] = page === 1 ? posts : [undefined, ...posts];
+
   return (
     <>
       <SEOMeta
@@ -99,90 +98,55 @@ export const BlogListPage: FC = () => {
         pathEn={blogPath("en")}
       />
 
-      <main className="pt-12 pb-24 px-6 md:px-16 dark:bg-darkGray min-h-screen">
-        <div className="max-w-7xl mx-auto flex flex-col gap-4">
-          <Breadcrumbs items={crumbs} />
+      <main className="pt-10 lg:pt-12 pb-16 dark:bg-darkGray min-h-screen">
+        <div className="px-4 md:px-10">
+          <div className="max-w-[1440px] mx-auto flex flex-col gap-10 md:gap-14">
+            <section className="relative flex flex-col gap-6 text-darkGray dark:text-white">
+              <Breadcrumbs items={crumbs} />
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal leading-tight">{heading}</h1>
+              <p className="text-lg md:text-xl leading-relaxed text-darkGray/80 dark:text-white/80 max-w-3xl">{intro}</p>
+              <Mascot pose="book" height={170} className="bottom-0 right-10" />
+            </section>
 
-          <h1 className="md:text-6xl text-3xl border-b border-paleOlive py-3 z-10 text-darkGray dark:text-white lg:w-165">
-            {heading}
-          </h1>
-        </div>
+            {loading && (
+              <ShowInfo type="info">
+                <p>{t("Завантаження...")}</p>
+              </ShowInfo>
+            )}
 
-        <div className="max-w-7xl mx-auto mt-12">
-          {loading && (
-            <ShowInfo type="info">
-              <p>{t("Завантаження...")}</p>
-            </ShowInfo>
-          )}
+            {!loading && posts.length === 0 && (
+              <ShowInfo type="info">
+                <p>{t("Поки що публікацій немає")}</p>
+              </ShowInfo>
+            )}
 
-          {!loading && posts.length === 0 && (
-            <ShowInfo type="info">
-              <p>{t("Поки що публікацій немає")}</p>
-            </ShowInfo>
-          )}
+            {featured && <PostCard post={featured} featured eager />}
 
-          {posts.length > 0 && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12">
-              {posts.map((post) => {
-                const slug = isEn ? post.slug_en : post.slug;
-                const postTitle = (isEn && post.title_en) || post.title;
-                const postExcerpt = isEn ? post.excerpt_en : post.excerpt;
+            {rest.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {rest.map((post) => post && <PostCard key={post.id} post={post} />)}
+              </div>
+            )}
 
-                return (
-                  <article
-                    key={post.id}
-                    className="flex flex-col gap-4 py-8 border-t border-paleOlive dark:border-gray-700"
+            {pageCount > 1 && (
+              <nav aria-label={t("Сторінки")} className="flex justify-center gap-2">
+                {Array.from({ length: pageCount }, (_, i) => i + 1).map((n) => (
+                  <Link
+                    key={n}
+                    to={n === 1 ? blogPath(currentLang) : `${blogPath(currentLang)}?page=${n}`}
+                    aria-current={n === page ? "page" : undefined}
+                    className={
+                      n === page
+                        ? "w-11 h-11 flex items-center justify-center rounded-full bg-darkGray text-white dark:bg-paleOlive dark:text-darkGray"
+                        : "w-11 h-11 flex items-center justify-center rounded-full border border-darkGray/30 text-darkGray dark:text-white hover:bg-paleOlive transition-colors"
+                    }
                   >
-                    <h2 className="text-2xl md:text-3xl text-darkGray dark:text-white">
-                      <Link to={postPath(currentLang, slug)} className="hover:underline">
-                        {postTitle}
-                      </Link>
-                    </h2>
-
-                    {postExcerpt && (
-                      <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
-                        {postExcerpt}
-                      </p>
-                    )}
-
-                    <div className="flex items-center justify-between gap-4 mt-auto pt-2">
-                      <Link
-                        to={postPath(currentLang, slug)}
-                        className="font-semibold text-darkGray dark:text-white hover:underline"
-                      >
-                        {t("Читати більше")}
-                      </Link>
-                      <time
-                        dateTime={post.published_at || undefined}
-                        className="text-sm text-gray-500 dark:text-gray-400 shrink-0"
-                      >
-                        {formatDate(post.published_at, isEn)}
-                      </time>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          )}
-
-          {pageCount > 1 && (
-            <nav aria-label={t("Сторінки")} className="flex justify-center gap-2 mt-12">
-              {Array.from({ length: pageCount }, (_, i) => i + 1).map((n) => (
-                <Link
-                  key={n}
-                  to={n === 1 ? blogPath(currentLang) : `${blogPath(currentLang)}?page=${n}`}
-                  aria-current={n === page ? "page" : undefined}
-                  className={
-                    n === page
-                      ? "w-10 h-10 flex items-center justify-center rounded-full bg-darkGray text-white dark:bg-paleOlive dark:text-darkGray"
-                      : "w-10 h-10 flex items-center justify-center rounded-full border border-paleOlive text-darkGray dark:text-white hover:bg-paleOlive hover:text-darkGray transition-colors"
-                  }
-                >
-                  {n}
-                </Link>
-              ))}
-            </nav>
-          )}
+                    {n}
+                  </Link>
+                ))}
+              </nav>
+            )}
+          </div>
         </div>
       </main>
     </>

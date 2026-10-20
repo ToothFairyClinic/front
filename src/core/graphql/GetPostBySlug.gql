@@ -23,6 +23,20 @@ query GetPostBySlug($slug: String!) {
     faq_en
     published_at
     updated_at
+    video
+    video_poster
+    video_title
+    video_title_en
+    video_description
+    video_description_en
+    video_duration
+    video_width
+    video_height
+    video_uploaded_at
+    video_chapters
+    video_chapters_en
+    video_transcript
+    video_transcript_en
     author {
       id
       name
@@ -32,6 +46,8 @@ query GetPostBySlug($slug: String!) {
       image
       image_alt
       image_alt_en
+      experience
+      experience_en
       categories {
         category {
           title

@@ -6103,21 +6103,21 @@ export type GetPostBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
-export type GetPostBySlugQuery = { __typename?: 'query_root', posts: Array<{ __typename?: 'posts', id: any, slug: string, slug_en?: string | null, title: string, title_en?: string | null, h1?: string | null, h1_en?: string | null, excerpt?: string | null, excerpt_en?: string | null, content?: string | null, content_en?: string | null, hero_image?: string | null, hero_image_alt?: string | null, hero_image_alt_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, custom_robots?: string | null, faq_ua?: any | null, faq_en?: any | null, published_at?: any | null, updated_at: any, author?: { __typename?: 'personnel', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, image_alt?: string | null, image_alt_en?: string | null, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null } }> } | null, reviewer?: { __typename?: 'personnel', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null } }> } | null }> };
+export type GetPostBySlugQuery = { __typename?: 'query_root', posts: Array<{ __typename?: 'posts', id: any, slug: string, slug_en?: string | null, title: string, title_en?: string | null, h1?: string | null, h1_en?: string | null, excerpt?: string | null, excerpt_en?: string | null, content?: string | null, content_en?: string | null, hero_image?: string | null, hero_image_alt?: string | null, hero_image_alt_en?: string | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, custom_robots?: string | null, faq_ua?: any | null, faq_en?: any | null, published_at?: any | null, updated_at: any, video?: string | null, video_poster?: string | null, video_title?: string | null, video_title_en?: string | null, video_description?: string | null, video_description_en?: string | null, video_duration?: any | null, video_width?: number | null, video_height?: number | null, video_uploaded_at?: any | null, video_chapters?: any | null, video_chapters_en?: any | null, video_transcript?: string | null, video_transcript_en?: string | null, author?: { __typename?: 'personnel', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, image_alt?: string | null, image_alt_en?: string | null, experience?: string | null, experience_en?: string | null, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null } }> } | null, reviewer?: { __typename?: 'personnel', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null } }> } | null }> };
 
 export type GetPostsQueryVariables = Exact<{
   limit: Scalars['Int']['input'];
   offset: Scalars['Int']['input'];
 }>;
 
-export type GetPostsQuery = { __typename?: 'query_root', posts: Array<{ __typename?: 'posts', id: any, slug: string, slug_en?: string | null, title: string, title_en?: string | null, excerpt?: string | null, excerpt_en?: string | null, published_at?: any | null }>, posts_aggregate: { __typename?: 'posts_aggregate', aggregate?: { __typename?: 'posts_aggregate_fields', count: number } | null } };
+export type GetPostsQuery = { __typename?: 'query_root', posts: Array<{ __typename?: 'posts', id: any, slug: string, slug_en?: string | null, title: string, title_en?: string | null, excerpt?: string | null, excerpt_en?: string | null, published_at?: any | null, hero_image?: string | null, hero_image_alt?: string | null, hero_image_alt_en?: string | null, video?: string | null, author?: { __typename?: 'personnel', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null } }> } | null }>, posts_aggregate: { __typename?: 'posts_aggregate', aggregate?: { __typename?: 'posts_aggregate_fields', count: number } | null } };
 
 export type GetPostsEnQueryVariables = Exact<{
   limit: Scalars['Int']['input'];
   offset: Scalars['Int']['input'];
 }>;
 
-export type GetPostsEnQuery = { __typename?: 'query_root', posts: Array<{ __typename?: 'posts', id: any, slug: string, slug_en?: string | null, title: string, title_en?: string | null, excerpt?: string | null, excerpt_en?: string | null, published_at?: any | null }>, posts_aggregate: { __typename?: 'posts_aggregate', aggregate?: { __typename?: 'posts_aggregate_fields', count: number } | null } };
+export type GetPostsEnQuery = { __typename?: 'query_root', posts: Array<{ __typename?: 'posts', id: any, slug: string, slug_en?: string | null, title: string, title_en?: string | null, excerpt?: string | null, excerpt_en?: string | null, published_at?: any | null, hero_image?: string | null, hero_image_alt?: string | null, hero_image_alt_en?: string | null, video?: string | null, author?: { __typename?: 'personnel', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image: string, categories: Array<{ __typename?: 'personnel_personnel_categories', category: { __typename?: 'personnel_categories', title: string, title_en?: string | null } }> } | null }>, posts_aggregate: { __typename?: 'posts_aggregate', aggregate?: { __typename?: 'posts_aggregate_fields', count: number } | null } };
 
 export const GetPostBySlugDocument = gql`
     query GetPostBySlug($slug: String!) {
@@ -6145,6 +6145,20 @@ export const GetPostBySlugDocument = gql`
     faq_en
     published_at
     updated_at
+    video
+    video_poster
+    video_title
+    video_title_en
+    video_description
+    video_description_en
+    video_duration
+    video_width
+    video_height
+    video_uploaded_at
+    video_chapters
+    video_chapters_en
+    video_transcript
+    video_transcript_en
     author {
       id
       name
@@ -6154,6 +6168,8 @@ export const GetPostBySlugDocument = gql`
       image
       image_alt
       image_alt_en
+      experience
+      experience_en
       categories {
         category {
           title
@@ -6230,6 +6246,24 @@ export const GetPostsDocument = gql`
     excerpt
     excerpt_en
     published_at
+    hero_image
+    hero_image_alt
+    hero_image_alt_en
+    video
+    author {
+      id
+      name
+      name_en
+      slug
+      slug_en
+      image
+      categories {
+        category {
+          title
+          title_en
+        }
+      }
+    }
   }
   posts_aggregate {
     aggregate {
@@ -6296,6 +6330,24 @@ export const GetPostsEnDocument = gql`
     excerpt
     excerpt_en
     published_at
+    hero_image
+    hero_image_alt
+    hero_image_alt_en
+    video
+    author {
+      id
+      name
+      name_en
+      slug
+      slug_en
+      image
+      categories {
+        category {
+          title
+          title_en
+        }
+      }
+    }
   }
   posts_aggregate(where: {slug_en: {_is_null: false}}) {
     aggregate {

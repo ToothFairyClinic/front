@@ -8,6 +8,24 @@ query GetPosts($limit: Int!, $offset: Int!) {
     excerpt
     excerpt_en
     published_at
+    hero_image
+    hero_image_alt
+    hero_image_alt_en
+    video
+    author {
+      id
+      name
+      name_en
+      slug
+      slug_en
+      image
+      categories {
+        category {
+          title
+          title_en
+        }
+      }
+    }
   }
   posts_aggregate {
     aggregate {

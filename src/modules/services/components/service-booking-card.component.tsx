@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ConsultationModal } from "@app/common/components/consultation-modal/lazy-consultation-modal";
-import { Mascot } from "@app/modules/main/components/mascot/mascot.component";
+import { Mascot, MascotPose } from "@app/modules/main/components/mascot/mascot.component";
 
 const PHONES = [
   { href: "tel:+380681689911", label: "+38 (068) 168-99-11" },
@@ -10,16 +10,24 @@ const PHONES = [
 
 interface ServiceBookingCardProps {
   hasPrices: boolean;
+  /** Котик на картці: на послугах - зі щіткою, у блозі - з книжкою. */
+  mascot?: MascotPose;
+  /** Відступ зверху під котика, коли над карткою є інший блок. */
+  className?: string;
 }
 
 /** Бічна картка запису: кнопка, телефони, перехід до цін. На ній сидить котик. */
-export const ServiceBookingCard: FC<ServiceBookingCardProps> = ({ hasPrices }) => {
+export const ServiceBookingCard: FC<ServiceBookingCardProps> = ({
+  hasPrices,
+  mascot = "toothbrush",
+  className = "mt-0 lg:mt-36",
+}) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative mt-0 lg:mt-36">
-      <Mascot pose="toothbrush" height={150} className="bottom-full right-8 -mb-1" />
+    <div className={`relative ${className}`}>
+      <Mascot pose={mascot} height={150} className="bottom-full right-8 -mb-1" />
       <div className="flex flex-col gap-5 rounded-[2rem] bg-paleOlive/80 dark:bg-white/10 px-7 py-8 text-darkGray dark:text-white">
         <p className="text-2xl font-bold leading-snug">{t("Запис на прийом")}</p>
         <p className="text-base leading-relaxed opacity-80">

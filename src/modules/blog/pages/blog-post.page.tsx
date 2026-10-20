@@ -2,21 +2,40 @@ import { FC, useEffect, useMemo, useRef } from "react";
 import { useNavigate, useParams } from "@app/common/router/router";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "@app/common/components/head/head";
-import { AdvancedImage } from "@cloudinary/react";
 
 import { SEOMeta } from "@app/common/components/seo-meta/seo-metadata";
 import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { Breadcrumbs, buildBreadcrumbSchema, Crumb } from "@app/common/components/breadcrumbs/breadcrumbs.component";
-import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
-import { useGetPostBySlugQuery } from "@app/core/types";
+import { HtmlContent } from "@app/common/components/html-content/html-content.component";
+import { HomeFaq } from "@app/modules/main/components/home-faq/home-faq.component";
+import { SectionHeading } from "@app/modules/main/components/section-heading/section-heading.component";
+import { ServiceBookingCard } from "@app/modules/services/components/service-booking-card.component";
+import { useGetPostBySlugQuery, useGetPostsEnQuery, useGetPostsQuery } from "@app/core/types";
 import { blogPath, postPath } from "@app/common/utils/blog-path";
-import { PostContent } from "../components/post-content.component";
-import { PostAuthor } from "../components/post-author.component";
+import { doctorPath } from "@app/common/utils/doctors-path";
+import { PostAuthorCard, PostByline } from "../components/post-author.component";
+import { PostVideo } from "../components/post-video.component";
+import { PostToc, PostTocMobile } from "../components/post-toc.component";
+import { PostCard } from "../components/post-card.component";
+import {
+  formatPostDate,
+  imageSrcSet,
+  imageUrl,
+  isoDuration,
+  parseChapters,
+  readingMinutes,
+  videoPosterUrl,
+  videoUrl,
+  withHeadingIds,
+} from "../utils/post-utils";
 
 interface FAQItem {
   question: string;
   answer: string;
 }
+
+/** Скільки статей тягнути для блоку "Інші публікації" (поточна відкидається). */
+export const OTHER_POSTS_LIMIT = 4;
 
 const NotFound: FC = () => {
   const { t } = useTranslation();
@@ -33,6 +52,19 @@ const NotFound: FC = () => {
   );
 };
 
+const parseFaq = (raw: unknown): FAQItem[] => {
+  if (!raw) return [];
+  if (typeof raw === "string") {
+    try {
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+  return Array.isArray(raw) ? (raw as FAQItem[]) : [];
+};
+
 export const BlogPostPage: FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const { t, i18n } = useTranslation();
@@ -41,14 +73,16 @@ export const BlogPostPage: FC = () => {
 
   const prevLangRef = useRef(i18n.language);
 
-  const { data, loading, error } = useGetPostBySlugQuery({
-    variables: { slug: slug! },
-    skip: !slug,
-  });
+  const { data, loading, error } = useGetPostBySlugQuery({ variables: { slug: slug! }, skip: !slug });
 
   const post = data?.posts[0];
   const isEn = i18n.language === "en";
   const currentLang = isEn ? "en" : "ua";
+
+  const otherVars = { limit: OTHER_POSTS_LIMIT, offset: 0 };
+  const otherUa = useGetPostsQuery({ variables: otherVars, skip: isEn });
+  const otherEn = useGetPostsEnQuery({ variables: otherVars, skip: !isEn });
+  const otherPosts = ((isEn ? otherEn.data : otherUa.data)?.posts ?? []).filter((p) => p.id !== post?.id).slice(0, 3);
 
   useEffect(() => {
     if (!post || prevLangRef.current === i18n.language) return;
@@ -62,10 +96,6 @@ export const BlogPostPage: FC = () => {
     prevLangRef.current = i18n.language;
   }, [i18n.language, post, slug, navigate]);
 
-  const heroTransformations = useMemo(() => ["c_fill", "w_1200", "h_630", "f_auto", "q_auto"], []);
-  const heroImage = useCloudinaryImage(post?.hero_image || "", heroTransformations);
-  const heroUrl = post?.hero_image ? heroImage.toURL() : undefined;
-
   const title = isEn ? post?.title_en || post?.title : post?.title;
   const heading = (isEn ? post?.h1_en || post?.h1 : post?.h1) || title;
   const seoTitle = isEn ? post?.seo_title_en : post?.seo_title;
@@ -73,20 +103,29 @@ export const BlogPostPage: FC = () => {
   const excerpt = isEn ? post?.excerpt_en : post?.excerpt;
   const content = isEn ? post?.content_en : post?.content;
   const heroAlt = (isEn ? post?.hero_image_alt_en : post?.hero_image_alt) || title || "";
+  const heroUrl = post?.hero_image ? imageUrl(post.hero_image, 1200, 0.75) : undefined;
 
-  const rawFaq = isEn ? post?.faq_en : post?.faq_ua;
-  const faqList: FAQItem[] = useMemo(() => {
-    if (!rawFaq) return [];
-    if (typeof rawFaq === "string") {
-      try {
-        const parsed = JSON.parse(rawFaq);
-        return Array.isArray(parsed) ? parsed : [];
-      } catch (e) {
-        return [];
+  const { html: bodyHtml, toc } = useMemo(() => {
+    const result = withHeadingIds(content);
+    return {
+      toc: result.toc,
+      html: result.html
+        .replace(/<table/gi, '<div class="overflow-x-auto"><table')
+        .replace(/<\/table>/gi, "</table></div>"),
+    };
+  }, [content]);
+  const minutes = readingMinutes(content);
+
+  const faqList = useMemo(() => parseFaq(isEn ? post?.faq_en : post?.faq_ua), [isEn, post?.faq_en, post?.faq_ua]);
+
+  const video = post?.video
+    ? {
+        title: (isEn ? post.video_title_en : post.video_title) || post.video_title || heading || "",
+        description: (isEn ? post.video_description_en : post.video_description) || "",
+        transcript: (isEn ? post.video_transcript_en : post.video_transcript) || "",
+        chapters: parseChapters(isEn ? post.video_chapters_en : post.video_chapters, post.video_duration),
       }
-    }
-    return Array.isArray(rawFaq) ? (rawFaq as FAQItem[]) : [];
-  }, [rawFaq]);
+    : undefined;
 
   const crumbs: Crumb[] = useMemo(() => {
     if (!post) return [];
@@ -119,43 +158,78 @@ export const BlogPostPage: FC = () => {
     if (post.updated_at) article.dateModified = post.updated_at;
 
     if (author) {
-      const authorName = (isEn && author.name_en) || author.name;
       const authorSlug = isEn ? author.slug_en || author.slug : author.slug;
       article.author = {
         "@type": "Person",
-        name: authorName,
-        ...(authorSlug
-          ? { url: `${baseUrl}/${currentLang}/${isEn ? "doctors" : "likari"}/${authorSlug}` }
-          : {}),
+        name: (isEn && author.name_en) || author.name,
+        ...(authorSlug ? { url: `${baseUrl}${doctorPath(currentLang, authorSlug)}` } : {}),
         worksFor: { "@id": `${baseUrl}/#organization` },
       };
     }
 
     const reviewer = post.reviewer;
     if (reviewer) {
+      const reviewerSlug = isEn ? reviewer.slug_en || reviewer.slug : reviewer.slug;
       article.reviewedBy = {
         "@type": "Person",
         name: (isEn && reviewer.name_en) || reviewer.name,
+        ...(reviewerSlug ? { url: `${baseUrl}${doctorPath(currentLang, reviewerSlug)}` } : {}),
       };
     }
 
-    const breadcrumbSchema = buildBreadcrumbSchema(crumbs, baseUrl, `${url}/#breadcrumb`);
+    const nodes: Record<string, any>[] = [article, buildBreadcrumbSchema(crumbs, baseUrl, `${url}/#breadcrumb`)];
 
-    if (!faqList.length) return [article, breadcrumbSchema];
+    if (post.video && video) {
+      const vertical = !post.video_width || !post.video_height || post.video_height > post.video_width;
+      const videoNode: Record<string, any> = {
+        "@type": "VideoObject",
+        "@id": `${url}/#video`,
+        name: video.title,
+        description: video.description || seoDescription || excerpt || video.title,
+        thumbnailUrl: [
+          videoPosterUrl(post.video, post.video_poster, vertical ? 720 : 1280, vertical ? 16 / 9 : 9 / 16),
+          videoPosterUrl(post.video, post.video_poster, 1080, 1),
+        ],
+        uploadDate: post.video_uploaded_at || post.published_at || post.updated_at,
+        contentUrl: videoUrl(post.video, vertical ? 720 : 1280),
+        inLanguage: isEn ? "en-US" : "uk-UA",
+        isFamilyFriendly: true,
+        publisher: { "@id": `${baseUrl}/#organization` },
+        mainEntityOfPage: { "@id": `${url}/#webpage` },
+      };
+      const duration = isoDuration(post.video_duration);
+      if (duration) videoNode.duration = duration;
+      if (post.video_width && post.video_height) {
+        videoNode.width = post.video_width;
+        videoNode.height = post.video_height;
+      }
+      if (video.transcript) videoNode.transcript = video.transcript;
+      if (video.chapters.length) {
+        videoNode.hasPart = video.chapters.map((c) => ({
+          "@type": "Clip",
+          name: c.title,
+          startOffset: Math.floor(c.start),
+          ...(c.end ? { endOffset: Math.ceil(c.end) } : {}),
+          url: `${url}?t=${Math.floor(c.start)}`,
+        }));
+      }
+      article.video = { "@id": `${url}/#video` };
+      nodes.push(videoNode);
+    }
 
-    return [
-      article,
-      breadcrumbSchema,
-      {
+    if (faqList.length) {
+      nodes.push({
         "@type": "FAQPage",
         mainEntity: faqList.map((item) => ({
           "@type": "Question",
           name: item.question,
           acceptedAnswer: { "@type": "Answer", text: item.answer },
         })),
-      },
-    ];
-  }, [post, heading, seoDescription, excerpt, heroUrl, isEn, currentLang, crumbs, faqList]);
+      });
+    }
+
+    return nodes;
+  }, [post, heading, seoDescription, excerpt, heroUrl, isEn, currentLang, crumbs, faqList, video]);
 
   if (error) {
     return (
@@ -176,6 +250,8 @@ export const BlogPostPage: FC = () => {
   if (!post) return <NotFound />;
   if (isEn && !post.slug_en) return <NotFound />;
 
+  const date = formatPostDate(post.published_at, isEn);
+
   return (
     <>
       <SEOMeta
@@ -191,82 +267,93 @@ export const BlogPostPage: FC = () => {
         hasEn={Boolean(post.slug_en)}
       />
 
-      <main className="pt-12 pb-24 px-6 md:px-16 dark:bg-darkGray min-h-screen">
-        <div className="max-w-4xl mx-auto flex flex-col gap-4">
-          <Breadcrumbs items={crumbs} />
-
-          <h1 className="md:text-5xl text-3xl border-b border-paleOlive py-3 z-10 text-darkGray dark:text-white">
-            {heading}
-          </h1>
-        </div>
-
-        <article className="max-w-4xl mx-auto mt-10 flex flex-col gap-10">
-          {post.published_at && (
-            <time
-              dateTime={post.published_at}
-              className="text-sm text-gray-500 dark:text-gray-400"
-            >
-              {new Date(post.published_at).toLocaleDateString(isEn ? "en-GB" : "uk-UA", {
-                day: "2-digit",
-                month: "long",
-                year: "numeric",
-              })}
-            </time>
-          )}
-
-          {post.hero_image && (
-            <AdvancedImage
-              cldImg={heroImage}
-              width={1200}
-              height={630}
-              alt={heroAlt}
-              className="rounded-2xl w-full h-auto shadow-lg"
-            />
-          )}
-
-          <PostAuthor author={post.author} reviewer={post.reviewer} />
-
-          <PostContent html={content} />
-
-          {faqList.length > 0 && (
-            <section className="flex flex-col gap-6 w-full">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white border-b pb-4 border-paleOlive">
-                {t("Часті запитання")}
-              </h2>
-
-              <div className="flex flex-col gap-4">
-                {faqList.map((item, index) => (
-                  <details
-                    key={index}
-                    className="group border-paleOlive p-6 rounded-lg shadow-sm border transition-all [&[open]]:shadow-md"
-                  >
-                    <summary className="flex justify-between items-center font-semibold text-lg cursor-pointer list-none text-gray-900 dark:text-white select-none">
-                      <span>{item.question}</span>
-                      <span className="transition group-open:rotate-180 ml-4 shrink-0 text-gray-500">
-                        <svg
-                          className="w-4 h-4 ml-1 transition-transform duration-200"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          aria-hidden="true"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </span>
-                    </summary>
-                    <p className="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">
-                      {item.answer}
+      <main className="pt-10 lg:pt-12 pb-16 dark:bg-darkGray min-h-screen">
+        <div className="px-4 md:px-10">
+          <div className="max-w-[1440px] mx-auto flex flex-col gap-12 md:gap-16">
+            <section className="flex flex-col gap-6">
+              <Breadcrumbs items={crumbs} />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                <div className="flex flex-col gap-6 md:gap-7 text-darkGray dark:text-white">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal leading-tight">{heading}</h1>
+                  {excerpt && (
+                    <p className="text-lg md:text-xl leading-relaxed text-darkGray/80 dark:text-white/80 max-w-2xl">{excerpt}</p>
+                  )}
+                  <PostByline author={post.author} reviewer={post.reviewer} />
+                  {(date || minutes > 0) && (
+                    <p className="text-base text-darkGray/70 dark:text-white/70">
+                      {date && <time dateTime={post.published_at}>{date}</time>}
+                      {date && minutes > 0 && ", "}
+                      {minutes > 0 && `${minutes} ${t("хв читання")}`}
                     </p>
-                  </details>
-                ))}
+                  )}
+                </div>
+                {post.hero_image && (
+                  // Якщо є відео, на телефоні його обкладинка замінює фото, щоб відео було одразу під заголовком
+                  <div className={`w-full aspect-[4/3] overflow-hidden rounded-[2rem] bg-paleOlive/40 ${post.video ? "hidden lg:block" : ""}`}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={imageUrl(post.hero_image, 960)}
+                      srcSet={imageSrcSet(post.hero_image, [480, 768, 960, 1280])}
+                      sizes={post.video ? "(min-width: 1024px) 50vw, 1px" : "(min-width: 1024px) 50vw, 100vw"}
+                      width={960}
+                      height={720}
+                      alt={heroAlt}
+                      decoding="async"
+                      {...{ fetchpriority: "high" }}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
               </div>
             </section>
-          )}
 
-          <p className="text-sm text-gray-500 dark:text-gray-400 border-t border-paleOlive dark:border-gray-700 pt-6">
-            {t("Матеріал має інформаційний характер і не замінює консультацію лікаря. Для встановлення діагнозу та призначення лікування зверніться до стоматолога.")}
-          </p>
-        </article>
+            {post.video && video && (
+              <PostVideo
+                video={post.video}
+                poster={post.video_poster}
+                title={video.title}
+                description={video.description}
+                transcript={video.transcript}
+                chapters={video.chapters}
+                duration={post.video_duration}
+                width={post.video_width}
+                height={post.video_height}
+              />
+            )}
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+              <article className="lg:col-span-8 flex flex-col gap-10 min-w-0">
+                <PostTocMobile items={toc} />
+                <HtmlContent
+                  html={bodyHtml}
+                  className="prose-p:leading-relaxed prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:font-normal prose-h2:mt-12 prose-h2:mb-5 prose-h2:scroll-mt-28 prose-h3:text-2xl prose-h3:font-semibold prose-img:rounded-2xl prose-table:w-full prose-th:text-left prose-th:bg-paleOlive/50 prose-th:border prose-td:border prose-th:border-paleOlive prose-td:border-paleOlive prose-th:px-4 prose-th:py-3 prose-td:px-4 prose-td:py-3 [&_td>p]:my-0 [&_th>p]:my-0 [&_li>p]:my-0"
+                />
+                <PostAuthorCard author={post.author} />
+                {faqList.length > 0 && <HomeFaq title={t("Часті запитання")} items={faqList} embedded />}
+                <p className="text-sm text-darkGray/70 dark:text-white/60 border-t border-paleOlive dark:border-white/20 pt-6">
+                  {t("Матеріал має інформаційний характер і не замінює консультацію лікаря. Для встановлення діагнозу та призначення лікування зверніться до стоматолога.")}
+                </p>
+              </article>
+              <aside className="hidden lg:flex lg:col-span-4 lg:self-stretch flex-col gap-8">
+                <ServiceBookingCard hasPrices={false} mascot="book" />
+                <div className="hidden lg:block lg:sticky lg:top-24">
+                  <PostToc items={toc} />
+                </div>
+              </aside>
+            </div>
+
+            {otherPosts.length > 0 && (
+              <section aria-labelledby="other-posts-title" className="flex flex-col gap-8">
+                <SectionHeading id="other-posts-title" title={t("Інші публікації")} />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {otherPosts.map((item) => (
+                    <PostCard key={item.id} post={item} />
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+        </div>
       </main>
     </>
   );
