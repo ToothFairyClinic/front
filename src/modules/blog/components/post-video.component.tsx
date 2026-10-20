@@ -108,7 +108,7 @@ export const PostVideo: FC<PostVideoProps> = ({ video, poster, title, descriptio
             type="button"
             onClick={() => open()}
             aria-label={`${t("Дивитися відео")}: ${title}`}
-            className="group absolute inset-0 flex items-center justify-center bg-darkGray/10 hover:bg-darkGray/20 transition-colors"
+            className="group absolute inset-0 flex items-end justify-center pb-[20%] bg-darkGray/10 hover:bg-darkGray/20 transition-colors"
           >
             <span className="flex items-center justify-center w-20 h-20 rounded-full bg-white/95 text-darkGray shadow-lg transition-transform duration-300 group-hover:scale-110">
               <svg viewBox="0 0 24 24" className="w-8 h-8 ml-1" fill="currentColor" aria-hidden="true">
