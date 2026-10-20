@@ -83,13 +83,13 @@ export const ContactPage: FC = () => {
         <Contacts mapHeight={isMobile ? "350" : "586"} mapWidth="749" />
       </section>
 
-      <div className="flex flex-col max-w-xl">
-        <h1 className="text-4xl sm:text-6xl lg:text-6xl dark:text-white border-b border-paleOlive px-15 py-4">
+      <div className="flex flex-col max-w-xl w-full min-w-0">
+        <h1 className="text-4xl sm:text-6xl lg:text-6xl dark:text-white border-b border-paleOlive px-4 sm:px-15 py-4 break-words">
           {pageHeading}
         </h1>
 
         <address className="not-italic">
-          <div className="px-15 dark:text-white border-b border-paleOlive py-4">
+          <div className="px-4 sm:px-15 dark:text-white border-b border-paleOlive py-4">
             <ul className="flex flex-col gap-7 md:gap-3 text-lg sm:text-3xl lg:text-3xl">
               <li className="flex gap-2 items-center">
                 <AccessTimeIcon width={31} height={31} aria-hidden="true" />
@@ -116,7 +116,7 @@ export const ContactPage: FC = () => {
             </ul>
           </div>
 
-          <div className="px-15 dark:text-white border-b border-paleOlive py-4">
+          <div className="px-4 sm:px-15 dark:text-white border-b border-paleOlive py-4">
             <ul className="flex flex-col gap-7 md:gap-3 text-lg sm:text-3xl lg:text-3xl">
               <li className="flex gap-2 dark:hover:text-paleOlive items-center">
                 <LocationIcon width={40} height={40} className="" />
@@ -125,7 +125,7 @@ export const ContactPage: FC = () => {
             </ul>
           </div>
 
-          <div className="px-15 dark:text-white border-b border-paleOlive py-4">
+          <div className="px-4 sm:px-15 dark:text-white border-b border-paleOlive py-4">
             <ul className="flex flex-col gap-7 md:gap-3 text-lg sm:text-3xl lg:text-3xl">
               <li className="flex gap-2 dark:hover:text-paleOlive items-center">
                 <InstagramIcon width={31} height={31} />
