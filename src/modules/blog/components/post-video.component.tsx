@@ -1,7 +1,7 @@
 import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-import { videoPosterUrl, videoUrl } from "../utils/post-utils";
+import { videoPosterUrl, videoSquarePosterUrl, videoUrl } from "../utils/post-utils";
 
 interface PostVideoProps {
   video: string;
@@ -30,7 +30,7 @@ export const PostVideo: FC<PostVideoProps> = ({ video, poster, title, descriptio
   const vertical = !width || !height || height > width;
   const ratio = width && height ? height / width : 16 / 9; // висота / ширина відео
   const fullPoster = videoPosterUrl(video, poster, vertical ? 720 : 1280, ratio);
-  const squarePoster = videoPosterUrl(video, poster, 720, 1);
+  const squarePoster = videoSquarePosterUrl(video, poster, 720, vertical);
 
   // Висота рамки рахується від ширини: квадрат до натискання, пропорції відео після - так перехід анімується
   useIsoLayoutEffect(() => {

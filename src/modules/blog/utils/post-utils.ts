@@ -37,6 +37,15 @@ export const videoPosterUrl = (video: string, poster?: string | null, width = 72
     : `${CLOUD}/video/upload/so_2,c_fill,g_center,w_${width}${height},f_jpg,q_auto/${video}.jpg`;
 };
 
+/**
+ * Квадратна обкладинка відео. Для вертикального кадру береться верхня частина (від 8% висоти),
+ * де зазвичай заголовок ролика, а не середина; горизонтальний - по центру.
+ */
+export const videoSquarePosterUrl = (video: string, poster?: string | null, width = 720, vertical = true) =>
+  poster
+    ? `${CLOUD}/image/upload/c_fill,g_auto,ar_1:1,w_${width},f_jpg,q_auto/${poster}`
+    : `${CLOUD}/video/upload/so_2,c_crop,${vertical ? "g_north,y_0.08" : "g_center"},w_1.0,ar_1:1/c_scale,w_${width}/f_jpg,q_auto/${video}.jpg`;
+
 /** Тривалість для розмітки: 63.7 -> PT1M4S. */
 export const isoDuration = (seconds?: number | string | null) => {
   const total = Math.round(Number(seconds) || 0);

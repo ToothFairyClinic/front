@@ -25,6 +25,7 @@ import {
   parseChapters,
   readingMinutes,
   videoPosterUrl,
+  videoSquarePosterUrl,
   videoUrl,
   withHeadingIds,
 } from "../utils/post-utils";
@@ -187,7 +188,7 @@ export const BlogPostPage: FC = () => {
         description: video.description || seoDescription || excerpt || video.title,
         thumbnailUrl: [
           videoPosterUrl(post.video, post.video_poster, vertical ? 720 : 1280, vertical ? 16 / 9 : 9 / 16),
-          videoPosterUrl(post.video, post.video_poster, 1080, 1),
+          videoSquarePosterUrl(post.video, post.video_poster, 1080, vertical),
         ],
         uploadDate: post.video_uploaded_at || post.published_at || post.updated_at,
         contentUrl: videoUrl(post.video, vertical ? 720 : 1280),
