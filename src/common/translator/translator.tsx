@@ -101,6 +101,7 @@ const resources = {
           "Читати більше": "Read more",
           "Читати статтю": "Read the article",
           "Стаття з відео": "Article with video",
+          "Дивитися відео": "Watch the video",
           "Статті лікарів Зубної Феї про здоров'я зубів дітей і дорослих: як доглядати за зубами вдома і коли час до стоматолога.": "Articles by Tooth Fairy dentists on dental health for children and adults: how to care for teeth at home and when it is time to see a dentist.",
           "Медичний рецензент": "Medical reviewer",
           "Автор статті": "Article author",
