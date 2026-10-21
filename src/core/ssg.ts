@@ -38,11 +38,12 @@ const SLUGS = gql`
     services { slug slug_en }
     personnel { slug slug_en }
     posts(where: { is_published: { _eq: true } }) { slug slug_en }
+    our_works(where: { is_case_published: { _eq: true } }) { slug slug_en }
   }
 `;
 
 type SlugRow = { slug?: string | null; slug_en?: string | null };
-type SlugKind = "services" | "personnel" | "posts";
+type SlugKind = "services" | "personnel" | "posts" | "our_works";
 
 /**
  * Сторінки зі slug збираються заздалегідь (щоб перехід був миттєвим),

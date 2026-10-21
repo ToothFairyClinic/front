@@ -1,9 +1,16 @@
 query GetOurWork {
   our_works {
     description
+    description_en
     id
     image_after
     image_before
     title
+    title_en
+    slug
+    slug_en
+    h1
+    h1_en
+    is_case_published
   }
 }

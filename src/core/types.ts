@@ -1342,13 +1342,30 @@ export enum Order_By {
 /** columns and relationships of "our_works" */
 export type Our_Works = {
   __typename?: 'our_works';
+  case_published_at?: Maybe<Scalars['timestamptz']['output']>;
+  content?: Maybe<Scalars['String']['output']>;
+  content_en?: Maybe<Scalars['String']['output']>;
   description: Scalars['String']['output'];
+  description_en?: Maybe<Scalars['String']['output']>;
+  h1?: Maybe<Scalars['String']['output']>;
+  h1_en?: Maybe<Scalars['String']['output']>;
   id: Scalars['uuid']['output'];
   image_after?: Maybe<Scalars['String']['output']>;
+  image_alt?: Maybe<Scalars['String']['output']>;
+  image_alt_en?: Maybe<Scalars['String']['output']>;
   image_before: Scalars['String']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  intro_en?: Maybe<Scalars['String']['output']>;
+  is_case_published: Scalars['Boolean']['output'];
   seo_description?: Maybe<Scalars['String']['output']>;
+  seo_description_en?: Maybe<Scalars['String']['output']>;
   seo_title?: Maybe<Scalars['String']['output']>;
+  seo_title_en?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  slug_en?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
+  title_en?: Maybe<Scalars['String']['output']>;
+  updated_at: Scalars['timestamptz']['output'];
 };
 
 /** aggregated selection of "our_works" */
@@ -5427,7 +5444,14 @@ export type GetDoctorBySlugQuery = { __typename?: 'query_root', personnel: Array
 export type GetOurWorkQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetOurWorkQuery = { __typename?: 'query_root', our_works: Array<{ __typename?: 'our_works', description: string, id: any, image_after?: string | null, image_before: string, title: string }> };
+export type GetOurWorkQuery = { __typename?: 'query_root', our_works: Array<{ __typename?: 'our_works', description: string, description_en?: string | null, id: any, image_after?: string | null, image_before: string, title: string, title_en?: string | null, slug?: string | null, slug_en?: string | null, h1?: string | null, h1_en?: string | null, is_case_published: boolean }> };
+
+export type GetOurWorkCaseQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetOurWorkCaseQuery = { __typename?: 'query_root', our_works: Array<{ __typename?: 'our_works', id: any, title: string, title_en?: string | null, description: string, description_en?: string | null, image_before: string, slug?: string | null, slug_en?: string | null, h1?: string | null, h1_en?: string | null, intro?: string | null, intro_en?: string | null, content?: string | null, content_en?: string | null, image_alt?: string | null, image_alt_en?: string | null, seo_title?: string | null, seo_title_en?: string | null, seo_description?: string | null, seo_description_en?: string | null, case_published_at?: any | null, updated_at: any }> };
 
 export type GetPageMetadataQueryVariables = Exact<{
   route: Scalars['String']['input'];
@@ -5669,10 +5693,17 @@ export const GetOurWorkDocument = gql`
     query GetOurWork {
   our_works {
     description
+    description_en
     id
     image_after
     image_before
     title
+    title_en
+    slug
+    slug_en
+    h1
+    h1_en
+    is_case_published
   }
 }
     `;
@@ -6397,3 +6428,66 @@ export type GetPostsEnLazyQueryHookResult = ReturnType<typeof useGetPostsEnLazyQ
 export type GetPostsEnSuspenseQueryHookResult = ReturnType<typeof useGetPostsEnSuspenseQuery>;
 
 export type GetPostsEnQueryResult = Apollo.QueryResult<GetPostsEnQuery, GetPostsEnQueryVariables>;
+export const GetOurWorkCaseDocument = gql`
+    query GetOurWorkCase($slug: String!) {
+  our_works(
+    where: {is_case_published: {_eq: true}, _or: [{slug: {_eq: $slug}}, {slug_en: {_eq: $slug}}]}
+  ) {
+    id
+    title
+    title_en
+    description
+    description_en
+    image_before
+    slug
+    slug_en
+    h1
+    h1_en
+    intro
+    intro_en
+    content
+    content_en
+    image_alt
+    image_alt_en
+    seo_title
+    seo_title_en
+    seo_description
+    seo_description_en
+    case_published_at
+    updated_at
+  }
+}
+    `;
+
+/**
+ * __useGetOurWorkCaseQuery__
+ *
+ * To run a query within a React component, call `useGetOurWorkCaseQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOurWorkCaseQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOurWorkCaseQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetOurWorkCaseQuery(baseOptions: Apollo.QueryHookOptions<GetOurWorkCaseQuery, GetOurWorkCaseQueryVariables> & ({ variables: GetOurWorkCaseQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOurWorkCaseQuery, GetOurWorkCaseQueryVariables>(GetOurWorkCaseDocument, options);
+      }
+export function useGetOurWorkCaseLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOurWorkCaseQuery, GetOurWorkCaseQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOurWorkCaseQuery, GetOurWorkCaseQueryVariables>(GetOurWorkCaseDocument, options);
+        }
+export function useGetOurWorkCaseSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetOurWorkCaseQuery, GetOurWorkCaseQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetOurWorkCaseQuery, GetOurWorkCaseQueryVariables>(GetOurWorkCaseDocument, options);
+        }
+export type GetOurWorkCaseQueryHookResult = ReturnType<typeof useGetOurWorkCaseQuery>;
+export type GetOurWorkCaseLazyQueryHookResult = ReturnType<typeof useGetOurWorkCaseLazyQuery>;
+export type GetOurWorkCaseSuspenseQueryHookResult = ReturnType<typeof useGetOurWorkCaseSuspenseQuery>;
+export type GetOurWorkCaseQueryResult = Apollo.QueryResult<GetOurWorkCaseQuery, GetOurWorkCaseQueryVariables>;

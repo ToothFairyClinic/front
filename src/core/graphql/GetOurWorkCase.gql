@@ -1,0 +1,28 @@
+query GetOurWorkCase($slug: String!) {
+  our_works(
+    where: { is_case_published: { _eq: true }, _or: [{ slug: { _eq: $slug } }, { slug_en: { _eq: $slug } }] }
+  ) {
+    id
+    title
+    title_en
+    description
+    description_en
+    image_before
+    slug
+    slug_en
+    h1
+    h1_en
+    intro
+    intro_en
+    content
+    content_en
+    image_alt
+    image_alt_en
+    seo_title
+    seo_title_en
+    seo_description
+    seo_description_en
+    case_published_at
+    updated_at
+  }
+}
