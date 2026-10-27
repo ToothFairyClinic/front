@@ -9,9 +9,8 @@ import { MainTitle } from "@app/common/components/main-title/main-title.componen
 import { Breadcrumbs, buildBreadcrumbSchema, Crumb } from "@app/common/components/breadcrumbs/breadcrumbs.component";
 import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
 import { AdvancedImage } from "@cloudinary/react";
-import { stripUnsafe } from "@app/common/utils/strip-unsafe";
+import { prepareHtml, useEmbedScripts } from "@app/common/components/html-content/html-content.component";
 import { doctorPath, doctorsPath } from "@app/common/utils/doctors-path";
-import { followInternalLinks } from "@app/common/utils/internal-links";
 
 const ServiceImageItem: FC<{ imagePublicId: string; altText: string }> = ({ imagePublicId, altText }) => {
     const transformations = useMemo(() => ["w_100", "h_100", "f_auto", "q_auto", "c_fill"], []);
@@ -72,11 +71,9 @@ export const DoctorDetailPage: FC = () => {
     const doctorName = isEn ? (doctor?.name_en || doctor?.name) : doctor?.name;
     const currentDescription = isEn ? (doctor?.description_en || doctor?.description) : doctor?.description;
 
-    const sanitizedHtml = useMemo(() => {
-        if (!currentDescription) return "";
-        const cleaned = currentDescription.replace(/<p>\s*(?:&nbsp;|&#160;|ㅤ)?\s*<\/p>/gi, "");
-        return followInternalLinks(stripUnsafe(cleaned));
-    }, [currentDescription]);
+    const sanitizedHtml = useMemo(() => prepareHtml(currentDescription), [currentDescription]);
+    const descriptionRef = useRef<HTMLDivElement>(null);
+    useEmbedScripts(descriptionRef, sanitizedHtml);
 
     const seoCleanDescription = useMemo(() => {
         if (!currentDescription) return "";
@@ -220,7 +217,8 @@ export const DoctorDetailPage: FC = () => {
 
                         {sanitizedHtml && (
                             <div
-                                className="prose max-w-none text-xl dark:text-white text-left"
+                                ref={descriptionRef}
+                                className="prose max-w-none text-xl dark:text-white text-left prose-img:mx-auto prose-figcaption:text-center prose-figcaption:text-sm [&_.tf-embed]:my-6"
                                 dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
                             />
                         )}
