@@ -9,11 +9,6 @@ const GTM_SCRIPT = `(function(){var done=false;function load(){if(done)return;do
 ['pointerdown','keydown','scroll','touchstart'].forEach(function(e){window.addEventListener(e,load,{once:true,passive:true});});
 if(document.readyState==='complete'){setTimeout(load,1500);}else{window.addEventListener('load',function(){setTimeout(load,1500);});}})();`;
 
-// Якщо load настає раніше першого кадру, частина прогонів PageSpeed не показувала готову сторінку до старту GTM
-// (FCP 2,4 с при завантаженні 0,8 с). На load додаємо на один кадр невидимий піксель поза #__next, щоб браузер
-// намалював кадр одразу. Не текст і не зображення, тож FCP і LCP не підміняє. GTM і трекінг не зачіпає.
-const PAINT_NUDGE = `(function(){function k(){var b=document.body;if(!b)return;var e=document.createElement('i');e.setAttribute('aria-hidden','true');e.style.cssText='position:fixed;left:0;top:0;width:1px;height:1px;opacity:.01;pointer-events:none';b.appendChild(e);requestAnimationFrame(function(){requestAnimationFrame(function(){e.remove();});});}if(document.readyState==='complete'){k();}else{window.addEventListener('load',k);}})();`;
-
 type Props = DocumentInitialProps & { htmlLang: string };
 
 export default class AppDocument extends Document<Props> {
@@ -32,7 +27,6 @@ export default class AppDocument extends Document<Props> {
           <link rel="preload" href="/fonts/montserrat-cyrillic.woff2" as="font" type="font/woff2" crossOrigin="" />
           <link rel="preload" href="/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossOrigin="" />
           <script dangerouslySetInnerHTML={{ __html: GTM_SCRIPT }} />
-          <script dangerouslySetInnerHTML={{ __html: PAINT_NUDGE }} />
           <link rel="preconnect" href="https://hasura.toothfairy.clinic" crossOrigin="" />
           <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="" />
           <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
