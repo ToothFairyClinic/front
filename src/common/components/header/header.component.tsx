@@ -81,10 +81,12 @@ export const Header: FC<HeaderProps> = ({ }) => {
 
         <div className="flex-shrink-0">
           <Link to="/" aria-label={t("Зубна Фея — на головну")}>
-            {/* Логотип - WebP 480x333 (24 КБ) замість logo.svg (131 КБ, усередині вбудований PNG 2082x1518);
+            {/* Логотип - WebP 160/320/480 px (6/15/24 КБ) під щільність екрана замість logo.svg (131 КБ, усередині вбудований PNG 2082x1518);
                 object-contain вписує його в рамку так само, як SVG; на сторінці цін логотип - LCP, тому високий пріоритет */}
             {themeStateCurrent ? <img
               src="/assets/logo.webp"
+              srcSet="/assets/logo-160.webp 160w, /assets/logo-320.webp 320w, /assets/logo.webp 480w"
+              sizes="144px"
               alt="Зубна Фея логотип"
               width="50"
               height="50"
@@ -93,6 +95,8 @@ export const Header: FC<HeaderProps> = ({ }) => {
               {...{ fetchpriority: "high" }}
             /> : <img
               src="/assets/logo_light.webp"
+              srcSet="/assets/logo_light-160.webp 160w, /assets/logo_light-320.webp 320w, /assets/logo_light.webp 480w"
+              sizes="144px"
               alt="Tooth Fairy Clinic Logo"
               width="50"
               height="50"

@@ -33,7 +33,7 @@ export const PostVideo: FC<PostVideoProps> = ({ video, poster, title, descriptio
   const squarePoster = videoSquarePosterUrl(video, poster, 720, vertical);
   // Квадратна обкладинка - окремий <img> (а не poster відео): браузер малює його одразу після завантаження,
   // а poster у <video> на мобільному з'являвся на 1-2 с пізніше і був LCP статті. srcset - під ширину рамки.
-  const squareWidths = vertical ? [360, 540, 720] : [360, 540, 720, 1080];
+  const squareWidths = vertical ? [360, 540, 600, 720] : [360, 540, 720, 1080];
   const squareSrcSet = squareWidths.map((w) => `${videoSquarePosterUrl(video, poster, w, vertical)} ${w}w`).join(", ");
   const squareSizes = vertical ? "(min-width: 768px) 22rem, calc(100vw - 4.5rem)" : "100vw";
 
