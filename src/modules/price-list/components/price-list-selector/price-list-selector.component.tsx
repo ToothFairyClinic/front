@@ -56,6 +56,7 @@ export const PriceListSelect: FC<PriceListSelectProps> = ({ data }) => {
           (opt) => opt.value === priceListCurrent()
         )}
         placeholder={t("Оберіть категорію")}
+        aria-label={t("Оберіть категорію")}
         isSearchable={false}
         openMenuOnFocus={true}
       />

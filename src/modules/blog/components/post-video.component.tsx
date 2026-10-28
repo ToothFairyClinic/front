@@ -31,6 +31,11 @@ export const PostVideo: FC<PostVideoProps> = ({ video, poster, title, descriptio
   const ratio = width && height ? height / width : 16 / 9; // висота / ширина відео
   const fullPoster = videoPosterUrl(video, poster, vertical ? 720 : 1280, ratio);
   const squarePoster = videoSquarePosterUrl(video, poster, 720, vertical);
+  // Квадратна обкладинка - окремий <img> (а не poster відео): браузер малює його одразу після завантаження,
+  // а poster у <video> на мобільному з'являвся на 1-2 с пізніше і був LCP статті. srcset - під ширину рамки.
+  const squareWidths = vertical ? [360, 540, 720] : [360, 540, 720, 1080];
+  const squareSrcSet = squareWidths.map((w) => `${videoSquarePosterUrl(video, poster, w, vertical)} ${w}w`).join(", ");
+  const squareSizes = vertical ? "(min-width: 768px) 22rem, calc(100vw - 4.5rem)" : "100vw";
 
   // Висота рамки рахується від ширини: квадрат до натискання, пропорції відео після - так перехід анімується
   useIsoLayoutEffect(() => {
@@ -93,7 +98,7 @@ export const PostVideo: FC<PostVideoProps> = ({ video, poster, title, descriptio
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
-          poster={expanded ? fullPoster : squarePoster}
+          poster={expanded ? fullPoster : undefined}
           preload="none"
           controls={expanded}
           playsInline
@@ -102,6 +107,22 @@ export const PostVideo: FC<PostVideoProps> = ({ video, poster, title, descriptio
         >
           <source src={videoUrl(video, vertical ? 720 : 1280)} type="video/mp4" />
         </video>
+
+        {!expanded && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={squarePoster}
+            srcSet={squareSrcSet}
+            sizes={squareSizes}
+            width={720}
+            height={720}
+            alt=""
+            aria-hidden="true"
+            decoding="async"
+            {...{ fetchpriority: "high" }}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
 
         {!expanded && (
           <button

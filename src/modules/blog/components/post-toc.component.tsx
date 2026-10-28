@@ -44,7 +44,7 @@ const TocList: FC<{ items: TocItem[]; active?: string }> = ({ items, active }) =
             active === item.id ? "bg-paleOlive/60 dark:bg-white/15 font-semibold" : "hover:bg-paleOlive/30 dark:hover:bg-white/10"
           )}
         >
-          <span className="tabular-nums shrink-0 w-5 text-darkGray/60 dark:text-white/60">{i + 1}.</span>
+          <span className="tabular-nums shrink-0 w-5 text-darkGray/75 dark:text-white/60">{i + 1}.</span>
           <span>{item.title}</span>
         </a>
       </li>

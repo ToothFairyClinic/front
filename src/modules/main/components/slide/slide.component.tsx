@@ -6,9 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { ConsultationModal } from "@app/common/components/consultation-modal/lazy-consultation-modal";
 
 
+// analytics: false - без параметра ?_a=..., який на сервері і в браузері різний: через нього обкладинку
+// героя браузер качав двічі (той самий кадр 1280 з різним _a)
 const cld = new Cloudinary({
   cloud: {
     cloudName: "dc7d3byxg",
+  },
+  url: {
+    analytics: false,
   },
 });
 
@@ -45,14 +50,16 @@ export const Slide: FC<SlideProps> = ({ titleTop, titleMain, titleBottom, text, 
     return video.resize(fill().width(1280)).addTransformation("br_1m");
   }, [isMobile]);
 
+  // Обкладинка одна для всіх екранів (1280, 28 КБ): сервер уже віддав її в HTML, а перемикання на 640 після
+  // гідратації на мобільному додавало третій запит того самого кадру
   const videoPoster = useMemo(() =>
     cld.image("videos/cjqq4jqlqe6vqia4xyot")
       .setAssetType('video')
       .format('auto')
       .quality('auto')
-      .resize(fill().width(isMobile ? 640 : 1280))
+      .resize(fill().width(1280))
       .toURL(),
-    [isMobile]
+    []
   );
 
   return (
@@ -116,9 +123,7 @@ export const Slide: FC<SlideProps> = ({ titleTop, titleMain, titleBottom, text, 
           width="400"
           height="350"
           className="w-auto h-auto object-contain"
-          loading="eager"
-          // @ts-ignore
-          fetchpriority="low"
+          loading="lazy"
         />
       </div>
       <ConsultationModal

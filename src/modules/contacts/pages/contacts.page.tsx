@@ -99,13 +99,13 @@ export const ContactPage: FC = () => {
               </li>
               <li className="flex gap-2 dark:hover:text-paleOlive items-center">
                 <SmartPhoneIcon width={31} height={31} aria-hidden="true" />
-                <a href="tel:+380681689911" aria-label={t("Подзвонити на Київстар")}>
+                <a href="tel:+380681689911" aria-label={`+38 (068) 168-99-11, ${t("Подзвонити на Київстар")}`}>
                   +38 (068) 168-99-11
                 </a>
               </li>
               <li className="flex gap-2 dark:hover:text-paleOlive items-center">
                 <SmartPhoneIcon width={31} height={31} aria-hidden="true" />
-                <a href="tel:+380934599911" aria-label={t("Подзвонити на Lifecell")}>
+                <a href="tel:+380934599911" aria-label={`+38 (093) 459-99-11, ${t("Подзвонити на Lifecell")}`}>
                   +38 (093) 459-99-11
                 </a>
               </li>

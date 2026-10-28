@@ -62,7 +62,7 @@ export const Footer = () => {
           <div className="order-1 lg:order-none">
             <Link to={`/${lang}`} aria-label={t("На головну")} className="inline-block">
               <img
-                src="/assets/logo_light.svg"
+                src="/assets/logo_light.webp"
                 alt={t("Зубна Фея логотип")}
                 width="160"
                 height="111"

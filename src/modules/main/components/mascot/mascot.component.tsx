@@ -24,10 +24,15 @@ interface MascotProps {
 export const Mascot: FC<MascotProps> = ({ pose, height, className, style }) => {
   const { src, width: w, height: h } = MASCOTS[pose];
   const width = Math.round((w / h) * height);
+  // Поруч з оригіналом лежить копія вдвічі меншого розміру (-sm.webp): на звичайних екранах браузер бере її,
+  // на ретіні - оригінал. Маскот показується на 150-190 px заввишки, оригінали 430-494 px.
+  const srcSet = `${src.replace(/\.webp$/, "-sm.webp")} ${Math.round(w / 2)}w, ${src} ${w}w`;
 
   return (
     <img
       src={src}
+      srcSet={srcSet}
+      sizes={`${width}px`}
       alt=""
       aria-hidden="true"
       width={width}

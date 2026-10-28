@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{ts,tsx}", "./pages/**/*.{ts,tsx}"],
+  // src/generated (вбудований CSS) не скануємо: інакше класи з попередньої збірки потрапляють у нову
+  content: ["./src/**/*.{ts,tsx}", "!./src/generated/**", "./pages/**/*.{ts,tsx}"],
   darkMode: "class",
   theme: {
     extend: {

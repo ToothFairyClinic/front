@@ -26,11 +26,23 @@ const FONTS =
   ).join("") +
   `@font-face{font-family:Montserrat Fallback;src:local("Arial");ascent-override:85.79%;descent-override:22.25%;line-gap-override:0%;size-adjust:112.83%}`;
 
+// Темну тему з сайту прибрано (header знімає клас dark з <html>), тому правила dark:... ніколи не спрацьовують.
+// Викидаємо їх із вбудованого CSS (PageSpeed: "Зменште код CSS, який не використовуєте").
+const dropDarkTheme = {
+  postcssPlugin: "drop-dark-theme",
+  Rule(rule) {
+    if (rule.selectors.every((s) => /:is\(\.dark\s/.test(s) || /^\.dark\s/.test(s))) rule.remove();
+  },
+};
+
 async function main() {
-  const tailwind = await postcss([tailwindcss(path.join(root, "tailwind.config.js")), autoprefixer]).process(
+  const out = path.join(root, "src/generated/inline-css.ts");
+  const generated = await postcss([tailwindcss(path.join(root, "tailwind.config.js")), autoprefixer]).process(
     fs.readFileSync(path.join(root, "src/index.css"), "utf8"),
     { from: path.join(root, "src/index.css") }
   );
+  // Окремим проходом після Tailwind: у спільному конвеєрі видалення правил ламає його вивід
+  const tailwind = await postcss([dropDarkTheme]).process(generated.css, { from: undefined });
   // Порядок як був у Next: спершу глобальні стилі, потім стилі слайдера зі сторінок
   const css = [
     FONTS,
@@ -41,7 +53,6 @@ async function main() {
     read("swiper/modules/pagination.css"),
   ].join("\n");
   const min = await postcss([cssnano()]).process(css, { from: undefined });
-  const out = path.join(root, "src/generated/inline-css.ts");
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, `// Згенеровано scripts/build-inline-css.js, не редагувати\nexport const INLINE_CSS = ${JSON.stringify(min.css)};\n`);
   console.log(`inline css: ${(min.css.length / 1024).toFixed(1)} KB`);

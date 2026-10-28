@@ -187,12 +187,16 @@ export const DoctorDetailPage: FC = () => {
             <div className="max-w-6xl mx-auto flex flex-col gap-10">
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-10 shadow-lg flex flex-col md:flex-row gap-8 items-start">
                     <div className="w-full md:w-1/3 flex-shrink-0 overflow-hidden rounded-xl">
+                        {/* Головне фото - LCP сторінки: одразу і з високим пріоритетом, розміри 385x440
+                            резервують місце, щоб текст під фото не стрибав (CLS) */}
                         <AdvancedImage
                             cldImg={doctorMainImageCld}
                             alt={altText}
-                            loading="lazy"
-                            className="w-full h-full object-cover shadow-md"
-                            style={{ width: "100%", height: "100%" }}
+                            loading="eager"
+                            width={385}
+                            height={440}
+                            className="w-full h-auto object-cover shadow-md"
+                            {...{ fetchpriority: "high" }}
                         />
                     </div>
 

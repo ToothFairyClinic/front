@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { AdvancedImage } from "@cloudinary/react";
-import { useCloudinaryImage } from "@app/common/hooks/use-cloudinary-image.hook";
+import { imageSrcSet, imageUrl } from "@app/modules/blog/utils/post-utils";
 import { HtmlContent } from "@app/common/components/html-content/html-content.component";
 import { Mascot, MASCOT_LINES } from "../mascot/mascot.component";
 
@@ -16,11 +15,12 @@ interface AboutClinicProps {
 const PEEK_HEIGHT = 270;
 const PEEK_WIDTH = Math.round((208 / 480) * PEEK_HEIGHT);
 
-const IMAGE_TRANSFORMATIONS = ["c_fill", "g_auto", "w_780", "h_820", "f_auto", "q_auto"];
+/** Фото 780x820; srcset 480/780/1080 замість одного 780 - на телефоні і в колонці 580-665 px не тягнемо зайве. */
+const IMAGE_RATIO = 820 / 780;
+const IMAGE_WIDTHS = [480, 780, 1080];
+const IMAGE_SIZES = "(min-width: 1024px) min(45vw, 665px), calc(100vw - 2rem)";
 
 export const AboutClinic: FC<AboutClinicProps> = ({ label, title, text, button, image, imageAlt }) => {
-  const imageCld = useCloudinaryImage(image || "", IMAGE_TRANSFORMATIONS);
-
   if (!title) return null;
 
   const scrollToServices = () => {
@@ -33,10 +33,14 @@ export const AboutClinic: FC<AboutClinicProps> = ({ label, title, text, button, 
         {image && (
           <div className="relative">
           <div className="w-full aspect-[39/41] overflow-hidden rounded-[2rem] bg-paleOlive/40">
-            <AdvancedImage
-              cldImg={imageCld}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={imageUrl(image, 780, IMAGE_RATIO)}
+              srcSet={imageSrcSet(image, IMAGE_WIDTHS, IMAGE_RATIO)}
+              sizes={IMAGE_SIZES}
               alt={imageAlt || title}
               loading="lazy"
+              decoding="async"
               width={780}
               height={820}
               className="w-full h-full object-cover"

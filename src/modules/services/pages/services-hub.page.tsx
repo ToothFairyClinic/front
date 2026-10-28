@@ -118,7 +118,7 @@ export const ServicesHubPage: FC = () => {
                   ))
                 : cards.map(({ id, ...card }) => (
                     <li key={id}>
-                      <ServicesItem {...card} />
+                      <ServicesItem {...card} headingLevel={2} />
                     </li>
                   ))}
             </ul>
