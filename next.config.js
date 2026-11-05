@@ -85,6 +85,8 @@ const nextConfig = {
     rules.push(permanent("/ua/doctors/:slug*", "/ua/likari/:slug*"));
     rules.push(permanent("/en/likari", "/en/doctors"));
     rules.push(permanent("/en/likari/:slug*", "/en/doctors/:slug*"));
+    // EN-slug роботи був з пробілом на початку (до 05.11.2026), адреса з %20 була в sitemap
+    rules.push(permanent(`/en/our-work/${encodeURIComponent(" ceramic-crown-placement")}`, "/en/our-work/ceramic-crown-placement"));
     rules.push(permanent("/uk-UA/:path*", "/ua/:path*"));
     rules.push(permanent("/uk/:path*", "/ua/:path*"));
     return rules;
