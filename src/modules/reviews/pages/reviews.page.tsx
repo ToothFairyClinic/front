@@ -28,7 +28,7 @@ const COPY = {
     formText:
       "Розкажіть, як пройшов прийом: що сподобалося і що нам варто покращити. Телефон бачить лише адміністратор, на сайті він не показується.",
     empty: "Тут поки немає відгуків. Будемо раді, якщо ви напишете перший.",
-    thanks: "Дякуємо за відгук",
+    thanks: "Дякуємо за відгук! Він з'явиться на сайті після перевірки адміністратором.",
     phoneError: "Вкажіть правильний номер телефону",
   },
   en: {
@@ -43,7 +43,7 @@ const COPY = {
     formText:
       "Tell us how your visit went: what you liked and what we could do better. Only our reception team sees your phone number, it is never shown on the site.",
     empty: "There are no reviews yet. We would be glad if you wrote the first one.",
-    thanks: "Thank you for your review",
+    thanks: "Thank you for your review! It will appear on the site once our team has checked it.",
     phoneError: "Please enter a valid phone number",
   },
 };

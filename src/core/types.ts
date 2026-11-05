@@ -5422,7 +5422,7 @@ export type CreateReviewMutationVariables = Exact<{
 }>;
 
 
-export type CreateReviewMutation = { __typename?: 'mutation_root', insert_reviews_one?: { __typename?: 'reviews', id: any } | null };
+export type CreateReviewMutation = { __typename?: 'mutation_root', insert_reviews?: { __typename?: 'reviews_mutation_response', affected_rows: number } | null };
 
 export type GetReviewsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5495,10 +5495,10 @@ export type GetServiceBySlugQuery = { __typename?: 'query_root', services: Array
 
 export const CreateReviewDocument = gql`
     mutation createReview($client_name: String!, $client_phone: String!, $comment: String!) {
-  insert_reviews_one(
-    object: {comment: $comment, client_phone: $client_phone, client_name: $client_name}
+  insert_reviews(
+    objects: {comment: $comment, client_phone: $client_phone, client_name: $client_name}
   ) {
-    id
+    affected_rows
   }
 }
     `;

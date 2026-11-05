@@ -3,14 +3,15 @@ mutation createReview(
   $client_phone: String!
   $comment: String!
 ) {
-  insert_reviews_one(
-    object: {
+  # без returning: новий відгук до модерації гостю не видно
+  insert_reviews(
+    objects: {
       comment: $comment
       client_phone: $client_phone
       client_name: $client_name
     }
   ) {
-    id
+    affected_rows
   }
 }
 
