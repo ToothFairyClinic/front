@@ -10,18 +10,15 @@ mutation createReview(
       client_name: $client_name
     }
   ) {
-    client_name
-    client_phone
-    comment
+    id
   }
 }
 
 query GetReviews {
-  reviews {
+  reviews(order_by: {created_at: desc}) {
     created_at
     id
     comment
-    client_phone
     client_name
   }
 }

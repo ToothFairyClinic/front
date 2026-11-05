@@ -5422,12 +5422,12 @@ export type CreateReviewMutationVariables = Exact<{
 }>;
 
 
-export type CreateReviewMutation = { __typename?: 'mutation_root', insert_reviews_one?: { __typename?: 'reviews', client_name: string, client_phone: string, comment: string } | null };
+export type CreateReviewMutation = { __typename?: 'mutation_root', insert_reviews_one?: { __typename?: 'reviews', id: any } | null };
 
 export type GetReviewsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetReviewsQuery = { __typename?: 'query_root', reviews: Array<{ __typename?: 'reviews', created_at: any, id: any, comment: string, client_phone: string, client_name: string }> };
+export type GetReviewsQuery = { __typename?: 'query_root', reviews: Array<{ __typename?: 'reviews', created_at: any, id: any, comment: string, client_name: string }> };
 
 export type GetAdvantagesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5498,9 +5498,7 @@ export const CreateReviewDocument = gql`
   insert_reviews_one(
     object: {comment: $comment, client_phone: $client_phone, client_name: $client_name}
   ) {
-    client_name
-    client_phone
-    comment
+    id
   }
 }
     `;
@@ -5534,11 +5532,10 @@ export type CreateReviewMutationResult = Apollo.MutationResult<CreateReviewMutat
 export type CreateReviewMutationOptions = Apollo.BaseMutationOptions<CreateReviewMutation, CreateReviewMutationVariables>;
 export const GetReviewsDocument = gql`
     query GetReviews {
-  reviews {
+  reviews(order_by: {created_at: desc}) {
     created_at
     id
     comment
-    client_phone
     client_name
   }
 }
@@ -5803,6 +5800,8 @@ export const GetPersonnelDocument = gql`
     }
     image_alt
     image_alt_en
+    experience
+    experience_en
   }
 }
     `;

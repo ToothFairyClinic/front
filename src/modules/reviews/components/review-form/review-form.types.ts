@@ -1,5 +1,6 @@
 export interface ReviewFormProps {
   submitCallback?: (values: ReviewFormValues) => Promise<void>;
+  successMessage?: string;
 }
 
 export interface ReviewFormValues {
@@ -10,4 +11,5 @@ export interface ReviewFormValues {
 
 export interface UseReviewFormOptions {
   callback?: (values: ReviewFormValues) => Promise<void>;
+  successMessage?: string;
 }

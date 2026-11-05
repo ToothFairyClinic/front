@@ -12,6 +12,9 @@ interface OurWorkItemProps {
   fitImage?: boolean;
 }
 
+/** Підпис-заглушка з адмінки, який нічого не каже пацієнту. */
+const PLACEHOLDER_DESCRIPTION = /^(приклад роботи|example of work|work example)\.?$/i;
+
 /** Картка прикладу роботи. Якщо до неї опубліковано кейс - фото, назва і підпис ведуть на сторінку кейсу. */
 export const OurWorkItem: FC<OurWork & OurWorkItemProps> = ({
   image_before,
@@ -34,48 +37,45 @@ export const OurWorkItem: FC<OurWork & OurWorkItemProps> = ({
 
   const imageCldBefore = useCloudinaryImage(image_before, transformations);
   const cardTitle = (isEn && title_en) || t(title);
-  const cardDescription = (isEn && description_en) || t(description);
+  const rawDescription = ((isEn && description_en) || t(description) || "").trim();
+  const cardDescription = PLACEHOLDER_DESCRIPTION.test(rawDescription) ? "" : rawDescription;
   const caseSlug = isEn ? slug_en : slug;
   const href = is_case_published && caseSlug ? casePath(lang, caseSlug) : undefined;
 
-  const image = (
-    <AdvancedImage
-      cldImg={imageCldBefore}
-      width={460}
-      height={440}
-      alt={`${cardTitle}: ${t("Результат до та після лікування")}`}
-      className="w-full h-auto"
-      style={{ width: "100%", height: "100%" }}
-    />
-  );
-
   return (
-    <article className="relative h-full flex flex-col w-full dark:text-white bg-white pb-6 rounded-2xl hover:shadow-md transition-shadow dark:shadow-white dark:bg-darkGray overflow-hidden">
-      <figure className="flex flex-col flex-1">
-        <div className="relative">{image}</div>
+    <article className="group relative h-full flex flex-col w-full bg-white rounded-2xl border border-black/5 overflow-hidden">
+      <AdvancedImage
+        cldImg={imageCldBefore}
+        width={460}
+        height={440}
+        loading="lazy"
+        alt={`${cardTitle}: ${t("Результат до та після лікування")}`}
+        className="block w-full h-auto aspect-[23/22] object-cover bg-palePeach"
+      />
 
-        <figcaption className="px-4 mt-4 flex flex-col flex-1">
-          <h3 className="text-2xl font-semibold leading-tight">
-            {href ? (
-              <Link to={href} className="after:absolute after:inset-0 hover:underline underline-offset-4 decoration-paleOlive decoration-2">
-                {cardTitle}
-              </Link>
-            ) : (
-              cardTitle
-            )}
-          </h3>
-          <div className="h-px w-24 bg-paleOlive mt-2 mb-3"></div>
-          <p className="text-sm opacity-90 leading-relaxed">{cardDescription}</p>
-          {href && (
-            <span className="mt-4 self-start inline-flex items-center gap-2 font-semibold text-base text-darkGray dark:text-white">
-              {t("Як проходило лікування")}
-              <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </span>
+      <div className="flex flex-col flex-1 gap-3 p-5 md:p-6">
+        <h3 className="text-xl md:text-2xl font-semibold leading-snug text-darkGray">
+          {href ? (
+            <Link
+              to={href}
+              className="after:absolute after:inset-0 underline decoration-transparent decoration-2 underline-offset-4 group-hover:decoration-darkGray/40 transition-colors duration-150"
+            >
+              {cardTitle}
+            </Link>
+          ) : (
+            cardTitle
           )}
-        </figcaption>
-      </figure>
+        </h3>
+        {cardDescription && <p className="text-base leading-relaxed text-darkGray/80">{cardDescription}</p>}
+        {href && (
+          <span className="mt-auto pt-1 self-start inline-flex items-center gap-2 font-semibold text-base text-darkGray" aria-hidden="true">
+            {t("Як проходило лікування")}
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </span>
+        )}
+      </div>
     </article>
   );
 };
