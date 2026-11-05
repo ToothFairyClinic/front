@@ -11,6 +11,8 @@ const validation = yup.object({
   phoneNumber: yup
     .string()
     .trim()
+    // номер у форматі підказки "+38 (067) 123-45-67" зводимо до цифр
+    .transform((value: string) => value.replace(/[\s()-]/g, ""))
     .matches(phoneRegexp, "Вкажіть правильний номер телефону")
     .required("Вкажіть правильний номер телефону"),
   comment: yup.string().trim().required("Напишіть кілька слів про візит"),
