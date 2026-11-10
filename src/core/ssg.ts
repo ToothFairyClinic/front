@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from "next";
 import { APOLLO_STATE_PROP, initializeApollo } from "./apollo-client";
 import { GetServicesDocument } from "./types";
 import { sanitizeHtml } from "@app/common/utils/sanitize";
+import { withImageSizes } from "./image-sizes";
 
 export const LANGS = ["ua", "en"] as const;
 export type UrlLang = (typeof LANGS)[number];
@@ -83,7 +84,7 @@ export const staticProps =
     }
 
     return {
-      props: { lang, [APOLLO_STATE_PROP]: sanitizeState(client.cache.extract()) },
+      props: { lang, [APOLLO_STATE_PROP]: sanitizeState(await withImageSizes(client.cache.extract())) },
       revalidate: REVALIDATE,
     };
   };

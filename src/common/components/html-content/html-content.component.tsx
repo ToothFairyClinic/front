@@ -12,11 +12,15 @@ interface HtmlContentProps {
 
 const SITE_HOSTS = ["toothfairy.clinic", "www.toothfairy.clinic"];
 
+/** Фото в тексті нижче першого екрана: вантажаться, коли до них догортають. */
+const lazyImages = (html: string) =>
+  html.replace(/<img\b(?![^>]*\sloading=)/gi, '<img loading="lazy" decoding="async"');
+
 /** HTML з адмінки для показу: страховка, внутрішні посилання, потім блоки коду як є (їх страховка не чіпає). */
 export const prepareHtml = (html?: string | null) => {
   if (!html) return "";
   const cleaned = html.replace(/<p>\s*(?:&nbsp;|&#160;|ㅤ)?\s*<\/p>/gi, "");
-  return expandEmbeds(followInternalLinks(stripUnsafe(cleaned)));
+  return lazyImages(expandEmbeds(followInternalLinks(stripUnsafe(cleaned))));
 };
 
 /** Запуск скриптів із блоків коду після показу HTML. */

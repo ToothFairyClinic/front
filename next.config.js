@@ -71,6 +71,13 @@ const nextConfig = {
     for (const [uuid, ua, en] of SERVICE_UUIDS) {
       rules.push(permanent(`/ua/services/${uuid}`, `/ua/services/${ua}`));
       rules.push(permanent(`/en/services/${uuid}`, `/en/services/${en}`));
+      // Найстаріші адреси без мови; дитяча зібрала покази на головній, тому туди (10.11.2026)
+      rules.push(permanent(`/services/${uuid}`, ua === "dytyacha-stomatologiya" ? "/ua" : `/ua/services/${ua}`));
+    }
+    // Геосторінки Жашкова й Умані видалено 10.11.2026, ведуть на дитячу стоматологію (EN-slug був як UA)
+    for (const city of ["zhashkiv", "uman"]) {
+      rules.push(permanent(`/ua/services/dytyacha-stomatologiya-${city}`, "/ua/services/dytyacha-stomatologiya"));
+      rules.push(permanent(`/en/services/dytyacha-stomatologiya-${city}`, "/en/services/pediatric-dentistry"));
     }
     rules.push(permanent("/ua/services/viniry", "/ua/services/estetychna-stomatolohiia"));
     rules.push(permanent("/en/services/veneers", "/en/services/aesthetic-dentistry"));

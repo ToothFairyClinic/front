@@ -90,9 +90,12 @@ export const Slide: FC<SlideProps> = ({ titleTop, titleMain, titleBottom, text, 
               <span className="block text-xl sm:text-2xl md:text-3xl uppercase tracking-widest mb-1.5 sm:mb-2 opacity-90">
                 {titleTop ?? t('Стоматологія')}
               </span>
+              {/* Пробіли між рядками: у тексті документа H1 не злипається в одне слово */}
+              {" "}
               <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight">
                 {titleMain ?? t('Зубна Фея')}
               </span>
+              {titleBottom && " "}
               {titleBottom && (
                 <span className="block text-2xl sm:text-3xl md:text-4xl mt-1 sm:mt-2">
                   {titleBottom}

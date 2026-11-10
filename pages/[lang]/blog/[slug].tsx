@@ -12,7 +12,10 @@ export const getStaticProps = staticProps(async (client, { params, lang }) => {
             variables: { limit: OTHER_POSTS_LIMIT, offset: 0 },
         }),
     ]);
-    if (!data.posts[0]) return { notFound: true };
+    const post = data.posts[0];
+    if (!post) return { notFound: true };
+    const canonical = lang === "en" ? post.slug_en : post.slug;
+    if (canonical && canonical !== params.slug) return { redirect: `/${lang}/blog/${canonical}` };
 });
 
 export default BlogPostPage;
