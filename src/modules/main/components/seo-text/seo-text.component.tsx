@@ -33,13 +33,13 @@ export const SeoText: FC<SeoTextProps> = ({ title, intro, more, moreButton, less
         <Mascot pose="book" height={160} className="right-4 top-0" />
         <SectionHeading id="seo-text-title" title={title} />
 
-        <HtmlContent html={intro} className={TEXT_CLASSES} />
+        <HtmlContent html={intro} fallbackAlt={title} className={TEXT_CLASSES} />
 
         {more && (
           <>
             {/* Розгорнута частина завжди в HTML, щоб її бачили пошукові системи */}
             <div id={moreId} hidden={!isOpen}>
-              <HtmlContent html={more} className={TEXT_CLASSES} />
+              <HtmlContent html={more} fallbackAlt={title} className={TEXT_CLASSES} />
             </div>
 
             <div>

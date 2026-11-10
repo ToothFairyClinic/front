@@ -3,11 +3,14 @@ import { stripUnsafe } from "@app/common/utils/strip-unsafe";
 import clsx from "clsx";
 import { useNavigate } from "@app/common/router/router";
 import { followInternalLinks } from "@app/common/utils/internal-links";
+import { fillMissingAlt } from "@app/common/utils/fill-alt";
 import { expandEmbeds, runEmbedScripts } from "@app/common/utils/embed";
 
 interface HtmlContentProps {
   html?: string | null;
   className?: string;
+  /** Alt для фото в тексті, де його в адмінці не заповнено (назва сторінки). Без нього порожній alt лишається як є. */
+  fallbackAlt?: string | null;
 }
 
 const SITE_HOSTS = ["toothfairy.clinic", "www.toothfairy.clinic"];
@@ -17,10 +20,10 @@ const lazyImages = (html: string) =>
   html.replace(/<img\b(?![^>]*\sloading=)/gi, '<img loading="lazy" decoding="async"');
 
 /** HTML з адмінки для показу: страховка, внутрішні посилання, потім блоки коду як є (їх страховка не чіпає). */
-export const prepareHtml = (html?: string | null) => {
+export const prepareHtml = (html?: string | null, fallbackAlt?: string | null) => {
   if (!html) return "";
   const cleaned = html.replace(/<p>\s*(?:&nbsp;|&#160;|ㅤ)?\s*<\/p>/gi, "");
-  return lazyImages(expandEmbeds(followInternalLinks(stripUnsafe(cleaned))));
+  return lazyImages(expandEmbeds(fillMissingAlt(followInternalLinks(stripUnsafe(cleaned)), fallbackAlt)));
 };
 
 /** Запуск скриптів із блоків коду після показу HTML. */
@@ -39,11 +42,11 @@ const RICH_CLASSES = [
 ].join(" ");
 
 /** HTML з адмінки: очищення і переходи по внутрішніх посиланнях без перезавантаження сторінки. */
-export const HtmlContent: FC<HtmlContentProps> = ({ html, className }) => {
+export const HtmlContent: FC<HtmlContentProps> = ({ html, className, fallbackAlt }) => {
   const navigate = useNavigate();
   const ref = useRef<HTMLDivElement>(null);
 
-  const safeHtml = useMemo(() => prepareHtml(html), [html]);
+  const safeHtml = useMemo(() => prepareHtml(html, fallbackAlt), [html, fallbackAlt]);
   useEmbedScripts(ref, safeHtml);
 
   const onClick = (event: MouseEvent<HTMLDivElement>) => {

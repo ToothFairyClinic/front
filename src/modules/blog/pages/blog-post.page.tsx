@@ -321,6 +321,7 @@ export const BlogPostPage: FC = () => {
                 <PostTocMobile items={toc} />
                 <HtmlContent
                   html={bodyHtml}
+                  fallbackAlt={heading || title}
                   className="prose-p:leading-relaxed prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:font-normal prose-h2:mt-12 prose-h2:mb-5 prose-h2:scroll-mt-28 prose-h3:text-2xl prose-h3:font-semibold prose-img:rounded-2xl prose-table:w-full prose-th:text-left prose-th:bg-paleOlive/50 prose-th:border prose-td:border prose-th:border-paleOlive prose-td:border-paleOlive prose-th:px-4 prose-th:py-3 prose-td:px-4 prose-td:py-3 [&_td>p]:my-0 [&_th>p]:my-0 [&_li>p]:my-0 [&_.tf-cards]:flex [&_.tf-cards]:flex-col [&_.tf-cards]:gap-3 [&_.tf-cards]:my-6 [&_.tf-card]:rounded-2xl [&_.tf-card]:bg-white [&_.tf-card]:border [&_.tf-card]:border-paleOlive [&_.tf-card]:px-5 [&_.tf-card]:py-4 [&_.tf-card>p]:my-1 [&_.tf-card-title]:!mt-0 [&_.tf-card-title]:font-semibold [&_.tf-card-title]:text-lg"
                 />
                 <PostAuthorCard author={post.author} />

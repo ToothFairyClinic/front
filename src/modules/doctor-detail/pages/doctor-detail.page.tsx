@@ -245,6 +245,7 @@ export const DoctorDetailPage: FC = () => {
                   <h2 className="text-3xl md:text-4xl font-normal leading-tight text-darkGray">{copy.about}</h2>
                   <HtmlContent
                     html={descriptionHtml}
+                    fallbackAlt={doctorName}
                     className={`prose-p:leading-relaxed prose-p:my-3 prose-ul:my-3 prose-li:my-1 [&_li>p]:my-0 prose-strong:font-semibold [&_u]:no-underline ${ADMIN_COLOR_RESET}`}
                   />
                 </>

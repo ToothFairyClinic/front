@@ -178,6 +178,7 @@ export const OurWorkCasePage: FC = () => {
               <article className="lg:col-span-8 flex flex-col gap-10 min-w-0">
                 <HtmlContent
                   html={body}
+                  fallbackAlt={heading}
                   className={[
                     "prose-p:leading-relaxed prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:font-normal prose-h2:mt-12 prose-h2:mb-5",
                     // кроки лікування: нумерований список стає стрічкою карток з номером у колі

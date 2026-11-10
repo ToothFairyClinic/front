@@ -18,6 +18,8 @@ const PLACEHOLDER_DESCRIPTION = /^(приклад роботи|example of work|w
 /** Картка прикладу роботи. Якщо до неї опубліковано кейс - фото, назва і підпис ведуть на сторінку кейсу. */
 export const OurWorkItem: FC<OurWork & OurWorkItemProps> = ({
   image_before,
+  image_alt,
+  image_alt_en,
   title,
   title_en,
   description,
@@ -39,6 +41,7 @@ export const OurWorkItem: FC<OurWork & OurWorkItemProps> = ({
   const cardTitle = (isEn && title_en) || t(title);
   const rawDescription = ((isEn && description_en) || t(description) || "").trim();
   const cardDescription = PLACEHOLDER_DESCRIPTION.test(rawDescription) ? "" : rawDescription;
+  const altText = ((isEn && image_alt_en) || image_alt || "").trim() || `${cardTitle}: ${t("Результат до та після лікування")}`;
   const caseSlug = isEn ? slug_en : slug;
   const href = is_case_published && caseSlug ? casePath(lang, caseSlug) : undefined;
 
@@ -49,7 +52,7 @@ export const OurWorkItem: FC<OurWork & OurWorkItemProps> = ({
         width={460}
         height={440}
         loading="lazy"
-        alt={`${cardTitle}: ${t("Результат до та після лікування")}`}
+        alt={altText}
         className="block w-full h-auto aspect-[23/22] object-cover bg-palePeach"
       />
 

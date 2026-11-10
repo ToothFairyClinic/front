@@ -5,6 +5,8 @@ query GetOurWork {
     id
     image_after
     image_before
+    image_alt
+    image_alt_en
     title
     title_en
     slug

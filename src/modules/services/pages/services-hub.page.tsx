@@ -68,7 +68,7 @@ export const ServicesHubPage: FC = () => {
           description: isEn ? card?.description_en : card?.description,
           to: `/${lang}/services/${slug}`,
           image: service.mainImage,
-          imageAlt: name,
+          imageAlt: ((isEn ? service.image_alt_en : service.image_alt) || "").trim() || name,
           links,
         }];
       });

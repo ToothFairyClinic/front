@@ -57,7 +57,7 @@ export const AboutClinic: FC<AboutClinicProps> = ({ label, title, text, button, 
           <h2 id="about-title" className="text-3xl md:text-5xl lg:text-6xl font-normal leading-tight">
             {title}
           </h2>
-          <HtmlContent html={text} className="prose-p:leading-relaxed prose-p:my-4 md:prose-xl" />
+          <HtmlContent html={text} fallbackAlt={title} className="prose-p:leading-relaxed prose-p:my-4 md:prose-xl" />
           {button && (
             <div>
               <button

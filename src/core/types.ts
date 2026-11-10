@@ -5444,7 +5444,7 @@ export type GetDoctorBySlugQuery = { __typename?: 'query_root', personnel: Array
 export type GetOurWorkQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetOurWorkQuery = { __typename?: 'query_root', our_works: Array<{ __typename?: 'our_works', description: string, description_en?: string | null, id: any, image_after?: string | null, image_before: string, title: string, title_en?: string | null, slug?: string | null, slug_en?: string | null, h1?: string | null, h1_en?: string | null, is_case_published: boolean }> };
+export type GetOurWorkQuery = { __typename?: 'query_root', our_works: Array<{ __typename?: 'our_works', description: string, description_en?: string | null, id: any, image_after?: string | null, image_before: string, image_alt?: string | null, image_alt_en?: string | null, title: string, title_en?: string | null, slug?: string | null, slug_en?: string | null, h1?: string | null, h1_en?: string | null, is_case_published: boolean }> };
 
 export type GetOurWorkCaseQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -5483,7 +5483,7 @@ export type GetPriceListCategoryByIdQuery = { __typename?: 'query_root', price_l
 export type GetServicesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, mainImage?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null, parent_id?: any | null, is_geo_page?: boolean | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null, parent_id?: any | null, is_geo_page?: boolean | null }> }> };
+export type GetServicesQuery = { __typename?: 'query_root', services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, mainImage?: string | null, image_alt?: string | null, image_alt_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null, parent_id?: any | null, is_geo_page?: boolean | null, seo_title?: string | null, seo_description?: string | null, seo_title_en?: string | null, seo_description_en?: string | null, created_at: any, child_services: Array<{ __typename?: 'services', id: any, name: string, name_en?: string | null, slug?: string | null, slug_en?: string | null, image?: string | null, parent_id?: any | null, is_geo_page?: boolean | null }> }> };
 
 export type GetServiceBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -5694,6 +5694,8 @@ export const GetOurWorkDocument = gql`
     id
     image_after
     image_before
+    image_alt
+    image_alt_en
     title
     title_en
     slug
@@ -5977,6 +5979,8 @@ export const GetServicesDocument = gql`
     name
     name_en
     mainImage
+    image_alt
+    image_alt_en
     slug
     slug_en
     image

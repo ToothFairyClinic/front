@@ -261,6 +261,7 @@ export const ServicePage: FC<ServicePageProps> = () => {
               <article className="lg:col-span-8">
                 <HtmlContent
                   html={isEn ? service.description_en : service.description}
+                  fallbackAlt={pageHeading}
                   className="prose-p:leading-relaxed prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:font-normal prose-h2:mt-12 prose-h2:mb-5 prose-h3:text-2xl prose-h3:font-semibold"
                 />
               </article>

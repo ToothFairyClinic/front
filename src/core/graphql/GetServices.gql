@@ -10,6 +10,8 @@
       name
       name_en
       mainImage
+      image_alt
+      image_alt_en
       slug
       slug_en
       image
