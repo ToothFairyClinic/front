@@ -87,7 +87,7 @@ export const Header: FC<HeaderProps> = ({ }) => {
               src="/assets/logo.webp"
               srcSet="/assets/logo-160.webp 160w, /assets/logo-320.webp 320w, /assets/logo.webp 480w"
               sizes="144px"
-              alt="Зубна Фея логотип"
+              alt={t("Зубна Фея логотип")}
               width="50"
               height="50"
               className={clsx("w-36 object-contain transition-all duration-300", isScrolled ? "h-16" : "h-24")}
