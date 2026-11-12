@@ -84,7 +84,17 @@ export const MainPage: FC<MainPageProps> = ({ }) => {
       "width": "500",
       "height": "500"
     },
-    "image": `${baseUrl}/assets/favicon/android-chrome-512x512.png`,
+    // Фото зони очікування з блоку "Про клініку" (не favicon)
+    "image": home?.about_image
+      ? `https://res.cloudinary.com/dc7d3byxg/image/upload/c_limit,w_1200,f_jpg,q_auto/${home.about_image}`
+      : `${baseUrl}/assets/favicon/android-chrome-512x512.png`,
+    "medicalSpecialty": ["https://schema.org/Dentistry", "https://schema.org/Pediatric"],
+    "areaServed": [
+      { "@type": "City", "name": isEn ? "Bila Tserkva" : "Біла Церква" },
+      { "@type": "AdministrativeArea", "name": isEn ? "Kyiv Oblast" : "Київська область" }
+    ],
+    // Картка Google Бізнес клініки (CID з карти на сторінці контактів)
+    "hasMap": "https://www.google.com/maps?cid=9840173224086134310",
     "telephone": "+380681689911",
     "address": {
       "@type": "PostalAddress",

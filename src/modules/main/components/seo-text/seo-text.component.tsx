@@ -11,7 +11,7 @@ interface SeoTextProps {
   lessButton?: string;
 }
 
-const TEXT_CLASSES = "prose-p:leading-relaxed prose-h3:text-2xl md:prose-h3:text-3xl prose-h3:font-semibold prose-h3:mt-10 prose-h3:mb-4";
+const TEXT_CLASSES = "prose-p:leading-relaxed prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:font-semibold prose-h2:mt-12 prose-h2:mb-4 prose-h3:text-2xl md:prose-h3:text-3xl prose-h3:font-semibold prose-h3:mt-10 prose-h3:mb-4";
 
 export const SeoText: FC<SeoTextProps> = ({ title, intro, more, moreButton, lessButton }) => {
   const [isOpen, setIsOpen] = useState(false);
