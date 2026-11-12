@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ApolloProvider } from "@apollo/client";
 import { I18nextProvider } from "react-i18next";
 import dynamic from "next/dynamic";
@@ -26,7 +26,13 @@ const PreFooterConsultationForm = dynamic(
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const apolloClient = useApollo(pageProps);
-  const urlLang = (pageProps.lang as string) || (router.query.lang as string) || "ua";
+  // Сторінка 404 статична, одна на обидві мови, тому її мову беремо з адреси вже в браузері
+  const isNotFound = router.pathname === "/404";
+  const [notFoundLang, setNotFoundLang] = useState<string | null>(null);
+  useEffect(() => {
+    if (isNotFound) setNotFoundLang(/^\/en(\/|$)/.test(window.location.pathname) ? "en" : "ua");
+  }, [isNotFound]);
+  const urlLang = (pageProps.lang as string) || (router.query.lang as string) || (isNotFound && notFoundLang) || "ua";
   const i18n = useMemo(() => getI18n(langFromUrl(urlLang)), [urlLang]);
 
   // На сторінках робіт і відгуків своя форма, загальна форма запису не потрібна
