@@ -59,6 +59,8 @@ const ServiceImage: FC<{ publicId: string }> = ({ publicId }) => {
   return <AdvancedImage cldImg={cldImg} alt="" width={56} height={56} loading="lazy" className="w-14 h-14 shrink-0 rounded-xl object-cover bg-palePeach" />;
 };
 
+type Certificate = { image: string; alt?: string | null; alt_en?: string | null };
+
 const CertificateImage: FC<{ publicId: string; alt: string }> = ({ publicId, alt }) => {
   const transformations = useMemo(() => ["c_pad", "b_auto", "w_480", "h_600", "f_auto", "q_auto"], []);
   const cldImg = useCloudinaryImage(publicId, transformations);
@@ -159,13 +161,16 @@ export const DoctorDetailPage: FC = () => {
     </>
   );
 
-  const certificates: string[] = (
+  // сертифікат у базі - рядок public_id (старий формат) або { image, alt, alt_en } (адмінка з 17.11.2026)
+  const certificates: Certificate[] = (
     Array.isArray(doctor.certificates)
       ? doctor.certificates
       : typeof doctor.certificates === "string"
         ? JSON.parse(doctor.certificates || "[]")
         : []
-  ).filter(Boolean);
+  )
+    .map((item: unknown) => (typeof item === "string" ? { image: item } : item) as Certificate)
+    .filter((item: Certificate) => Boolean(item?.image));
 
   const services = (doctor.personnel_services ?? []).map((item) => item.service).filter(Boolean);
   // іконки показуємо, лише коли вони є в усіх послуг, інакше назви стоять нерівно
@@ -305,7 +310,7 @@ export const DoctorDetailPage: FC = () => {
                     certificates.length <= 2 ? "grid-cols-2 md:col-span-8 lg:col-span-6" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
                   }`}
                 >
-                  {certificates.map((publicId, index) => (
+                  {certificates.map(({ image: publicId, alt: certAlt, alt_en: certAltEn }, index) => (
                     <li key={publicId}>
                       <a
                         href={`${CLOUD}/c_limit,w_1600,f_auto,q_auto/${publicId}`}
@@ -314,7 +319,10 @@ export const DoctorDetailPage: FC = () => {
                         aria-label={copy.openCertificate(index + 1)}
                         className="block overflow-hidden rounded-xl border border-black/5 hover:border-darkGray/30 transition-colors duration-150"
                       >
-                        <CertificateImage publicId={publicId} alt={`${t("Сертифікат")} ${index + 1}, ${doctorName}`} />
+                        <CertificateImage
+                          publicId={publicId}
+                          alt={((isEn ? certAltEn : certAlt) || "").trim() || `${t("Сертифікат")} ${index + 1}, ${doctorName}`}
+                        />
                       </a>
                     </li>
                   ))}
