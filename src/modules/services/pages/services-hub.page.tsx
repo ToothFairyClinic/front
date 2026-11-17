@@ -7,8 +7,52 @@ import { ShowInfo } from "@app/common/components/show-info/show-info.component";
 import { ServicesItem } from "@app/modules/main/components/services-main/services-main-item/services-main-item.component";
 import { Mascot } from "@app/modules/main/components/mascot/mascot.component";
 import { useGetHomePageQuery } from "@app/modules/main/graphql/home-page";
+import { Link } from "@app/common/router/router";
 
 const BASE_URL = "https://toothfairy.clinic";
+
+/** Вступ хаба: текст і посилання [анкор, slug послуги]. */
+type IntroPart = string | [string, string];
+const INTRO: Record<"ua" | "en", IntroPart[]> = {
+  ua: [
+    "Зубна Фея у Білій Церкві лікує зуби дітям і дорослим. ",
+    ["Дитяча стоматологія", "dytyacha-stomatologiya"],
+    " охоплює все від першого огляду до ",
+    ["лікування під наркозом і седацією", "likuvannya-pid-narkozom"],
+    ", до нас приїжджають і з ",
+    ["Жашкова", "dytyacha-stomatologiya-zhashkiv"],
+    " та ",
+    ["Умані", "dytyacha-stomatologiya-uman"],
+    ". Дорослим лікуємо карієс і канали, робимо ",
+    ["ортодонтію", "vypravlennya-prikusu"],
+    ", ",
+    ["імплантацію", "implantaciya-zubiv"],
+    " та ",
+    ["протезування", "protezuvannya-zubiv"],
+    ". У клініці є власна діагностика: ",
+    ["КТ зубів", "kt-zubiv"],
+    ", панорамні знімки та ТРГ. Оберіть напрям, щоб дізнатися про послуги, лікарів і ціни.",
+  ],
+  en: [
+    "Tooth Fairy in Bila Tserkva treats children and adults. ",
+    ["Pediatric dentistry", "pediatric-dentistry"],
+    " covers everything from the first check-up to ",
+    ["treatment under general anesthesia and sedation", "treatment-under-anesthesia"],
+    ", and families also come to us from ",
+    ["Zhashkiv", "dytyacha-stomatologiya-zhashkiv"],
+    " and ",
+    ["Uman", "dytyacha-stomatologiya-uman"],
+    ". For adults we treat cavities and root canals and provide ",
+    ["orthodontics", "bite-correction"],
+    ", ",
+    ["dental implants", "dental-implants"],
+    " and ",
+    ["prosthodontics", "dental-prosthetics"],
+    ". The clinic has its own diagnostics: ",
+    ["dental CT", "dental-ct"],
+    ", panoramic X-rays and cephalometry. Choose an area to see its services, dentists and prices.",
+  ],
+};
 
 const FALLBACK = {
   ua: {
@@ -106,7 +150,13 @@ export const ServicesHubPage: FC = () => {
                 {h1}
               </h1>
               <p className="text-lg md:text-xl leading-relaxed text-darkGray/80 dark:text-white/80 max-w-4xl">
-                {t("Зубна Фея у Білій Церкві лікує зуби дітям і дорослим: від профілактичних оглядів і лікування карієсу до ортодонтії, імплантації та протезування. У клініці є власна діагностика - КТ, панорамні знімки та ТРГ. Оберіть напрям, щоб дізнатися про послуги, лікарів і ціни.")}
+                {INTRO[lang].map((part, i) =>
+                  typeof part === "string" ? part : (
+                    <Link key={i} to={`/${lang}/services/${part[1]}`} className="underline underline-offset-2 hover:text-darkGray dark:hover:text-white">
+                      {part[0]}
+                    </Link>
+                  )
+                )}
               </p>
               <Mascot pose="wave" height={190} className="right-6 bottom-0" />
             </section>
