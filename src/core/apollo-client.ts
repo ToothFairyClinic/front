@@ -1,6 +1,7 @@
-import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, NormalizedCacheObject, concat } from "@apollo/client";
+import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, NormalizedCacheObject } from "@apollo/client";
 import { useMemo } from "react";
 import { config } from "./config";
+import { applyPriceTokens, hasPriceTokens, priceMapFromCache } from "./price-tokens";
 
 export const APOLLO_STATE_PROP = "__APOLLO_STATE__";
 
@@ -14,12 +15,35 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const createApolloClient = () =>
-  new ApolloClient({
+/**
+ * Запити з браузера (поза кешем, отриманим від сервера) теж отримують ціни замість токенів {{price:...}}:
+ * прайс береться з кешу, куди його кладе staticProps на кожній сторінці.
+ */
+const priceTokensLink = (cache: InMemoryCache) =>
+  new ApolloLink((operation, forward) =>
+    forward(operation).map((result) => {
+      if (!result.data || !hasPriceTokens(result.data)) return result;
+      try {
+        return { ...result, data: applyPriceTokens(result.data, priceMapFromCache(cache.extract())) };
+      } catch {
+        return result;
+      }
+    })
+  );
+
+const createApolloClient = () => {
+  const cache = new InMemoryCache();
+  return new ApolloClient({
     ssrMode: isServer,
-    link: concat(authMiddleware, new HttpLink({ uri: config.hasuraEndpoint })),
-    cache: new InMemoryCache(),
+    // На сервері ціни підставляє staticProps після всіх запитів сторінки (повний прайс у кеші)
+    link: ApolloLink.from(
+      isServer
+        ? [authMiddleware, new HttpLink({ uri: config.hasuraEndpoint })]
+        : [authMiddleware, priceTokensLink(cache), new HttpLink({ uri: config.hasuraEndpoint })]
+    ),
+    cache,
   });
+};
 
 let browserClient: ApolloClient<NormalizedCacheObject> | undefined;
 

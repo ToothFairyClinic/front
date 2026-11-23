@@ -4,6 +4,7 @@ import { APOLLO_STATE_PROP, initializeApollo } from "./apollo-client";
 import { GetServicesDocument } from "./types";
 import { sanitizeHtml } from "@app/common/utils/sanitize";
 import { withImageSizes } from "./image-sizes";
+import { applyPriceTokens, priceMapFromCache } from "./price-tokens";
 
 export const LANGS = ["ua", "en"] as const;
 export type UrlLang = (typeof LANGS)[number];
@@ -12,6 +13,13 @@ export type UrlLang = (typeof LANGS)[number];
 export const REVALIDATE = 300;
 
 type Params = Record<string, string>;
+
+/** Увесь прайс у кеші: з нього підставляються токени {{price:...}} у текстах з БД (price-tokens.ts). */
+const PRICE_TOKENS = gql`
+  query GetPriceTokens {
+    price_list { id price }
+  }
+`;
 
 const HTML_TAG = /<\/?[a-z][a-z0-9]*[\s>/]/i;
 
@@ -83,8 +91,13 @@ export const staticProps =
       return { redirect: { destination: result.redirect, statusCode: 301 }, revalidate: REVALIDATE };
     }
 
+    // Ціни в текстах з БД ({{price:...}}) - з прайсу на момент генерації сторінки
+    await client.query({ query: PRICE_TOKENS });
+    const state = client.cache.extract();
+    const priced = applyPriceTokens(state, priceMapFromCache(state));
+
     return {
-      props: { lang, [APOLLO_STATE_PROP]: sanitizeState(await withImageSizes(client.cache.extract())) },
+      props: { lang, [APOLLO_STATE_PROP]: sanitizeState(await withImageSizes(priced)) },
       revalidate: REVALIDATE,
     };
   };
